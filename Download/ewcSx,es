@@ -1,0 +1,276 @@
+1
+00:00:00,000 --> 00:00:05,052
+Bienvenidos de vuelta. Hoy vamos a ver
+a unas aplicaciones que usan tablas de símbolos, 
+
+2
+00:00:05,052 --> 00:00:11,004
+para darles una idea de como las tablas de símbolos
+pueden ser usadas por programas cliente en
+
+3
+00:00:11,004 --> 00:00:15,588
+problemas prácticos. El primero cuando la miramos, parece
+aún más sencillo que una tabla regular de símbolos
+
+4
+00:00:15,588 --> 00:00:19,898
+y se llama set. De modo
+que un set matemático es solo una colección de
+
+5
+00:00:19,898 --> 00:00:25,849
+llaves distintas, hay muchas 
+aplicaciones que quisiéramos poder implementar
+
+6
+00:00:25,849 --> 00:00:30,486
+este simple API.
+Quiero poder crear un set vacío
+
+7
+00:00:30,486 --> 00:00:35,661
+tenemos métodos para agregar una llave al set
+y para checar si una llave dada está en 
+
+8
+00:00:35,661 --> 00:00:40,760
+el set o no; para remover una llave, y quizás
+regresar el número de llaves en el set y
+
+9
+00:00:40,760 --> 00:00:45,632
+también un iterador para iterar a través de 
+las llaves del set. Esto es mas sencillo que
+
+10
+00:00:45,632 --> 00:00:50,332
+tablas de símbolos porque no tienen un
+valor asociado, así que es un API
+
+11
+00:00:50,332 --> 00:00:55,333
+muy simple, pero claro, vamos a poder
+realizar todas estas operaciones eficientemente. Cómo
+
+12
+00:00:55,333 --> 00:00:59,646
+empezaríamos a implementar eso? Bueno,
+si piensas en ello por sólo un minuto,
+
+13
+00:00:59,646 --> 00:01:03,897
+verás que lo que necesitas hacer es únicamente
+remover todas las referencias a un valor desde cualquiera
+
+14
+00:01:03,897 --> 00:01:09,037
+de las implementaciones de la tabla de símbolos que 
+hemos visto. La implementación es sencilla. Toma
+
+15
+00:01:09,037 --> 00:01:13,069
+uno de nuestras implementaciones de tablas de símbolos
+y remueve el código que se refiere a 
+
+16
+00:01:13,069 --> 00:01:20,027
+los valores. Bien, veamos a un par de 
+aplicaciones donde este API de set puede ser
+
+17
+00:01:20,027 --> 00:01:26,992
+útil en programas-cliente. Una cosa que
+es muy común es la idea de un
+
+18
+00:01:26,992 --> 00:01:34,027
+filtro de excepciones. Así que el modo en que vamos a 
+configurar es pensar acerca de tener una lista de archivos,
+una lista
+
+19
+00:01:34,027 --> 00:01:40,134
+de palabras en un archivo que son excepcionales de
+alguna manera; en éste caso tendremos la
+
+20
+00:01:40,134 --> 00:01:46,055
+palabra, el archivo list.txt que contiene esas
+cuatro palabras en el: "was", "it", "the" y "of". 
+
+21
+00:01:46,260 --> 00:01:51,870
+estas dos formas complementarias de ver a esto.
+Uno es el llamado Listado Blanco, donde
+
+22
+00:01:51,870 --> 00:01:57,032
+queremos tomar las palabras en ese archivo
+y, entonces tenemos otro archivo cualquiera
+
+23
+00:01:57,032 --> 00:02:01,096
+mas grande; y lo que queremos hacer es
+imprimir todas las ocurrencias de nuestras
+
+24
+00:02:01,096 --> 00:02:07,003
+palabras excepcionales en nuestro archivo. Esas
+son las que nos importa, las que
+
+25
+00:02:07,003 --> 00:02:11,462
+queremos pasar. Así que en este caso,
+en el pequeño Tale.txt, las primeras dos palabras
+
+26
+00:02:11,462 --> 00:02:16,602
+de "A Tale of Two Cities" y esas
+palabras aparecen frecuentemente, "it was the of"
+
+27
+00:02:16,602 --> 00:02:22,906
+"it was the of". Una aproximación complementaria es pensar 
+en estas palabras como palabras que
+
+28
+00:02:22,906 --> 00:02:28,076
+no queremos ver nunca. Ellas son
+la lista negra, y queremos sacarlas de
+
+29
+00:02:28,076 --> 00:02:32,934
+nuestro archivo fuente. Así que un cliente con una lista negra
+imprimirá todas las palabras en nuestro
+
+30
+00:02:32,934 --> 00:02:37,743
+archivo fuente, el pequeñ Tale.txt excepto "was", "it",
+"the" y "of". En este caso, "best times", 
+
+31
+00:02:37,743 --> 00:02:42,839
+"worst times" etc.  Este es el
+filtro de excepciones, y eso es útil en
+
+32
+00:02:42,839 --> 00:02:48,843
+muchas aplicaciones como las 
+que se muestran aqui. Por ejemplo, puedes tener
+
+33
+00:02:48,843 --> 00:02:53,984
+un corrector ortográfico donde quieres identificar
+palabras mal escritas; por lo que tu llave sería
+
+34
+00:02:53,984 --> 00:02:58,975
+una palabra o una cadena. Y tu lista
+excepcional serían las palabras que están
+
+35
+00:02:58,975 --> 00:03:04,057
+en el diccionario y si tu quisieras obtener 
+todas las palabras que no están en el
+
+36
+00:03:04,057 --> 00:03:09,308
+diccionario. Éste es un ejemplo de un
+filtro de excepciones. 
+En el caso de un browser,
+
+37
+00:03:09,308 --> 00:03:15,062
+querrás marcar tus páginas visitadas 
+o bloquear sitios, etc. o como el último caso
+
+38
+00:03:15,062 --> 00:03:20,865
+tarjetas de crédito, quizá quieres
+administrar una compañía de tarjetas de crédito y quieres
+
+39
+00:03:20,865 --> 00:03:25,969
+comprobar  las tarjetas no sean robadas, en este caso
+las claves serian los números de tarjeta y tu lista
+
+40
+00:03:26,166 --> 00:03:31,826
+podría ser algo pequeña, la cual serían las
+tarjetas robadas que conoces y
+
+41
+00:03:31,826 --> 00:03:37,619
+querrás correr un filtro de lista blanca
+para aquellas tarjetas e imprimir en tu lista
+
+42
+00:03:37,619 --> 00:03:42,478
+larga de transacciones aquellas transacciones
+hechas con tarjetas robadas, asi
+
+43
+00:03:42,478 --> 00:03:47,259
+que esos son solo un par de ejemplos que usan
+filtros de excepción. Cómo se implementan
+
+44
+00:03:47,259 --> 00:03:53,883
+los filtros de excepción?
+Aquí está uno sencillo usando el API mencionado
+
+45
+00:03:53,883 --> 00:04:00,238
+que recién hemos calculado. Así que empezamos por
+crear un set de cadenas vacío y
+
+46
+00:04:00,238 --> 00:04:06,049
+de nuevo, puesto que no tenemos
+valores asociados, solo tenemos el genérico para
+
+47
+00:04:06,049 --> 00:04:11,821
+cadenas, y entonces creamos un nuevo
+flujo de entrada, desde le primer argumento
+
+48
+00:04:11,821 --> 00:04:17,292
+Ese es el nombre del archivo que contiene
+las palabras excepcionales de modo que este sólo 
+
+49
+00:04:17,292 --> 00:04:22,652
+lee las cadenas, mientras la cadena de entrada 
+no esté vacía y entonces las agrega a  el
+
+50
+00:04:22,652 --> 00:04:28,611
+conjunto. De modo que ahora tenemos un set/conjunto de
+palabras excepcionales y desde la entrada standar
+
+51
+00:04:28,611 --> 00:04:34,305
+leemos palabras, y mientras nuestro set 
+contenga la palabra, la imprimimos; y si
+
+52
+00:04:34,305 --> 00:04:40,262
+no la contiene, entonces no la imprimimos.
+Así que ese es un ejemplo de un filtro de lista blanca
+
+53
+00:04:40,262 --> 00:04:46,842
+Y para implementar una lista negra,
+llamamos esto para contener, sólo cambiamos
+
+54
+00:04:46,842 --> 00:04:53,388
+eso por un not. Si no está en la 
+lista excepcional, entonces lo imprimimos.
+
+55
+00:04:53,388 --> 00:04:58,089
+Es un ejemplo sencillo de un filtro usando
+sets.

@@ -1,0 +1,443 @@
+1
+00:00:02,000 --> 00:00:07,036
+Bine ați revenit. Astăzi vom face puțină
+matematică și puțină știință. Nu mult, dar e
+
+2
+00:00:07,036 --> 00:00:11,055
+necesar să avem o bază științifică pentru
+a înțelege performanța algoritmilor,
+
+3
+00:00:11,055 --> 00:00:15,075
+pentru a-i utiliza corespunzător în
+practică. Astăzi vom vorbi
+
+4
+00:00:15,275 --> 00:00:20,040
+despre cum să examinăm caracteristicile de
+performanță ale algoritmilor. Vom vedea
+
+5
+00:00:20,040 --> 00:00:25,022
+cum să realizăm modele matematice
+și cum să clasificăm algoritmii în funcție de
+
+6
+00:00:25,022 --> 00:00:30,010
+ordinul de creștere al timpului lor de
+execuție. Vom vorbi puțin despre teoria
+
+7
+00:00:30,010 --> 00:00:35,790
+algoritmilor și despre cum să analizăm utilizarea
+memoriei. Deci, pentru a fi obiectivi,
+
+8
+00:00:35,790 --> 00:00:42,206
+ne vom gândi la aceste chestiuni din
+punctul de vedere al mai multor tipuri
+
+9
+00:00:42,206 --> 00:00:48,139
+de personaje. Primul este programatorul
+care trebuie să rezolve o problemă
+
+10
+00:00:48,139 --> 00:00:54,270
+să o facă să funcționeze și să o pună în execuție.
+Al doilea este clientul care dorește să ultilizeze
+
+11
+00:00:54,270 --> 00:01:00,167
+ceea ce acel program a rezolvat.
+Al treilea este teoreticianul,
+
+12
+00:01:00,167 --> 00:01:06,424
+care este acea persoană care dorește să
+înțeleagă ceea ce se întâmplă. Iar
+
+13
+00:01:06,424 --> 00:01:10,724
+Ultima pe lista este echipa care actioneaza adesea necesar
+
+14
+00:01:10,724 --> 00:01:15,790
+pentru a face toate aceste lucruri să funcționeze.
+Astfel că există câte puțin din fiecare personaj
+
+15
+00:01:15,790 --> 00:01:21,110
+în cursul de azi. Și de fapt
+când ești student trebuie să te gândești
+
+16
+00:01:21,110 --> 00:01:26,753
+că s-ar putea să joci unul sau chiar toate
+aceste roluri la un moment dat. Așa că este destul de
+
+17
+00:01:26,753 --> 00:01:31,522
+important să înțelegem diferitele
+puncte de vedere. Astfel, ideea pe care ne vom
+
+18
+00:01:31,522 --> 00:01:38,205
+axa este timpul de rulare. Și de fapt, pentru
+a înțelege timpul de rulare al
+
+19
+00:01:38,205 --> 00:01:44,017
+unui calcul a apărut încă de pe timpul
+lui Babbage și poate chiar de mai demult. Un citat
+
+20
+00:01:44,017 --> 00:01:48,083
+din Babbage spune: "De îndată ce un
+motor analitic există, va
+
+21
+00:01:48,083 --> 00:01:54,076
+ghida în mod necesar viitorul mers al
+științei. Oricând se caută un rezultat
+
+22
+00:01:54,076 --> 00:02:00,062
+cu ajutorul său, va apare și întrebarea prin
+intermediul căror calcule pot fi aceste rezultate
+
+23
+00:02:00,062 --> 00:02:06,072
+obținute de către mașină în cel mai scurt
+timp posibil". Dacă ne uităm la mașinăria lui Babbage
+
+24
+00:02:06,072 --> 00:02:12,009
+denumită motor analitic, ea are o 
+manivelă. Și literal îngrijorările lui
+
+25
+00:02:12,009 --> 00:02:17,060
+Babbage referitor la cât de mult va dura un
+calcul se raportează la numărul de ori
+
+26
+00:02:17,060 --> 00:02:23,048
+cât trebuie întoarsă manivela. Nu e 
+chiar așa de diferit în ziua de azi. 
+
+27
+00:02:23,048 --> 00:02:29,018
+Manivela poate fi ceva electronic 
+ce se întâmplă de 1 miliard de ori pe secundă. Dar
+
+28
+00:02:29,018 --> 00:02:34,041
+încă ne uităm de câte ori trebuie ca
+o operație discretă să fie
+
+29
+00:02:34,041 --> 00:02:39,093
+realizată pentru a obține rezultatul
+final. Așa că, există multiple alte motive pentru
+
+30
+00:02:39,093 --> 00:02:45,032
+a analiza un algoritm. În contextul acestui
+curs suntem interesați în mod deosebit
+
+31
+00:02:45,032 --> 00:02:50,051
+de predicția performanței. Și de asemenea dorim
+să comparăm perfomanțele diferiților
+
+32
+00:02:50,051 --> 00:02:54,768
+algoritm pentru același task și să 
+putem oferi anumite garanții referitor
+
+33
+00:02:54,768 --> 00:03:00,058
+la cât de bine evoluează. Alături de aceasta,
+se află și înțelegerea anumitor baze teoretice pentru
+
+34
+00:03:00,077 --> 00:03:05,780
+modul în care algoritmii evoluează. Dar în primul rând, 
+motivul practic din care dorim să
+
+35
+00:03:06,024 --> 00:03:11,098
+să analizăm algoritmii și să-i înțelegem
+este pentru a evita erorile de performanță. Dorim
+
+36
+00:03:11,098 --> 00:03:16,050
+să avem o anumită încredere că 
+algoritmii noștri vor finaliza task-ul în
+
+37
+00:03:16,050 --> 00:03:21,084
+durata de timp în care ne gândim că îl va
+realiza. Și se poate observa în mod frecvent
+
+38
+00:03:21,084 --> 00:03:26,080
+în infrastructura computațională de azi, o 
+situație în care un client obține
+
+39
+00:03:26,080 --> 00:03:31,026
+performanțe proaste, deoarece programatorul nu
+a înțeles caracteristicile de performanță
+
+40
+00:03:31,026 --> 00:03:36,086
+ale algoritmului. Iar
+cursul de azi se referă la evitarea
+
+41
+00:03:36,086 --> 00:03:42,087
+acestor situații. Acum, ne vom concentra
+pe performanțe și compararea algoritmilor în
+
+42
+00:03:42,087 --> 00:03:48,064
+acest curs. Sunt cursuri ulterioare în
+curicula standard pentru știința calculatoarelor ce
+
+43
+00:03:48,064 --> 00:03:53,093
+oferă mai multe informații despre
+bazele teoretice ale algoritmilor si voi
+
+44
+00:03:53,093 --> 00:03:59,090
+menționa câte ceva despre asta mai târziu.
+Dar scopul nostru este de a putea prezice
+
+45
+00:03:59,090 --> 00:04:07,007
+performanța și de a compara algoritmii. 
+Există o listă lungă de povești de succes în
+
+46
+00:04:07,030 --> 00:04:12,081
+proiectarea algoritmilor cu performanțe
+mai bune, în facilitarea soluțiilor
+
+47
+00:04:12,081 --> 00:04:19,025
+la anumite probleme ce altfel nu ar fi putut fi
+rezolvate. Și o să dau doar
+
+48
+00:04:19,025 --> 00:04:25,346
+câteva exemple. Unul dintre primii și cei mai faimoși
+este așa numitul algoritm FFT. Acesta este un
+
+49
+00:04:25,346 --> 00:04:32,057
+algorithm ce împarte forma de undă alcătuită din
+n eșantioane ale unui semnal în
+
+50
+00:04:32,057 --> 00:04:38,431
+componente periodice. Iar aceasta este baza pentru
+DVD-uri, JPEG-uri și  multe alte aplicații
+
+51
+00:04:38,431 --> 00:04:44,296
+Există o soluție simplă ce ia un 
+timp proporțional cu N^2. Dar
+
+52
+00:04:44,296 --> 00:04:49,080
+algoritmul FFT durează doar N log N
+pași. Iar diferența dintre N log N
+
+53
+00:04:49,080 --> 00:04:55,002
+și N^2, este diferența dintre a 
+putea rezolva probleme complexe și 
+
+54
+00:04:55,002 --> 00:04:59,078
+a nu le putea rezolva. Multe dintre
+tehnologiile digitale, tehnologiile media digitale
+
+55
+00:04:59,078 --> 00:05:04,822
+de care dispunem azi se datorează
+acestui algoritm rapid. Un alt exemplu
+
+56
+00:05:05,051 --> 00:05:11,232
+a fost dezvoltat de Andrew Appel,
+care este acum decan la departamentul de știința calculatoarelor
+
+57
+00:05:11,232 --> 00:05:16,582
+aici la Princeton. Și a fost dezvoltat 
+atunci când și-a redactat lucrarea de
+
+58
+00:05:16,582 --> 00:05:22,725
+licență. Este un algoritm rapid pentru 
+problema simulării a N corpuri. 
+
+59
+00:05:22,725 --> 00:05:28,548
+Algoritmul simplu durează un timp proporțional cu N^2,
+dar algoritmul lui Appel dura N log N
+
+60
+00:05:28,548 --> 00:05:33,452
+ceea ce înseamnă că acum
+oamenii de știință pot face simulări de N corpuri pentru
+
+61
+00:05:33,452 --> 00:05:41,478
+valori foarte mari ale lui N. Iar aceasta facilitează
+cercetarea. Așadar, provocarea pe care
+
+62
+00:05:41,478 --> 00:05:47,677
+o întâmpinăm adesea esteL va reuși programul meu
+să rezolve un input practic imens? Și
+
+63
+00:05:47,677 --> 00:05:52,024
+de fapt, programatorul se 
+lovește de aceasta tot timpul.
+
+64
+00:05:52,024 --> 00:05:58,001
+De ce, de ce rulează programul meu atât de încet?
+De ce nu mai are memorie disponibilă? Și asta
+
+65
+00:05:58,001 --> 00:06:05,000
+a fost problema programatorilor pentru mult timp
+și modul de abordare a acesteia. Deuter
+
+66
+00:06:05,000 --> 00:06:10,030
+Kanoof în anii 1970, a spus că 
+putem folosi o metodă științifică pentru
+
+67
+00:06:10,030 --> 00:06:16,062
+înțelege performanțele algoritmilor în 
+timpul operării. Poate nu dezvăluim
+
+68
+00:06:16,062 --> 00:06:23,010
+noi secrete ale universului, dar putem
+folosi această metodă științifică și putem trata
+
+69
+00:06:23,010 --> 00:06:29,042
+calculatorul ca și ceva ce poate fi studiat în 
+acest fel și pentru a înțelege 
+
+70
+00:06:29,042 --> 00:06:34,008
+cum programul nostru va evolua. Și 
+să ne uităm la aceasta în mai detaliu.
+
+71
+00:06:34,209 --> 00:06:39,063
+Deci acesta este un scurt rezumat al ceea ce ne referim a fi
+metoda științifică, care a
+
+72
+00:06:39,268 --> 00:06:44,086
+fost de succes de câteva secole
+deja. Așa că, ceea ce vom face este,
+
+73
+00:06:44,086 --> 00:06:50,008
+să observăm anumite caracteristici ale lumii
+reale. În acest caz, va fi 
+
+74
+00:06:50,008 --> 00:06:54,857
+timpul de rulare al unui program pe un computer
+Apoi vom dezvolta ipoteze
+
+75
+00:06:55,049 --> 00:06:59,079
+ale unui model ce este în concordanță cu
+observațiile și vom spera
+
+76
+00:06:59,079 --> 00:07:04,040
+că acele ipoteze sunt destul de bune
+pentru a ne permite să prezicem ceva.
+
+77
+00:07:04,040 --> 00:07:09,031
+De obicei, timpul de rulare pentru o
+problemă de dimensiuni mai mari, sau pe un calculator diferit.
+
+78
+00:07:09,197 --> 00:07:13,097
+Iar apoi vom verifica predicțiile prin
+realizarea mai multor observații și vom valida
+
+79
+00:07:13,097 --> 00:07:18,058
+până ce avem încredere că ipoteza
+modelului și observațiile sunt corelate.
+
+80
+00:07:18,058 --> 00:07:22,077
+Aceasta este o metodă de a avea încredere 
+că înțelegem performanțele 
+
+81
+00:07:22,077 --> 00:07:28,056
+programului nostru. Acum, în cadrul metodei
+științifice, există anumite principii de bază și
+
+82
+00:07:28,056 --> 00:07:33,082
+prima este că dacă vom
+rula experimente, ar trebui să ne așteptăm ca
+
+83
+00:07:33,082 --> 00:07:39,021
+și altcineva să poată rula aceleași 
+experimente și să obțină aceleași rezultate. Și
+
+84
+00:07:39,021 --> 00:07:44,067
+de asemenea că ipotezele trebuie să aibă
+o proprietate specifică pe care experimentele
+
+85
+00:07:44,067 --> 00:07:49,736
+să o poată contrazice. Astfel că
+trebuie proiectate cu grijp și vom
+
+86
+00:07:49,736 --> 00:07:55,433
+încerca să facem asta. Așa că, din nou
+viitorul lumii naturale pe care
+
+87
+00:07:55,433 --> 00:08:00,822
+o studiem este un anumit calculator specific care
+există în lumea naturală. El modifică
+
+88
+00:08:00,822 --> 00:08:07,049
+algoritmul de la o abstractizare la
+un anumit tip de model fizic
+
+89
+00:08:07,049 --> 00:08:11,083
+ce se produce în timp ce electronii trec prin
+interiorul calculatorului.

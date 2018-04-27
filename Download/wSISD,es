@@ -1,0 +1,403 @@
+1
+00:00:03,054 --> 00:00:09,019
+Bienvenido de nuevo. Hoy vamos a revisar unas cuantas
+
+2
+00:00:09,019 --> 00:00:15,011
+aplicaciones interesantes de tablas de símbolos y estructura 
+del árbol binario de búsqueda para
+
+3
+00:00:15,011 --> 00:00:21,413
+resolver problemas de procesamiento de datos
+geométricos. Veamos. La idea
+
+4
+00:00:21,413 --> 00:00:27,378
+es que hablaremos sobre objetos
+geométricos, no sobre objetos simples como
+
+5
+00:00:27,378 --> 00:00:33,338
+cadenas y números. Por ejemplo, digamos 
+que sus objetos geométricos son puntos
+
+6
+00:00:33,338 --> 00:00:38,346
+en el plano y delimitan un rectángulo
+orientado con los
+
+7
+00:00:38,346 --> 00:00:43,404
+ejes horizontal/vertical. Y usted podría preguntarse
+qué puntos están en el interior del 
+
+8
+00:00:43,404 --> 00:00:48,200
+rectángulo, o cuántos puntos están en el interior
+del mismo. Puede que quizá lo que está
+
+9
+00:00:48,200 --> 00:00:54,011
+procesando son rectángulos. Usted tiene un conjunto
+de rectángulos, y quiere saber ¿cuáles
+
+10
+00:00:54,011 --> 00:01:00,291
+de estos rectángulos se intercectan? o ¿cuántas 
+intercecciones hay?. Estos
+
+11
+00:01:00,291 --> 00:01:05,837
+son problemas interesantes que tienen muchas
+muchas aplicaciones, desde
+
+12
+00:01:05,837 --> 00:01:11,806
+diseño computerizado, hasta juegos, películas
+y también en abstracciones tales como bases
+
+13
+00:01:11,806 --> 00:01:17,849
+de datos y otras situaciones donde puedes tener
+múltiples claves o múltiples dimensiones
+
+14
+00:01:18,065 --> 00:01:24,856
+Y esto es una ampliación muy interesante de
+las ideas que hemos visto para tablas de
+
+15
+00:01:24,856 --> 00:01:30,175
+símbolos para todos los tipos de aplicaciones
+conocidas. Y sorprendentemente árboles
+
+16
+00:01:30,175 --> 00:01:34,300
+binarios de búsqueda y estos algoritmos
+asociados que hemos visto van
+
+17
+00:01:34,300 --> 00:01:39,774
+a proporcionar soluciones muy eficientes a un
+número de problemas importantes en esta área.
+
+18
+00:01:39,774 --> 00:01:45,943
+Y realmente han permitido un nuevo desarrollo 
+y nuevas tecnologías en todo este tipo
+
+19
+00:01:45,943 --> 00:01:51,135
+de aplicaciones. Así que empecemos, veamos
+un problema simple llamado
+
+20
+00:01:51,135 --> 00:01:56,761
+búsqueda de rango unidimensional. Esto
+realmente forma la base para lo que 
+
+21
+00:01:56,761 --> 00:02:02,146
+vamos a hacer. Es parte de una extensión
+de la tabla de símbolos ordenada API
+
+22
+00:02:02,146 --> 00:02:07,837
+que vimos antes y vamos a tener operaciones 
+de búsqueda de rango y 
+
+23
+00:02:07,837 --> 00:02:12,797
+cuenta de rango. Así, una dimensión sólo significa 
+que tenemos una llave, así que primero insertaremos un
+
+24
+00:02:12,797 --> 00:02:19,116
+par llave-valor, lo que queremos hacer es
+permitir una búsqueda mediante una llave y
+
+25
+00:02:19,116 --> 00:02:24,770
+su valor asociado, queremos poder borrar.
+Pero entonces queremos estas
+
+26
+00:02:24,770 --> 00:02:30,703
+operaciones búsqueda-rango y cuenta-rango.
+Así, encontrar todas las llaves que están entre dos
+
+27
+00:02:30,703 --> 00:02:36,083
+llaves dadas, o decir cuántas llaves hay
+entre dos llaves dadas. Para este
+
+28
+00:02:36,083 --> 00:02:42,251
+ejemplo a la derecha hemos insertado un número 
+de llaves y sólo estamos mostrándolas 
+
+29
+00:02:42,251 --> 00:02:47,992
+de forma ordenada. Pero entonces, tú debes decir,
+bien, ¿cuántas llaves se encuentran 
+
+30
+00:02:47,992 --> 00:02:53,780
+entre g y k? En este caso, hay sólo dos.
+Y entonces el cliente debe decir,
+
+31
+00:02:53,780 --> 00:02:59,598
+bien ¿cuáles son esas llaves? y tú quieres
+ser capaz de responder cuáles son. Y ésta es una
+
+32
+00:02:59,598 --> 00:03:06,010
+operación muy común en, por ejemplo, bases de datos. Tú quieres
+devolver cuántos contribuyentes tienen
+
+33
+00:03:06,010 --> 00:03:11,335
+salarios entre un millón y diez millones
+y luego quiénes son ellos y cosas así. 
+
+34
+00:03:11,335 --> 00:03:17,431
+Entonces, la búsqueda por rango es una
+operación muy importante. Ahora, en
+
+35
+00:03:17,431 --> 00:03:23,459
+interpretación geométrica, sólo imaginemos
+que las llaves son puntos en una línea. Y así,
+
+36
+00:03:23,459 --> 00:03:29,627
+los valores de las llaves, son sólo especificados como
+puntos en una línea. Podríamos convertir las
+
+37
+00:03:29,627 --> 00:03:34,856
+letras a números, o las llaves podrían 
+ser números. Y entonces, lo que estamos
+
+38
+00:03:34,856 --> 00:03:41,119
+buscando es encontrar o contar los puntos
+en un intervalo dado en una dimensión. Así
+
+39
+00:03:41,575 --> 00:03:47,272
+¿Cómo vamos a implementar esto? Bueno,
+éste es el problema básico que es muy 
+
+40
+00:03:47,272 --> 00:03:52,356
+parecido a nuestro problema de la tabla de símbolos.
+Podríamos considerar conservar las cosas en un
+
+41
+00:03:52,356 --> 00:03:57,529
+arreglo no ordenado. Sólo ponerlas en un 
+arreglo, y entonces, la inserción es
+
+42
+00:03:57,529 --> 00:04:03,254
+rápida. Sólo queremos agregarlo al final del arreglo. 
+Puede que tengamos que cambiar el tamaño para
+
+43
+00:04:03,254 --> 00:04:08,371
+hacer crecer el arreglo. Pero esto es poco 
+atractivo porque para números grandes de
+
+44
+00:04:08,371 --> 00:04:13,899
+llaves, con el fin de contar las llaves que caen
+en un rango dado, tienes que ir
+
+45
+00:04:13,899 --> 00:04:19,711
+a través de todas las llaves y probar si 
+pertenecen al rango o no y regresarlas
+
+46
+00:04:19,711 --> 00:04:26,043
+de la misma manera. Así, toma tiempo lineal para 
+un número grande de llaves. Si almacenas las 
+
+47
+00:04:26,267 --> 00:04:32,638
+cosas en orden ,como en una situación de búsqueda binaria,
+entonces para insertarlas en orden para conservarlas
+
+48
+00:04:32,638 --> 00:04:38,591
+en orden en un arreglo, 
+puede que necesites mover las más grandes una posición
+
+49
+00:04:38,596 --> 00:04:44,209
+y así sucesivamente, una implementación 
+elemental de una búsqueda binaria cuando hicimos tablas de símbolos 
+
+50
+00:04:44,406 --> 00:04:49,662
+hacia esto. Entonces, el tiempo de inserción puede ser lineal, pero entonces puedes usar búsqueda binaria
+
+51
+00:04:49,662 --> 00:04:55,329
+para buscar los dos extremos,
+eso sólo va a tomar tiempo
+
+52
+00:04:55,329 --> 00:05:00,631
+proporcional a log n. Y entonces,
+puedes saber cuántas llaves
+
+53
+00:05:00,631 --> 00:05:06,243
+hay o retornar todas las que estén entre índice más bajo del rango, 
+
+54
+00:05:06,243 --> 00:05:12,027
+y el más alto. Así, esas implementaciones básicas no
+
+55
+00:05:12,027 --> 00:05:18,179
+son apropiadas para un gran número de llaves porque
+una de las operaciones sobre ellas tiene tiempo de funcionamiento lineal. Así
+
+56
+00:05:18,179 --> 00:05:24,035
+lo que nosotros realmente deseamos es tener tiempo
+proporcional a log n. Para insertar y,
+
+57
+00:05:24,035 --> 00:05:29,186
+por supuesto, para contar. Para la búsqueda de rango, por supuesto, tenemos que tocar
+
+58
+00:05:29,186 --> 00:05:35,413
+todas las llaves que retornamos, por tanto, el tiempo de funcionamiento va a ser proporcional al número de
+
+59
+00:05:35,413 --> 00:05:43,042
+llaves que pertenecen al rango buscado. Pero, de todos modos, esos son objetivos razonables. Y son fáciles de
+
+60
+00:05:43,042 --> 00:05:51,545
+alcanzar. Así [tos], por ejemplo, qué ocurre con el conteo de rango unidimensional?
+
+61
+00:05:51,545 --> 00:05:58,014
+Bueno, lo que vamos a hacer es mantener las llaves en un árbol binario de búsqueda y 
+
+62
+00:05:58,014 --> 00:06:03,484
+vamos a mirar a la función para calcular el rango de árboles binarios, donde por
+
+63
+00:06:03,484 --> 00:06:09,342
+cada llave, podemos procesar cuántas llaves hay que son estrictamente menos que esa
+
+64
+00:06:09,342 --> 00:06:15,508
+llave. Para este caso, el rango de e es dos y h es tres y así sucesivamente. Entonces en un
+
+65
+00:06:15,508 --> 00:06:21,413
+árbol de búsqueda binaria, ese rango de números va en orden creciente como lo hacemos en un
+
+66
+00:06:21,413 --> 00:06:27,662
+recorrido ordenado y eso es fácil de computar. Usted necesita mantener ese árbol de rangos
+
+67
+00:06:27,662 --> 00:06:33,813
+como un campo, o mantener el campo que posee el tamaño del árbol y que sea fácil de completar
+
+68
+00:06:33,813 --> 00:06:40,760
+El rango a partir de ahí. Entonces ¿Cuántas llaves hay entre e y s? bueno una, dos
+
+69
+00:06:40,760 --> 00:06:51,297
+tres, cuatro, cinco. Es simplemente la diferencia entre los rangos más uno si
+
+70
+00:06:51,623 --> 00:07:00,361
+la entrada [toce] alta en la consulta de intervalo está en la tabla y no sobre +uno. Por ello,
+
+71
+00:07:00,361 --> 00:07:08,274
+hay el mismo número de llaves entre e y s que las que hay entre e y t, cinco.
+
+72
+00:07:08,274 --> 00:07:15,192
+Entre f y t solamente hay 4. Entonces, eso es una, realmente un conteo de rango 1d es un
+
+73
+00:07:15,192 --> 00:07:22,412
+computo muy fácil de procesar en, en tiempo de registro con un árbol de búsqueda binaria. El
+
+74
+00:07:22,412 --> 00:07:28,297
+[Tose] número de nodos revisados cuando hacemos una búsqueda es la longitud de recorrer
+
+75
+00:07:28,297 --> 00:07:33,789
+el camino hacia abajo más la longitud de recorrer hacia arriba para [tose] encontrar sus filas
+
+76
+00:07:33,976 --> 00:07:39,595
+Y eso será proporcional a log N. [tose] Y a una búsqueda de rango
+
+77
+00:07:39,595 --> 00:07:46,018
+Bueno, solamente hacemos una búsqueda recursiva y para encontrar las llaves entre bajo y alto, usted
+
+78
+00:07:46,214 --> 00:07:51,472
+observa en el sub-árbol izquierdo si alguna de ellas puede caer en el rango. Usted observa el
+
+79
+00:07:51,472 --> 00:07:57,106
+nodo actual y observa al sub-árbol derecho si alguna de ellas puede caer en el
+
+80
+00:07:57,106 --> 00:08:02,555
+rango. Y es fácil decir si alguna de ellas puede caer en el rango con tan solo
+
+81
+00:08:02,555 --> 00:08:08,476
+verificar si su rango superpone a la raíz o no. Así, si estamos buscando
+
+82
+00:08:08,476 --> 00:08:14,469
+todas las llaves entre f y t entonces tenemos que observar ambos sub-árboles de la raíz
+
+83
+00:08:14,469 --> 00:08:19,643
+s. Pero, no observamos el sub-árbol izquierdo de e, porque todas esas son menores
+
+84
+00:08:19,643 --> 00:08:26,018
+que e y en consecuencia, son menores que f. Por eso, no tenemos que observar ahí. Pero
+
+85
+00:08:26,018 --> 00:08:31,419
+de otra manera, es una modificación simple de una búsqueda de árbol recursiva, para encontrar todas las llaves
+
+86
+00:08:31,635 --> 00:08:37,702
+y es fácil ver que el tiempo de ejecución será proporcional al 
+
+87
+00:08:37,702 --> 00:08:47,518
+número de llaves devueltas más log N. Así, eso es una búsqueda de rango dimensional utilizando
+
+88
+00:08:47,518 --> 00:08:51,040
+árboles binarios de búsqueda.

@@ -1,0 +1,533 @@
+1
+00:00:01,013 --> 00:00:06,020
+Willkommen. Ich bin Bob Sedgewick, Professor
+für Informatik in Princeton. Das ist unser
+
+2
+00:00:06,020 --> 00:00:11,014
+Onlinekurs Algorithmen, entwickelt von mir
+und Kevin Wayne hier in Princeton.
+
+3
+00:00:11,014 --> 00:00:16,002
+Wir werden mit einem Überblick darüber
+beginnen, warum ihr euch evtl. mit
+
+4
+00:00:16,002 --> 00:00:21,005
+Algorithmen befassen solltet und werden ein
+wenig die Voraussetzungen besprechen, die ihr
+
+5
+00:00:21,005 --> 00:00:26,543
+für diesen Kurs braucht. Also, wovon handelt dieser
+ Kurs? Es ist ein Querschnittskurs zu Algorithmen
+
+6
+00:00:26,543 --> 00:00:31,062
+für Anfänger mit Grundwissen. Wir werden uns auf
+das Programmieren und Problemlösen
+
+7
+00:00:31,062 --> 00:00:35,870
+in Zusammenhang mit echten Anwendungen
+konzentrieren, und unser Fokus wird auf zwei
+
+8
+00:00:35,870 --> 00:00:41,756
+Dingen liegen, Algorithmen, also Methoden um
+Probleme zu lösen und Datenstrukturen, die die
+
+9
+00:00:41,756 --> 00:00:46,651
+Daten speichern, die sich auf das Problem
+beziehen und mit Algorithmen Hand in Hand
+
+10
+00:00:46,651 --> 00:00:51,600
+gehen. Das sind die grundlegenen Themen, die wir
+in Teil eins und zwei des Kurses behandeln
+
+11
+00:00:51,600 --> 00:00:56,559
+werden. Im ersten Teil geht es um das Sortieren
+und Durchsuchen von Datentypen. Wir betrachten
+
+12
+00:00:56,559 --> 00:01:00,810
+eine Reihe von Datenstrukturen und Algorithmen
+die grundlegend für alle Methoden sind die
+
+13
+00:01:00,810 --> 00:01:05,811
+wir behandeln, incl. Stapel, Schlangen, Taschen
+und Vorrangschlangen. Dann betrachten wir
+
+14
+00:01:05,811 --> 00:01:09,852
+klassische Algorithmen zum Sortieren, also
+Dinge in Reihenfolge zu bringen. Das wären
+
+15
+00:01:09,852 --> 00:01:15,130
+Quicksort, Mergesort, Heapsort und radix sort.
+Und wir betrachten klassische Methoden
+
+16
+00:01:15,130 --> 00:01:19,932
+für Suchen. Das beinhaltet binäre Suchbäume,
+rot-schwarze binäre Suchbäume und Hash-
+
+17
+00:01:19,932 --> 00:01:25,166
+Tabellen. Im zweiten Teil des Kurses geht es
+um fortgeschrittenere Algorithmen inklusive
+
+18
+00:01:25,166 --> 00:01:30,425
+Graphenalgorithmen, klassische Graphen-Such-
+Algorithmen, minimaler Spann-Bäume und
+
+19
+00:01:30,425 --> 00:01:35,417
+Kürzester-Pfad Algorithmen, Algorithmen um
+Strings zu verarbeiten incl. reguläre
+
+20
+00:01:35,417 --> 00:01:41,178
+Ausdrücke und Datenkomprimierung. Außerdem
+noch einige weitergehende Algorithmen die
+
+21
+00:01:41,178 --> 00:01:46,890
+Gebrauch von den Basis-Algorithmen vom Begin
+des Kurses machen. Also, warum sollte man sich
+
+22
+00:01:46,890 --> 00:01:52,075
+mit Algorithmen befassen? Naja, ihre Bedeutung
+ist sehr umfangreich und weitreichend.
+
+23
+00:01:52,075 --> 00:01:57,185
+Vom Internet über Biologie, über kommerzielle
+IT, Computergrafik, Sicherheit, Multimedia,
+
+24
+00:01:57,185 --> 00:02:02,512
+soziale Netzwerke und wissenschaftliche
+Verwendungen, umgeben uns überall
+
+25
+00:02:02,512 --> 00:02:07,805
+Algorithmen. Sie werden in Filmen und Video-
+spielen verwendet, für Kollisionsberechnungen
+
+26
+00:02:07,805 --> 00:02:12,910
+von Teilchen, durch sie wird das Genom
+erforscht und eine Menge weitere
+
+27
+00:02:12,910 --> 00:02:18,319
+Anwendungen. Das ist ein wichtiger Grund,
+um sich mit Algorithmen zu befassen. Ihre
+
+28
+00:02:18,319 --> 00:02:23,329
+Auswirkungen sind weitreichend. Das Studieren
+von Algorithmen ist aber auch interessant, denn
+
+29
+00:02:23,329 --> 00:02:28,064
+sie haben altertümliche Wurzeln. Die ältesten
+davon reichen bis zu 300 v. Chr. zurück,
+
+30
+00:02:28,064 --> 00:02:32,588
+wenigstens bis zu Euklid. Die Vorstellung
+von Algorithmen wurde hier in Princeton
+
+31
+00:02:32,588 --> 00:02:37,651
+von Church und Turing in den 30ern formalisiert
+beschrieben. DIe meisten Algorithmen die
+
+32
+00:02:37,651 --> 00:02:41,806
+wir betrachten werden wurden aber erst in
+den letzten Jahrzehnten entdeckt. In der
+
+33
+00:02:41,806 --> 00:02:46,452
+Tat wurden einige von Anfangssemestern in
+Kursen wie diesem entwickelt. Und es warten
+
+34
+00:02:46,452 --> 00:02:51,595
+noch eine ganze Reihe Algorithmen darauf,
+von Studenten wie euch entdeckt zu werden.
+
+35
+00:02:51,595 --> 00:02:57,239
+Der Hauptgrund, warum wir Algorithmen
+erforschen, ist Probleme zu lösen, die anders
+
+36
+00:02:57,239 --> 00:03:02,498
+nicht bearbeitet werden können. In der
+ersten Lektion werden wir z.B. über das
+
+37
+00:03:02,498 --> 00:03:07,234
+Netzwerk-Verbindungs-Problem sprechen,
+bei dem sich das Problem stellt, in einer großen
+
+38
+00:03:07,234 --> 00:03:12,135
+Anzahl miteinander paarweise verbundener
+Elemente einen Pfad zwischen zwei Elementen
+
+39
+00:03:12,135 --> 00:03:17,134
+entlang deren Verbindungen zu finden. Wie
+ihr an dem Beispiel seht, ist nicht sicher, ob
+
+40
+00:03:17,134 --> 00:03:22,282
+es einen solchen Pfad gibt. Wir brauchen
+dafür ein Programm, bzw. einen
+
+41
+00:03:22,282 --> 00:03:28,793
+effizienten Algorithmus.
+In unserem Beispiel lautet das Ergebnis, das
+
+42
+00:03:28,793 --> 00:03:34,241
+ein solcher Pfad existiert. Ein weiterer Grund
+Algorithmen zu untersuchen ist geistige
+
+43
+00:03:34,241 --> 00:03:39,795
+Stimulierung. Algorithmen sind sehr
+interessante Studienobjekte. Don Knuth,
+
+44
+00:03:39,795 --> 00:03:45,275
+der div. Bücher über Algorithmen geschrieben
+hat und ein Pionier in diesem Feld ist, sagte
+
+45
+00:03:45,275 --> 00:03:50,553
+einmal, "Einen Algorithmus muss man sehen
+um an ihn zu glauben". Man kann nicht einfach
+
+46
+00:03:50,553 --> 00:03:55,998
+über Algorithmen nachdenken, man muss
+mit ihnen arbeiten. Ein anderes Zitat von Francis
+
+47
+00:03:55,998 --> 00:04:01,412
+Sullivan lautet, "Die großen Algorithmen
+sind die Poesie des Rechnens". Wie ein Vers
+
+48
+00:04:01,412 --> 00:04:05,905
+können Sie prägnant, dicht, und sogar
+geheimnisvoll sein. Aber einmal entschlüsselt, werfen sie ein
+
+49
+00:04:05,905 --> 00:04:11,473
+strahlendes Licht auf einige Aspekte des
+Berechnens. Algorithmen sind interessant als
+
+50
+00:04:11,473 --> 00:04:17,057
+intellektuelle Stimulation. Ein anderer Grund,
+warum viele Leute Algorithmen untersuchen - und ich nehme an
+
+51
+00:04:17,057 --> 00:04:21,565
+viele von Ihnen gehören dazu - ist, dass es notwendig ist,
+gute Algorithmen, effiziente
+
+52
+00:04:21,565 --> 00:04:26,760
+Algorithmen und gute Datenstrukturen zu verstehen,
+um ein kompetenter Programmierer zu sein. Linus
+
+53
+00:04:26,760 --> 00:04:31,358
+Torvalds, der Schöpfer von Linux, sagt
+der Unterschied zwischen einem schlechten
+
+54
+00:04:31,358 --> 00:04:36,708
+Programmierer und einem guten ist, ob er
+den Code oder die Datenstrukturen
+
+55
+00:04:36,708 --> 00:04:41,739
+für wichtiger hält. Schlechte Programmierer machen sich Gedanken
+um den Code, gute Programmierer machen sich Gedanken um
+
+56
+00:04:41,739 --> 00:04:45,943
+Datenstrukturen und deren
+Beziehungen. Und, so möchte ich hinzufügen, um die
+
+57
+00:04:45,943 --> 00:04:50,048
+Algorithmen, die sie bearbeiten. Niklaus
+Wirth, ein weiterer Pionier der Informatik
+
+58
+00:04:50,048 --> 00:04:55,438
+schrieb ein berühmtes Buch namens
+Algorithms + Data Structures = Programs.
+
+59
+00:04:55,438 --> 00:05:02,079
+[Husten] Ein anderer Grund, heute Algorithmen 
+zu studieren ist, dass sie eine gemeinsame
+
+60
+00:05:02,079 --> 00:05:08,420
+Grundlage geworden sind, die Natur zu verstehen.
+Algorithmen sind Berechnungsmodelle, und
+
+61
+00:05:08,420 --> 00:05:14,892
+algorithmische Modelle ersetzen
+mathematische Modelle in der Wissenschaft.
+
+62
+00:05:14,892 --> 00:05:20,287
+Im 20. Jahrhundert entwickelten Mathematiker
+und Naturwissenschaftler mathematische Modelle, um zu
+
+63
+00:05:20,287 --> 00:05:25,251
+versuchen, Phänomene der Natur zu verstehen. Es wurde
+aber bald klar, dass diese mathematischen
+
+64
+00:05:25,251 --> 00:05:30,561
+Modelle schwierig zu lösen waren. Es war
+schwierig, Lösungen zu erhalten, Hypothesen
+
+65
+00:05:30,561 --> 00:05:36,011
+an natürlichen Phänomene zu messen. 
+Daher entwickeln heute mehr und mehr und mehr
+
+66
+00:05:36,011 --> 00:05:41,189
+Leute Berechnungsmodelle,
+mit denen sie versuchen, zu simulieren
+
+67
+00:05:41,189 --> 00:05:46,568
+was in der Natur geschehen könnte, um
+zu versuchen, es besser zu verstehen. Algorithmen
+
+68
+00:05:46,568 --> 00:05:52,069
+spielen eine ungeheuer wichtige Rolle in diesem
+Prozess. Und wir werden einige Beispiele dafür
+
+69
+00:05:52,069 --> 00:05:58,009
+in diesem Kurs kennenlernen. Ein anderer wichtiger Grund 
+ist, dass wenn Sie wissen, wie sie
+
+70
+00:05:58,009 --> 00:06:03,067
+Algorithmen und Datenstrukturen effektiv verwenden
+können, haben Sie deutlich 
+
+71
+00:06:03,067 --> 00:06:09,851
+bessere Chancen in Bewerbungsgesprächen in
+der IT-Industrie als wenn Sie diese nicht kennen.
+
+72
+00:06:09,851 --> 00:06:15,953
+Es gibt also eine ganze Menge von Gründen,
+um Algorithmen zu untersuchen.
+
+73
+00:06:15,953 --> 00:06:21,761
+Ihr Einfluss ist groß und weitreichend,
+sie haben alte Wurzeln und zeigen neue
+
+74
+00:06:21,761 --> 00:06:26,175
+Möglichkeiten auf, sie erlauben uns, Probleme
+zu lösen, die anderenfalls nicht angegangen
+
+75
+00:06:26,175 --> 00:06:30,003
+werden können; Sie können Sie als 
+intellektuelle Stimulation verstehen, um
+
+76
+00:06:30,003 --> 00:06:34,049
+ein guter Programmierer zu werden. Sie können
+Geheimnisse des Lebens im Universum enthüllen, und
+
+77
+00:06:34,049 --> 00:06:38,461
+sie eignen sich für Freude und Gewinn. Im Grunde
+kann ein Programmierer mit Recht fragen, warum
+
+78
+00:06:38,461 --> 00:06:42,433
+man überhaupt etwas anderes untersuchen sollte. Nun ja,
+es gibt viele gute Gründe, andere Dinge zu untersuchen, aber
+
+79
+00:06:42,433 --> 00:06:47,557
+ich bin überzeugt, dass es keinen guten Grund gibt,
+Algorithmen nicht zu studieren. [Husten] Also, für diesen
+
+80
+00:06:47,557 --> 00:06:53,714
+Kurs gibt es zwei Quellen, über die
+ich hier reden möchte um sicherzustellen
+
+81
+00:06:53,714 --> 00:06:59,374
+dass diese allen bekannt sind bevor wir in die Materie
+einsteigen. Das ist ein Modell der Veröffentlichung, die
+
+82
+00:06:59,374 --> 00:07:04,472
+Kevin Wayne und ich entwickelt haben und seit
+Jahren nutzen. Und wir denken, es ist ein
+
+83
+00:07:04,472 --> 00:07:09,507
+sehr effektiver Weg, die Art von Lektionen
+zu begleiten, die wir in diesem Kurs
+
+84
+00:07:09,507 --> 00:07:14,659
+geben werden. Ganz unten 
+- und das ist optional für diesen Kurs - haben wir
+
+85
+00:07:14,659 --> 00:07:19,887
+ein Textbuch. Ein normales Buch
+dass die Themen des Kurses im Detail behandelt.
+
+86
+00:07:19,887 --> 00:07:24,285
+Sogar deutlich mehr Themen, als wir in den
+Lektionen behandeln können. Und dann, 
+
+87
+00:07:24,285 --> 00:07:28,668
+begleitend zum Lehrbuch, gibt es kostenloses
+Lehrmaterial online, dass wir die "book site" nennen. Sie
+
+88
+00:07:28,668 --> 00:07:33,839
+können "books" die "book site" besuchen, um die
+Folien zu den Lektionen zu bekommen. Aber viel wichtiger ist:
+
+89
+00:07:33,839 --> 00:07:39,967
+dort gibt es Code, dort gibt es Übungen, und dort
+gibt es eine ziemliche Menge an Informationen. Vielleicht
+
+90
+00:07:39,967 --> 00:07:45,329
+zehnmal mehr, als was im Buch zu finden ist,
+inklusive einer Zusammenfassung der Inhalte. Sie werden sich
+
+91
+00:07:45,329 --> 00:07:51,211
+während des Kurses also oft auf die
+"book site" beziehen, während sie online
+
+92
+00:07:51,211 --> 00:07:57,075
+arbeiten. Oft fragen Leute nach
+Voraussetzungen. Wir nehmen an, dass die,
+
+93
+00:07:57,075 --> 00:08:02,820
+die diesen Kurs besuchen wissen, wie man programmiert
+und die Grundlagen von Schleifen, Arrays
+
+94
+00:08:02,820 --> 00:08:09,307
+und Funktionen kennen. Sie haben bereits Kontakt
+zur Objektorientierten Programmierung und zu Rekursionen.
+
+95
+00:08:09,307 --> 00:08:15,713
+Wir verwenden Java, aber wir setzen keine
+Details zu Java voraus; wir verwenden es eher
+
+96
+00:08:15,713 --> 00:08:21,546
+als Sprache zur Darstellung. Wir werden etwas
+Mathematik betreiben, aber keine sehr fortgeschrittene. Wenn Sie
+
+97
+00:08:21,546 --> 00:08:27,875
+einen Eindruck davon gewinnen möchten, welches Material
+wir als Voraussetzung zu dem Material dieses
+
+98
+00:08:27,875 --> 00:08:33,399
+Kurses betrachten, können Sie sich kurz die
+Abschnitte 1.1 und 1.2 des
+
+99
+00:08:33,399 --> 00:08:39,110
+Buchs anschauen. Entweder auf der "book site" oder 
+im Lehrbuch. Für eine tiefergehende Besprechung
+
+100
+00:08:39,110 --> 00:08:43,722
+haben wir ein Lehrbuch "An
+Introduction to Programming in Java: 
+
+101
+00:08:43,722 --> 00:08:49,338
+An Interdisciplinary Approach". Dort gibt es
+ebenfalls eine "book site" und ein Lehrbuch. Aber
+
+102
+00:08:49,338 --> 00:08:53,968
+im Grunde geht es um Folgendes: Sie sollten
+Programmieren können, und eine einfache Übung zu Vorbereitung
+
+103
+00:08:53,968 --> 00:08:58,688
+ist, auf Ihrem Computer ein Java-Programm
+zu schreiben, in dem sie vielleicht ein Programmier-
+
+104
+00:08:58,688 --> 00:09:03,287
+modell aus der "book site" verwenden. Wir
+werden noch viele weitere Hinweise geben,
+
+105
+00:09:03,287 --> 00:09:07,847
+wenn wir zu den Aufgaben kommen.
+Sie können die Programmierumgebung verwenden,
+
+106
+00:09:07,847 --> 00:09:13,294
+die Ihnen vertraut ist, oder
+unsere herunterladen. Im Netz haben
+
+107
+00:09:13,294 --> 00:09:15,039
+wir Anleitungen, wie das geht.

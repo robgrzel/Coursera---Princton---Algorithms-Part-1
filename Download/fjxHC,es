@@ -1,0 +1,63 @@
+1
+00:00:00,000 --> 00:00:04,085
+Bienvenidos de nuevo al curso de algoritmos. Hoy estaremos hablando sobre buscar el conjunto
+
+2
+00:00:04,085 --> 00:00:09,098
+de problemas. Un conjunto de algoritmos para resolver el denominado problema de conectividad dinámica
+
+3
+00:00:09,098 --> 00:00:14,091
+Veremos dos algoritmos clásicos. Quick Find and Quick Union,
+
+4
+00:00:14,091 --> 00:00:20,078
+y algunas aplicaciones y mejoras de estos  algoritmos. El sub texto de este dia es
+
+5
+00:00:20,078 --> 00:00:27,039
+para ir a través de los pasos que vamos a seguir una y otra vez e
+
+6
+00:00:27,039 --> 00:00:32,039
+ir desarrollando un algoritmo útil.  El primer paso es modelar el problema. tratar de
+
+7
+00:00:32,039 --> 00:00:37,031
+entender, básicamente, ¿cuáles son los principales elementos del problema que deben ser
+
+8
+00:00:37,031 --> 00:00:41,681
+resuelto. Entonces vamos a encontrar algún algoritmo para resolver el problema. En muchos casos, el
+
+9
+00:00:41,681 --> 00:00:46,486
+el primer algoritmo que nos topamos  deberia ser lo suficientemente rápido y tal vez se ajustarse en la memoria
+
+10
+00:00:46,486 --> 00:00:52,024
+y , seguiremos adelante y utilizarlo, y estara parado y funcionando. Pero en muchos otros casos, tal vez
+
+11
+00:00:52,024 --> 00:00:56,074
+no esa suficientemente rápido, o no haya suficiente memoria. Por lo tanto,
+
+12
+00:00:56,074 --> 00:01:01,037
+lo que hacemos es tratar de averiguar por qué, encontrar una manera de hacer frente a lo que está causando el problema y
+
+13
+00:01:01,037 --> 00:01:06,051
+encontrar un algoritmo nuevo e iterar  hasta que estemos satisfechos.Este es el enfoque científico
+
+14
+00:01:06,051 --> 00:01:11,099
+para el diseño y análisis de algoritmos, donde se construyen modelos matemáticos para tratar de
+
+15
+00:01:11,099 --> 00:01:17,061
+entender lo que está pasando, y luego hacemos experimentos para validar los modelos
+
+16
+00:01:17,061 --> 00:01:22,089
+ayuden a mejorar las cosas

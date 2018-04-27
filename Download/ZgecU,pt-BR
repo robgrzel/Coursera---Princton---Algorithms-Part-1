@@ -1,0 +1,279 @@
+1
+00:00:02,022 --> 00:00:08,015
+Tudo isso QuickFind é muito lento para grandes problemas. Então, como é que vamos fazer
+
+2
+00:00:08,015 --> 00:00:14,035
+melhor? Nossa primeira tentativa é uma alternativa chamada, Quick-sindical. Isto é
+
+3
+00:00:14,035 --> 00:00:20,082
+denominada abordagem preguiçosa para projeto do algoritmo onde tentamos evitar fazer trabalho
+
+4
+00:00:20,082 --> 00:00:27,506
+até temos que fazer. Ele usa a mesma estrutura de dados ou ID matriz M com tamanho, mas agora
+
+5
+00:00:27,506 --> 00:00:34,280
+, tem uma interpretação diferente. Vamos pensar nisso como matriz
+
+6
+00:00:34,280 --> 00:00:41,298
+que representa um conjunto de árvores que se chama uma floresta como descrito à direita. Assim, cada
+
+7
+00:00:41,298 --> 00:00:49,468
+entrada na matriz vai conter uma referência a seu pai na árvore. Assim,
+
+8
+00:00:49,468 --> 00:00:57,425
+por exemplo, pai 3 é quatro, quatro pai é nove. Então, a entrada 3 é quatro e
+
+9
+00:00:57,425 --> 00:01:06,681
+4 de entrada é de nove na matriz. Agora, cada entrada na matriz tem associado a ele
+
+10
+00:01:06,681 --> 00:01:13,179
+uma raiz. Essa é a raiz de sua árvore. Elementos que são por si mesmos em
+
+11
+00:01:13,179 --> 00:01:19,303
+apenas, em seu próprio componente conectado ponto, para si, de modo que um pontos para
+
+12
+00:01:19,303 --> 00:01:26,108
+si, mas também nove pontos a si mesmo. É a raiz da árvore, contendo dois,
+
+13
+00:01:26,108 --> 00:01:32,419
+quatro e três. Então, a partir desta estrutura de dados que pode associar com cada item
+
+14
+00:01:32,419 --> 00:01:40,202
+uma raiz, que é representante de, digamos, a que está ligado componente. Então esse é o
+
+15
+00:01:40,202 --> 00:01:47,044
+raiz de três são nove, indo-se que a raiz. Agora, uma vez que podemos calcular essas raízes,
+
+16
+00:01:47,044 --> 00:01:52,956
+então podemos implementar a operação de encontrar apenas verificando se os dois itens
+
+17
+00:01:52,956 --> 00:01:57,592
+que deveríamos verificar com está conjuntivo onde eles têm a mesma raiz.
+
+18
+00:01:57,592 --> 00:02:02,373
+Isso é equivalente a dizer, eles estão no mesmo componente conjuntivo? Então, isso é
+
+19
+00:02:02,373 --> 00:02:09,240
+algum trabalho, vai encontrar as raízes de cada item, mas a operação de união é muito fácil.
+
+20
+00:02:09,240 --> 00:02:15,254
+Para mesclar componentes que contenham dois itens diferentes. Dois itens que estão em
+
+21
+00:02:15,254 --> 00:02:21,613
+componentes diferentes. Tudo o que fazemos é definir a identificação da rota P para a identificação da rota de Q.
+
+22
+00:02:21,613 --> 00:02:28,748
+Vamos fazer ponto P da árvore de P. Portanto, neste caso, seria alterar a entrada de nove para
+
+23
+00:02:28,748 --> 00:02:35,027
+ser seis fundir três e cinco. Os componentes que contêm de três a cinco. E
+
+24
+00:02:35,027 --> 00:02:41,317
+com apenas mudando um valor na matriz temos os dois grandes componentes emergiu
+
+25
+00:02:41,317 --> 00:02:46,295
+juntos. Esse é o algoritmo Quick-união. Como uma operação de união só
+
+26
+00:02:46,295 --> 00:02:52,429
+envolve mudar uma entrada na matriz. Encontre operação requer um pouco mais
+
+27
+00:02:52,429 --> 00:02:57,907
+trabalho. Então, vamos olhar para a Implementação, uma demonstração de que um em primeira operação. Assim
+
+28
+00:02:57,907 --> 00:03:03,569
+novamente nós, começamos da mesma forma, mas agora a entrada da matriz idéia realmente significa que
+
+29
+00:03:03,569 --> 00:03:09,415
+cada uma dessas coisas é uma pequena árvore onde o nó de cada um apontando todos
+
+30
+00:03:09,415 --> 00:03:15,284
+para si. É a raiz de sua própria árvore agora se tem que colocar quatro e três em
+
+31
+00:03:15,284 --> 00:03:21,236
+componente o mesmo, então tudo o que fazemos é tirar a raiz do componente que contém
+
+32
+00:03:21,236 --> 00:03:26,624
+o primeiro artigo e fazer com que uma criança da raiz do componente, componente
+
+33
+00:03:26,624 --> 00:03:33,029
+contendo o segundo item. Neste caso, basta fazer quatro como pai três. Então agora
+
+34
+00:03:33,259 --> 00:03:39,823
+três e oito. Então, novamente, nós tomamos o primeiro item e torná-lo um filho da raiz
+
+35
+00:03:39,823 --> 00:03:47,532
+da árvore contendo o segundo item. Então, agora três, quatro e oito estão na mesma
+
+36
+00:03:47,532 --> 00:03:56,434
+componente. Seis e cinco seis vai abaixo de cinco anos. Nove e quatro, Então agora é a quatro
+
+37
+00:03:56,434 --> 00:04:06,045
+raiz da árvore contendo quatro é oito. E a raiz da árvore contendo nove é
+
+38
+00:04:06,045 --> 00:04:13,745
+nove. E assim fazemos nove um filho de oito anos. Dois e um, isso é fácil.
+
+39
+00:04:14,007 --> 00:04:20,993
+Agora, se nós temos o nosso, o nosso oito e nove conectados, nós apenas verificado que eles têm
+
+40
+00:04:20,993 --> 00:04:28,011
+raiz o mesmo e ambos têm a mesma raiz oito e assim que eles estiverem conectados. Cinco
+
+41
+00:04:28,011 --> 00:04:34,230
+e quatro 4 de raiz é oito. 5 raiz é cinco. Eles são diferentes. Eles não são
+
+42
+00:04:34,230 --> 00:04:42,339
+conectado. Cinco e zero. Cinco vai ser uma criança de zero. Sete e dois sete vai
+
+43
+00:04:42,339 --> 00:04:52,836
+para ser um filho de raiz 2, que é um. Seis e um. 6 rota é zero 1 é a sua própria
+
+44
+00:04:52,836 --> 00:05:00,636
+rota, de modo a zero se torna um filho de um. Cada uma destas operações de união apenas
+
+45
+00:05:00,636 --> 00:05:10,069
+envolve mudar uma entrada na matriz. E, finalmente, sete e três. Assim, sete de
+
+46
+00:05:10,069 --> 00:05:18,755
+raiz é um, três de raiz é de oito, um torna-se uma criança de oito anos. Ok e agora nós
+
+47
+00:05:18,755 --> 00:05:26,012
+tem um componente conectado com todos os itens juntos. Tudo bem, então agora vamos ver
+
+48
+00:05:26,012 --> 00:05:32,668
+o código para a implementação rápida união. O construtor é o mesmo que a outra
+
+49
+00:05:32,668 --> 00:05:40,967
+um. Criamos a matriz e, em seguida, definir cada elemento a ser sua própria raiz. Agora temos um
+
+50
+00:05:40,967 --> 00:05:46,005
+método particular que implementa este processo de encontrar a raiz perseguindo
+
+51
+00:05:46,005 --> 00:05:51,352
+ponteiros pai até chegarmos ao ponto em que é igual a ID do eu, e se é
+
+52
+00:05:51,352 --> 00:05:57,369
+não iguais, estamos apenas eu subir um nível na árvore, pus igual ID de eu e voltar
+
+53
+00:05:57,369 --> 00:06:02,005
+lo. Então, a partir de qualquer nó, basta seguir ID igual ID eu até que eles estão
+
+54
+00:06:02,005 --> 00:06:07,396
+igual e então você está em uma raiz e que é um método particular que podemos usar para
+
+55
+00:06:07,396 --> 00:06:11,959
+implementar a operação de localização ou a operação ligado. Você acabou de encontrar o
+
+56
+00:06:11,959 --> 00:06:17,316
+raiz de P e Q a raiz e se você verificar se eles são iguais. E então, a união
+
+57
+00:06:17,316 --> 00:06:23,342
+operação é simplesmente encontrar as duas raízes I e em seguida, definir a ideia de o primeiro pode
+
+58
+00:06:23,342 --> 00:06:30,310
+ser a segunda. Código realmente menos do que para Rápida, sem loops dianteiros. Não há
+
+59
+00:06:30,310 --> 00:06:37,139
+circuito este selvagem que temos que se preocupar um pouco. Mas isso é uma forma rápida e
+
+60
+00:06:37,139 --> 00:06:43,326
+implementação elegante de código para resolver o problema de ligação dinâmica chamada
+
+61
+00:06:43,326 --> 00:06:50,318
+Quick-união. Então agora nós vamos ter de olhar para esse código pode ser eficaz para
+
+62
+00:06:50,582 --> 00:06:57,657
+grandes problemas? Bem, infelizmente, Quick-união é mais rápido, mas também é muito
+
+63
+00:06:57,657 --> 00:07:04,042
+lento. E é um pouco diferente do tipo muito lento então para Rápida, há
+
+64
+00:07:04,042 --> 00:07:10,005
+momentos em que poderia ser rápido, mas também há momentos em que ele pode ser muito lento. E
+
+65
+00:07:10,005 --> 00:07:16,256
+defeito para Quick-união é que as árvores podem ficar muito alto. O que significaria
+
+66
+00:07:16,256 --> 00:07:22,065
+que a operação de busca seria muito caro. Você pode acabar com um longo
+
+67
+00:07:22,065 --> 00:07:28,432
+árvore magro. De cada objeto apenas apontando para a próxima e, em seguida, fazer uma operação de localização
+
+68
+00:07:28,432 --> 00:07:33,976
+para o objeto no fundo envolveria indo todo o caminho através da árvore.
+
+69
+00:07:34,183 --> 00:07:40,184
+Custeio envolvendo no raio axises apenas para fazer a operação de busca e que vai
+
+70
+00:07:40,184 --> 00:07:44,013
+ser muito lento se você tiver um monte de operações.

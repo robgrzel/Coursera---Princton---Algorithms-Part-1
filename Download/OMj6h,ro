@@ -1,0 +1,386 @@
+1
+00:00:01,034 --> 00:00:06,408
+Până acum, am vorbit despre timp de 
+rulare. Acum trebuie să vorbim despre cerințele de memorie
+
+2
+00:00:06,408 --> 00:00:11,047
+la programele noastre, de asemenea.
+Ei bine, elementele de bază sunt vrem să știm cât 
+
+3
+00:00:11,047 --> 00:00:16,088
+de mulți biți folosește programul sau octeți, opt
+biți la un moment dat. Și, de fapt, vom
+
+4
+00:00:16,088 --> 00:00:22,064
+vorbi în termeni de milioane de biți sau
+miliarde de biți și de fapt surprinzător
+
+5
+00:00:22,064 --> 00:00:27,608
+există o controversă cu privire chiar la aceste 
+definiții de bază. Oamenii de știință în calculatoare
+
+6
+00:00:27,608 --> 00:00:34,683
+cred că un milion de biți este 2 ^ 20 și un
+miliard este 2 ^ 30 pentru că este un număr
+
+7
+00:00:34,683 --> 00:00:40,949
+de posibile lucruri pe care le puteți potrivi în
+30 biți și totul este în concordanță cu
+
+8
+00:00:40,949 --> 00:00:46,889
+calculele noastre. Alți oameni de știință adaugă
+la un milion sau un miliard pentru o mulțime
+
+9
+00:00:46,889 --> 00:00:54,014
+de motive vom folosi, de obicei, 2 ^ 20, 
+vreau să spun, un megabit. Acum la calculatoarele vechi, noi
+
+10
+00:00:54,014 --> 00:01:00,437
+am folosit pentru mai mulți ani, folosim o mașină 
+pe 32 de biți, astfel încât pointerii au fost de patru biți.
+
+11
+00:01:00,662 --> 00:01:07,042
+Doar în ultimii ani, am trecut în mare parte 
+la un model în care mașinile sunt 64 de biți și
+
+12
+00:01:07,042 --> 00:01:12,765
+pointerii sunt opt biți. Asta ne permite
+să adresăm mult mai multă memorie, dar pointerii
+
+13
+00:01:12,765 --> 00:01:19,278
+folosesc mult mai mult spațiu și de fapt această
+tranziție a cauzat o mulțime de probleme
+
+14
+00:01:19,510 --> 00:01:25,230
+inițial pentru că programele au folosit mult
+mai mult spațiu decât au considerat oamenii 
+
+15
+00:01:25,230 --> 00:01:30,121
+că ar trebui. Voi nu va trebui să treceți
+prin acest gen de tranziție în modul în 
+
+16
+00:01:30,121 --> 00:01:35,997
+care am făcut-o deoarece 64 de biți sunt cu siguranță
+destul să adreseze orice ați avea
+
+17
+00:01:35,997 --> 00:01:41,720
+nevoie să abordati, 2^64 este într-adevăr un mare
+număr. Deci, în termeni de octeți trebuie să
+
+18
+00:01:41,720 --> 00:01:47,751
+începem cu folosirea de memorie tipică. Acum,
+din nou, acest lucru este foarte dependent de mașină
+
+19
+00:01:47,751 --> 00:01:53,432
+și implementare, dar aceste numere sunt
+rezonabile și se găsesc pe tipice
+
+20
+00:01:53,432 --> 00:01:58,294
+implementări. Deci un boolean, va fi
+frumos la un boolean doar să ia un bit deoarece
+
+21
+00:01:58,294 --> 00:02:03,834
+acesta e doar adevarat sau fals dar actual,
+de obicei noi trebuie să numărăm un octet pentru un
+
+22
+00:02:03,834 --> 00:02:09,343
+boolean. Toți octeți sunt un octet. Caracterul
+în zilele noastre este 2 octeți, 16 biți la caractere.
+
+23
+00:02:09,541 --> 00:02:16,788
+Nu cu mult timp în urmă am folosit opt biți pentru
+caractere. Integer în mod regulat este de patru octeți
+
+24
+00:02:16,788 --> 00:02:23,226
+sau 32 de biți și float este de asemenea de patru octeți
+long int este opt și un double este opt.
+
+25
+00:02:23,227 --> 00:02:29,932
+De obicei, folosim dublu pentru floating point
+și int pentru numere întregi în cele mai multe
+
+26
+00:02:30,169 --> 00:02:37,093
+aplicații. Deci, asta e pentru tipurile 
+primitive. Și apoi pentru matrici există o
+
+27
+00:02:37,093 --> 00:02:44,086
+anumită valoare de deasupra pentru a face o 
+matrice iar apoi, dacă există n elemente, e
+
+28
+00:02:44,345 --> 00:02:51,763
+indiferent de costul tipului primitiv ori n astfel o matrice cu tip double este spunem 8n +
+
+29
+00:02:51,763 --> 00:02:58,439
+24. Și matricea bidimensională, atunci bine,
+putem merge mai departe și calcula lucrul exact
+
+30
+00:02:58,439 --> 00:03:03,376
+dar acum, acum, este timpul să folosim, 
+notația tilda. Și apoi pentru matrici noi
+
+31
+00:03:03,376 --> 00:03:08,957
+am putea spune o double este 8N ~ pentru
+unidimensional. Pentru bidimensional,
+
+32
+00:03:09,197 --> 00:03:15,878
+matrice bidimensională de duble este
+~8mn. Și există termeni suplimentari pentru ce e
+
+33
+00:03:15,878 --> 00:03:22,483
+deasupra dar pentru m mare și n care o să fie 
+destul de exact. Deci, asta e utilizarea noastră 
+
+34
+00:03:22,483 --> 00:03:29,675
+de bază pentru tipurile primitive și matrici într-o 
+implementare Java tipică. Acum, o mulțime dintre
+
+35
+00:03:29,675 --> 00:03:35,580
+programele noastre și obiecte ca lista de link-uri
+și așa mai departe. Deci, trebuie să luăm în considerare, de asemenea
+
+36
+00:03:35,580 --> 00:03:42,250
+în obiectul de deasupra să depășească referința 
+și de asemenea există umplutură construită în, în
+
+37
+00:03:42,250 --> 00:03:48,599
+implementări tipice pentru a face în așa fel încât
+fiecare obiect a folosit un multiplu de opt
+
+38
+00:03:48,599 --> 00:03:55,869
+octeți. Astfel, de exemplu, dacă aveți un obiect 
+dată care a avut trei variabile de instanță int
+
+39
+00:03:55,869 --> 00:04:03,256
+atunci acel obiect ar lua un
+total de 32 de octeți. Fiecare int ia patru
+
+40
+00:04:03,256 --> 00:04:10,571
+octeți, obiectul de deasupra este șaisprezece octeți.
+Este nevoie de patru octeți pentru umplutură așa că este un
+
+41
+00:04:10,571 --> 00:04:17,784
+total de 32 de octeți. Deci, și celălalt 
+care de multe ori vine este un string și
+
+42
+00:04:17,784 --> 00:04:25,274
+string-ul este un pic mai complicat
+decât o decât o matrice, dar implementarea
+
+43
+00:04:25,274 --> 00:04:32,577
+ tipică a unui string în Java are o,
+o referință la o matrice de caractere
+
+44
+00:04:32,819 --> 00:04:39,649
+și apoi, are valori int pentru numărul de 
+compensare într-o valoare hash și apoi 
+
+45
+00:04:39,649 --> 00:04:46,864
+umplând și adăugând, totul împreună
+[tuse] costul string-ului este de aproximativ 2n +
+
+46
+00:04:46,864 --> 00:04:54,023
+64 octeți. Deci, acestea sunt bazele de care 
+avem nevoie pentru a analiza utilizarea memoriei pentru un
+
+47
+00:04:54,023 --> 00:04:59,011
+program tipic Java. Ah, în așa fel pentru
+primitive, pentru valoarea tip de date, dacă este un
+
+48
+00:04:59,011 --> 00:05:03,947
+Tipul primitiv este patru pentru un opt, și
+opt pentru double, și așa mai departe. Dacă e
+
+49
+00:05:03,947 --> 00:05:09,600
+o referință, va fi de opt octeți
+și aceasta este pentru pointerul care ia matrice 24
+
+50
+00:05:09,600 --> 00:05:15,416
+octeți, plus memorie pentru fiecare intrare într-un
+obiect șaisprezece octeți, plus memorie pentru
+
+51
+00:05:15,416 --> 00:05:22,061
+instanță variabilă plus dacă există o 
+clasă internă, sunt încă opt octeți cum
+
+52
+00:05:22,061 --> 00:05:29,381
+am vorbit despre noduri pentru listă link.
+Și apoi există umplutură. Așadar noi
+
+53
+00:05:29,381 --> 00:05:34,234
+trebuie să, să ne gândim cine este responsabil
+pentru obiectele referite, știți, în, în
+
+54
+00:05:34,234 --> 00:05:41,163
+unele cazuri. Și vom avea grijă de asta
+când noi ajungem la aceste situații. Deci, ca un
+
+55
+00:05:41,163 --> 00:05:46,374
+exemplu, un simplu exemplu de analiză a utilizării 
+memoriei, haideți să aruncăm o privire la cât de multă
+
+56
+00:05:46,374 --> 00:05:52,052
+memorie e evaluată funcția quick union UF
+de la, cu câteva lecturi în urmă, folosește ca o
+
+57
+00:05:52,052 --> 00:06:00,305
+funcție de n. Și există doar un cuplu
+de elemente de memorie și fiecare dintre ele
+
+58
+00:06:00,305 --> 00:06:07,675
+sunt analizate cu ușurință folosind bazele pe care 
+tocmai le-am dat că este un obiect astfel încât cei șaisprezece
+
+59
+00:06:07,681 --> 00:06:14,878
+octeți ai obiectului de deasupra sunt două matrici int. Fiecare dintre ele au matrice
+
+60
+00:06:14,878 --> 00:06:22,530
+deasupra de 24 plus și apoi 4n pentru n
+intrări. Fiecare dintre cele n intrări ia patru
+
+61
+00:06:22,530 --> 00:06:29,784
+octeți și există patru octeți pentru numărare
+și există patru octeți pentru umplutură și
+
+62
+00:06:29,784 --> 00:06:36,147
+dacă adăugați totul devine 8n+88
+care e tilda 8n și din nou, toate acestea
+
+63
+00:06:36,147 --> 00:06:42,661
+spun că atunci când n este mare, tot ce
+trebuie să ne pese în termeni de analizarea
+
+64
+00:06:42,661 --> 00:06:51,260
+memoriei este că avem [tuse] 2n
+intregi două matrici de dimensiuni n fiecare unul dintre
+
+65
+00:06:51,260 --> 00:06:59,364
+care ia patru octeți pentru un total
+ de 8n octeți. Bine. Deci, în sumar noi
+
+66
+00:06:59,364 --> 00:07:05,670
+într-adevăr ne putem da seama cum de multe ori noi
+trebuie să pornim manivela pe calculatoarele
+
+67
+00:07:05,670 --> 00:07:11,267
+moderne. O putem face cu analize 
+empirice unde executăm de fapt
+
+68
+00:07:11,267 --> 00:07:15,604
+programul, putem face experimente și folosi
+[inaudibil] legea puterii, formula
+
+69
+00:07:15,604 --> 00:07:20,748
+ipoteze și face predicții. Dar noi
+putem face mai mult, putem face o
+
+70
+00:07:20,748 --> 00:07:26,452
+analiză matematică unde putem identifica operațiunile 
+cele mai costisitoare, analiza frecvența
+
+71
+00:07:26,452 --> 00:07:32,020
+de executare a acestor operațiuni și folosind 
+notația tilda pentru a simplifica analiza.
+
+72
+00:07:32,020 --> 00:07:37,664
+Putem explica de fapt comportamentul, nu
+doar să-l prezicem. Și acesta este un bun
+
+73
+00:07:37,664 --> 00:07:42,819
+exemplu de utilizare a metodei 
+științifice de a înțelege artefactele pe care
+
+74
+00:07:42,819 --> 00:07:46,890
+noi le studiem, algoritmii. Modelele
+noastre matematice sunt, de obicei,
+
+75
+00:07:46,890 --> 00:07:51,562
+independente de un sistem informatic 
+particular și chiar presupun mașini care
+
+76
+00:07:51,562 --> 00:07:56,411
+nu sunt încă construite. Dar noi validăm mereu
+modelele noastre matematice prin rularea
+
+77
+00:07:56,411 --> 00:08:05,677
+de experimente pe mașinile reale, astfel încât noi
+putem fi siguri unde facem
+
+78
+00:08:05,677 --> 00:08:13,000
+predicții și analiza algoritmilor.

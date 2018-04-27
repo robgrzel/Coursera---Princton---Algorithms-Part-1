@@ -1,0 +1,533 @@
+1
+00:00:01,013 --> 00:00:06,020
+Bine ați venit. Eu sunt Bob Sedgewick, profesor de
+știința calculatoarelor la Princeton. Acesta este
+
+2
+00:00:06,020 --> 00:00:11,014
+cursul nostru online, Algoritmi, realizat de
+mine și de Kevin Wayne aici la Princeton.
+
+3
+00:00:11,014 --> 00:00:16,002
+Vom începe cu o discuție generală despre
+motivul pentru care ați vrea să studiați
+
+4
+00:00:16,002 --> 00:00:21,005
+algoritmi și o mică discuție despre
+resursele de care aveți nevoie pentru
+
+5
+00:00:21,005 --> 00:00:26,543
+acest curs. Deci, ce este acest curs? Este
+un curs de nivel intermediar despre
+
+6
+00:00:26,543 --> 00:00:31,062
+algoritmi. Ne vom concentra asupra
+programării și rezolvării de probleme în
+
+7
+00:00:31,062 --> 00:00:35,870
+contextul aplicațiilor reale, focalizându-ne
+asupra a două aspecte, și anume
+
+8
+00:00:35,870 --> 00:00:41,756
+Algoritmi, care sunt metode de rezolvare a
+problemelor, și Structuri de date, care memorează
+
+9
+00:00:41,756 --> 00:00:46,651
+informația asociată unei probleme și
+care merg mână în mână cu
+
+10
+00:00:46,651 --> 00:00:51,600
+algoritmii. Acestea sunt subiectele de bază pe care
+le vom aborda în prima parte și în partea a doua
+
+11
+00:00:51,600 --> 00:00:56,559
+a cursului. Prima parte se referă la tipuri de
+date, sortare și căutare. Vom studia
+
+12
+00:00:56,559 --> 00:01:00,810
+câteva structuri de date și algoritmi care sunt 
+de bază pentru toate metodele pe care le 
+
+13
+00:01:00,810 --> 00:01:05,811
+abordăm, și anume stive, cozi, saci ("bags")
+și cozi cu priorități. Apoi vom aborda
+
+14
+00:01:05,811 --> 00:01:09,852
+algoritmi clasici de sortare, aranjare într-o anumită
+ordine. Aceștia vor fi sortare rapidă ("quicksort"),
+
+15
+00:01:09,852 --> 00:01:15,130
+sortare prin interclasare ("mergesort"), sortare piramidală ("heapsort")
+și sortare digitală ("radix sort"). Vom mai aborda metode clasice de 
+
+16
+00:01:15,130 --> 00:01:19,932
+căutare, incluzând arbori binari de căutare,
+arbori binari de căutare red-black și
+
+17
+00:01:19,932 --> 00:01:25,166
+tabele de dispersie. Partea a doua a cursului este
+pentru algoritmi mai avansați incluzând
+
+18
+00:01:25,166 --> 00:01:30,425
+algoritmi pentru grafuri, algoritmi clasici de căutare
+în grafuri, algoritmi pentru arbore minim de acoperire și
+
+19
+00:01:30,425 --> 00:01:35,417
+pentru drum minim, algoritmi de prelucrare
+a șirurilor de caractere incluzând expresii
+
+20
+00:01:35,417 --> 00:01:41,178
+regulate și compresia datelor. Și apoi,
+câțiva algoritmi avansați care utilizează
+
+21
+00:01:41,178 --> 00:01:46,890
+algoritmii de bază pe care i-am discutat
+mai devreme în curs. Deci, de ce ar studia
+
+22
+00:01:46,890 --> 00:01:52,075
+cineva algoritmi? Ei bine, efectul lor
+este foarte extins și cuprinzător.
+
+23
+00:01:52,075 --> 00:01:57,185
+Începând cu internetul, biologia, comerțul
+electronic, până la grafica pe calculator,
+
+24
+00:01:57,185 --> 00:02:02,512
+securitate, multimedia, rețele sociale și
+aplicații științifice, algoritmii sunt
+
+25
+00:02:02,512 --> 00:02:07,805
+peste tot în jurul nostru. Sunt utilizați pentru
+filme și jocuri video, pentru simularea coliziunii
+
+26
+00:02:07,805 --> 00:02:12,910
+particulelor, sunt utilizați pentru
+studierea genomului și diverse alte
+
+27
+00:02:12,910 --> 00:02:18,319
+aplicații. Deci, acesta e un motiv important
+pentru a studia algoritmi, și anume că efectul lor
+
+28
+00:02:18,319 --> 00:02:23,329
+este extins și cuprinzător. De asemenea,
+studierea algoritmilor e interesantă deoarece
+
+29
+00:02:23,329 --> 00:02:28,064
+au origini foarte vechi. Primul algoritm
+pe care l-am studiat este din 300 d.H.,
+
+30
+00:02:28,064 --> 00:02:32,588
+cel puțin din vremea lui Euclid. Conceptul
+de algoritm a fost de fapt formalizat
+
+31
+00:02:32,588 --> 00:02:37,651
+aici la Princeton, de Church și Turing, în
+anii 1930. Dar cei mai mulți algoritmi
+
+32
+00:02:37,651 --> 00:02:41,806
+pe care-i avem în vedere au fost descoperiți
+în ultimele decenii. De fapt, unii au fost
+
+33
+00:02:41,806 --> 00:02:46,452
+descoperiți de studenți într-un curs
+ca acesta. Și există mulți alți
+
+34
+00:02:46,452 --> 00:02:51,595
+algoritmi care așteaptă să fie descoperiți de
+către studenți ca voi. Motivul principal pentru
+
+35
+00:02:51,595 --> 00:02:57,239
+pentru care oamenii studiază algoritmi, este pentru a
+putea rezolva probleme care altfel nu ar putea
+
+36
+00:02:57,239 --> 00:03:02,498
+fi abordate. De exemplu, în primul curs
+vom vorbi despre
+
+37
+00:03:02,498 --> 00:03:07,234
+problema conectivității în rețea, adică
+dându-se o mulțime foarte mare de elemente
+
+38
+00:03:07,234 --> 00:03:12,135
+care sunt conectate două câte două, există
+o modalitate de a trece de la unul la altul
+
+39
+00:03:12,135 --> 00:03:17,134
+pe o cale formată din conexiuni? După
+cum puteți vedea din acest exemplu, nu este
+
+40
+00:03:17,134 --> 00:03:22,282
+clar dacă există sau nu o astfel de cale,
+avem nevoie de un program pentru a afla,
+
+41
+00:03:22,282 --> 00:03:28,793
+de fapt, avem nevoie de un algoritm eficient pentru
+a afla. In acest caz, răspunsul este că există
+
+42
+00:03:28,793 --> 00:03:34,241
+o astfel de cale. Un alt motiv de a studia
+algoritmi este pentru stimularea
+
+43
+00:03:34,241 --> 00:03:39,795
+intelectuală. Algoritmii sunt obiecte de
+studiu foarte interesante. Don Knuth,
+
+44
+00:03:39,795 --> 00:03:45,275
+care a scris mai multe cărți despre algoritmi și
+care a fost un pionier în acest domeniu spunea că
+
+45
+00:03:45,275 --> 00:03:50,553
+"Un algoritm trebuie văzut pentru a fi
+crezut." Nu poți doar să te gândești la un
+
+46
+00:03:50,553 --> 00:03:55,998
+algoritm, trebuie să lucrezi cu el.
+Un alt citat, din Francis Sullivan, spune
+
+47
+00:03:55,998 --> 00:04:01,412
+"Algoritmii remarcabili sunt poezia
+calculului. Ca un vers, ei pot fi"
+
+48
+00:04:01,412 --> 00:04:05,905
+conciși, subtili, denși și chiar misterioși.
+Dar odată descoperiți, ei aruncă o
+
+49
+00:04:05,905 --> 00:04:11,473
+nouă și strălucitoare lumină asupra unui aspect
+al calculului." Algoritmii sunt interesanți pentru
+
+50
+00:04:11,473 --> 00:04:17,057
+stimularea intelectuală. Un alt motiv pentru care
+mulți studiază algoritmi și bănuiesc că
+
+51
+00:04:17,057 --> 00:04:21,565
+mulți dintre voi, este că e necesar să
+înțelegi algoritmii buni, algoritmii eficienți,
+
+52
+00:04:21,565 --> 00:04:26,760
+structuri de date potrivite, pentru a
+fi un programator competent. Linus
+
+53
+00:04:26,760 --> 00:04:31,358
+Torvalds, cel care a creat Linux, spune că
+diferența dintre un programator prost
+
+54
+00:04:31,358 --> 00:04:36,708
+și unul bun este dacă el consideră mai important 
+codul pe care-l scrie sau structurile de date
+
+55
+00:04:36,708 --> 00:04:41,739
+pe care le utilizează. Programatorii proști sunt 
+preocupați de cod, programatorii buni sunt preocupați
+
+56
+00:04:41,739 --> 00:04:45,943
+de structurile de date și de relațiile
+dintre ele. Și, aș adăuga, de
+
+57
+00:04:45,943 --> 00:04:50,048
+algoritmii care le prelucrează. Niklaus
+Wirth, alt pionier în știința
+
+58
+00:04:50,048 --> 00:04:55,438
+calculatoarelor, a scris o carte renumită,
+Algoritmi + Structuri de Date = Programe.
+
+59
+00:04:55,438 --> 00:05:02,079
+Un alt motiv pentru a studia algoritmi în
+zilele noastre este că au devenit un
+
+60
+00:05:02,079 --> 00:05:08,420
+limbaj comun pentru înțelegerea naturii.
+Algoritmii sunt modele computaționale, și
+
+61
+00:05:08,420 --> 00:05:14,892
+modelele algoritmice înlocuiesc în prezent
+modelele matematice în investigația științifică.
+
+62
+00:05:14,892 --> 00:05:20,287
+În secolul douăzeci, oamenii de știință au
+realizat modele matematice pentru a încerca să
+
+63
+00:05:20,287 --> 00:05:25,251
+înțeleagă un fenomen natural. Curând, a devenit
+limpede că acele modele matematice
+
+64
+00:05:25,251 --> 00:05:30,561
+erau dificil de rezolvat. A fost dificil
+de a găsi soluții, pentru a putea
+
+65
+00:05:30,561 --> 00:05:36,011
+testa ipoteze asupra fenomenului natural.
+Deci, din ce în ce mai mult în zilele noastre
+
+66
+00:05:36,011 --> 00:05:41,189
+oamenii creează modele computaționale,
+prin care încearcă să simuleze
+
+67
+00:05:41,189 --> 00:05:46,568
+ce s-ar putea întâmpla în natură pentru a
+încerca s-o înțeleagă mai bine. Algoritmii
+
+68
+00:05:46,568 --> 00:05:52,069
+joacă un rol extrem de important în acest
+proces. Și vom vedea câteva exemple de
+
+69
+00:05:52,069 --> 00:05:58,009
+acest tip în acest curs. Un alt motiv
+important este că, dacă știi cum să
+
+70
+00:05:58,009 --> 00:06:03,067
+utilizezi eficient algoritmi și structuri
+de date, vei avea o șansă mult mai
+
+71
+00:06:03,067 --> 00:06:09,851
+mare la interviuri pentru un job în industria
+IT decât dacă nu știi acest lucru.
+
+72
+00:06:09,851 --> 00:06:15,953
+Deci acestea sunt mai multe motive, pe care tocmai
+le-am discutat, pentru studierea algoritmilor.
+
+73
+00:06:15,953 --> 00:06:21,761
+Impactul lor este extins și cuprinzător,
+au rădăcini foarte vechi și oferă noi
+
+74
+00:06:21,761 --> 00:06:26,175
+oportunități, ne permit să rezolvăm
+probleme care altfel n-ar putea fi
+
+75
+00:06:26,175 --> 00:06:30,003
+abordate, îi puteți utiliza ca stimulent
+intelectual, pentru a deveni un
+
+76
+00:06:30,003 --> 00:06:34,049
+programator competent. Ei ar putea să dezvăluie
+secretele vieții în univers, și
+
+77
+00:06:34,049 --> 00:06:38,461
+sunt utili pentru amuzament și pentru profit. De fapt,
+un programator ar putea întreba, de ce să studiezi
+
+78
+00:06:38,461 --> 00:06:42,433
+și altceva? Ei bine, sunt suficiente motive
+solide pentru a studia și altceva, dar
+
+79
+00:06:42,433 --> 00:06:47,557
+îndrăznesc să afirm că nu există niciun motiv
+pentru a nu studia algoritmi. Deci, pentru acest
+
+80
+00:06:47,557 --> 00:06:53,714
+curs avem două resurse despre care vreau
+să vorbesc și să mă asigur că sunteți
+
+81
+00:06:53,714 --> 00:06:59,374
+familiari cu ele înainte de a intra în conținutul
+propriu-zis. Acesta este un model de publicare pe care
+
+82
+00:06:59,374 --> 00:07:04,472
+Kevin Wayne și cu mine l-am dezvoltat și l-am
+utilizat de mulți ani, și credem că e un
+
+83
+00:07:04,472 --> 00:07:09,507
+mod foarte eficace de a susține prelegerile
+de felul celor pe care le vom susține
+
+84
+00:07:09,507 --> 00:07:14,659
+în acest curs. În partea de jos, opțional
+pentru acest curs, avem un
+
+85
+00:07:14,659 --> 00:07:19,887
+manual. Este un manual tradițional
+care acoperă în detaliu subiectele din
+
+86
+00:07:19,887 --> 00:07:24,285
+curs, de fapt mult mai multe subiecte decât
+putem prezenta în prelegeri. Și apoi,
+
+87
+00:07:24,285 --> 00:07:28,668
+în sprijinul acelui manual, există material gratuit
+online pe care-l numim site-ul cărții. Puteți
+
+88
+00:07:28,668 --> 00:07:33,839
+merge pe site-ul cărții pentru a vedea
+fișierele prezentărilor. Dar mai important,
+
+89
+00:07:33,839 --> 00:07:39,967
+acolo există cod sursă, exerciții și
+multe alte informații. De fapt,
+
+90
+00:07:39,967 --> 00:07:45,329
+poate de zece ori mai mult decât există în carte,
+inclusiv un rezumat al conținutului. Deci,
+
+91
+00:07:45,329 --> 00:07:51,211
+pe parcursul acestui curs veți accesa
+frecvent site-ul cărții în timp ce lucrați
+
+92
+00:07:51,211 --> 00:07:57,075
+online. Adesea oamenii întreabă despre cunoștințele
+anterioare necesare. Vom presupune că, cei care
+
+93
+00:07:57,075 --> 00:08:02,820
+se înscriu la acest curs știu să programeze,
+și cunosc bazele buclelor, tablourilor,
+
+94
+00:08:02,820 --> 00:08:09,307
+funcțiilor. Au anumite cunoștințe de programare
+orientată obiect și recursivitate.
+
+95
+00:08:09,307 --> 00:08:15,713
+Utilizăm limbajul Java, dar nu ne oprim
+asupra limbajului, Îl utilizăm în principal
+
+96
+00:08:15,713 --> 00:08:21,546
+ca limbaj explicativ. Folosim și matematică,
+dar nu matematică avansată. Dacă vreți
+
+97
+00:08:21,546 --> 00:08:27,875
+să revedeți materialul care credem că e necesar
+înainte de a studia materialul din acest
+
+98
+00:08:27,875 --> 00:08:33,399
+puteți face o trecere rapidă în revistă
+studiind secțiunile 1.1 și 1.2 din
+
+99
+00:08:33,399 --> 00:08:39,110
+carte, fie de pe site-ul cărții, fie din
+manual. Dacă vreți o revizuire mai detaliată,
+
+100
+00:08:39,110 --> 00:08:43,722
+avem un manual complet numit O
+introducere în programarea în Java: O
+
+101
+00:08:43,722 --> 00:08:49,338
+abordare interdisciplinară. Există 
+de asemenea un site al cărții și un manual. Dar
+
+102
+00:08:49,338 --> 00:08:53,968
+ideea este că trebuie să puteți scrie programe,
+și un exercițiu rapid de pregătire
+
+103
+00:08:53,968 --> 00:08:58,688
+este de a scrie un program Java pe
+calculatorul dvs., poate utilizând un model
+
+104
+00:08:58,688 --> 00:09:03,287
+de programare, așa cum este descris pe site-ul cărții.
+Vom furniza informații mult mai detaliate
+
+105
+00:09:03,287 --> 00:09:07,847
+despre acest lucru atunci când ajungem la teme.
+Puteți folosi propriul vostru mediu
+
+106
+00:09:07,847 --> 00:09:13,294
+de programare dacă aveți unul preferat, sau
+îl puteți descărca pe al nostru. Avem instrucțiuni
+
+107
+00:09:13,294 --> 00:09:15,039
+pe Internet despre cum se face aceasta.

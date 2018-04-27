@@ -1,0 +1,423 @@
+1
+00:00:00,000 --> 00:00:04,085
+Bem-vindo de volta aos algoritmos. Hoje, vamos falar sobre o problema
+
+2
+00:00:04,085 --> 00:00:09,098
+Union-Find. Um conjunto de algoritmos para resolver o tão chamado problema da conectividade
+
+3
+00:00:09,098 --> 00:00:14,091
+dinâmica. Veremos dois algoritmos clássicos. Quick Find e Quick Union
+
+4
+00:00:14,091 --> 00:00:20,078
+e alguns aplicativos e melhorias desses algoritmos. O subtexto do curso
+
+5
+00:00:20,078 --> 00:00:27,039
+hoje na verdade é seguir os passos que nós faremos várias e várias vezes para
+
+6
+00:00:27,039 --> 00:00:32,039
+desenvolver um algoritmo útil. O primeiro passo consiste em modelar o problema. Tente
+
+7
+00:00:32,039 --> 00:00:37,031
+entender, basicamente, o que são os elementos principais do problema que precisa ser
+
+8
+00:00:37,031 --> 00:00:41,681
+resolvido. Então nós encontraremos algum algoritmo para resolver o problema. Em muitos casos, o
+
+9
+00:00:41,681 --> 00:00:46,486
+primeiro algoritmo que elaboramos seria rápido o suficiente e talvez ele se encaixe na memória
+
+10
+00:00:46,486 --> 00:00:52,024
+e, iremos em frente e usaremo-lo, e estará executando. Mas em muitos outros casos, talvez
+
+11
+00:00:52,024 --> 00:00:56,074
+ele não é rápido o suficiente, ou não há memória suficiente. Então, o que fazemos é tentar
+
+12
+00:00:56,074 --> 00:01:01,037
+descobrir a razão, encontrar uma forma de resolver o que está causando o problema, encontrar um
+
+13
+00:01:01,037 --> 00:01:06,051
+novo algoritmo e repetir até que estejamos satisfeitos. Esta é a abordagem científica
+
+14
+00:01:06,051 --> 00:01:11,099
+para projetar e analisar algoritmos, onde nós construímos modelos matemáticos para tentar
+
+15
+00:01:11,099 --> 00:01:17,061
+e entender o que está acontecendo, e então fazer experimentos para validar os modelos
+
+16
+00:01:17,061 --> 00:01:22,089
+e nos ajudar a melhorar as coisas. Então, primeiro vamos falar sobre o problema da conectividade
+
+17
+00:01:22,089 --> 00:01:29,021
+dinâmica, o modelo do problema para Union Find. Então, aqui está a idéia. Eles
+
+18
+00:01:29,021 --> 00:01:33,090
+vão ter um conjunto de N objetos. Não importe importa o que eles são. Nós vamos
+
+19
+00:01:33,090 --> 00:01:39,002
+usar os números, de zero a N para modelar nossos objetos. E então, temos a
+
+20
+00:01:39,002 --> 00:01:43,082
+idéia de uma conexão entre dois objetos. E nós postularemos que haverá
+
+21
+00:01:43,082 --> 00:01:48,057
+um comando que diz, conecte dois objetos. Dado dois objetos, forneça uma
+
+22
+00:01:48,057 --> 00:01:53,093
+conexão entre eles. E então parte-chave do problema é a consulta find ou a
+
+23
+00:01:53,093 --> 00:01:59,097
+consulta connected, que apenas pergunte, há um caminho que liga os dois objetos. Assim, por
+
+24
+00:01:59,097 --> 00:02:05,021
+exemplo, neste conjunto de 10 objetos, nós já executamos vários comandos
+
+25
+00:02:05,021 --> 00:02:10,278
+union, conectando 4 e 3, 3 e 8, 6 e 5, 9 e 4,
+
+26
+00:02:10,278 --> 00:02:16,526
+2 e 1. E agora podemos ter uma consulta connected que diz, 0 está conectado
+
+27
+00:02:16,526 --> 00:02:22,713
+com 7? Bem, neste caso, não há conexão, então nós dizemos não. Mas se perguntarmos
+
+28
+00:02:22,713 --> 00:02:28,281
+8 está conectado com 9? Vamos dizer que sim, mesmo que não tenhamos uma conexão
+
+29
+00:02:28,281 --> 00:02:33,629
+direta entre 8 e 9. Há um caminho de 8 para 3 para 4 para
+
+30
+00:02:33,629 --> 00:02:39,783
+9. Então, esse é o nosso problema, para ser capaz de suportar estes dois comandos
+
+31
+00:02:39,783 --> 00:02:45,444
+para determinado conjunto de objetos. Agora, vamos dizer que adicionamos uma union(5,0). Então, essa
+
+32
+00:02:45,444 --> 00:02:51,026
+cria uma conexão entre 5 e 0. 7 e 2 cria uma conexão
+
+33
+00:02:51,026 --> 00:02:56,744
+entre 7 e 2. E 6 e 1, entre 6 e 1. Então, agora se perguntarmos se nosso
+
+34
+00:02:56,744 --> 00:03:02,836
+0 está conectado com 7, bem como 1 e 0, nós podemos fazer isso também. E isso é uma conexão
+
+35
+00:03:02,836 --> 00:03:08,528
+redundante. E agora, se nós perguntarmos se 0 está ligado a 7 nós vamos responder
+
+36
+00:03:08,528 --> 00:03:13,858
+sim. Então esse é o nosso problema, misturar comandos union e consultas connected e
+
+37
+00:03:13,858 --> 00:03:18,991
+precisamos ser capazes de oficialmente suportar esses comandos para um grande número de
+
+38
+00:03:18,991 --> 00:03:23,833
+objetos. Então, aqui está um exemplo mu deito maior. E você pode ver que nós vamos precisar
+
+39
+00:03:23,833 --> 00:03:28,128
+algoritmos eficientes para isso. Primeiro de tudo, você pode ver que nós vamos precisar de um
+
+40
+00:03:28,128 --> 00:03:33,085
+computador para isso. Levaria muito, muito tempo para um ser humano descobrir
+
+41
+00:03:33,085 --> 00:03:38,205
+se há uma conexão. Neste caso, há uma conexão. Agora, os algoritmos
+
+42
+00:03:38,205 --> 00:03:43,805
+que estamos olhando hoje não vão na verdade dar o caminho conectando os
+
+43
+00:03:43,805 --> 00:03:48,847
+dois objetos. Ele só vai ser capaz de responder à pergunta, há um caminho? Na
+
+44
+00:03:48,847 --> 00:03:53,721
+segunda parte do curso, consideraremos algoritmos que explicitamente encontrem caminhos.
+
+45
+00:03:53,721 --> 00:03:59,220
+Eles não são tão eficientes como union find porque eles têm mais trabalho a fazer. Agora,
+
+46
+00:03:59,220 --> 00:04:05,972
+aplicações destes, estes algoritmos envolvem objetos de todos os tipos. Estes são
+
+47
+00:04:05,972 --> 00:04:11,906
+usados para fotos digitais, onde os objetos são pixels. Eles são usados para redes,
+
+48
+00:04:11,906 --> 00:04:17,444
+onde os objetos são computadores, redes sociais, onde é de pessoas, ou de chips de
+
+49
+00:04:17,444 --> 00:04:23,528
+computador, onde os objetos são elementos do circuito ou coisas abstratas como nomes de variáveis ​​em um
+
+50
+00:04:23,528 --> 00:04:29,334
+programa, ou elementos de um conjunto matemático, ou coisas físicas como locais
+
+51
+00:04:29,334 --> 00:04:34,802
+metálicos de um sistema composto. Então, todos os diferentes tipos de objetos para, mas para
+
+52
+00:04:34,802 --> 00:04:40,574
+programação vamos associar cada objeto com um nome e nós vamos nomear o
+
+53
+00:04:40,574 --> 00:04:46,810
+objetos com um número, inteiros de zero a N-1. Esse é um ponto de partida
+
+54
+00:04:46,810 --> 00:04:53,605
+muito conveniente para os nossos programas porque podemos usar inteiros como um índice em uma matriz
+
+55
+00:04:53,605 --> 00:05:00,160
+então, e então acessar rapidamente as informações relevantes para cada objeto. E também só
+
+56
+00:05:00,160 --> 00:05:05,777
+suprime um monte de detalhes que não são relevantes para ao union find. Na verdade, para fazer
+
+57
+00:05:05,777 --> 00:05:10,444
+este mapeamento de um nome de objeto para o inteiro de 0 até N-1 é encontrar
+
+58
+00:05:10,444 --> 00:05:14,914
+a aplicação de uma tabela de símbolos ou de um algoritmo de busca, o qual é uma das
+
+59
+00:05:14,914 --> 00:05:20,300
+coisas que estudaremos mais adiante neste curso de algoritmos e estruturas de dados
+
+60
+00:05:20,501 --> 00:05:26,316
+para resolver esse problema. Agora, as conexões, bem, precisamos de algumas
+
+61
+00:05:26,316 --> 00:05:33,545
+propriedades abstratas que estas ligações devem satisfazer. E elas são todas bem naturais e
+
+62
+00:05:33,775 --> 00:05:40,563
+intuitivas. Assim, assumimos que está ligada a uma relação de equivalência. Isto é,
+
+63
+00:05:40,563 --> 00:05:47,148
+cada objeto conectado a si mesmo, é simétrica. Se P está ligado a Q, então Q,
+
+64
+00:05:47,148 --> 00:05:53,205
+está ligado ao P, e é transitivo. Se P está ligado a Q, e Q está ligado a
+
+65
+00:05:53,205 --> 00:05:59,128
+R, então P está ligado ao R. Agora, essas propriedades são muito intuitivas. Mas vale
+
+66
+00:05:59,128 --> 00:06:05,292
+a pena afirmar-los explicitamente e assegurar-se de que nossos algoritmos os
+
+67
+00:06:05,292 --> 00:06:12,452
+mantenham. Quando nós temos uma relação de equivalência de um conjunto de objetos e conexões dividem-se
+
+68
+00:06:12,452 --> 00:06:19,172
+em subconjuntos chamados componentes conectados. Um componente conectado é um conjunto máximo de
+
+69
+00:06:19,172 --> 00:06:25,056
+objetos que são mutuamente ligados. Por exemplo, neste exemplo pequeno aqui,
+
+70
+00:06:25,056 --> 00:06:30,936
+há três componentes conectados. Um constituído de apenas o objeto 0,  o segundo
+
+71
+00:06:30,936 --> 00:06:36,239
+objetos 1, 4 e 5. E o terceiro, os outros 4 objetos. E estes
+
+72
+00:06:36,239 --> 00:06:42,244
+componentes têm a propriedade que, se dois objetos neles estão ligados e
+
+73
+00:06:42,244 --> 00:06:47,096
+não existe nenhum objeto fora que está ligado a esses objetos, que são
+
+74
+00:06:47,096 --> 00:06:53,126
+componentes conectados. Nossos algoritmos vão ganhar eficiência, mantendo conectado
+
+75
+00:06:53,126 --> 00:06:59,319
+componentes e utilizando esse conhecimento para responder à consulta que
+
+76
+00:06:59,319 --> 00:07:04,949
+eles apresentam. Ok, então para implementar as operações, temos de encontrar
+
+77
+00:07:04,949 --> 00:07:09,840
+consulta eo comando sindical. E assim vamos mai ntain a conectado
+
+78
+00:07:09,840 --> 00:07:14,449
+componentes. O find vai ter que verificar se dois objetos estão na mesma
+
+79
+00:07:14,449 --> 00:07:20,243
+componente eo comando sindical vai ter de substituir componentes que contêm
+
+80
+00:07:20,243 --> 00:07:25,872
+dois objetos com a sua união. Assim, por exemplo, se tivermos estes componentes, e
+
+81
+00:07:25,872 --> 00:07:31,906
+temos o comando para a união de ligação, dois e cinco. Essencialmente, nós precisamos de mesclar
+
+82
+00:07:31,906 --> 00:07:37,965
+contendo os componentes ligados a um contendo dois ou aquele que contém
+
+83
+00:07:37,965 --> 00:07:44,453
+cinco para obter um grandes componentes conectados e agora temos apenas dois componentes conectados.
+
+84
+00:07:44,453 --> 00:07:52,821
+Tudo isso leva até, em um mundo de programação para especificar um tipo de dados que é
+
+85
+00:07:52,821 --> 00:07:59,122
+especificação simplesmente dos métodos que estamos querem vai implementar, a fim
+
+86
+00:07:59,122 --> 00:08:04,980
+para resolver este problema. Então você sabe, Java típico do modelo, o que vamos fazer é
+
+87
+00:08:05,224 --> 00:08:12,425
+criar uma classe chamada UF que contém dois métodos, um para implementar a união, o outro
+
+88
+00:08:12,425 --> 00:08:19,052
+uma para implementar conectado, que retorna um booleano. O construtor, leva unidade SR,
+
+89
+00:08:19,052 --> 00:08:26,030
+, o número de objectos, de modo que ele pode construir a estrutura de dados com base no número
+
+90
+00:08:26,030 --> 00:08:31,089
+de objetos. Então, e nós temos que, ter em mente, como estamos construindo nossos logaritmos,
+
+91
+00:08:31,089 --> 00:08:37,029
+que tanto o número de objetos pode ser enorme, mas também, o número de operações.
+
+92
+00:08:37,029 --> 00:08:42,076
+Podemos ter um, um número muito grande, de união e conectados, operações e nossa
+
+93
+00:08:42,076 --> 00:08:48,315
+algoritmos vão ter que ser eficiente, sob essas condições. Um dos
+
+94
+00:08:48,315 --> 00:08:56,011
+as práticas que se seguirão muitas vezes neste curso é verificar nosso projeto API
+
+95
+00:08:56,011 --> 00:09:04,029
+antes de ficar muito longe para lidar com o problema, através da construção de um cliente que é
+
+96
+00:09:04,029 --> 00:09:11,050
+vai usar o tipo de dados que desenvolvemos. Assim, para este exemplo, nós temos um
+
+97
+00:09:11,050 --> 00:09:19,074
+cliente que, Will ler informações a partir da entrada padrão. Em primeiro lugar, um número inteiro que é
+
+98
+00:09:19,074 --> 00:09:27,381
+, o número de objectos que vão ser processados. E, em seguida, uma série de pares de
+
+99
+00:09:27,381 --> 00:09:35,070
+nomes de objetos. E o que o cliente faz é, ele vai, primeiro ele vai ler o inteiro
+
+100
+00:09:35,070 --> 00:09:42,068
+da entrada padrão, e criar um, um objeto de UF. E em seguida, enquanto a entrada padrão
+
+101
+00:09:42,068 --> 00:09:47,089
+não é vazio, ele vai ler dois números inteiros a partir da entrada. E se eles são
+
+102
+00:09:47,089 --> 00:09:52,663
+não conectado, então ele vai conectá-los e imprimi-los. Se eles estão ligados
+
+103
+00:09:52,663 --> 00:09:58,266
+ele vai ignorar. Então, esse é o nosso cliente de teste e que é um cliente de teste para certificar-se bem
+
+104
+00:09:58,266 --> 00:10:04,702
+que qualquer aplicação faz o que nós esperamos que isso acontecerá. Então, essa é a configuração.
+
+105
+00:10:04,702 --> 00:10:10,348
+Nós descrevemos as operações que queremos implementar todo o caminho para o código e nós
+
+106
+00:10:10,348 --> 00:10:15,091
+têm código de cliente que vamos ter que ser capaz de serviço com o nosso

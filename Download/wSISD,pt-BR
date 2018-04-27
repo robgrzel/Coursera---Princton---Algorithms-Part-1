@@ -1,0 +1,370 @@
+1
+00:00:03,054 --> 00:00:09,019
+Bem-vindo de volta. Hoje, estaremos vendo várias aplicações interessantes
+
+2
+00:00:09,019 --> 00:00:15,011
+de estruturas de dados como
+tabelas de símbolo e árvores binárias de busca na
+
+3
+00:00:15,011 --> 00:00:21,413
+resolução de problemas envolvendo processamento de dados
+geométricos. Então vamos dar uma olhada. A idéia 
+
+4
+00:00:21,413 --> 00:00:27,378
+é que estaremos falando sobre objetos geométricos, 
+não simples chaves como strings e números
+
+5
+00:00:27,378 --> 00:00:33,338
+Aqui vai um exemplo.
+Digamos que seus objetos geométricos são pontos
+
+6
+00:00:33,338 --> 00:00:38,346
+em um plano e você especifica um retângulo
+que é orientado nos 
+
+7
+00:00:38,346 --> 00:00:43,404
+eixos vertical/horizontal. E você gostaria 
+de saber quais pontos estão dentro do 
+
+8
+00:00:43,404 --> 00:00:48,200
+retângulo ou quantos pontos estão destro 
+do retângulo? Ou talvez o que esteja
+
+9
+00:00:48,200 --> 00:00:54,011
+processando são retângulos. Você possui um conjunto
+de retângulos, e você gostaria de saber quais
+
+10
+00:00:54,011 --> 00:01:00,291
+destes retângulos de interseptam? Ou quantas 
+intersecções retangulares existem? Estes 
+
+11
+00:01:00,291 --> 00:01:05,837
+são problemas interessantes que possuem muitas
+e muitas aplicações, desde
+
+12
+00:01:05,837 --> 00:01:11,806
+design computadorizado, à jogos e filmes
+e também em abstrações como banco de dados
+
+13
+00:01:11,806 --> 00:01:17,849
+e outras situações onde você possa
+ter múltiplas chaves ou múltiplas dimensões.
+
+14
+00:01:18,065 --> 00:01:24,856
+Sendo uma extensão bastante interessante das
+ideias que vimos para tabelas
+
+15
+00:01:24,856 --> 00:01:30,175
+para todos os tipos de aplicações familiares. 
+E, surpreendentemente, árvores binárias de busca
+
+16
+00:01:30,175 --> 00:01:34,300
+e esses algoritmos relacionados que vimos, providenciarão
+
+17
+00:01:34,300 --> 00:01:39,774
+soluções bastante eficientes para vários
+problemas importantes dessa área.
+
+18
+00:01:39,774 --> 00:01:45,943
+E realmente nos possibilita novos desenvolvimentos e 
+novas tecnologias em todos esses tipos 
+
+19
+00:01:45,943 --> 00:01:51,135
+de aplicações.  Então, para começar, iremos 
+dar uma olhada em um simples problema chamado
+
+20
+00:01:51,135 --> 00:01:56,761
+procura de escopo unidimensional.
+Este forma a base do que iremos
+
+21
+00:01:56,761 --> 00:02:02,146
+fazer. É uma pequena extensão da tabela ordenada de símbolos API
+
+22
+00:02:02,146 --> 00:02:07,837
+que demos anteriormente e iremos 
+fazer operações de busca de intervalo e 
+
+23
+00:02:07,837 --> 00:02:12,797
+contagem de intervalo. Então, unidimensional significa que teremos apenas um índice; inseriremos um 
+
+24
+00:02:12,797 --> 00:02:19,116
+par de índices, e o que queremos é ser capazes de procurar por um índice, e
+
+25
+00:02:19,116 --> 00:02:24,770
+o valor associado a ele, e queremos poder deleta-los. Porém, depois queremos
+
+26
+00:02:24,770 --> 00:02:30,703
+usar estas operações por intervalo e por tamanho de intervalo. Então, achar todos os índices que estão entre dois
+
+27
+00:02:30,703 --> 00:02:36,083
+outros índices, ou achar quantos indices estão entre dois índices. Então, para tal
+
+28
+00:02:36,083 --> 00:02:42,251
+exemplo a direita nós inserimos o número de índices e os mostramos ordenadamente.
+
+29
+00:02:42,251 --> 00:02:47,992
+ordenadamente. Mas aí, você pode dizer, bem, quantos índices existem 
+
+30
+00:02:47,992 --> 00:02:53,780
+entre g e k? Nesse caso, apenas dois. E o cliente pode dizer,
+
+31
+00:02:53,780 --> 00:02:59,598
+bem, quais são estes índices e você deseja poder responder. E esta é uma
+
+32
+00:02:59,598 --> 00:03:06,010
+operação bastante comum, por exemplo em base de dados. Você deseja dizer quantos pagadores de impostos tem
+
+33
+00:03:06,010 --> 00:03:11,335
+salários entre um milhão e dez milhões, depois quem são eles e
+
+34
+00:03:11,335 --> 00:03:17,431
+aí em diante. Então, busca por intervalo é uma operação bastante fundamental. Agora, em
+
+35
+00:03:17,431 --> 00:03:23,459
+interpretação geométrica, nós apenas pensamos as chaves como pontos numa linha. E 
+
+36
+00:03:23,459 --> 00:03:29,627
+os valores associados também podem ser especificados como pontos numa linha. Podemos converter 
+
+37
+00:03:29,627 --> 00:03:34,856
+letras em números, ou podemos ter valores associados como números. E então, o que 
+
+38
+00:03:34,856 --> 00:03:41,119
+procuramos é achar ou contar os pontos em um dado intervalo em uma dimensão. Então
+
+39
+00:03:41,575 --> 00:03:47,272
+como nós iremos implentarmos isto? Bem, este é o problema básico que é bastante similar ao
+
+40
+00:03:47,272 --> 00:03:52,356
+nosso problema da tabela de símbolos. Nós podemos manter as coisas em um 
+
+41
+00:03:52,356 --> 00:03:57,529
+vetor não ordenado. Apenas coloque-os em um vetor e inseri-los é
+
+42
+00:03:57,529 --> 00:04:03,254
+rápido. Nós apenas os adicionamos no final do vetor. Podemos ter que aumentar o tamanho do vetor. 
+
+43
+00:04:03,254 --> 00:04:08,371
+Mas isto não é atrativo pois para um grande número de 
+
+44
+00:04:08,371 --> 00:04:13,899
+índices, para contar os índices dentro de um dado intervalo, você tem que 
+
+45
+00:04:13,899 --> 00:04:19,711
+iterar por todos, testa-los se estão ou não no intervalo e retorna-los
+
+46
+00:04:19,711 --> 00:04:26,043
+da mesma maneira. Então leva um tempo linear para um grande número de índices. Se você  mantem as coisas
+
+47
+00:04:26,267 --> 00:04:32,638
+as coisas em ordem como em uma busca binária, então para manter
+
+48
+00:04:32,638 --> 00:04:38,591
+o vetor ordenado, você pode precisar mover os maiores para uma posição maior 
+
+49
+00:04:38,596 --> 00:04:44,209
+e assim em diante ou uma implementação elementar de busca binária que utilizamos quando fizemos a tabela de símbolos.
+
+50
+00:04:44,406 --> 00:04:49,662
+Então, o tempo de inserção pode ser linear, mas você pode usar busca binária
+
+51
+00:04:49,662 --> 00:04:55,329
+para procurar os dois extremos do intervalo, levará apenas um tempo
+
+52
+00:04:55,329 --> 00:05:00,631
+proporcional ao log n. E então daí, você pode saber quantos índices 
+
+53
+00:05:00,631 --> 00:05:06,243
+existem e dizer todos eles dentro do intervalo.
+
+54
+00:05:06,243 --> 00:05:12,027
+Então, estas implementações elementares não são
+
+55
+00:05:12,027 --> 00:05:18,179
+aceitáveis para grandes números, pois tem tempo linear de operação. Então,
+
+56
+00:05:18,179 --> 00:05:24,035
+o que realmente queremos é ter tempo proporcional a log N. Para inserir e para contar.
+
+57
+00:05:24,035 --> 00:05:29,186
+Para a busca num intervalo, obviamente, nós temos que passar por todas os índices que 
+
+58
+00:05:29,186 --> 00:05:35,413
+retornaremos, então o tempo de operação será proporcional ao número de
+
+59
+00:05:35,413 --> 00:05:43,042
+índices desejados. Mas mesmo assim, temos objetivos razoáveis. E são faceis de
+
+60
+00:05:43,042 --> 00:05:51,545
+atingir. Então [tosse], por exemplo porque não contagem de intervalo unidimensional?
+
+61
+00:05:51,545 --> 00:05:58,014
+Bom, o que vamos fazer é apenas manter as chaves em uma árvore binária de busca e nós
+
+62
+00:05:58,014 --> 00:06:03,484
+olhamos na implementação da função rank para árvore binária de busca onde para
+
+63
+00:06:03,484 --> 00:06:09,342
+cada chave, nós podemos calcular quantas chaves existem que são estritamente menores que aquela
+
+64
+00:06:09,342 --> 00:06:15,508
+chave. Então nesse caso, o rank de 'E' é dois, 'H' é três e assim por diante. Então, em uma
+
+65
+00:06:15,508 --> 00:06:21,413
+árvore binária de busca, a classificação dos números vai aumentando em order crescente como vamos
+
+66
+00:06:21,413 --> 00:06:27,662
+percorrendo in-ordem e isso é fácil de ser computar. Você precisar manter essa classificação da árvore
+
+67
+00:06:27,662 --> 00:06:33,813
+como um atributo, ou manter um atributo que contém o tamanho da árvore e podemos facilmente calcular 
+
+68
+00:06:33,813 --> 00:06:40,760
+a classificação através da altura. Então quantas chaves existem entre 'E' e 'S'? Bom, uma, duas
+
+69
+00:06:40,760 --> 00:06:51,297
+três, quatro, cinco. Na verdade tudo que precisamos é a diferença das classificações mais um se
+
+70
+00:06:51,623 --> 00:07:00,361
+a chave 'hi' [tosse] estiver na tabela. Ou apenas a diferença de classificações caso ela não esteja.
+
+71
+00:07:00,361 --> 00:07:08,274
+existem o mesmo número de chaves entre 'E' e 'S' como entre 'E' e 'T', cinco.
+
+72
+00:07:08,274 --> 00:07:15,192
+Entre 'F' e 'T', existem apenas quatro. Então esse é realmente um cálculo 1d é uma
+
+73
+00:07:15,192 --> 00:07:22,412
+computação muito fácil de executar. Em tempo logaritmo com uma árvore binária de busca. O
+
+74
+00:07:22,412 --> 00:07:28,297
+[tosse] número de nós examinados quando nós fazermos uma busca é o comprimento do caminho da busca
+
+75
+00:07:28,297 --> 00:07:33,789
+de 'lo' mais o comprimento do caminho da busca até 'hi' para [tosse] encontrar suas classificações
+
+76
+00:07:33,976 --> 00:07:39,595
+que vai ser ter o tempo proporcional a log de N. [tosse] Então uma busca
+
+77
+00:07:39,595 --> 00:07:46,018
+Bom, nós apenas fazemos uma busca recursiva e para encontrar todas as chaves entre 'lo' and 'hi' você
+
+78
+00:07:46,214 --> 00:07:51,472
+olha na sub-árvore esquerda se alguma delas pode estar no intervalo. Você procura no
+
+79
+00:07:51,472 --> 00:07:57,106
+nó atual e procura na sub-árvore direita, se alguma delas poderia estar no
+
+80
+00:07:57,106 --> 00:08:02,555
+intervalo. E é fácil de dizer quando qualquer uma delas pode estar no intervalo apenas
+
+81
+00:08:02,555 --> 00:08:08,476
+verificando se tem interseções de intervalo com a raiz ou não. Então, se estamos procurando por
+
+82
+00:08:08,476 --> 00:08:14,469
+todas as chaves entre 'F' e 'T' então nós precisamos procurar em ambas sub-árvores da raiz 'S'
+
+83
+00:08:14,469 --> 00:08:19,643
+Mas nós não precisamos procurar na sub-árvore esquerda de 'E' porque todos os valores são menores
+
+84
+00:08:19,643 --> 00:08:26,018
+do que 'E'  e portanto são também menores do que 'F'. Então, nós não precisamos procurar lá. Mas
+
+85
+00:08:26,018 --> 00:08:31,419
+por outro lado, é uma simples modificação da busca recursiva na árvore para encontrar todas as chaves
+
+86
+00:08:31,635 --> 00:08:37,702
+e é fácil de ver que o tempo de execução para isso vai ser proporcional ao
+
+87
+00:08:37,702 --> 00:08:47,518
+número de chaves retornados mais log N. Então, isso é apenas uma busca de uma dimensão de intervalo utilizando
+
+88
+00:08:47,518 --> 00:08:51,040
+árvore binária de busca.

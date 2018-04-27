@@ -1,0 +1,632 @@
+1
+00:00:02,048 --> 00:00:07,034
+Bine ați revenit. Astăzi, ne vom uita
+la Șiruri de Priorități, o variantă de
+
+2
+00:00:07,034 --> 00:00:12,051
+sortare care generalizează ideea de a
+furniza structuri de date mai flexibile pe care
+
+3
+00:00:12,051 --> 00:00:17,069
+le putem folosi pentru tot felul de aplicații. 
+Pentru a începe, ne vom uita la API și
+
+4
+00:00:17,069 --> 00:00:24,820
+unele implementari elementare. Deci, la o 
+săptămână sau cam așa ceva în urmă, ne-am uitat la colecții
+
+5
+00:00:24,820 --> 00:00:29,813
+în Java și ideea de structuri de date 
+elementare, unde am introdus și șters
+
+6
+00:00:29,813 --> 00:00:34,900
+elemente. Și apoi, structurile de date 
+diferă în funcție de ce element alegem
+
+7
+00:00:34,900 --> 00:00:39,863
+să ștergem. Ne-am uitat la stiva push down
+unde am eliminat elementul care a fost
+
+8
+00:00:39,863 --> 00:00:44,776
+adăugat cel mai recent, și șirul de unde am
+eliminat elementul care a fost cel recent
+
+9
+00:00:44,776 --> 00:00:48,643
+adăugat. Apoi, am vorbit despre
+sir aleator sau sac în care am putea
+
+10
+00:00:48,643 --> 00:00:53,580
+elimina un element aleatoriu sau arbitrar.
+Astazi, vom vorbi despre
+
+11
+00:00:53,580 --> 00:00:58,247
+Șir de Prioritate și pentru asta, vom 
+insera elemente, dar atunci când este timpul să
+
+12
+00:00:58,247 --> 00:01:03,059
+eliminăm, vom considera că elementele sunt într-o ordine totală și vom vrea să îndepartam 
+
+13
+00:01:03,059 --> 00:01:09,044
+cel mai mare sau cel mai mic element. Deci, acest
+mic exemplu, dacă inserăm P, Q, și E
+
+14
+00:01:09,044 --> 00:01:15,190
+atunci când scoatem maximum, vrem să luăm
+Q afară și pentru mai târziu, inserăm X, A,
+
+15
+00:01:15,190 --> 00:01:21,144
+și M și apoi am îndepărtat maximum. Cel mai mare de acolo e  X. Vom insera P,
+
+16
+00:01:21,144 --> 00:01:26,069
+L, și E și apoi, după un timp, am
+eliminat maximum P. Deci, asta e configurarea noastră de bază.
+
+17
+00:01:26,069 --> 00:01:32,064
+Aceasta este definiția noastră a ceea ce este un șir
+de prioritate . Deci, API va arata foarte
+
+18
+00:01:32,064 --> 00:01:39,719
+similar cu depozitul sau șirul nostru API cu 
+diferența că vrem să avem elemente
+
+19
+00:01:39,719 --> 00:01:46,919
+generice care sunt comparabile. Deci, limbajul Java
+ pentru că este în antetul clasei.
+
+20
+00:01:47,127 --> 00:01:52,785
+Noi spunem că al nostru generic tip cheie extinde
+comparabilitatea cu cheie. Și asta înseamnă doar
+
+21
+00:01:52,785 --> 00:01:58,805
+că cheile noastre trebuie să fie comparabile și noi 
+trebuie să avem o metoda compareTo() care va
+
+22
+00:01:58,805 --> 00:02:06,052
+compara cu o altă cheie. În caz contrar, avem un constructor și de fapt pentru unele
+
+23
+00:02:06,052 --> 00:02:11,872
+aplicații, este convenabil să ai un
+constructor care să ia o matrice de chei ca
+
+24
+00:02:11,872 --> 00:02:17,807
+argument. Apoi, un insert (), care pune
+ceva în ca împingere într-o stivă sau
+
+25
+00:02:17,807 --> 00:02:24,142
+inșirați într-un șir. Apoi ștergeți maximul. M-am referit să ștergeți minimul
+
+26
+00:02:24,383 --> 00:02:30,043
+pentru a evita confuziile, avem
+implementarea, implementarea separată
+
+27
+00:02:30,043 --> 00:02:36,284
+de obicei MinPQ, unde ștergem
+minimul. Apoi testăm isEmpty () și noi, de asemenea,
+
+28
+00:02:36,284 --> 00:02:42,908
+uneori avem metodă în plus care doar
+ne dă valoarea celei mai mari chei și
+
+29
+00:02:42,908 --> 00:02:49,602
+,de asemenea, dimensiune, care este utilă uneori în
+colecții. Ați putea dori, de asemenea, să fie
+
+30
+00:02:49,602 --> 00:02:55,675
+iterabilă, dar vom sări peste asta acum. 
+Există o mulțime de aplicații de
+
+31
+00:02:55,675 --> 00:03:01,039
+cozi de prioritate. Chiar dacă a apărut ca
+o structură de date relativ târziu în
+
+32
+00:03:01,039 --> 00:03:06,508
+joc acum că vedem că există mulți
+algoritmi care sunt mult mai ușor să
+
+33
+00:03:06,508 --> 00:03:12,314
+se pună în aplicare, atunci când ne gândim abstracția cheii prioritate. Avem date că noi 
+
+34
+00:03:12,314 --> 00:03:16,841
+procesăm nu le putem procesa pe toate dintr-o dată. 
+Trebuie să salvăm o parte din căi. Și apoi,
+
+35
+00:03:16,841 --> 00:03:22,342
+ceea ce ne spune coada de prioritate este - 
+haideți să-l organizăm în câteva moduri în care noi
+
+36
+00:03:22,342 --> 00:03:27,657
+luăm mereu pe următorul cel mai bun pentru a-l procesa.
+ Și se dovedește să fie foarte aproape de
+
+37
+00:03:27,657 --> 00:03:32,965
+o tehnica de design de algoritm generic pe care o vom vedea în multe, multe
+
+38
+00:03:32,965 --> 00:03:38,286
+aplicații diferite. Astăzi, vom vorbi despre simulare determinată de un eveniment
+
+39
+00:03:38,286 --> 00:03:44,500
+care este o idee interesantă care se bazează
+pe cozi de prioritate, dar este, de asemenea, utilizată în
+
+40
+00:03:44,500 --> 00:03:50,126
+calcul numeric și vom vedea în
+algoritmi pentru compresie a datelor și căutare
+
+41
+00:03:50,126 --> 00:03:56,048
+grafică că este util. Și în multe
+alte aplicații în Informatică și
+
+42
+00:03:56,048 --> 00:04:02,277
+în calcul științific. Se generalizează 
+stiva și coada și ne dă o structură
+
+43
+00:04:02,277 --> 00:04:09,783
+de date pe care le putem folosi pentru a proiecta în mod
+ eficient algoritmi de tot felul. Deci, aici e
+
+44
+00:04:10,046 --> 00:04:18,242
+doar un anumit client, care va ajuta la a 
+explica ideea. Deci a noastră, provocarea noastră este
+
+45
+00:04:18,518 --> 00:04:26,215
+să spunem că acest lucru este pe web, avem
+miliarde de tranzacții, știți, și ele
+
+46
+00:04:26,215 --> 00:04:32,012
+transmit prin fluxuri prin intermediul depozitul nostru de date
+sau procesor, într-un fel. Și doar un foarte,
+
+47
+00:04:32,012 --> 00:04:37,616
+foarte mare număr de tranzacții. De fapt,
+nu am putut spera, eventual, chiar și să le stocăm
+
+48
+00:04:37,616 --> 00:04:43,299
+pe toate. Există mii de miliarde dintre ele acolo
+care vin cât de repede posibil. Dar
+
+49
+00:04:43,299 --> 00:04:48,825
+suntem interesati de cele mai mari și
+deci poate e cea mai mare sumă de
+
+50
+00:04:48,825 --> 00:04:54,559
+de dolari, sau cel mai mare cost, sau orice 
+s-ar putea întâmpla să fie. Și astfel încât să putem alege
+
+51
+00:04:54,559 --> 00:04:59,581
+unele numere pe care le putem stoca. Mi-ar 
+place să, să stochez, 
+
+52
+00:04:59,581 --> 00:05:04,986
+cele mai mari o mie. Deci, vă puteți imagina o companie card de credit în căutare de fraudă - 
+
+53
+00:05:04,986 --> 00:05:11,016
+o să aibă grijă de a ține evidența a celei mai mari 
+tranzacții. Deci, poate că putem stoca
+
+54
+00:05:11,016 --> 00:05:16,444
+milioane sau mii dintre ele. Deci ăsta e
+parametrul nostru M - acesta este numărul pe care ni-l putem
+
+55
+00:05:16,444 --> 00:05:21,606
+permite să stocăm dar numărul total de 
+elemente nu ne-ar putea, eventual, permite să le stocăm.
+
+56
+00:05:21,606 --> 00:05:26,814
+Așa că, și acestea sunt doar niste date de testare
+unde am luat toate, toate aceste
+
+57
+00:05:26,814 --> 00:05:32,653
+tranzacții și așa vom fi
+în măsură să luăm date, ca acestea și din nou
+
+58
+00:05:32,844 --> 00:05:38,610
+un flux nelimitat de date. Dar să
+să zicem, vrem să urmărim primele cinci
+
+59
+00:05:38,895 --> 00:05:46,723
+[tuse] valori utilizând a treia coloană ca
+valoare. Deci, ne vom uita la un
+
+60
+00:05:46,723 --> 00:05:52,023
+program client numit TopM care ia 
+argument de linie de comandă, cât de multe și
+
+61
+00:05:52,023 --> 00:05:58,026
+acest caz, va spune cinci și apoi 
+va lua de la intrarea standard
+
+62
+00:05:58,026 --> 00:06:03,914
+tranzacții și se vor imprima primele
+cinci. Deci, ăsta e un exemplu canonic de un,
+
+63
+00:06:03,914 --> 00:06:09,485
+un client coada de prioritate de care avem nevoie pentru a 
+proiecta un program care poate face asta. Deci,
+
+64
+00:06:09,485 --> 00:06:17,909
+cu abstracția cozii de prioritate care
+nu este prea greu de făcut. Deci, vom
+
+65
+00:06:17,909 --> 00:06:25,799
+folosi o coadă prioritate orientată spre min astfel
+că va menține, va [tuse] acesta va
+
+66
+00:06:25,799 --> 00:06:31,420
+fie una în care putem șterge minimul
+și, și va fi generic așa că vom avea un
+
+67
+00:06:31,420 --> 00:06:35,964
+tip de tranzacție care deține această
+informație, inclusiv ordonarea naturală
+
+68
+00:06:36,152 --> 00:06:41,475
+în cazul în care este ordonat după dolari în ultima
+coloana. Deci, vom construi o nouă coadă de
+
+69
+00:06:41,475 --> 00:06:46,625
+prioritate, coadă de prioritate min sau vom avea 
+capacitatea de a șterge minimul. Iar
+
+70
+00:06:46,625 --> 00:06:52,449
+apoi noi citim de la intrarea standard. Am citit
+linia, construit tranzacția din
+
+71
+00:06:52,449 --> 00:06:58,920
+informația pe acea linie. Și asta va 
+umple câmpurile și apoi, noi punem această
+
+72
+00:06:58,920 --> 00:07:04,950
+tranzacție pe coada de prioritate. Acum, în cazul în care
+coada de prioritate are mai mult de M elemente
+
+73
+00:07:04,950 --> 00:07:11,075
+pentru că am l-introdus pe acela, apoi dorim
+să-l ștergem pe cel mai mic de acolo și în acest
+
+74
+00:07:11,075 --> 00:07:17,193
+fel, vom ține cont de cel mai mare M.
+Ori de câte ori ne-am lua unul nou, atunci noi
+
+75
+00:07:17,193 --> 00:07:22,732
+aruncăm pe cel mai mic care e acolo. 
+Deci, chiar și cu acest flux imens de elemente
+
+76
+00:07:22,732 --> 00:07:27,980
+care vine, noi doar ținem evidența 
+celor mai mari M elemente și acesta este un bun
+
+77
+00:07:27,980 --> 00:07:34,040
+client canonic pentru coada de prioritate. Acum
+cum vom implementa sau vom rezolva această
+
+78
+00:07:34,040 --> 00:07:39,081
+problemă sau vă puteți gândi la o mulțime de moduri 
+pentru a merge mai departe și de a rezolva această problemă de
+
+79
+00:07:39,081 --> 00:07:44,088
+găsire a celor mai mari M elemente în fluxul
+de N elemente. Deci, de exemplu, ați putea
+
+80
+00:07:44,088 --> 00:07:51,832
+să le sortați. Și apoi doar vă uitați la M la sfârșit, dar trimițând problema, Eu
+
+81
+00:07:51,832 --> 00:07:57,801
+deja, într-un fel l-am exclus pe acela, din cauza că
+nu avem spațiu pentru a le sorta pe toate,
+
+82
+00:07:57,801 --> 00:08:03,280
+pentru a le stoca toate. Deci sortarea este în afara
+discuției. Ne vom uita la câteva
+
+83
+00:08:03,280 --> 00:08:09,082
+implementări  elementare de cozi de prioritate
+care sunt simple. Știți, păstrați
+
+84
+00:08:09,082 --> 00:08:14,309
+elementele cum ați dori să fie în stivă și
+atunci când aveți nevoie să găsiți cel mai mic sau
+
+85
+00:08:14,309 --> 00:08:20,425
+cel mai mare element uitați-vă, uitați-vă la toate. Dar
+asta va fi prea lent. M este mare
+
+86
+00:08:20,425 --> 00:08:26,099
+și N este foarte mare, și M <i> N o sa fie prea 
+lentă. Ceea la care ne vom uita este o</ i>
+
+87
+00:08:26,099 --> 00:08:31,377
+foarte simplă și practică implementare
+folosind o structura de date numita heap binar
+
+88
+00:08:31,377 --> 00:08:36,838
+care face treaba în timp
+proporțional cu N log M și doar M spațiu.
+
+89
+00:08:36,838 --> 00:08:42,079
+Și asta e destul de aproape de cele mai bune pe care 
+le-am putea face în teorie și este foarte
+
+90
+00:08:42,079 --> 00:08:47,010
+importantă și utilă, implementare 
+practică și structură de date.
+
+91
+00:08:47,010 --> 00:08:56,344
+Bine. Deci, aici e doar o imagine de ansamblu a două 
+implementări elementare de cozi de prioritate
+
+92
+00:08:56,344 --> 00:09:03,894
+folosind operațiile exemplu pe care le-am
+dat înainte. Deci, vă puteți imagina păstrarea
+
+93
+00:09:03,894 --> 00:09:09,361
+elementului, spunem, într-o listă legată sau în
+o dublă matrice și doar păstrarea doar o
+
+94
+00:09:09,361 --> 00:09:14,568
+ordine așa cum am dori în, în 
+stivă doar păstrarea în modul în care acestea
+
+95
+00:09:14,568 --> 00:09:19,593
+vin. Iar noi vom pune un nou element la
+capăt de matrice și  îl vom scoate de la
+
+96
+00:09:19,593 --> 00:09:25,566
+capătul matricii. Sau ați putea face acest lucru într-o listă legată
+, și apoi atunci când este timpul pentru a-l găsi,
+
+97
+00:09:25,566 --> 00:09:30,435
+scoateți maximul, trebuie să scanați
+prin tot să găsiți maximul.
+
+98
+00:09:30,629 --> 00:09:37,014
+Așa, deci, ăsta e un mod în care ați putea
+implementa aceasta cu, cu o listă legată sau
+
+99
+00:09:37,014 --> 00:09:42,605
+cu o matrice de redimensionare. Sau ați putea să
+spunem, bine, să încercați să păstrați lucrurile în
+
+100
+00:09:42,605 --> 00:09:48,009
+ordine. Și atunci asta ar putea implica ceva
+de lucru, e ca sortare inserare,
+
+101
+00:09:48,009 --> 00:09:53,429
+veți găsi un loc pentru a pune noul element și 
+apoi puneți-l în locul potrivit. Și din nou,
+
+102
+00:09:53,429 --> 00:09:59,071
+ați putea face acest lucru cu o listă legată sau cu
+matrice de redimensionare, dar apoi, cu matrice,
+
+103
+00:09:59,071 --> 00:10:04,568
+va trebui să mutați toate cele mai mari cu
+o poziție pentru a se potrivi elementul nou. Când
+
+104
+00:10:04,568 --> 00:10:09,588
+introducem E și asta ar trebui să le țină
+în ordine, trebuie să mutăm peste L, M,
+
+105
+00:10:09,588 --> 00:10:14,906
+P, și P pentru a obține E și apoi așa mai departe.
+Dar avantajul care ar putea fi că
+
+106
+00:10:14,906 --> 00:10:20,682
+eliminarea maximului este ușoară. Noi doar îl luăm
+deoparte pe cel de la sfârșit. Pentru a elimina
+
+107
+00:10:20,682 --> 00:10:26,650
+Q - știm că e la sfârșit pentru a elimina
+maximul. În acest moment, ăsta e X - e
+
+108
+00:10:26,650 --> 00:10:32,845
+chiar la sfârșit, iar P este chiar la sfârșit. 
+Deci, vă puteți imagina implementările
+
+109
+00:10:32,845 --> 00:10:38,971
+cozilor de prioritate care folosesc aceste două 
+strategii de bază. Nu e prea mult cod implicat. Aceasta
+
+110
+00:10:38,971 --> 00:10:45,098
+e o implementare a unei matrici ordonate de
+cozi de prioritate și este destul de drept
+
+111
+00:10:45,098 --> 00:10:52,843
+înainte. Noi nu am pus în acest lucru este
+versiune înșelatoare în cazul în care solicităm clientului
+
+112
+00:10:52,843 --> 00:10:59,282
+să furnizeze o capacitate dar am putea foarte ușor
+schimba acest lucru la matrice de redimensionare. Deci,
+
+113
+00:10:59,482 --> 00:11:06,243
+insert() doar pune la sfârșit și deoarece
+e neordonată delete maximum trebuie să meargă
+
+114
+00:11:06,243 --> 00:11:12,334
+prin întreaga matrice, pentru a încerca să găsească
+maximul atunci când se rafinează și
+
+115
+00:11:12,334 --> 00:11:18,583
+schimbările care erau la cel de la sfârșit și
+apoi se îndepărtează în același mod în care facem
+
+116
+00:11:18,583 --> 00:11:24,536
+în cadrul stivei. Va folosi mai puțin și 
+schimb la fel ca noi , în metode de sortare.
+
+117
+00:11:24,536 --> 00:11:30,179
+Astfel încât asta este o implementare bună dacă
+coada de prioritate va fi mică
+
+118
+00:11:30,179 --> 00:11:36,440
+tot timpul. Deci, dacă, chiar fără
+implementarea ei, puteți înțelege această
+
+119
+00:11:36,440 --> 00:11:42,949
+tabela că dacă vom folosi o implementare matrice 
+neordonată putem obține inserția gata
+
+120
+00:11:42,949 --> 00:11:47,940
+în timp constant, dar trebuie
+să ne uităm la tot pentru a șterge
+
+121
+00:11:47,940 --> 00:11:54,343
+maximul sau chiar a găsi maximul. Dacă noi
+îl menținem în ordine, putem găsi maximul
+
+122
+00:11:54,343 --> 00:12:00,827
+sau ștergerea lui în timp constant, dar ne va lua
+timp liniar pentru a insera. Și, din moment ce
+
+123
+00:12:00,827 --> 00:12:07,073
+cu operațiile de stivă si coadă, aceste
+inserări și ștergeri ar putea fi amestecate în
+
+124
+00:12:07,073 --> 00:12:13,329
+moduri arbitrare și ar putea exista un număr imens din ele, fie unul dintre acestea este
+
+125
+00:12:13,329 --> 00:12:20,425
+foarte atractiv pentru că au de gând să 
+ia de N ori numărul de operații.
+
+126
+00:12:20,651 --> 00:12:28,096
+În timp ce putem spera și ce noi
+de fapt, vom realiza este de a obține timp log N
+
+127
+00:12:28,096 --> 00:12:34,936
+pentru toate operațiile, timp proporțional cu log N pentru toate operațiile. Cu structura de date 
+
+128
+00:12:34,936 --> 00:12:41,677
+inteligentă și implementarea interesantă putem atinge de fapt acest obiectiv. Asta-i
+
+129
+00:12:41,677 --> 00:12:47,032
+API-ul de bază și unele elementare 
+implementari de cozi de prioritate.

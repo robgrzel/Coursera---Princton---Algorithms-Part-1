@@ -1,0 +1,164 @@
+1
+00:00:01,076 --> 00:00:06,044
+A continuación, vamos a ver la versión de abajo hacia arriba
+de Mergesort (ordenamiento por mezcla). Bueno, Mergesort es
+
+2
+00:00:06,044 --> 00:00:11,006
+fácil de entender como un programa recursivo.
+Esta versión de abajo hacia arriba no tiene
+
+3
+00:00:11,006 --> 00:00:16,814
+recursión, es bastante simple de
+entender y codificar. La idea básica
+
+4
+00:00:16,814 --> 00:00:23,057
+es pensar el arreglo (array) como siendo un poco
+al principio un conjunto de pequeños ordenados sub
+
+5
+00:00:23,057 --> 00:00:28,065
+arreglos (arrays) de tamaño uno. Y luego lo que este
+método hará es ir uno a uno y unir (merge)
+
+6
+00:00:28,065 --> 00:00:33,048
+aquellos pequeños sub-arreglos de tamaño uno
+juntos  en pares para obtener sub-arreglos de tamaño
+
+7
+00:00:33,048 --> 00:00:38,038
+dos. Entonces, todo el arreglo consiste en 
+sub-arreglos ordenados de tamaño dos, y 
+
+8
+00:00:38,038 --> 00:00:43,059
+después hacemos otra pasada para obtener
+de tamaño cuatro, y luego de tamaño ocho, y así
+
+9
+00:00:43,059 --> 00:00:49,036
+sucesivamente. De esta manera, como puede verse en el ejemplo
+empezamos uniendo (merging) los primeros dos sub
+
+10
+00:00:49,036 --> 00:00:55,360
+arreglos de tamaño uno para hacer un arreglo de tamaño
+dos - E, M - ordenados, y luego hacemos lo mismo
+
+11
+00:00:55,360 --> 00:01:01,001
+con los siguientes dos elementos y los
+siguientes dos y así sucesivamente hasta que eventualmente
+
+12
+00:01:01,001 --> 00:01:06,088
+en lugar de dieciseis elementos individuales
+tenemos ocho sub-arreglos ordenados de tamaño dos.
+
+13
+00:01:06,090 --> 00:01:12,012
+Luego en otra pasada, podemos tomar
+E, M y G, R y unirlos
+
+14
+00:01:12,012 --> 00:01:17,735
+para formar EGMR, y la E, S y la 
+O, R unirlas para hacer EORS, y
+
+15
+00:01:17,735 --> 00:01:22,744
+así sucesivamente. Y tendremos cuatro sub-arreglos de 
+tamaño cuatro. Una pasada más y tendremos dos
+
+16
+00:01:22,745 --> 00:01:29,304
+sub-arreglos de tamaño ocho, y en la última pasada
+simplemente el arreglo ordenado. La última linea en
+
+17
+00:01:29,304 --> 00:01:34,943
+esta secuencia de pases a través de 
+todo el arreglo  y no fue necesaria
+
+18
+00:01:34,943 --> 00:01:41,338
+ninguna recursión. Es extremadamente fácil de programar
+tal como se ve en este código. Usamos
+
+19
+00:01:41,338 --> 00:01:47,442
+el mismo código de unión (merge) que antes y tomamos
+un bucle anidado. El primero es del tamaño 
+
+20
+00:01:47,442 --> 00:01:53,373
+del sub-arreglo y este bucle es ejecutado
+en log N veces porque cada vez
+
+21
+00:01:53,373 --> 00:02:00,162
+duplicamos el tamaño del sub-arreglo hasta que
+obtenemos N. Y luego pasamos
+
+22
+00:02:00,449 --> 00:02:07,553
+eligiendo el último (lo) desde el úlitmo (lo) más tamaño (sz) menos uno,
+y luego en la siguiente parte es ultimo (lo) más tamaño (sz) más tamaño (sz) menos uno
+
+23
+00:02:07,553 --> 00:02:13,307
+hasta que llegamos al final del arreglo
+donde podríamos no tener un sub-arreglo
+
+24
+00:02:13,307 --> 00:02:19,397
+completo de tamaño sz. Este es un código con plena
+fuerza industrial para
+
+25
+00:02:19,397 --> 00:02:25,756
+ordenar. Su única desventaja comparado con 
+Mergsort tradicional es que utiliza extra
+
+26
+00:02:25,756 --> 00:02:31,956
+espacio propocional al tamaño del
+arreglo. Pero por otra parte, es un buen método
+
+27
+00:02:31,956 --> 00:02:39,857
+para mezclar (merging). Este es Mergesort de abajo hacia arriba
+Si observan el trayecto graficado podrán
+
+28
+00:02:39,857 --> 00:02:45,477
+ver cómo trabaja. La cosa está totalmente
+desordenada, y se va ordenando 
+
+29
+00:02:45,477 --> 00:02:49,712
+en subarreglos de tamaño cuatro, luego ocho,
+dieciseis, y treinta y dos. Ahora, en este caso el 
+
+30
+00:02:49,712 --> 00:02:55,320
+segundo subarreglo a ser ordenado es menor
+pero la rutina de mezcla no se preocupa
+
+31
+00:02:55,320 --> 00:03:01,225
+mucho por eso. Se pueden mezclar cosas 
+que no son iguales en tamaño. Y luego obtenemos
+
+32
+00:03:01,225 --> 00:03:07,106
+un arreglo final ordenado. Sin importar el tamaño
+el final de Mergesort hace el trabajo en 
+
+33
+00:03:07,106 --> 00:03:13,833
+log N pasadas. Cada pasada usa alrededor de N 
+comparaciones para un costo total de N log N.

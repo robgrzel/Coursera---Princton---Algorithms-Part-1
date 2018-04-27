@@ -1,0 +1,442 @@
+1
+00:00:02,000 --> 00:00:07,036
+Witaj ponownie. Dziś zajmiemy się matematyką 
+i naukami ścisłymi. Nie będzie tego zbyt dużo, ale
+
+2
+00:00:07,036 --> 00:00:11,055
+pewne podstawy są konieczne, żeby
+zrozumieć przebieg używanych przez nas
+
+3
+00:00:11,055 --> 00:00:15,075
+algorytmów, by je później poprawnie
+implementować. A więc dzisiaj będziemy rozmawiać
+
+4
+00:00:15,275 --> 00:00:20,040
+o tym, jak analizować
+przebieg algorytmu. Zobaczymy
+
+5
+00:00:20,040 --> 00:00:25,022
+jak budować modele matematyczne
+i jak klasyfikować algorytmy ze względu na
+
+6
+00:00:25,022 --> 00:00:30,010
+wzrost czasu ich wykonania względem danych
+wejściowych. Trochę czasu poświęcimy też teorii
+
+7
+00:00:30,010 --> 00:00:35,790
+algorytmów i nauczymy się analizować zużycie
+pamięci. Krótko mówiąc,
+
+8
+00:00:35,790 --> 00:00:42,206
+będziemy analizować wymienione zagadnienia
+z różnych punktów widzenia.
+
+9
+00:00:42,206 --> 00:00:48,139
+Zacznijmy od programisty,
+który próbuje rozwiązać pewien problem
+
+10
+00:00:48,139 --> 00:00:54,270
+znajdując i implementując jakieś rozwiązanie.
+Drugi punkt widzenia to klient, który chce użyć
+
+11
+00:00:54,270 --> 00:01:00,167
+programu do wykonania zadania.
+Trzecim jest teoretyk,
+
+12
+00:01:00,167 --> 00:01:06,424
+osoba, która bardzo chce zrozumieć,
+co i jak działa.
+
+13
+00:01:06,424 --> 00:01:10,724
+I jeszcze coś w rodzaju drużyny obrońców, którzy
+zajmując się rozwiązywaniem bieżących problemów,
+
+14
+00:01:10,724 --> 00:01:15,790
+umożliwiają programistom pracę nad projektem.
+W dzisiejszym wykładzie wcielimy się po trochu
+
+15
+00:01:15,790 --> 00:01:21,110
+w każdego z nich. A Ty, jako student, 
+powinieneś mieć świadomość
+
+16
+00:01:21,110 --> 00:01:26,753
+że pewnego dnia, możesz znaleźć się
+w którejś z wymienionych ról. Jest zatem ważne
+
+17
+00:01:26,753 --> 00:01:31,522
+byś zrozumiał różne punkty widzenia.
+Punktem odniesienia dla naszych rozważań będzie
+
+18
+00:01:31,522 --> 00:01:38,205
+upływający czas. Położenie nacisku na
+czas wykonania programu
+
+19
+00:01:38,205 --> 00:01:44,017
+sięga czasów Babbage'a
+a może i jeszcze wcześniejszych. 
+
+20
+00:01:44,017 --> 00:01:48,083
+Babbage powiedział: "Gdy tylko pojawi się
+maszyna analityczna, to ona wyznaczy
+
+21
+00:01:48,083 --> 00:01:54,076
+kierunek rozwoju nauki. W przypadku użycia jej
+do znalezienia rozwiązania jakiegoś problemu,
+
+22
+00:01:54,076 --> 00:02:00,062
+pojawia się pytanie, jak przeprowadzić obliczenia
+na tej maszynie, by uzyskać wynik
+
+23
+00:02:00,062 --> 00:02:06,072
+w jak najkrótszym czasie." Jeśli spojrzeć
+na fizyczną maszynę Babbage'a,
+
+24
+00:02:06,072 --> 00:02:12,009
+nazywaną maszyną analityczną, widać
+na niej korbę. Babbage'a zastanawiało,
+
+25
+00:02:12,009 --> 00:02:17,060
+jak długo będzie się wykonywał program, 
+gdyż miało to bezpośrednie przełożenie
+
+26
+00:02:17,060 --> 00:02:23,048
+na ilość obrotów korbką. Szczerze mówiąc,
+niewiele się to różni od współczesnych obliczeń.
+
+27
+00:02:23,048 --> 00:02:29,018
+Tyle że korbka jest elektroniczna, a obroty
+liczone są w milionach na sekundę.
+
+28
+00:02:29,018 --> 00:02:34,041
+My staramy się dowiedzieć, ile razy
+pewna dyskretna operacja musi zostać 
+
+29
+00:02:34,041 --> 00:02:39,093
+wykonana, by uzyskać wynik obliczenia.
+Jak widać, jest wiele powodów,
+
+30
+00:02:39,093 --> 00:02:45,032
+by zainteresować się analizą algorytmów. W tym
+kursie, skupimy się na
+
+31
+00:02:45,032 --> 00:02:50,051
+przewidywaniu przebiegu; nauczymy się również
+porównywać wydajność różnych
+
+32
+00:02:50,051 --> 00:02:54,768
+algorytmów dla tego samego problemu
+oraz jak zagwarantować 
+
+33
+00:02:54,768 --> 00:03:00,058
+ich poprawność. A ponadto
+zrozumiemy teoretyczne podstawy
+
+34
+00:03:00,077 --> 00:03:05,780
+działania algorytmów. Najważniejszym i praktycznym
+powodem, dla którego zajmujemy się
+
+35
+00:03:06,024 --> 00:03:11,098
+analizą algorytmów
+jest unikanie błędów. Chcemy
+
+36
+00:03:11,098 --> 00:03:16,050
+mieć pewność, że nasze algorytmy
+zakończą zlecone im zadania
+
+37
+00:03:16,050 --> 00:03:21,084
+w przewidzianym przez nas czasie.
+Bardzo często w obecnym
+
+38
+00:03:21,084 --> 00:03:26,080
+świecie IT można zetknąć się z przypadkami,
+gdy klient narzeka na
+
+39
+00:03:26,080 --> 00:03:31,026
+kiepską wydajność programu, gdyż jego twórca
+nie zrozumiał charakterystyki
+
+40
+00:03:31,026 --> 00:03:36,086
+wydajności algorytmu. Dzisiejszy wykład
+ma na celu pomoc w uniknięciu
+
+41
+00:03:36,086 --> 00:03:42,087
+takiej sytuacji. W tym kursie skoncentrujemy się
+na wydajności i porównywaniu algorytmów.
+
+42
+00:03:42,087 --> 00:03:48,064
+W standardowym programie nauczania informatyki,
+po takim podstawowym kursie
+
+43
+00:03:48,064 --> 00:03:53,093
+następują kolejne, dostarczając informacji
+o teoretycznych podstawach algorytmów,
+
+44
+00:03:53,093 --> 00:03:59,090
+o czym jeszcze później wspomnę.
+Teraz skupmy się na przewidywaniu
+
+45
+00:03:59,090 --> 00:04:07,007
+przebiegu i porównywaniu algorytmów.
+Długa jest lista optymistycznych historii opowiadających
+
+46
+00:04:07,030 --> 00:04:12,081
+o ulepszaniu wydajności algorytmów, 
+które to ulepszenia umożliwiły rozwiązywanie
+
+47
+00:04:12,081 --> 00:04:19,025
+problemów dotychczas nierozwiązywalnych.
+Wymienię tutaj kilka przykładów.
+
+48
+00:04:19,025 --> 00:04:25,346
+Jednym z pierwszych i najbardziej znanych jest
+algorytm FFT (Szybkiej transformacji Fouriera).
+
+49
+00:04:25,346 --> 00:04:32,057
+Algorytm ten dzieli ciągły sygnał falowy
+złożony z n próbek na cykliczne komponenty.
+
+50
+00:04:32,057 --> 00:04:38,431
+Jest to wykorzystywane w 
+DVD, JPEG i wielu innych aplikacjach.
+
+51
+00:04:38,431 --> 00:04:44,296
+Da się to prosto policzyć, ale czas takiego
+prostego wykonania jest proporcjonalny do N^2.
+
+52
+00:04:44,296 --> 00:04:49,080
+Algorytmowi FFT zajmuje to jedynie N log N kroków.
+Różnica między N log N
+
+53
+00:04:49,080 --> 00:04:55,002
+a N^2, jest różnicą między
+dużym problemem rozwiązywalnym
+
+54
+00:04:55,002 --> 00:04:59,078
+a problemem nierozwiązywalnym.
+Spora część technologii cyfrowej, mediów cyfrowych,
+
+55
+00:04:59,078 --> 00:05:04,822
+z których dzisiaj korzystamy, może istnieć
+dzięki temu szybkiemu algorytmowi. Kolejny przykład,
+
+56
+00:05:05,051 --> 00:05:11,232
+to algorytm stworzony przed Andrew Appel'a, który
+jest teraz profesorem informatyki
+
+57
+00:05:11,232 --> 00:05:16,582
+tutaj, w Princeton. Został zaimplementowany,
+gdy on był jeszcze studentem i pracował
+
+58
+00:05:16,582 --> 00:05:22,725
+nad swoją pracą magisterską. Jest to szybki algorytm
+dla symulacji problemu wielu ciał. Prostszy
+
+59
+00:05:22,725 --> 00:05:28,548
+algorytm dla tego problemu, zajmuje czas proporcjonalny do
+N^2, a algorytm zaproponowany przez Appel'a - N log N.
+
+60
+00:05:28,548 --> 00:05:33,452
+Oznacza to, że naukowcy
+mogą sumulować problem wielu ciał
+
+61
+00:05:33,452 --> 00:05:41,478
+dla dowolnie dużych wartości N. A to otwiera
+nowe ścieżki badań. Wyzwaniem, z którym przychodzi
+
+62
+00:05:41,478 --> 00:05:47,677
+nam się zmierzyć, jest pytanie, czy mój program będzie w stanie
+rozwiązać problem dla dużych rzeczywistych danych wejściowych?
+
+63
+00:05:47,677 --> 00:05:52,024
+Pracujący programiści mają do czynienia
+z tym problemem na co dzień.
+
+64
+00:05:52,024 --> 00:05:58,001
+Dlaczego mój program jest taki wolny?
+Dlaczego kończy mu się pamięć?
+
+65
+00:05:58,001 --> 00:06:05,000
+Również z tym, oraz z możliwymi rozwiązaniami,
+programiści zmagają się od długiego czasu.
+
+66
+00:06:05,000 --> 00:06:10,030
+Deuter Kanoof w latach '70 XX wieku twierdził,
+że można używać metod naukowych, by
+
+67
+00:06:10,030 --> 00:06:16,062
+zrozumieć przebieg działającego algorytmu.
+Być może nie odkrywany tutaj Ameryki,
+
+68
+00:06:16,062 --> 00:06:23,010
+ale potraktujmy komputer
+
+69
+00:06:23,010 --> 00:06:29,042
+jako narzędzie badań
+i spróbujmy zrozumieć
+
+70
+00:06:29,042 --> 00:06:34,008
+jak nasz program zostanie wykonany.
+Przyjrzyjmy się temu bliżej.
+
+71
+00:06:34,209 --> 00:06:39,063
+Najpierw krótkie przypomnienie, czym
+są metody naukowe, które
+
+72
+00:06:39,268 --> 00:06:44,086
+były z sukcesem wykorzystywane przez
+ostatnich kilka wieków. To, czym się teraz zajmiemy,
+
+73
+00:06:44,086 --> 00:06:50,008
+to obserwacja świata, którym,
+w naszym przypadku, będzie
+
+74
+00:06:50,008 --> 00:06:54,857
+czas pracy naszego programu na komputerze.
+Następnie opracujemy model hipotezy,
+
+75
+00:06:55,049 --> 00:06:59,079
+który będzie zgodny z naszymi obserwacjami<
+mając jednocześnie nadzieję, że 
+
+76
+00:06:59,079 --> 00:07:04,040
+ta hipoteza będzie na tyle dobra,
+by pozwolić nam coś przewidzieć.
+
+77
+00:07:04,040 --> 00:07:09,031
+Zazwyczaj będzie to próba oszacowania czasu działania dla problemów
+o dużym rozmiarze lub dla uruchomienia programu na innym komputerze.
+
+78
+00:07:09,197 --> 00:07:13,097
+Później zweryfikujemy nasze przewidywania,
+przeprowadzając kolejne obserwacje i je weryfikując
+
+79
+00:07:13,097 --> 00:07:18,058
+do czasu aż będziemy pewni, że nasza modelowa hipoteza
+zgadza się ze wszystkimi poczynionymi obserwacjami.
+
+80
+00:07:18,058 --> 00:07:22,077
+W ten sposób możemy się upewnić,
+że rozumiemy przebieg naszego programu.
+
+81
+00:07:22,077 --> 00:07:28,056
+Wracając do metod naukowych -
+obowiązuje tutaj kilka podstawowych zasad, 
+
+82
+00:07:28,056 --> 00:07:33,082
+spośród których najważniejsza mówi, że jeśli
+przeprowadzasz eksperyment, powinieneś oczekiwać,
+
+83
+00:07:33,082 --> 00:07:39,021
+że jeśli ktokolwiek inny przeprowadzi taki sam
+eksperyment, uzyska on taki sam wynik.
+
+84
+00:07:39,021 --> 00:07:44,067
+Również hipoteza powinna posiadać pewną własność
+- powinna być doświadczalnie
+
+85
+00:07:44,067 --> 00:07:49,736
+falsyfikowalna. Należy więc ją
+starannie przygotować, co
+
+86
+00:07:49,736 --> 00:07:55,433
+z pewnością spróbujemy zrobić. 
+Analizowanym aspektem naszego świata
+
+87
+00:07:55,433 --> 00:08:00,822
+jest konkretny komputer, który
+w tym świecie istnieje. To on materializuje
+
+88
+00:08:00,822 --> 00:08:07,049
+abstrakcyjny algorytm
+w konkretną fizycznie istniejącą rzecz,
+
+89
+00:08:07,049 --> 00:08:11,083
+jak elektrony poruszające się w naszym komputerze.

@@ -1,0 +1,459 @@
+1
+00:00:01,006 --> 00:00:06,058
+De acuerdo. Ahora que hemos visto
+ implementaciones de los algoritmos que pueden
+
+2
+00:00:06,058 --> 00:00:12,025
+resolver la unificación del problema por un gran 
+número de  instancias del problema,  vamos a ver como
+
+3
+00:00:12,025 --> 00:00:17,095
+pueden ser aplicados. Hay un gran 
+número de aplicaciones para encontrar las uniones. Nosotros
+
+4
+00:00:17,095 --> 00:00:24,005
+hablamos acerca de la conectividad dinámica en
+redes,  hay muchos otros ejemplos en
+
+5
+00:00:24,005 --> 00:00:30,008
+nuestra infraestructura computacional. 
+En la parte inferior, está una parte importante de ella, 
+
+6
+00:00:30,008 --> 00:00:36,018
+es un procesamiento de imágenes para entender 
+como etiquetar áreas en imágenes. Veremos
+
+7
+00:00:36,018 --> 00:00:41,057
+más tarde el algoritmo de árbol de expansión mínima de Kruskal
+el cual es un algoritmo de  procesamiento de grafos.
+
+8
+00:00:41,057 --> 00:00:48,009
+el cual usa Busca-Union como una
+subrutina. Hay algoritmos en física
+
+9
+00:00:48,009 --> 00:00:54,077
+para comprender fenómenos físicos que 
+nosotros vamos a ver varios ejemplos
+
+10
+00:00:55,000 --> 00:01:00,064
+en esta lista. Asi que del que vamos   
+a hablar ahora es llamado filtración.
+
+11
+00:01:00,086 --> 00:01:07,046
+Ese es un modelo para muchos sistemas fisicos
+Les daré el modelo abstracto y entonces
+
+12
+00:01:07,046 --> 00:01:13,063
+hablamos brevemente sobre como se aplica a
+a los sistemas físicos. Así que vamos a pensar en 
+
+13
+00:01:13,063 --> 00:01:20,076
+una tabla de n por n al que llamaremos sitios.
+Y diremos que cada sitio está abierto.
+
+14
+00:01:21,001 --> 00:01:27,076
+El area que esta en blanco en el diagrama con probabilidad   
+P o bloqueada, y el área en negro en el diagrama
+
+15
+00:01:27,076 --> 00:01:34,029
+con probabilidad 1 - P y definimos 
+un sistema, decimos que un sistema es
+
+16
+00:01:34,029 --> 00:01:40,059
+filtrado si la parte superior y la inferior están 
+conectadas por sitios abiertos. De modo que en el sistema a
+
+17
+00:01:40,059 --> 00:01:46,089
+la izquierda, tú puedes encontrar una manera de
+ir de la parte superior a la inferior a través de los
+cuadros blancos,
+
+18
+00:01:46,089 --> 00:01:53,019
+ pero el sistema de la derecha no filtra, 
+no hay manera de llegar de
+
+19
+00:01:53,019 --> 00:02:00,017
+la parte superior a la parte inferior a través de 
+una casilla blanca.  Así que ese es un modelo para muchos
+
+20
+00:02:00,017 --> 00:02:05,098
+sistemas. Puedes se aplicado en electricidad. 
+Si se piensa que en un espacio vacante como  
+
+21
+00:02:05,098 --> 00:02:11,091
+un conductor y, y un sitio negro como un
+un aislante. De modo que si hay un conductor
+
+22
+00:02:11,091 --> 00:02:17,091
+desde la parte superior  a la parte inferior, entonces es un conductor
+electrico. 
+También puedes pensar que es
+
+23
+00:02:17,091 --> 00:02:23,039
+como el agua que fluye a través de 
+una sustancia porosa de algún tipo. De modo que 
+
+24
+00:02:23,039 --> 00:02:28,055
+las áreas en blanco representan espacios vacíos 
+y las negras contienen matera, así que el agua
+
+25
+00:02:28,055 --> 00:02:34,030
+fluye desde la parte superior, o no. 
+O puedes pensar en una red social
+
+26
+00:02:34,030 --> 00:02:39,869
+donde hay gente conectada y ya sea que 
+hay una conexión entre dos personas
+
+27
+00:02:39,869 --> 00:02:46,063
+o no y este modelo representa un manera de llegar de 
+un grupo de personas a otro
+
+28
+00:02:46,063 --> 00:02:52,076
+comunicándose a través de la red social. 
+Estos son unos pocos ejemplos del
+
+29
+00:02:52,076 --> 00:02:58,089
+modelo de filtración. Así que si estamos 
+hablando sobre un modelo aleatorio, donde 
+
+30
+00:02:58,089 --> 00:03:05,075
+los sitios que están vacíos con la 
+probabilidad dada.
+De modo que  es bastante claro que
+
+31
+00:03:06,005 --> 00:03:11,087
+es así.  La probabilidad de que un sitio esté vacío
+es baja como en la izquierda, los ejemplos de la
+
+32
+00:03:11,087 --> 00:03:17,002
+izquierda en este diagrama, no fluyen. 
+No hay suficientes áreas vacias
+
+33
+00:03:17,002 --> 00:03:22,016
+para que haya la conexión desde arriba hasta abajo. 
+Si la probabilidad es alta
+
+34
+00:03:22,016 --> 00:03:26,002
+y hay un muchos espacios abiertos, 
+definitivamente fluye. Habrá
+
+35
+00:03:26,002 --> 00:03:30,055
+muchas maneras de ir desde lo alto a lo bajo. 
+Pero en la centro, cuando
+
+36
+00:03:30,055 --> 00:03:35,067
+está a medias, es difícil saber si fluirá o no. 
+Por lo que la pregunta scientífica
+
+37
+00:03:35,067 --> 00:03:40,065
+o la pregunta matemática 
+que se desprende de este modelo es, como sabemos
+
+38
+00:03:41,005 --> 00:03:46,062
+si fluirá o no? In este problema 
+y en otros muchos similares,
+
+39
+00:03:46,062 --> 00:03:52,034
+hay lo que se llama una fase de transición. 
+Que dice que,  cuando es pequeño,
+
+40
+00:03:52,034 --> 00:03:56,072
+no va fluir. Cuando es alto,
+fluirá. Y
+
+41
+00:03:56,072 --> 00:04:02,003
+actualmente, el umbral entre cuando fluye
+ y cuando no lo hace
+
+42
+00:04:02,003 --> 00:04:07,092
+es muy marcada. Y actualmente hay un 
+ N, el cual entre más grande el sistema no fluirá
+
+43
+00:04:07,092 --> 00:04:13,089
+cierto de que fluye, 
+si es más grande al menos 
+
+44
+00:04:13,089 --> 00:04:19,045
+ocurre ciertamente. La cuestión es cual es
+este valor. Hay un ejemplo de un
+
+45
+00:04:19,045 --> 00:04:26,051
+modelo matemático donde el problema está
+muy bien articulado. Cual es
+
+46
+00:04:26,051 --> 00:04:32,092
+el valor del umbral pero, nadie sabe la
+solución de ese problema matemático. La
+
+47
+00:04:32,092 --> 00:04:37,032
+única solución que hemos encontrado es un
+modelo computacional, donde corremos
+
+48
+00:04:37,032 --> 00:04:42,082
+simulaciones para probar y determinar el valor
+de esa probabilidad. Y esas simulaciones
+
+49
+00:04:42,082 --> 00:04:47,093
+son solo permitidas para búsqueda 
+rápida de algoritmos, que es nuestro ejemplo
+
+50
+00:04:47,093 --> 00:04:53,024
+pero por qué necesitamos más rápidez en los algoritmos de búsquedas,
+lo que
+
+51
+00:04:53,024 --> 00:04:59,053
+Vamos a correr es denominado y llamado
+simulacion Monte Carlo. Donde nosotros
+
+52
+00:04:59,053 --> 00:05:06,063
+inicializaremos toda la tabla para ser bloqueada
+toda negra y despues aleatoreamente se llenaran
+
+53
+00:05:06,063 --> 00:05:12,096
+los espacios abiertos. Y seguiremos. Y cada vez añadimos un espacio vacio, revizamos para ver
+
+54
+00:05:12,096 --> 00:05:18,095
+si hace que el sistema filtre. Y 
+seguimos hasta que llegamos al punto donde
+
+55
+00:05:18,095 --> 00:05:24,026
+el sistema filtra. Podemos ver 
+que el porcentaje de vacantes en el instante
+
+56
+00:05:24,026 --> 00:05:29,080
+en que el sistema filtra es una estimación de este valor límite. Así que lo que queremos es 
+
+57
+00:05:29,080 --> 00:05:35,008
+correr el experimento millones de veces,
+lo cual podemos hacer en una computadora, tanto como
+
+58
+00:05:35,008 --> 00:05:40,069
+podamos y eficientemente hacer el cálculo de
+filtra o no. Esa es la simulación Monte
+
+59
+00:05:40,069 --> 00:05:45,064
+Carlo, un problema computacional
+que nos da una solución a este
+
+60
+00:05:45,084 --> 00:05:51,012
+problema científico el cual nadie sabe aún resolver matemáticamente.
+
+61
+00:05:51,012 --> 00:05:56,097
+Así que, veamos con un poco mas
+de detalle cómo vamos a usar nuestro
+
+62
+00:05:56,097 --> 00:06:03,092
+modelo dinámico de conectividad para hacer
+esto. Así que está claro que, crearemos un 
+
+63
+00:06:03,092 --> 00:06:09,093
+objeto correspondiente a cada sitio y
+le daremos un nombre, de cero a N^2-1
+
+64
+00:06:09,093 --> 00:06:16,091
+como se indica aquí. Entonces los conectaremos
+juntos. Si están conectados por
+
+65
+00:06:16,091 --> 00:06:23,029
+sitios abiertos. Así que el modelo de filtrado a
+la izquierda corresponde al modo de
+
+66
+00:06:23,029 --> 00:06:28,089
+conexión de la derecha, de acuerdo con lo
+que hemos estado haciendo. Ahora, tú dirás,
+
+67
+00:06:28,089 --> 00:06:33,081
+bien,  si lo que quiero hacer es conectar
+y chequear si algun sitio en la fila inferior
+
+68
+00:06:33,081 --> 00:06:39,039
+está conectado a cualquier sitio en la fila superior,
+y utilizar la unión para encontrarla. El problema con
+
+69
+00:06:39,039 --> 00:06:44,091
+esto es, que que sería un algoritmo de fuerza bruta.  Sería cuadrático,
+
+70
+00:06:44,091 --> 00:06:50,030
+ Porque tendría N^2
+ llamadas para encontrar, chequear si éstos están
+
+71
+00:06:50,030 --> 00:06:55,048
+conectados. Para cada sitio en la parte superior, tendría que
+comprobar cada sitio en la parte inferior.  Es demasiado
+
+72
+00:06:55,048 --> 00:07:01,024
+lento. En  lugar de ello, lo que hacemos es crear un  
+sitio virtual en la parte superior y en la parte inferior.
+
+73
+00:07:01,024 --> 00:07:06,087
+Y luego, cuando se quiera conocer si
+ este sistema filtra, solo chequeamos
+
+74
+00:07:06,087 --> 00:07:14,025
+si el sitio virtual superior está conectado
+con el sitio virtual inferior. Entonces ¿Cómo
+
+75
+00:07:14,025 --> 00:07:20,097
+vamos a modelar la apertura de un nuevo sitio? Bueno para abrir un 
+sitio nos conectamos a todos los 
+
+76
+00:07:20,097 --> 00:07:28,034
+sitios adyacentes abiertos. Esto se hace con unas pocas llamadas 
+a la Unión, pero es fácil de implementar.  Y
+
+77
+00:07:28,034 --> 00:07:34,092
+entonces con ésta, simple, interrelación podemos
+ usar utilizar el código exacto que hemos
+
+78
+00:07:34,092 --> 00:07:42,000
+desarrollado para continuar y ejecutar una simulación para este problema de conectividad. Y ahí es
+
+79
+00:07:42,000 --> 00:07:48,082
+donde obtenemos el resultado, ejecutando suficientes simulaciones para un n lo suficientemente grande,
+
+80
+00:07:49,007 --> 00:07:55,409
+que es, el umbral de filtración es más o menos 0.592746. Con este algoritmo rápido podemos 
+
+81
+00:07:55,409 --> 00:08:01,693
+obtener una respuesta precisa a la pregunta científica. Si usamos un algoritmo Union-find (Busca-Unión)
+
+82
+00:08:01,693 --> 00:08:06,822
+no podremos utilizarlo para grandes problemas y no obtendremos una 
+
+83
+00:08:06,822 --> 00:08:11,979
+respuesta muy precisa. Así que en resumen, tenemos un problema importante. La, el problema
+
+84
+00:08:11,979 --> 00:08:17,359
+de conectividad dinámica. Hemos modelado el problema para intentar entender con precisión 
+
+85
+00:08:17,359 --> 00:08:22,109
+que tipos de estructuras de datos y algoritmos tenemos que para resolverlo. Vimos
+
+86
+00:08:22,109 --> 00:08:26,676
+algunos algoritmos fáciles para resolver el problema, y rápidamente vimos que eran
+
+87
+00:08:26,676 --> 00:08:31,953
+inadecuados para resolver grandes problemas. Pero entonces vimos cómo mejorarlos para
+
+88
+00:08:31,953 --> 00:08:37,300
+obtener algoritmos eficientes. Y entonces nos quedamos con aplicaciones que no pueden
+
+89
+00:08:37,300 --> 00:08:42,768
+ser resueltas sin estos algoritmos eficiente. Todo esto supone el método científico.
+
+90
+00:08:42,768 --> 00:08:47,954
+Para el diseño de algoritmos donde intentamos desarrollar modelos matemáticos que nos ayuden
+
+91
+00:08:47,954 --> 00:08:52,343
+a entender las propiedades de los algoritmos que estamos desarrollando. Y entonces
+
+92
+00:08:52,343 --> 00:08:56,675
+probamos esos modelos a través de la experimentación, permitiéndonos mejorar
+
+93
+00:08:56,675 --> 00:09:02,363
+la iteración de los algoritmos, desarrollando mejores algoritmos y modelos más refinados hasta que
+
+94
+00:09:02,363 --> 00:09:07,061
+obtenemos lo que necesitamos para resolver problemas prácticos que nos interesan. Eso es
+
+95
+00:09:07,061 --> 00:09:12,165
+lo que va a ser la arquitectura general para estudiar algoritmos que vamos a 
+
+96
+00:09:12,165 --> 00:09:14,036
+usar a través del curso.

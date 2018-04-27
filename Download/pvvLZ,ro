@@ -1,0 +1,223 @@
+1
+00:00:01,065 --> 00:00:07,024
+În cele din urmă, vorbim despre stabilitate. Acesta este într-adevăr una dintre regulile jocului, dar
+
+2
+00:00:07,024 --> 00:00:11,029
+este mult mai ușor să vorbim în contextul algoritmilor reali pe care i-ați
+
+3
+00:00:11,029 --> 00:00:15,068
+văzut până acum. Și, într-adevăr nu are sens, dacă nu știi despre comparatorii
+
+4
+00:00:15,068 --> 00:00:21,022
+pe care tocmai i-am introdus. Așa că, aplicația tipică pe care tocmai am folosit-o ca exemplu
+
+5
+00:00:21,022 --> 00:00:26,098
+i se spune set de înregistrări cu studenți. Așa că i-am sortat după nume și asta spune,
+
+6
+00:00:26,098 --> 00:00:31,884
+ceva ce noi facem doar înainte de a atribui note finale. Poate cea de-a treia linie de acolo
+
+7
+00:00:31,884 --> 00:00:38,026
+este nota finală. Așa că e totul în regulă sortat după nume și apoi, dar, în scopul de a
+
+8
+00:00:38,026 --> 00:00:44,009
+distribui la oamenii care conduc la compartimente, ceea ce vrem să facem este
+
+9
+00:00:44,009 --> 00:00:50,625
+să sortăm după al doilea câmp, sortare după compartiment. Problema este că, atunci când facem
+
+10
+00:00:50,625 --> 00:00:57,945
+asta, ea strică sortarea după nume și asta e enervant. S-ar putea presupune că
+
+11
+00:00:57,945 --> 00:01:04,329
+odată ce l-ați sortat după nume, atunci când sortați după al doilea câmp, atunci
+
+12
+00:01:04,329 --> 00:01:10,742
+ar trebui să mențină sortarea după nume pentru tot ce are chei egale, în cel de-al doilea
+
+13
+00:01:10,742 --> 00:01:17,191
+câmp. De fapt, nu toate sortările păstrează acea proprietate, care se numește stabilitate.
+
+14
+00:01:17,191 --> 00:01:22,726
+Și, în mod clar, este util să se gândească pentru aplicația dumneavoastră dacă
+
+15
+00:01:22,726 --> 00:01:28,039
+doriți sau aveți nevoie de o sortare stabilă. Și așa, este o surpriză enervantă pentru mulți oameni și
+
+16
+00:01:28,039 --> 00:01:33,659
+multe aplicații. Deci, o sortare stabilă este o sortare care păstrează ordinea relativă a
+
+17
+00:01:33,659 --> 00:01:38,956
+elementelor cu chei egale. Oricare sortări sunt stabile? Asta este o întrebare interesantă
+
+18
+00:01:38,956 --> 00:01:44,879
+încât vom arunca o privire acum. Linia de jos rapidă este acea sortare prin inserare și
+
+19
+00:01:44,879 --> 00:01:52,238
+sortare prin interclasare sunt stabile, dar nu sortarea prin selecție sau Shellsort. Și chiar și în acea
+
+20
+00:01:52,238 --> 00:01:58,477
+linie de jos, exista implementări care poate nu sunt stabile. Trebuie să
+
+21
+00:01:58,477 --> 00:02:04,158
+verificați cu atenție codul ca sa fiți siguri. Mereu, în această clasă, noi avem un exercițiu
+
+22
+00:02:04,158 --> 00:02:10,834
+sau întrebare de examen este acestă versiune de sortare stabilă sau nu? Asfel, studenții învață să
+
+23
+00:02:10,834 --> 00:02:16,709
+recunoască dacă codul este stabil. Așa că acesta e doar un alt exemplu tipic unde
+
+24
+00:02:16,905 --> 00:02:21,879
+noi avem lucruri sortate după timp, și apoi ceea ce vrem să facem este poate, acestea sunt
+
+25
+00:02:22,050 --> 00:02:27,435
+evenimente importante. Oamenii cumpăra bilete la un concert rock și eu voi sorta după
+
+26
+00:02:27,435 --> 00:02:31,702
+locație ce noi am spera este ca s-ar păstra sortarea după timp, dar aceasta este o
+
+27
+00:02:31,702 --> 00:02:36,640
+sortare nestabilă care nu face rău deci în afara locației ei vor trebui să
+
+28
+00:02:36,640 --> 00:02:41,725
+resorteze dacă ei folosesc una dintre acestea. Dar dacă ei folosesc o sortare stabilă, atunci
+
+29
+00:02:41,725 --> 00:02:47,692
+rămâne sortată după timp și o mulțime de aplicații pe care doriți stabilitate. În regulă,
+
+30
+00:02:47,692 --> 00:02:54,015
+deci să ne uităm doar la fiecare dintre algoritmii pe care i-am luat în considerare până acum.
+
+31
+00:02:54,207 --> 00:02:59,097
+Sortare prin inserare. Sortarea prin inserare este stabilă. De ce e stabilă? Ei bine, noi nu mutăm niciodată
+
+32
+00:02:59,097 --> 00:03:05,633
+elemente egale unul peste altul. În acest exemplu de aici, când noi luăm A1, ei bine asta e
+
+33
+00:03:05,866 --> 00:03:12,141
+așa în acest caz, indexul este doar unul care apare în matrice, e doar al lui A
+
+34
+00:03:12,141 --> 00:03:18,763
+și al lui B. Când noi luăm al nostru al doilea A, noi oprim sortarea cu condiția ca să nu fim mai puțin. Suntem
+
+35
+00:03:18,763 --> 00:03:24,911
+egali, nu suntem mai puțin, noi oprim niciodată nu mutam un element egal peste altul.
+
+36
+00:03:24,911 --> 00:03:30,488
+Dacă e mai puțin sau mai puțin decât sau egal, atunci nu ar funcționa. Sau dacă am făcut alt
+
+37
+00:03:30,488 --> 00:03:35,818
+mod în jurul valorii și am procedat în consecință. Așa că, elementele egale nu trec niciodată unul peste altul în
+
+38
+00:03:35,818 --> 00:03:41,997
+acest cod in consecință sortarea prin inserare e stabilă. Dar sortarea prin selecție nu e stabilă.
+
+39
+00:03:42,298 --> 00:03:49,529
+De obicei modul, modalitatea de a arăta că o sortare nu e stabilă și e doar pentru a vedea dacă
+
+40
+00:03:49,529 --> 00:03:55,875
+are un schimb de lungă distanță, care ar putea muta un element peste un element egal. Așa că,
+
+41
+00:03:56,163 --> 00:04:02,245
+[Tuse] în acest caz, de exemplu, pentru sortarea prin selecție, atunci când facem asta mai întâi
+
+42
+00:04:02,245 --> 00:04:08,471
+schimbăm hopa, [tuse] unde am găsit minimul A și B este în poziția zero. Noi
+
+43
+00:04:08,471 --> 00:04:14,951
+am făcut un schimb de lungă distanță și aceea a catapultat acest prim element dincolo de orice element
+
+44
+00:04:14,951 --> 00:04:21,249
+care ar putea să fie egal punându-le în afara ordinii. Și asta nu se poate obține fix așa că
+
+45
+00:04:21,249 --> 00:04:26,524
+acea sortare nu este stabilă. S-ar putea muta elemente peste un obiect egal și lasă un
+
+46
+00:04:26,524 --> 00:04:32,601
+rezultat în cazul în care elementele care sunt egale sau în altă ordine decât au fost inițial
+
+47
+00:04:32,601 --> 00:04:39,016
+în fișier. Sortarea prin selecție nu este stabilă. Shellsort are de asemenea schimburi de lungă distanță
+
+48
+00:04:39,016 --> 00:04:45,479
+și deci nu este stabilă. Mută chei peste alte chei, care ar putea să fie egale și așa e
+
+49
+00:04:45,479 --> 00:04:51,024
+ușor de construit exemple care arată că sortarea prin selecție nu este stabilă. Și cum e
+
+50
+00:04:51,024 --> 00:04:57,527
+cu sortarea prin interclasare? Sortarea prin interclasare este bine stabilă, este stabilă, atâta timp cât operația de interclasare
+
+51
+00:04:57,527 --> 00:05:02,923
+este stabilă și acea operație va fi stabilă, în funcție de modul în care am codat-o.
+
+52
+00:05:03,118 --> 00:05:09,232
+Și, în codul nostru, în cazul în care cele două chei sunt egale, ia din sub matricea stângă deci
+
+53
+00:05:09,232 --> 00:05:15,670
+aceea înseamnă că, va lua întotdeauna, în cazul în care există două seturi de chei egale, el
+
+54
+00:05:15,670 --> 00:05:21,112
+va păstra ordinea relativă și asta este suficient pentru a arăta că operația de
+
+55
+00:05:21,112 --> 00:05:26,672
+interclasare este stabilă și apoi, prin urmare, sortarea prin interclasare este stabilă. Stabilitatea este o
+
+56
+00:05:26,672 --> 00:05:38,905
+proprietate importantă în algoritmii de sortare. Sortarea prin interclasare este nu numai eficientă, este, de asemenea,

@@ -1,0 +1,338 @@
+1
+00:00:01,024 --> 00:00:06,048
+La première méthode de tri élémentaire
+que nous allons étudier est une méthode
+
+2
+00:00:06,048 --> 00:00:11,083
+simple appelée "tri par sélection". Le principe
+du tri par sélection débute avec
+
+3
+00:00:11,083 --> 00:00:17,101
+un tableau désordonné et nous allons utiliser ces cartes
+à jouer comme exemple. À la i-ième itération,
+
+4
+00:00:17,101 --> 00:00:22,867
+nous parcourons le tableau pour trouver
+la plus petite entrée restante. Dans le cas présent,
+
+5
+00:00:22,867 --> 00:00:28,693
+le 2 est la plus petite des entrées. Alors
+nous l'échangeons avec la première entrée
+
+6
+00:00:28,693 --> 00:00:34,199
+du tableau et à ce moment là nous savons
+que nous avons avancé d'un pas. Le tri par sélection
+
+7
+00:00:34,199 --> 00:00:39,376
+se base sur la répétition de cette idée. Ainsi,
+la méthode de tri par insertion est, à l'itération i,
+
+8
+00:00:39,376 --> 00:00:44,626
+trouver la plus petite entrée restante
+à partir de la droite de i - ou avec un plus grand
+
+9
+00:00:44,626 --> 00:00:50,252
+indice que i - et l'échanger avec i.
+Alors, quand on commence, i est à l'extrémité gauche 
+
+10
+00:00:50,252 --> 00:00:55,711
+et les entrées restantes sont à droite.
+Nous pouvons parcourir le tableau
+
+11
+00:00:55,711 --> 00:01:02,516
+et la plus petite est le 2, trois entrées
+à droite et nous les échangeons.
+
+12
+00:01:02,516 --> 00:01:08,889
+C'est le premier pas. Là, la partie
+du tableau à la gauche de i est dans son ordre
+
+13
+00:01:08,889 --> 00:01:15,193
+final et nous continuons tout simplement. Maintenant,
+la plus petite est le 3. Échangeons là avec i,
+
+14
+00:01:15,193 --> 00:01:21,511
+augmentons i de 1. Là nous avons le 2 et le 3
+dans l'ordre, continuons de la même manière
+
+15
+00:01:21,511 --> 00:01:27,958
+Trouvons le plus petit, le 4. Échangeons le avec i,
+augmentons i de 1. Trouvons le plus petit,
+
+16
+00:01:27,958 --> 00:01:34,712
+c'est 5, échangeons le avec i, augmentons i de 1.
+Trouvons le plus petit, échangeons le avec i, augmentons
+
+17
+00:01:34,712 --> 00:01:40,689
+i de 1. À chaque fois, nous devons parcourir
+toutes les entrées restantes dans l'ordre
+
+18
+00:01:40,689 --> 00:01:45,788
+pour trouver la plus petite. Mais ensuite, quand
+nous l'avons trouvée, il suffit d'échanger les deux cartes.
+
+19
+00:01:45,979 --> 00:01:52,898
+Ce sont les principes clés du tri par
+sélection. Là le 8 est le plus petit et nous faisons l'échange.
+
+20
+00:01:52,898 --> 00:01:59,486
+Maintenant nous savons qu'elles sont triées
+mais le programme ne le sait pas alors nous devons
+
+21
+00:01:59,486 --> 00:02:06,816
+regarder si i et n sont égaux et dans ce cas
+nous échangeons i avec lui-même et pareillement
+
+22
+00:02:06,816 --> 00:02:13,226
+pour la dernière carte. Et là, après
+cette procédure, nous savons que le tableau
+
+23
+00:02:13,226 --> 00:02:19,445
+en entier est dans son ordre final, toutes les cartes triées.
+Bien. Alors, une manière de comprendre
+
+24
+00:02:19,445 --> 00:02:24,768
+la manière dont l'algorithme fonctionne est
+de penser en terme d'invariant. En ce qui concerne
+
+25
+00:02:24,768 --> 00:02:30,924
+le tri par sélection, nous avons un pointeur qui était
+notre variable i qui permet d'avancer de la gauche vers 
+
+26
+00:02:30,924 --> 00:02:36,345
+la droite. Il est indiqué par une petite flèche
+rouge dans cette représentation.
+
+27
+00:02:36,345 --> 00:02:42,235
+Les invariants sont que les entrées à
+la gauche de la flèche ne sont jamais changées
+
+28
+00:02:42,235 --> 00:02:48,743
+et qu'elles sont en ordre croissant. Aucune entrée
+à la droite de la flèche n'est plus petite
+
+29
+00:02:48,743 --> 00:02:54,859
+qu'une des entrées à sa gauche. C'est la
+manière dont nous l'avons mis en place. L'algorithme
+
+30
+00:02:54,859 --> 00:03:00,837
+maintient ces invariants en trouvant
+la plus petite entrée à droite et en l'échangeant
+
+31
+00:03:00,837 --> 00:03:06,827
+avec la suivante. Ainsi le programme
+met en œuvre l'invariant. Donc pour déplacer
+
+32
+00:03:06,827 --> 00:03:12,739
+le pointeur à droite, nous augmentons i de 1.
+Là, l'invariant peut être enfreint aussi nous devons
+
+33
+00:03:12,739 --> 00:03:18,425
+arranger ça. Il peut être enfreint
+parce qu'il est possible d'avoir un élément
+
+34
+00:03:18,425 --> 00:03:23,812
+à la droite du pointeur qui est
+plus petit que l'élément à la place
+
+35
+00:03:23,812 --> 00:03:29,143
+du pointeur. Donc ce que nous devons faire
+c'est identifier l'indice ou cette entrée minimale
+
+36
+00:03:29,143 --> 00:03:34,170
+et les échanger. Dès que nous les avons échangées,
+encore une fois nous avons préservé notre invariant.
+
+37
+00:03:34,170 --> 00:03:38,846
+Après ce point, aucun élément à la gauche
+du pointeur n'est susceptible de changer et
+
+38
+00:03:38,846 --> 00:03:44,536
+il n'y a pas de plus petit élément
+à droite. Ceci nous donne
+
+39
+00:03:44,768 --> 00:03:52,713
+immédiatement notre mise en œuvre
+du tri par sélection. Nous identifions la
+
+40
+00:03:52,713 --> 00:03:59,009
+taille du tableau, c'est n. Ensuite
+nous avons une boucle for qui parcourt
+
+41
+00:03:59,009 --> 00:04:05,112
+tous les éléments du tableaux. Nous conservons une variable
+min qui est l'indice à venir de l'élément 
+
+42
+00:04:05,112 --> 00:04:10,045
+le plus petit à la droite
+du pointeur i. Nous avons une
+
+43
+00:04:10,045 --> 00:04:15,626
+boucle interne for qui pour tous les j, 
+s'il trouve un plus petit remet à jour min et une fois
+
+44
+00:04:15,626 --> 00:04:21,509
+que nous avons parcouru tous les éléments
+à la droite de i, nous échangeons le plus petit
+
+45
+00:04:21,509 --> 00:04:27,083
+avec i. C'est une mise en œuvre complète
+du tri par sélection. Il est maintenant facile
+
+46
+00:04:27,083 --> 00:04:34,073
+de développer un modèle mathématique pour le coût
+du tri par insertion et voici la 
+
+47
+00:04:34,073 --> 00:04:42,054
+proposition qui le décrit.
+Le tri par insertion effectue de l'ordre de N^2/2
+
+48
+00:04:42,056 --> 00:04:48,011
+comparaisons et exactement n échanges.
+Une simple observation de cette trace d'exécution
+
+49
+00:04:48,011 --> 00:04:55,525
+constitue une preuve
+visuelle de cette proposition.
+
+50
+00:04:55,525 --> 00:05:00,493
+Dans ce schéma, les entrées en noir
+sont celles qui sont examinées dans le but de trouver
+
+51
+00:05:00,493 --> 00:05:06,621
+le minimum à chaque fois, avec le minimum
+en rouge. Les entrées en gris ne sont pas consultées,
+
+52
+00:05:06,621 --> 00:05:12,492
+elles sont dans leur position finale. Donc vous
+voyez que cela va être
+
+53
+00:05:12,492 --> 00:05:19,709
+en général un carré de N par N et à peu près
+la moitié des éléments dans le carré sont noirs
+
+54
+00:05:19,709 --> 00:05:27,029
+soit N^2/2 et vous pouvez lire aussi la formule
+exacte (N-1) + (N-2) etc.
+
+55
+00:05:27,245 --> 00:05:33,329
+qui est le nombre total de comparaisons effectuées.
+Pour chacune des N valeurs de la variable i
+
+56
+00:05:33,329 --> 00:05:40,218
+il y a un échange, donc c'est
+le coût en terme de nombre d'échanges.
+
+57
+00:05:40,218 --> 00:05:48,070
+Ce qui est important concernant
+le tri par sélection c'est que
+
+58
+00:05:48,070 --> 00:05:54,257
+quel que soit l'ordre dans lequel les données
+sont, le tri par insertion s'exécutera en temps
+
+59
+00:05:54,257 --> 00:06:00,458
+quadratique parce qu'il doit toujours
+parcourir le tableau total pour trouver le
+
+60
+00:06:00,458 --> 00:06:06,752
+minimum. Et une autre propriété est que vous
+ne pouvez pas trier en déplaçant moins de données car
+
+61
+00:06:06,752 --> 00:06:12,842
+le tri par insertion effectue juste un nombre linéaire
+d'échanges. Chaque entrée est placée
+
+62
+00:06:12,842 --> 00:06:19,459
+à sa position finale avec seulement
+un échange. Regardons une animation
+
+63
+00:06:19,459 --> 00:06:25,693
+du tri par sélection en fonctionnement.
+Vous pouvez voir notre pointeur se déplaçant de la droite
+
+64
+00:06:25,693 --> 00:06:31,919
+à la gauche chaque fois qu'il trouve le plus petit
+élément à droite, et l'échanger
+
+65
+00:06:31,919 --> 00:06:39,637
+à sa position. Si le tableau est partiellement
+trié, cela n'a aucun effet sur le tri par sélection
+
+66
+00:06:39,637 --> 00:06:45,854
+Il doit tout de même tout parcourir,
+même si c'est totalement trié, il doit malgré tout
+
+67
+00:06:45,854 --> 00:06:51,359
+aller chercher où l'élément minimum est.
+C'est l'algorithme de tri par sélection,
+
+68
+00:06:51,359 --> 00:06:59,072
+notre première méthode élémentaire de tri.

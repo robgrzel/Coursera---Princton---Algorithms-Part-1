@@ -1,0 +1,828 @@
+1
+00:00:01,096 --> 00:00:06,043
+Bentornati. Oggi parleremo 
+di algoritmi e strutture dati
+
+2
+00:00:06,043 --> 00:00:10,096
+che implementano dei tipi di dati fondamentali chiamati bags,
+queues  o code e stacks. Forse
+
+3
+00:00:10,096 --> 00:00:15,038
+ne hai già sentito parlare, ma oggi
+ le analizzeremo più da vicino.
+
+4
+00:00:15,038 --> 00:00:19,064
+In molte applicazioni abbiamo collections  -  insieme di oggetti 
+dello stesso tipo, eventualmente con ripetizioni - di
+
+5
+00:00:19,064 --> 00:00:24,044
+oggetti  che vogliamo mantenere. E le
+ operazioni sono molto semplici. Vogliamo aggiungere
+
+6
+00:00:24,044 --> 00:00:28,622
+nuovi oggetti alla collection, forse 
+rimuovere oggetti e iterare
+
+7
+00:00:28,622 --> 00:00:33,799
+fra tutti gli oggetti della collection, eseguendo
+ un'operazione su ciascuno di essi, e
+
+8
+00:00:33,799 --> 00:00:39,204
+naturalmente, controllare se è vuoto. Per quasi tutte
+ le operazioni il significato è chiaro. Il problema
+
+9
+00:00:39,204 --> 00:00:45,570
+riguarda la rimozione di un elemento.
+ Quale elemento rimuoviamo? Le due
+
+10
+00:00:45,570 --> 00:00:51,007
+strutture dati classiche fondamentali,
+ lo stack e la queue differiscono
+
+11
+00:00:51,007 --> 00:00:57,001
+per il modo in cui viene scelto l'elemento da rimuovere.
+Per quello che riguarda lo stack, estraiamo 
+
+12
+00:00:57,001 --> 00:01:03,026
+l'ultimo elemento aggiunto. Chiameremo
+ push l'operazione che usiamo per inserire
+
+13
+00:01:03,026 --> 00:01:09,302
+un elemento e pop l'operazione per rimuovere l'ultimo
+ elemento aggiunto. Questo tipo di 
+
+14
+00:01:09,302 --> 00:01:15,024
+comportamento è chiamato LIFO last-in-first-out cioè 
+ultimo-dentro-primo-fuori. Per la queue, estraiamo l'elemento più vecchio
+
+15
+00:01:15,024 --> 00:01:21,045
+e chiamiamo inqueue l'operazione che 
+usiamo per inserire un elemento e
+
+16
+00:01:21,045 --> 00:01:27,015
+dequeue l'operazione per rimuovere un elemento. 
+Chiamiamo questo comportamento FIFO first-in-
+
+17
+00:01:27,015 --> 00:01:32,070
+first-out cioè primo-dentro-primo-fuori. Vedremo adesso 
+come implementare queste
+
+18
+00:01:32,070 --> 00:01:38,166
+operazioni. Impareremo a programmare 
+in modo modulare. E useremo
+
+19
+00:01:38,166 --> 00:01:42,573
+la programmazione modulare durante 
+tutto il resto del corso. Il
+
+20
+00:01:42,573 --> 00:01:46,477
+concetto fondamentale è di separare 
+l'interfaccia dall'implementazione. Ovvero
+
+21
+00:01:46,477 --> 00:01:53,539
+quando abbiamo dei tipi di strutture dati
+ben definite come
+
+22
+00:01:53,539 --> 00:01:58,530
+stacks and queues, 
+vogliamo nascondere completamente
+
+23
+00:01:58,530 --> 00:02:03,365
+i dettagli dell'implementazione al client - programma utilizzatore -.
+Il client potrebbe avere molte 
+
+24
+00:02:03,365 --> 00:02:08,824
+implementazioni diverse fra cui scegliere, 
+ma il codice del client dovrebbe
+
+25
+00:02:08,824 --> 00:02:13,600
+eseguire solo le operazioni base. 
+L'implementazione, d'altro lato non
+
+26
+00:02:13,600 --> 00:02:19,320
+conosce in dettaglio le esigenze del client, tutto 
+quello che deve fare è implementare queste
+
+27
+00:02:19,320 --> 00:02:24,617
+operazioni. In questo modo, molti client possono 
+riusare la stessa implementazione. Questo principio
+
+28
+00:02:24,617 --> 00:02:29,466
+ci permette di creare librerie modulari 
+riutilizzabili di algoritmi e strutture dati
+
+29
+00:02:29,466 --> 00:02:34,684
+che possiamo poi utilizzare per costruire 
+algoritmi e strutture dati più complesse.
+
+30
+00:02:34,684 --> 00:02:40,713
+Ci permette anche di focalizzare la nostra attenzione 
+sulle prestazioni, se necessario, Questo
+
+31
+00:02:40,713 --> 00:02:45,973
+stile di programmazione modulare è reso 
+possibile dai linguaggi di programmazione object-oriented
+
+32
+00:02:45,973 --> 00:02:52,246
+come Java e saremo molto
+ disciplinati nel seguire questo stile.
+
+33
+00:02:52,246 --> 00:02:59,129
+Bene. Parliamo di stacks. [colpo di tosse]. 
+Gli stacks sono comuni, molti
+
+34
+00:02:59,129 --> 00:03:05,321
+di voi hanno probabilmente implementato stacks in un
+corso di programmazione introduttivo, ma qui
+
+35
+00:03:05,321 --> 00:03:09,948
+faremo una introduzione approfondita 
+dell'implementazione. Come riscaldamento,
+
+36
+00:03:10,151 --> 00:03:15,729
+immaginiamo di avere una stringa, una 
+collection di stringhe. Queste possono essere
+
+37
+00:03:15,729 --> 00:03:21,912
+corte, possono essere lunghe e 
+vogliamo salvare una
+
+38
+00:03:21,912 --> 00:03:26,589
+collection di stringhe e di tanto in tanto rimuovere 
+e restituire quella aggiunta più di recente
+
+39
+00:03:26,801 --> 00:03:33,094
+e anche di controllare se è vuota. Ecco qui le nostra 
+API - Application Programming Interface -. Abbiamo un costruttore
+
+40
+00:03:33,094 --> 00:03:40,027
+per creare uno stack vuoto, un metodo 
+per inserire una stringa chiamato push
+
+41
+00:03:40,027 --> 00:03:46,861
+che prende una stringa come parametro. Per rimuovere 
+un elemento abbiamo un metodo chiamato pop che restituisce
+
+42
+00:03:46,861 --> 00:03:53,196
+la stringa aggiunta più di recente. E abbiamo 
+il controllo per la stringa vuota che restituisce un
+
+43
+00:03:53,196 --> 00:03:59,620
+Boolean. In alcune applicazioni, vogliamo anche
+includere la dimensione dello stack. Così come
+
+44
+00:03:59,847 --> 00:04:06,241
+sempre, prima vediamo un esempio
+ di client, il nostro
+
+45
+00:04:06,241 --> 00:04:13,376
+semplice client leggerà delle stringhe 
+dallo standard input e eseguirà
+
+46
+00:04:13,376 --> 00:04:20,917
+dei comandi pop indicati dal trattino -.
+Quindi il nostro client leggerà delle stringhe
+
+47
+00:04:20,917 --> 00:04:27,742
+dallo standard input. Se la stringa è uguale
+al carattere -, eseguirà un'operazione pop
+
+48
+00:04:27,742 --> 00:04:34,026
+per avere la stringa in cima allo stack e
+la visualizzerà sull'output. Altrimenti, se la stringa
+
+49
+00:04:34,026 --> 00:04:39,209
+non è uguale al trattino, farà il push
+della stringa sullo stack. Così
+
+50
+00:04:39,209 --> 00:04:45,436
+nell'esempio qui sotto, se abbiamo un
+file chiamato tobe.txt, quello che
+
+51
+00:04:45,436 --> 00:04:51,488
+il client farà, sarà fare push di "to", "be", "or", "not", "to" 
+sullo stack poi c'è
+
+52
+00:04:51,488 --> 00:04:57,754
+il trattino che rimuoverà l'elemento inserito più recentemente
+che in questo caso è "to"
+
+53
+00:04:57,754 --> 00:05:03,757
+poi farà push di "b" sulla cima dello stack
+e poi farà pop dell'elemento in cima allo stack
+
+54
+00:05:03,757 --> 00:05:09,653
+che adesso è "b" e poi farà di nuovo pop dell'elemento
+aggiunto più di recente, "b" non c'e più, "to" non c'è quindi 
+
+55
+00:05:09,653 --> 00:05:15,642
+il successivo è "not" e così via. Questo è
+un semplice client di test che useremo per
+
+56
+00:05:15,642 --> 00:05:22,444
+fare i tests delle nostre implementazioni. Adesso
+commentiamo il codice per implementare lo stack.
+
+57
+00:05:22,444 --> 00:05:28,094
+La prima implementazione che
+esamineremo usa le linked list. Se non
+
+58
+00:05:28,094 --> 00:05:35,294
+sai cos'è la linked list, ripassala
+nella sezione 1.3 nel libro
+
+59
+00:05:35,294 --> 00:05:41,710
+o nel libro "Introduction to Programming
+ Java". Anche se conosci
+
+60
+00:05:41,710 --> 00:05:46,954
+la linked list, è utile esaminare questo
+codice perché introduce lo stile di programmazione
+
+61
+00:05:46,954 --> 00:05:52,420
+che useremo per tutto il corso anche per 
+strutture dati più complicate. Quindi
+
+62
+00:05:52,615 --> 00:05:58,449
+l'idea è di avere una linked list che
+consiste di nodi che contengono
+
+63
+00:05:58,449 --> 00:06:05,867
+le stringhe come elemento e hanno un puntatore - link-
+all'elemento successivo nella lista. Per implementare
+
+64
+00:06:05,867 --> 00:06:12,320
+uno stack, quando abbiamo una operazione push,
+inseriamo un nuovo nodo all'inizio della
+
+65
+00:06:12,320 --> 00:06:18,802
+linked list e quando facciamo un'operazione di pop
+rimuoviamo il primo nodo all'inizio 
+
+66
+00:06:18,802 --> 00:06:24,943
+della linked list, cioè l'elemento aggiunto più 
+recentemente. Guardiamo il codice
+
+67
+00:06:24,943 --> 00:06:31,440
+Useremo le linked list per tutte le
+ strutture linkate attraverso
+
+68
+00:06:31,440 --> 00:06:37,066
+il corso. Usiamo una class 
+inner (nidificata) in Java 
+
+69
+00:06:37,066 --> 00:06:41,669
+per descrivere gli oggetti "nodo" 
+che vogliamo monipolare,
+
+70
+00:06:41,669 --> 00:06:48,052
+ognuno dei quali consiste in una stringa e un puntatore 
+a un altro nodo. Quindi, l'operazione pop con
+
+71
+00:06:48,267 --> 00:06:54,594
+le linked list è molto facile da implementare.
+ [colpo di tosse]. Per prima cosa dobbiamo
+
+72
+00:06:54,594 --> 00:07:00,874
+restituire il primo elemento della lista, quindi,
+lo salviamo.Prendiamo  first.item  e
+
+73
+00:07:00,874 --> 00:07:07,458
+lo salviamo nella variabile item. Poi
+per sbarazzarci del primo nodo, facciamo
+
+74
+00:07:07,706 --> 00:07:14,904
+semplicemente puntare il puntatore al primo elemento della lista
+al secondo elemento (il reference del primo), così
+
+75
+00:07:14,904 --> 00:07:20,181
+la memoria occupata dal primo nodo può essere 
+recuperata dal garbage collector. E
+
+76
+00:07:20,181 --> 00:07:26,310
+infine, l'ultima cosa che dobbiamo fare è 
+restituire l'elemento che abbiamo salvato. Bene,
+
+77
+00:07:26,310 --> 00:07:32,065
+questa è l'operazione pop. E l'operazione 
+push? [colpo di tosse]. Per l'operazione push
+
+78
+00:07:32,065 --> 00:07:37,231
+vogliamo aggiungere un nuovo nodo
+all'inizio della lista. Così, per prima
+
+79
+00:07:37,231 --> 00:07:42,778
+cosa dobbiamo salvare il puntatore
+all'inizio della lista.
+
+80
+00:07:42,778 --> 00:07:48,021
+cioè oldfirst = first Poi creiamo un nuovo nodo, 
+che sarà il nuovo nodo che
+
+81
+00:07:48,021 --> 00:07:53,037
+all'inizio della lista, cioè first = new Node(). E poi
+
+82
+00:07:53,037 --> 00:07:58,060
+settiamo le sue variabili d'istanza. Le sue componenti
+ saranno item, la stringa che vogliamo mettere 
+
+83
+00:07:58,060 --> 00:08:02,934
+all'inizio della lista, in questo caso, "not". 
+E il suo puntatore next sarà = a oldfirst della
+
+84
+00:08:02,934 --> 00:08:07,640
+lista che adesso è il secondo elemento della
+lista. Così, con questa operazione, puntiamo
+
+85
+00:08:07,640 --> 00:08:12,511
+all'inizio della lista e abbiamo gli elementi
+della lista in
+
+86
+00:08:12,511 --> 00:08:18,699
+ordine decrescente dal più nuovo al più vecchio. 
+Queste sono le quattro linee di codice
+
+87
+00:08:18,930 --> 00:08:24,784
+per implementare l'operazione di push sullo stack.
+Questa è una completa implementazione di una linked list
+
+88
+00:08:24,784 --> 00:08:31,083
+di tutto il codice per implementare 
+una link list per uno stack
+
+89
+00:08:31,083 --> 00:08:38,308
+di stringhe in Java. E' una classe il cui 
+costruttore non deve fare niente,
+
+90
+00:08:38,308 --> 00:08:44,526
+quindi non c'è bisogno del costruttore esplicito. Abbiamo questa
+inner class che usiamo per costruire gli elementi della 
+
+91
+00:08:44,526 --> 00:08:50,826
+linked list e abbiamo fatto una inner class in 
+modo da poterci direttamente riferire alle sue
+
+92
+00:08:51,050 --> 00:08:56,085
+variabili di istanza. E la solo variabile
+ d'istanza dello stack è il
+
+93
+00:08:56,085 --> 00:09:02,344
+puntatore al primo nodo della lista che
+all'inizio sarà uguale a null. Quindi
+
+94
+00:09:02,544 --> 00:09:08,525
+l'operazione isEmpty, controlla semplicemente se il
+il primo nodo della lista è uguale a null e poi
+
+95
+00:09:08,744 --> 00:09:15,667
+push è costituito dalle quattro linee di codice che vi ho mostrato
+nella trasparenza precedente e pop è costituita dalle tre
+
+96
+00:09:15,667 --> 00:09:20,903
+line di codice che vi ho mostrato nella trasparenza
+ancora prima. Questa è un'implementazione completa
+
+97
+00:09:20,903 --> 00:09:26,582
+della linked list che funzionerà 
+come un'implementazione dello stack
+
+98
+00:09:26,582 --> 00:09:31,848
+per ogni client. Adesso possiamo 
+analizzarne le prestazioni in modo
+
+99
+00:09:31,848 --> 00:09:36,880
+da dare ai clients informazioni 
+su quanto bene le operazioni
+
+100
+00:09:36,880 --> 00:09:42,082
+della struttura dati eseguono. In questo caso 
+è facile accorgersi che ogni operazione
+
+101
+00:09:42,082 --> 00:09:48,050
+impiega un tempo costante anche nel caso peggiore.
+Ci sono poche istruzioni per ognuna 
+
+102
+00:09:48,050 --> 00:09:53,097
+delle operazioni, non ci sono cicli.
+Questo è ovviamente una caratteristica
+
+103
+00:09:53,097 --> 00:10:00,024
+desiderabile. Cosa possiamo dire sull'uso 
+della memoria? Questo dipende molto
+
+104
+00:10:00,024 --> 00:10:06,578
+dall'implementazione della macchina, quindi faremo
+l'analisi su una tipica implementazione di Java
+
+105
+00:10:06,578 --> 00:10:13,798
+e  la confronteremo facilmente con diversi
+tipi di ambiente
+
+106
+00:10:14,022 --> 00:10:20,727
+In Java c'è un over head di sedici bytes 
+per ogni oggetto di una inner class.
+
+107
+00:10:20,727 --> 00:10:26,490
+C'è un ulteriore overhead, 8 bytes, perché
+
+108
+00:10:26,490 --> 00:10:31,541
+è una inner class e poi ci sono 
+i due riferimenti che costruiamo nella
+
+109
+00:10:31,541 --> 00:10:36,892
+nostra classe Node. Uno alla stringa e un altro 
+al nodo successivo e questi occupano ognuno
+
+110
+00:10:36,892 --> 00:10:41,531
+otto bytes. Così abbiamo 40 bytes per ogni nodo, 
+dello stack quindi, se abbiamo uno stack di dimensione n,
+
+111
+00:10:41,531 --> 00:10:47,584
+avremo circa 40n bytes.C'è ancora un piccolo 
+overhead per il puntatore first, ma è un overhead 
+
+112
+00:10:47,584 --> 00:10:53,095
+unico per tutto lo stack. Se n è grande, 40n 
+è una stima molto precisa della quantità
+
+113
+00:10:53,095 --> 00:10:59,386
+di memoria usato. Questa stima non include lo
+spazio per le stringhe stesse che sono
+
+114
+00:10:59,386 --> 00:11:05,378
+di proprietà del client. Con questo, possiamo
+fissare il costo di questa implementazione
+
+115
+00:11:05,378 --> 00:11:11,766
+per diversi programmi client. il tempo è costante ma
+
+116
+00:11:11,766 --> 00:11:18,557
+c'è un'implementazione più veloce dello stack
+e poiché lo stack è usato nei cicli interni di alcuni
+
+117
+00:11:18,739 --> 00:11:24,063
+algoritmi, è importante pensare a
+implementazioni più veloci. E un altro
+
+118
+00:11:24,063 --> 00:11:29,904
+modo facile per implementare uno stack consiste nell'usare
+un array per conservare gli elementi sullo stack quindi
+
+119
+00:11:29,904 --> 00:11:35,299
+esaminiamolo. L'alternativa fra strutture linked
+
+120
+00:11:35,299 --> 00:11:40,616
+e arrays è fondamentale e 
+si presenterà ancora e ancora
+
+121
+00:11:40,616 --> 00:11:46,189
+quando considereremo strutture dati più 
+complicate negli algoritmi. Quindi analizziamo
+
+122
+00:11:46,189 --> 00:11:51,594
+questa implementazione nel caso facile dello stack
+per farci una prima idea
+
+123
+00:11:51,594 --> 00:11:57,676
+per strutture più complicate poi. Bene,
+se usiamo un'array mettiamo
+
+124
+00:11:57,676 --> 00:12:05,320
+gli n elementi sullo stack nell'array e
+la posizione n è 
+
+125
+00:12:05,320 --> 00:12:13,564
+la cima dello stack dove il prossimo
+elemento verrà messo. Così per l'operazione push 
+
+126
+00:12:13,564 --> 00:12:20,006
+aggiungiamo un nuovo elemento s[n], per pop
+rimuoviamo l'elemento a s[n-1] e 
+
+127
+00:12:20,006 --> 00:12:27,050
+decrementiamo n. C'è un problema fondamentale
+nell'usare un array e ed è
+
+128
+00:12:27,300 --> 00:12:32,552
+che bisogna dichiarare la dimensione dell'array
+all'inizio e così lo stack avrà
+
+129
+00:12:32,552 --> 00:12:38,174
+una capacità finita. E se ci sono più elementi sullo
+stack della capacità
+
+130
+00:12:38,174 --> 00:12:44,116
+dobbiamo occuparci di questo problema e questo è un
+problema fondamentale che dovremo affrontare
+
+131
+00:12:44,116 --> 00:12:49,479
+con le implementazioni che usano array sia
+negli algoritmi che nelle strutture. Quindi
+
+132
+00:12:49,664 --> 00:12:55,733
+considerarlo ora nel caso semplice ci 
+aiuterà in seguito. Bene, ecco
+
+133
+00:12:55,733 --> 00:13:03,082
+l'implementazione dello stack che usa
+un array. Adesso
+
+134
+00:13:03,082 --> 00:13:10,266
+abbiamo una variabile d'istanza che consiste in un
+array di stringhe e una variabile n che
+
+135
+00:13:10,266 --> 00:13:16,278
+rappresenta sia la dimensione dello stack che
+l'indice della posizione successiva, la prossima 
+
+136
+00:13:16,278 --> 00:13:22,151
+posizione libera sullo stack. Questa volta c'è un
+costruttore e il costruttore crea
+
+137
+00:13:22,151 --> 00:13:27,539
+l'array. Adesso, stiamo barando in questa 
+implementazione per tenerla semplice e
+
+138
+00:13:27,539 --> 00:13:32,419
+ci occuperemo di ciò in seguito. Per ora 
+chiediamo al client di fornirci la
+
+139
+00:13:32,419 --> 00:13:37,066
+capacità dello stack. In qualche applicazione
+questo può andare bene, ma nella maggior parte
+
+140
+00:13:37,066 --> 00:13:41,571
+delle applicazioni è un requisito troppo oneroso
+e il client può non  sapere
+
+141
+00:13:41,571 --> 00:13:47,011
+quanto sarà grande lo stack. In più il client potrebbe
+avere molti stack da gestire
+
+142
+00:13:47,011 --> 00:13:52,124
+contemporaneamente e magari queste raggiungono 
+la massima capacità in tempi diversi
+
+143
+00:13:52,124 --> 00:13:56,883
+e altro ancora. Quindi dovremo rimuovere la 
+semplificazione e lo faremo. Ma
+
+144
+00:13:56,883 --> 00:14:03,217
+il codice è banale, se abbiamo la capacità. Per 
+controllare se lo stack è vuoto, controlliamo
+
+145
+00:14:03,217 --> 00:14:08,573
+se n è uguale a zero. Per l'operazione push usiamo n come
+posizione dell'array per il nuovo elemento 
+
+146
+00:14:08,573 --> 00:14:15,003
+e poi incrementiamo n. In molti linguaggi di 
+programmazione moderni c'è un'istruzione
+
+147
+00:14:15,003 --> 00:14:20,305
+per usare l'indice e incrementarlo. Per l'operazione pop
+decrementiamo l'indice e poi lo usiamo
+
+148
+00:14:20,305 --> 00:14:26,067
+per restituire l'elemento. Ogni operazione
+è di una linea e
+
+149
+00:14:26,067 --> 00:14:31,406
+questa è una operazione adeguata per alcuni clients.
+Questa è l'implementazione dello stack che usa l'array
+
+150
+00:14:31,406 --> 00:14:37,131
+ma non è conforme alla specifica perché richiede al 
+client la capacità. Quindi
+
+151
+00:14:37,131 --> 00:14:41,749
+cosa possiamo fare per questo? Bene, ci
+sono ancora un paio di cose
+
+152
+00:14:41,749 --> 00:14:46,792
+che non abbiamo considerato. Non abbiamo previsto il codice
+per lanciare un'anomalia se il cliente esegue pop
+
+153
+00:14:46,792 --> 00:14:51,433
+da uno stack vuoto. Probabilmente dovremmo lanciarla
+anche per overflow, che può succedere quando
+
+154
+00:14:51,433 --> 00:14:56,962
+il client mette un elemento di troppo, ma parleremo più
+avanti di un approccio per ridimensionare gli array che
+
+155
+00:14:57,216 --> 00:15:05,254
+ci permette di evitare l'overflow. 
+Dobbiamo anche decidere
+
+156
+00:15:05,535 --> 00:15:12,539
+se permettere al client di inserire elementi nulli 
+nella struttura dati. In questo caso
+
+157
+00:15:12,539 --> 00:15:19,026
+permettiamo al client di inserire elementi nulli In Java 
+dobbiamo preoccuparci anche del
+
+158
+00:15:19,026 --> 00:15:25,517
+problema dei riferimenti a oggetti 
+
+159
+00:15:25,517 --> 00:15:31,630
+nella nostra implementazione con gli array
+che non sono più utilizzati. Infatti
+
+160
+00:15:31,832 --> 00:15:37,300
+quando decrementiamo l'indice, nella posizione 
+indice c'è ancora un puntatore alla cosa che abbiamo
+
+161
+00:15:37,300 --> 00:15:42,990
+rimosso dallo stack che resta nell'array. Noi sappiamo che 
+non stiamo più usando il puntatore ma il sistema Java
+
+162
+00:15:42,990 --> 00:15:50,054
+no. Per permettere un uso più efficiente della
+memoria
+
+163
+00:15:50,311 --> 00:15:57,028
+la cosa migliore è assegnare a questo [colpo di tosse] elemento
+rimosso null così non rimane nessun riferimento
+
+164
+00:15:57,028 --> 00:16:02,742
+al vecchio elemento e quindi il garbage
+collector può recuperare la memoria
+
+165
+00:16:02,945 --> 00:16:09,467
+perché non ci sono puntatori attivi.
+Questo è un dettaglio importante
+
+166
+00:16:09,467 --> 00:16:15,049
+di cui dobbiamo preoccuparci nella nostra
+implementazione per essere sicuri che stiamo
+
+167
+00:16:15,049 --> 00:16:25,082
+facendo un uso efficiente della memoria.

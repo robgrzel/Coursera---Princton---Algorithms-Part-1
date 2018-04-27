@@ -1,0 +1,567 @@
+1
+00:00:03,064 --> 00:00:08,071
+Agora, felizmente, quando analisamos algoritmos, na verdade, não muitos
+
+2
+00:00:08,071 --> 00:00:14,746
+diferentes funções surgem e, na verdade, que a propriedade nos permite realmente classificar
+
+3
+00:00:14,746 --> 00:00:20,978
+algoritmos de acordo com o seu desempenho como o tamanho do problema cresce. Então é isso que
+
+4
+00:00:20,978 --> 00:00:27,173
+vamos falar em seguida. Então, a boa notícia é que há apenas estas funções poucos transformar-se
+
+5
+00:00:27,173 --> 00:00:31,915
+sobre os algoritmos que estamos interessados ​​Nós podemos criar coisas que
+
+6
+00:00:31,915 --> 00:00:37,479
+têm outras funções e há exemplos contrários a isso. Mas realmente um grande
+
+7
+00:00:37,479 --> 00:00:43,394
+número de algoritmos que consideramos são descritos por essas funções e poucos
+
+8
+00:00:43,394 --> 00:00:50,362
+que são representados aqui. E [tosse] a quando estamos a falar sobre a ordem de
+
+9
+00:00:50,362 --> 00:00:55,793
+crescimento, nós não estamos falando sobre a constante liderança. Normalmente nós vamos dizer que o
+
+10
+00:00:55,793 --> 00:01:00,971
+tempo de execução do algoritmo é proporcional a N log N. Isso significa que
+
+11
+00:01:00,971 --> 00:01:06,686
+que pensamos que nossa hipótese é de que o tempo de execução é til C lg N, N lg N,
+
+12
+00:01:06,686 --> 00:01:12,671
+onde C é uma constante. E nestas parcelas, estes são lg, lg parcelas que não
+
+13
+00:01:12,671 --> 00:01:18,801
+realmente dar uma boa idéia do que está acontecendo. Se uma ordem de crescimento é logarítmica ou
+
+14
+00:01:18,801 --> 00:01:25,026
+constante, não importa quão grande a coisa é. Vai ser rápido da corrida
+
+15
+00:01:25,026 --> 00:01:32,082
+tempo para T é para dizer um mil, e para meio milhão que será muito perto de
+
+16
+00:01:32,082 --> 00:01:38,674
+T. Se é linear, se for o crescimento automático é proporcional a N, em seguida, como a execução
+
+17
+00:01:38,674 --> 00:01:44,945
+tempo, como o tamanho aumenta o tempo de funcionamento aumenta correspondentemente. E a
+
+18
+00:01:44,945 --> 00:01:51,031
+mesmo é verdade, quase, se é N log N. Então esses são os algoritmos que nos esforçamos
+
+19
+00:01:51,031 --> 00:01:56,755
+para. Eles escala com o tamanho de entrada. À medida que a entrada aumenta, também aumenta o funcionamento
+
+20
+00:01:56,755 --> 00:02:02,647
+tempo. E isso é, uma situação razoável para estar dentro Como falamos quando
+
+21
+00:02:02,647 --> 00:02:07,843
+falou sobre União de encontrar. Se é quadrática, o tempo de execução cresce muito
+
+22
+00:02:07,843 --> 00:02:13,469
+mais rápido do que o tamanho de entrada. E não é possível usar esse algoritmo para
+
+23
+00:02:13,469 --> 00:02:21,397
+grandes entradas. E Qubic é ainda pior. Então, o que vemos é que muitos algoritmos nossa
+
+24
+00:02:21,397 --> 00:02:28,515
+primeira tarefa é, na verdade, simplesmente, certifique-se que não é quadrática ou qubit. E estes
+
+25
+00:02:28,515 --> 00:02:35,708
+ordem de classificação de crescimento, na verdade, vêm de tipo de padrões simples em termos
+
+26
+00:02:35,708 --> 00:02:41,918
+do código que escrevemos. Então, se o nosso código não tem laços nela, então a ordem de
+
+27
+00:02:41,918 --> 00:02:49,033
+crescimento vai ser constante. Se o nosso código tem algum tipo de circuito onde a
+
+28
+00:02:49,033 --> 00:02:54,276
+entrada é dividida ao meio, e algoritmo de busca para binário é um exemplo disso.
+
+29
+00:02:54,276 --> 00:03:00,676
+Então, o nosso crescimento ordem será logarítmica e vamos dar uma olhada no que a análise e
+
+30
+00:03:00,676 --> 00:03:06,879
+mas se você fizer o teste de duplicação, que cresce quase linearmente, se você tem um enorme contributo
+
+31
+00:03:06,879 --> 00:03:12,633
+e você o dobro do tamanho que é, ela ainda vai ser Eu sinto muito, não linear,
+
+32
+00:03:12,633 --> 00:03:18,252
+constante assim como se é constante. Você notará que a LG N. Se
+
+33
+00:03:18,252 --> 00:03:25,070
+tem um loop onde você tocar em tudo na sua entrada. Do que o tempo de execução é
+
+34
+00:03:25,070 --> 00:03:31,592
+linear, proporcional ao fim para que um exemplo típico de que seria encontrar o máximo,
+
+35
+00:03:31,592 --> 00:03:38,205
+ou para contar o número de zeros. Nosso um algum problema. Uma categoria muito interessante
+
+36
+00:03:38,205 --> 00:03:44,681
+é um chamado N algoritmos LG n lineares ou algoritmos rítmicos. E esses são os
+
+37
+00:03:44,681 --> 00:03:50,143
+aquelas que surgem a partir de uma técnica particular de algoritmos projeto chamado
+
+38
+00:03:50,143 --> 00:03:55,573
+dividir e conquistar. E o algoritmo Mergesort, que vamos falar em um
+
+39
+00:03:55,573 --> 00:04:01,012
+par de semanas, é um excelente exemplo disso. E então, se você tem o dobro quatro
+
+40
+00:04:01,012 --> 00:04:07,543
+loops como o nosso algoritmo de soma dois, que vai ser um tempo proporcional a N ^ 2. Como
+
+41
+00:04:07,543 --> 00:04:13,530
+vimos, que é quadrática, ou triplo loop de quatro como o nosso algoritmo de soma-3, que é
+
+42
+00:04:13,530 --> 00:04:19,369
+vai ser cúbica ou o tempo proporcional a N ^ 3. Para um algoritmo quadrático ou cúbico
+
+43
+00:04:19,369 --> 00:04:25,312
+algoritmo, o fator de duplicação é de quatro ou oito o dobro do tamanho de entrada para cúbico
+
+44
+00:04:25,312 --> 00:04:30,331
+algoritmo, o tempo de execução passa por um fator de oito anos, e que é o tipo de
+
+45
+00:04:30,331 --> 00:04:35,952
+cálculo que você pode fazer em sua cabeça enquanto espera por um programa terminar.
+
+46
+00:04:35,952 --> 00:04:41,645
+Há também uma categoria de algoritmos que está correndo o tempo é exponencial e, em
+
+47
+00:04:41,645 --> 00:04:47,059
+esses algoritmos n não ficar muito grande e em nós vamos falar sobre aqueles que estão no fim
+
+48
+00:04:47,059 --> 00:04:53,150
+segunda parte do curso. Então, essas são algumas implicações práticas, da ordem
+
+49
+00:04:53,150 --> 00:04:59,352
+crescimento. E nós realmente me debruçar sobre isso muito, exceto para voltar ao ponto
+
+50
+00:04:59,352 --> 00:05:04,723
+que os algoritmos que estamos realmente interessados, que podem resolver grande
+
+51
+00:05:04,723 --> 00:05:11,633
+problemas, são as lineares e N algoritmos lg n. Porque até agora atic um Quadr
+
+52
+00:05:11,635 --> 00:05:17,913
+algoritmo em um computador típico rápido só poderia resolver os problemas e dizer que dezenas
+
+53
+00:05:17,913 --> 00:05:23,246
+de milhares em um algoritmo cúbico apenas no tamanho dos milhares. E hoje em dia os
+
+54
+00:05:23,246 --> 00:05:28,567
+não são apenas úteis porque a quantidade de dados que temos é mais como o
+
+55
+00:05:28,567 --> 00:05:34,689
+milhões ou bilhões ou trilhões. Esse fato está se tornando mais e mais evidente que
+
+56
+00:05:34,689 --> 00:05:41,269
+tempo desgasta sobre os tempos antigos teriam alguma discussão sobre se quadrática
+
+57
+00:05:41,269 --> 00:05:47,154
+algoritmo pode ser útil, mas a situação piora à medida que o tempo passa,
+
+58
+00:05:47,154 --> 00:05:52,593
+por isso precisamos de melhores algoritmos. Para ilustrar o processo de desenvolvimento de um
+
+59
+00:05:52,593 --> 00:05:57,756
+modelo matemático para descrever um desempenho através de um algoritmo, vamos
+
+60
+00:05:57,756 --> 00:06:03,037
+olhada em um algoritmo de busca binária familiar chamou. É, o objetivo é que você tem um
+
+61
+00:06:03,037 --> 00:06:08,323
+array ordenado de inteiros, dizer e você está dado uma chave. E você quer saber, é que
+
+62
+00:06:08,323 --> 00:06:13,321
+chave na matriz? E se é, o que, o que é seu índice? E um algoritmo rápido para
+
+63
+00:06:13,321 --> 00:06:18,178
+fazendo isso é conhecido como busca binária, onde se compara a chave contra o
+
+64
+00:06:18,178 --> 00:06:22,941
+entrada do meio. Neste caso, se nós estamos olhando para 33, que compará-la com 53.
+
+65
+00:06:22,941 --> 00:06:27,737
+Se sua menor sabemos que a sua na metade esquerda da matriz, se for maior que conhecemos
+
+66
+00:06:27,737 --> 00:06:32,819
+está na metade direita da matriz, se é igual, nós o encontramos. E, então, aplicar
+
+67
+00:06:32,819 --> 00:06:39,680
+algoritmo o mesmo recursivamente. Então, vamos olhar rapidamente uma demo. Então, estamos procurando
+
+68
+00:06:39,680 --> 00:06:45,777
+para 33 nesta matriz, compará-la com a entrada do meio na matriz. 53 e é
+
+69
+00:06:45,777 --> 00:06:51,160
+menos que vá para a esquerda, então agora podemos nos concentrar apenas na metade esquerda do
+
+70
+00:06:51,160 --> 00:06:56,788
+matriz, agora vamos procurar no meio do semestre, que é 25, 33 é maior assim que nós vamos
+
+71
+00:06:56,788 --> 00:07:02,399
+direita. E agora vamos nos concentrar na metade direita ou metade esquerda e temos um
+
+72
+00:07:02,399 --> 00:07:08,690
+menor matriz sub. Olhe para o meio, 33 é menos que vá para a esquerda e agora só temos
+
+73
+00:07:08,690 --> 00:07:15,019
+um elemento para olhar e encontramos o nosso 33 chave na matriz e voltamos que
+
+74
+00:07:15,019 --> 00:07:21,234
+índice quatro. Se nós estamos procurando por algo que não está na matriz, podemos fazer o mesmo
+
+75
+00:07:21,234 --> 00:07:26,874
+processo. Assim, por exemplo, nós estamos olhando para 34. Vai ser o mesmo. Olhe-se no
+
+76
+00:07:26,874 --> 00:07:32,923
+meia esquerda, procure na meia direita. Olhar para a esquerda do 43. Agora, só há um
+
+77
+00:07:32,923 --> 00:07:39,478
+chave para olhar. A nd não é 34, então dizemos, não é lá. Então, isso é binário
+
+78
+00:07:39,478 --> 00:07:47,488
+pesquisa. Então, aqui está o código para pesquisa binária. Na verdade Pesquisa, Binário embora
+
+79
+00:07:47,488 --> 00:07:53,391
+é um algoritmo simples, o seu notoriamente difícil de obter todos os detalhes direito. Na verdade
+
+80
+00:07:53,391 --> 00:07:58,827
+papel um reclamado, que o primeiro bug de busca binária livre não foi publicado até 1962,
+
+81
+00:07:58,827 --> 00:08:04,430
+e até mesmo em 2006, um bug foi encontrado na implementação do Java de busca binária,
+
+82
+00:08:04,430 --> 00:08:09,417
+apenas uma indicação dos cuidados que temos que levar em algoritmos de desenvolvimento
+
+83
+00:08:09,417 --> 00:08:15,847
+especialmente para bibliotecas que vão ser usados ​​por milhões de pessoas. Então aqui está
+
+84
+00:08:15,847 --> 00:08:24,048
+uma implementação. Não é recursiva embora muitas vezes podemos implementar esta
+
+85
+00:08:24,048 --> 00:08:32,050
+uma implementação. Não é recursiva embora muitas vezes podemos implementar esta
+
+86
+00:08:32,050 --> 00:08:41,029
+encontrar. Uma chave, se a chave está em uma matriz. E usamos dois ponteiros, baixa e alta, para,
+
+87
+00:08:41,029 --> 00:08:46,051
+indicar a parte da matriz que nos interessa, desde que seja baixo e menos
+
+88
+00:08:46,051 --> 00:08:51,053
+igual a alta, calculamos a média. E, então, comparar a nossa chave contra o
+
+89
+00:08:51,053 --> 00:08:56,082
+meio, na verdade, o seu caminho de três comparar, ver a sua maior ou menor ou se o seu igual,
+
+90
+00:08:56,082 --> 00:09:02,011
+nós, nós retornar que o índice médio. Se seu menos que reiniciar o ponteiro alto, se a sua maior,
+
+91
+00:09:02,011 --> 00:09:07,026
+que reiniciar o ponteiro baixo, e seguir em frente até que os ponteiros são iguais. Se
+
+92
+00:09:07,026 --> 00:09:12,034
+eles são iguais e não tê-lo encontrado, então voltamos um. E é fácil
+
+93
+00:09:12,034 --> 00:09:18,023
+nos convencer de que este programa funciona como anunciado por pensar sobre isso
+
+94
+00:09:18,023 --> 00:09:24,025
+invariante, se as chaves na matriz, então é entre baixa e alta na matriz.
+
+95
+00:09:24,025 --> 00:09:30,036
+Tudo bem, de modo que é um programa que, provavelmente você está familiarizado. Vamos olhar para o
+
+96
+00:09:30,036 --> 00:09:36,039
+análise matemática desse programa. E esse um, um teorema que vamos
+
+97
+00:09:36,039 --> 00:09:42,049
+comprovar facilmente. Queremos um monte de provas, mas isso é uma pena. Portanto, a sua dizer
+
+98
+00:09:42,049 --> 00:09:48,045
+que busca binária usa no máximo um + lg base dois eventos compara, para completar um
+
+99
+00:09:48,045 --> 00:09:55,032
+pesquisa, em um array ordenado de f tamanho. Então nós fazemos que, para configurar o problema, definindo,
+
+100
+00:09:55,032 --> 00:10:02,089
+uma variável T (N), que é o número de pesquisa binária que compara necessária para a sua
+
+101
+00:10:02,089 --> 00:10:10,001
+tamanho da matriz e. E, então, escrever uma relação de recorrência que é o reflexo
+
+102
+00:10:10,001 --> 00:10:16,076
+código. E o que o código faz é, divide-se o tamanho do problema no meio de modo que.
+
+103
+00:10:16,076 --> 00:10:23,000
+Se o evento for menor ou igual ao evento mais de dois mais dependendo de como você conta
+
+104
+00:10:23,000 --> 00:10:29,045
+o que comparar é pensar nisso como uma maneira comparar dois tão dividida ao meio por fazer
+
+105
+00:10:29,045 --> 00:10:35,046
+uma comparação e isso é verdade, desde que N é maior do que um. Se for igual a um
+
+106
+00:10:35,046 --> 00:10:42,039
+solução a é um. Então, é uma relação recorrente descrevendo o cálculo. E
+
+107
+00:10:42,039 --> 00:10:48,094
+por isso, podemos ir em frente e, para resolver essa recorrência, aplicando a recorrência
+
+108
+00:10:48,094 --> 00:10:55,882
+si, para o primeiro termo à direita. Agora que é chamado telescópica. Portanto, se esse
+
+109
+00:10:55,882 --> 00:11:03,378
+é verdade e podemos aplicar a mesma coisa para T (N / 2). E jogar fora um outro e se
+
+110
+00:11:03,378 --> 00:11:09,096
+que é, isso é verdade, aplicar a mesma coisa para N mais de quatro, e jogar fora outra
+
+111
+00:11:09,096 --> 00:11:15,340
+e assim por diante até chegarmos para apenas um. Caso em que temos os LG n esquerda.
+
+112
+00:11:15,340 --> 00:11:21,794
+Agora este é um esboço verdade que você deve ter notado que, na verdade, que esta prova
+
+113
+00:11:21,794 --> 00:11:29,118
+prende somente se N é uma potência de dois. Porque nós quase especificar em que esta recorrência
+
+114
+00:11:29,118 --> 00:11:36,985
+queremos dizer, se n é ímpar. Mas é possível ir em frente e muito, possível avançar
+
+115
+00:11:36,985 --> 00:11:45,649
+e cuidar desse detalhe tão bem e mostram que o tempo de execução é de busca binária
+
+116
+00:11:45,649 --> 00:11:52,779
+logarítmica sempre. Tudo bem, então dado o fato que podemos desenvolver mais rápido
+
+117
+00:11:52,779 --> 00:11:58,548
+algoritmo para um ménage à trois. É um algoritmo de classificação baseado. E então o que nós vamos
+
+118
+00:11:58,548 --> 00:12:04,638
+fazer é que vamos tomar os números que temos como entrada e classificá-los. Nós vamos
+
+119
+00:12:04,638 --> 00:12:11,553
+falar sobre algoritmos de ordenação na próxima semana. E nós temos que o tempo em tempo proporcional
+
+120
+00:12:11,553 --> 00:12:18,416
+para N lg N, mas isso não é a parte principal da computação. A parte principal do
+
+121
+00:12:18,416 --> 00:12:25,682
+computação é para depois dos números são classificados, nós vamos passar e para cada par
+
+122
+00:12:25,682 --> 00:12:32,452
+de números ai e aj. Nós vamos fazer uma busca binária para-ai + ij. Se encontrá-lo, em seguida,
+
+123
+00:12:32,452 --> 00:12:41,319
+teremos três números que somam zero. Então, se nós [tosse] classificar nossos números e depois
+
+124
+00:12:41,319 --> 00:12:48,610
+passar para cada par fazer uma busca binária para ver se ele está lá, assim -40, zero.
+
+125
+00:12:48,611 --> 00:12:55,631
+Minus que é de 40, nós fazemos uma busca binária que está lá por isso temos uma solução para
+
+126
+00:12:55,631 --> 00:13:02,081
+problema do 3-soma. E fazer isso para todos os pares de números. Em seguida, uma análise rápida
+
+127
+00:13:02,081 --> 00:13:08,243
+diz que a ordem de crescimento do tempo de execução vai ser N ^ 2 lg N. Em seguida, você precisa de um
+
+128
+00:13:08,243 --> 00:13:14,064
+tipo bom, bem, você pode usar o tipo de inserção elementar o primeiro que
+
+129
+00:13:14,064 --> 00:13:20,678
+falar, mas o tempo de execução da pesquisa binária para cada um dos pares, cada
+
+130
+00:13:20,678 --> 00:13:26,712
+do N ^ 2 pares ou N ^ 2/2 pares que vamos fazer a busca binária, então nós temos um
+
+131
+00:13:26,712 --> 00:13:32,997
+N ^ 2 N lg tempo de corrida. Então, um rápido exemplo de como podemos melhorar o desempenho,
+
+132
+00:13:32,997 --> 00:13:39,970
+poderíamos encontrar um algoritmo imroved para resolver um problema. N ^ 2 lg N é muito menos
+
+133
+00:13:39,970 --> 00:13:46,462
+de N ^ 3 para N. grande e assim, estamos implicitamente fazendo a hipótese de que se
+
+134
+00:13:46,462 --> 00:13:51,872
+fazemos isso, fazer a coisa de base tipo e usar busca binária, nós vamos ter um
+
+135
+00:13:51,872 --> 00:13:58,257
+programa mais rápido. E, com certeza, podemos ir em frente e executar alguns experimentos e encontrar
+
+136
+00:13:58,257 --> 00:14:03,498
+que, enquanto que nos levou 50 segundos para resolver o problema para 8000 números
+
+137
+00:14:03,498 --> 00:14:08,858
+antes. É tendo menos de um segundo. Em 50 segundos, podemos resolver até
+
+138
+00:14:08,858 --> 00:14:15,118
+64000. Então, normalmente, esperamos que melhor ordem de meios de crescimento. Mais rápido nos treinos
+
+139
+00:14:15,118 --> 00:14:21,051
+e mas quando se trata de examinar os algoritmos em detalhes que podemos, nós podemos ir
+
+140
+00:14:21,051 --> 00:14:26,731
+frente e fazer os testes e descobrir qual algoritmo é mais rápido. E, certamente,
+
+141
+00:14:26,731 --> 00:14:31,893
+indo de N ^ 3 a N ^ 2 lg N vamos esperar que nós vamos ter um grande
+
+142
+00:14:31,893 --> 00:14:33,003
+melhor algoritmo.

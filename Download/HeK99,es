@@ -1,0 +1,281 @@
+1
+00:00:02,035 --> 00:00:08,002
+Ahora veamos un problema de procesamiento
+de datos geométrico básico que consiste en determinar
+
+2
+00:00:08,002 --> 00:00:12,538
+las intersecciones entre un set de segmentos
+lineales. Es llamado Búsqueda de rangos
+
+3
+00:00:12,538 --> 00:00:18,328
+ortogonales ,donde los segmentos de líneas 
+están restringidos a
+
+4
+00:00:18,328 --> 00:00:23,585
+ser ya sea horizontales o verticales. Así que
+supón que tenemos un gran número de tales
+
+5
+00:00:23,585 --> 00:00:29,002
+segmentos de línea y lo que queremos es 
+encontrar todos los lugares donde ellos
+
+6
+00:00:29,002 --> 00:00:33,934
+se intercecan, y como veremos, esto se extiende 
+ a un problema práctico en un número de
+
+7
+00:00:33,934 --> 00:00:39,245
+situaciones. En este caso, hay cuatro
+lugares donde esas líneas se intersecan, de modo
+
+8
+00:00:39,245 --> 00:00:44,627
+que como vamos a determinar 
+estas intersecciones en forma eficiente? Ahora,
+
+9
+00:00:44,627 --> 00:00:50,036
+el algoritmo natural o el ingénuo
+algoritmo de fuerza-bruta, es cuadrático en
+
+10
+00:00:50,036 --> 00:00:56,613
+tiempo. De modo que para cada segmento de línea
+evalúas si se interseca con cada
+
+11
+00:00:56,613 --> 00:01:03,091
+uno de los otros segmentos. De nuevo, como sabemos,
+tal algoritmo no va a ser
+
+12
+00:01:03,091 --> 00:01:10,553
+práctico, para grandes números de segmentos
+de línea. Así que para simplificar nuestro código
+
+13
+00:01:10,553 --> 00:01:15,821
+en las diapositivas, lo cual es frecuente en 
+el caso para procesamiento de datos geométricos
+
+14
+00:01:15,821 --> 00:01:21,338
+No nos preocuparemos  por degeneraciones
+donde muchos objetos tengan las mismas coordenadas
+
+15
+00:01:21,338 --> 00:01:27,285
+ x o y. Y para simplificar el código
+y para darle los principales principios de 
+
+16
+00:01:27,285 --> 00:01:33,040
+algoritmos, vamos a asumir que todas 
+las coordenadas que tenemos son diferentes
+
+17
+00:01:33,253 --> 00:01:38,332
+de las que hemos procesado de alguna manera para
+remover las que tocan sin
+
+18
+00:01:38,332 --> 00:01:44,254
+intersectarse. De modo que el método que vamos
+a ver se llama Algoritmo de Línea de Barrido (Sweep Line Algorithm)
+
+19
+00:01:44,254 --> 00:01:51,236
+y la idea es pensar en una línea 
+vertical que barre de izquierda a derecha
+
+20
+00:01:51,236 --> 00:02:00,037
+a través de los datos. Considérala como si
+cada vez que toca un segmento de línea como
+
+21
+00:02:00,037 --> 00:02:06,055
+un evento donde tiene que hacer algo; de modo
+que al barrer de izquierda a derecha significa que 
+
+22
+00:02:06,055 --> 00:02:13,395
+considera cada coordinada x como un evento,
+así que si lo primero es si tocamos una línea horizontal
+
+23
+00:02:13,395 --> 00:02:19,128
+bueno, pues vamos a tocar el extremo izquierdo
+primero y lo que haremos cuando
+
+24
+00:02:19,128 --> 00:02:25,556
+toquemos el extremo izquierdo, insertamos la
+coordinada y de esa línea en un árbol de
+
+25
+00:02:25,556 --> 00:02:31,486
+búsqueda binaria. Así vamos a mantener una lista 
+de las coordinadas y en un árbol de búsqueda binaria BST.
+
+26
+00:02:31,486 --> 00:02:36,905
+Eso es lo que está pasando justo aqui.
+Así que de nuevo, barriendo de izquierda
+
+27
+00:02:36,905 --> 00:02:42,311
+a derecha. Cuál es la siguiente coordenada x
+más pequeña? En este caso es  la línea
+
+28
+00:02:42,311 --> 00:02:48,334
+número uno, aquí; y recordaremos su coordenada
+y en un árbol de búsqueda binaria. 
+
+29
+00:02:48,334 --> 00:02:53,788
+Y después dos y tres.  ****
+clase de evento que puede ocurrir conforme barremos
+
+30
+00:02:53,788 --> 00:02:59,018
+de izquierda a derecha. Otra clase de evento
+es que si tocamos el extremo derecho de una
+
+31
+00:02:59,018 --> 00:03:04,261
+línea horizontal, en este caso tocamos
+el extremo derecho de la línea 
+
+32
+00:03:04,261 --> 00:03:10,258
+dos, así que en ese punto el punto derecho de
+una línea horizontal, solo lo removemos
+
+33
+00:03:10,258 --> 00:03:15,534
+porque hemos procesado esa línea 
+completamente; en éste caso no encontramos
+
+34
+00:03:15,734 --> 00:03:20,473
+ninguna intersección. Así que el extremo 
+izquierdo inserta la coordinada y en el BST, 
+
+35
+00:03:20,473 --> 00:03:25,932
+extremo derecho removemos la coordenada y del
+BST, de manera que el BST contenga las 
+
+36
+00:03:25,932 --> 00:03:32,075
+coordenadas y  de todas las líneas horizontales
+que actualmente puedan involucrar una
+
+37
+00:03:32,075 --> 00:03:38,069
+intersección; y entonces la tercera clase de 
+evento es lo que sucede cuando nosotros tocamos
+
+38
+00:03:38,069 --> 00:03:45,000
+una línea vertical, bueno en este caso 
+lo que necesitamos hacer es tomar un rango
+
+39
+00:03:45,000 --> 00:03:51,666
+de búsqueda, para el intervalo de las coordenadas
+y  entre sus puntos extremos; de tal manera que cualquier
+punto que esté dentro de ese intervalo,
+
+40
+00:03:51,899 --> 00:03:57,952
+va a representa una línea horizontal
+con la que intersecta. 
+
+41
+00:03:57,952 --> 00:04:03,550
+Esa es la idea básica detrás de el
+algoritmo de barrido de líneas, encontras
+intersecciones en sets
+
+42
+00:04:03,550 --> 00:04:10,372
+de líneas horizontales y verticales. Es de
+hecho un algoritmo muy simple, y es
+
+43
+00:04:10,372 --> 00:04:17,024
+muy fácil ver que el tiempo de ejecución va
+a ser proporcional a N log N más
+
+44
+00:04:17,024 --> 00:04:22,371
+el número de intersecciones devuelto.
+Donde N es el número de líneas verticales y horizontales.
+
+45
+00:04:22,371 --> 00:04:26,917
+Y hay un par de maneras de
+implementarlo, en una puedes
+
+46
+00:04:26,917 --> 00:04:32,328
+ordenar de acuerdo a las coordinadas x
+o puedes ponerlas todas en una cola
+
+47
+00:04:32,328 --> 00:04:39,721
+de prioridad y eso es los que va tomar 
+N log N para cada una de las líneas para
+
+48
+00:04:39,978 --> 00:04:45,277
+procesarlas todas ya sea N para contruir la
+cola de prioridad y entonces logN para tomar
+
+49
+00:04:45,277 --> 00:04:50,695
+las mas pequeña cada vez, on N logN para
+el ordenamiento, y entonces poner las coordenadas y
+
+50
+00:04:50,695 --> 00:04:56,494
+en un BST, de nuevo N logN, y lo mismo para 
+borrar cada punto, cada punto
+
+51
+00:04:56,494 --> 00:05:02,519
+tiene que ser insertado y borrado. Puede ser
+tantas veces como N en el árbol para cada una,
+
+52
+00:05:02,519 --> 00:05:08,486
+asi que es un total de N log N, y entonces
+el rango de búsqueda, en el árbol binario para
+
+53
+00:05:08,486 --> 00:05:14,961
+cada uno de los rangos de búsqueda puede
+tomar log N, puede tomar tantos como 
+
+54
+00:05:14,961 --> 00:05:23,479
+N y además está el número de puntos que
+devuelve. Así que ese es un rápido diagrama
+
+55
+00:05:23,479 --> 00:05:31,508
+de la prueba de esta proposición. Y con 
+esa implementación de un rango de búsqueda de una dimensión,
+
+56
+00:05:31,508 --> 00:05:38,199
+obtenemos un eficiente N log N, 2D algoritmo 
+de búsqueda de rango ortogonal.

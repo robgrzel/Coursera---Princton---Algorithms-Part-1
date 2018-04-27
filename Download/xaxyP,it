@@ -1,0 +1,443 @@
+1
+00:00:02,000 --> 00:00:07,036
+Ben ritrovati. Oggi ci occuperemo un po' di
+matematica e un po' di scienza. Non molto, ma
+
+2
+00:00:07,036 --> 00:00:11,055
+abbiamo bisogno di una base scientifica per
+comprendere la performance dei nostri
+
+3
+00:00:11,055 --> 00:00:15,075
+algoritmi per poterli utilizzare opportunamente in pratica.
+Perciò oggi parleremo
+
+4
+00:00:15,275 --> 00:00:20,040
+di come osservare le caratteristiche della
+performance degli algoritmi. Vedremo
+
+5
+00:00:20,040 --> 00:00:25,022
+come è possibile costruire modelli matematici
+e come classificare gli algoritmi a seconda
+
+6
+00:00:25,022 --> 00:00:30,010
+dell'ordine di grandezza del loro tempo di
+esecuzione. Parleremo un po' della teoria degli
+
+7
+00:00:30,010 --> 00:00:35,790
+algoritmi e inoltre come analizzare l'utilizzo della
+memoria. Quindi per contestualizzare tutto ciò,
+
+8
+00:00:35,790 --> 00:00:42,206
+analizzeremo queste questioni
+dal punto di vista di diversi ruoli.
+
+9
+00:00:42,206 --> 00:00:48,139
+Allora, il primo è il programmatore
+che deve risolvere un problema
+
+10
+00:00:48,139 --> 00:00:54,270
+e farlo funzionare e implementarlo.
+Il secondo è il cliente che vuole usare
+
+11
+00:00:54,270 --> 00:01:00,167
+il qualsivoglia programma per poter completare
+il lavoro.  Il terzo è il teorico,
+
+12
+00:01:00,167 --> 00:01:06,424
+uno che vuole capire per davvero
+che cosa accade. E
+
+13
+00:01:06,424 --> 00:01:10,724
+l'ultimo è, per così dire, il gruppo. Questo
+lavoro di base da mediano a volte è necessario
+
+14
+00:01:10,724 --> 00:01:15,790
+per passare dal dire al fare.
+Così, c'è un po' di ognuno di questi
+
+15
+00:01:15,790 --> 00:01:21,110
+nella lezione di oggi. E effettivamente
+quando sei uno studente devi pensare
+
+16
+00:01:21,110 --> 00:01:26,753
+che un giorno potresti essere uno
+qualsiasi di questi ruoli. Quindi è abbastanza
+
+17
+00:01:26,753 --> 00:01:31,522
+importante capire i diversi
+punti di vista. Allora, il punto su cui ci
+
+18
+00:01:31,522 --> 00:01:38,205
+soffermeremo è il tempo di esecuzione. E effettivamente
+l'idea di comprendere il tempo di esecuzione di
+
+19
+00:01:38,205 --> 00:01:44,017
+una computazione risale addirittura a
+Babbage e forse anche prima. Ed ecco una
+
+20
+00:01:44,017 --> 00:01:48,083
+citazione di Babbage: "Quando la prima macchina
+analitica sarà costruita, 
+
+21
+00:01:48,083 --> 00:01:54,076
+necessariamente guiderà il corso futuro della
+scienza. Ogni volta che si cercherà di arrivare ad un risultato
+
+22
+00:01:54,076 --> 00:02:00,062
+con il suo aiuto, verrà posta la questione:
+per mezzo di quale percorso di calcolo questi risultati
+
+23
+00:02:00,062 --> 00:02:06,072
+possono essere ottenuti dalla macchina nel più breve
+tempo?". Se si osserva la macchina di Babbage
+
+24
+00:02:06,072 --> 00:02:12,009
+detta la macchina analitica, essa ha una
+manovella sul lato. E letteralmente l'interesse
+
+25
+00:02:12,009 --> 00:02:17,060
+che Babbage aveva nel sapere quanto tempo avrebbe
+richiesto una computazione consiste in quante volte
+
+26
+00:02:17,060 --> 00:02:23,048
+dobbiamo girare la manovella. Non è poi
+così diverso nel mondo odierno. La
+
+27
+00:02:23,048 --> 00:02:29,018
+manovella può essere qualcosa di elettronico che
+avviene un miliardo di volte al secondo. Ma
+
+28
+00:02:29,018 --> 00:02:34,041
+tuttavia, stiamo cercando di sapere quante volte
+un'operazione finita deve essere
+
+29
+00:02:34,041 --> 00:02:39,093
+svolta per poter portare a termine una
+computazione. Quindi, ci sono molte ragioni per
+
+30
+00:02:39,093 --> 00:02:45,032
+analizzare gli algoritmi. Nel contesto di questo
+corso siamo principalmente interessati a
+
+31
+00:02:45,032 --> 00:02:50,051
+prevedere la performance. E vogliamo anche essere
+in grado di comparare la performance di diversi
+
+32
+00:02:50,051 --> 00:02:54,768
+algoritmi per lo stesso compito, ed essere in
+grado di fornire delle garanzie sul loro livello
+
+33
+00:02:54,768 --> 00:03:00,058
+di performance. Infine, comprendere alcune
+basi teoriche riguardo a
+
+34
+00:03:00,077 --> 00:03:05,780
+come gli algoritmi operano. Ma soprattutto, la
+ragione pratica per cui vogliamo
+
+35
+00:03:06,024 --> 00:03:11,098
+analizzare gli algoritmi e capirli
+è evitare i bug da performance. Vogliamo
+
+36
+00:03:11,098 --> 00:03:16,050
+una certa sicurezza che i nostri
+algoritmi completeranno il lavoro in
+
+37
+00:03:16,050 --> 00:03:21,084
+un lasso di tempo che è quello che ci
+aspettiamo. Ed è veramente frequente vedere
+
+38
+00:03:21,084 --> 00:03:26,080
+nell'odierna infrastruttura computazionale, una
+situazione dove il cliente ha delle cattive
+
+39
+00:03:26,080 --> 00:03:31,026
+performance perché il programmatore non ha
+compreso le caratteristiche di performance
+
+40
+00:03:31,026 --> 00:03:36,086
+dell'algoritmo. E con la lezione di oggi vorremmo
+proprio evitare che questo accada.
+
+41
+00:03:36,086 --> 00:03:42,087
+In questo corso ci occuperemo della performance
+e comparazione degli algoritmi.
+
+42
+00:03:42,087 --> 00:03:48,064
+Ci sono corsi più avanzati in un tipico
+piano di studi in informatica che
+
+43
+00:03:48,064 --> 00:03:53,093
+contengono più informazioni a proposito delle
+basi teoriche degli algoritmi e farò
+
+44
+00:03:53,093 --> 00:03:59,090
+un accenno a questo più avanti. Ma il nostro
+obiettivo resta l'essere in grado di prevedere
+
+45
+00:03:59,090 --> 00:04:07,007
+la performance e comparare gli algoritmi. C'è
+una lunga serie di storie di successo nel
+
+46
+00:04:07,030 --> 00:04:12,081
+progettare algoritmi con performance migliori
+che hanno permesso di risolvere
+
+47
+00:04:12,081 --> 00:04:19,025
+problemi che altrimenti non sarebbe stato possibile
+risolvere. Farò alcuni esempi.
+
+48
+00:04:19,025 --> 00:04:25,346
+Uno dei primi e il più famoso è
+il cosiddetto algoritmo FFT. Un
+
+49
+00:04:25,346 --> 00:04:32,057
+algoritmo per scomporre un'onda ottenuta da
+n campioni di un segnale in componenti
+
+50
+00:04:32,057 --> 00:04:38,431
+periodiche. Ciò è alla base del funzionamento
+dei dvd, dei jpeg e di molte altre applicazioni.
+
+51
+00:04:38,431 --> 00:04:44,296
+C'è un modo facile di farlo che richiede
+un tempo proporzionale a N^2. Ma
+
+52
+00:04:44,296 --> 00:04:49,080
+l'algoritmo FFT richiede solo N log N
+passi. La differenza tra N log N
+
+53
+00:04:49,080 --> 00:04:55,002
+e N^2 è la differenza che c'è tra essere
+in grado di risolvere un grosso problema e
+
+54
+00:04:55,002 --> 00:04:59,078
+non essere in grado di risolverlo. Molta della
+tecnologia digitale, della tecnologia dei media
+
+55
+00:04:59,078 --> 00:05:04,822
+digitali che oggi possediamo è permessa
+da questo veloce algoritmo. Un altro esempio
+
+56
+00:05:05,051 --> 00:05:11,232
+fu sviluppato da Andrew Appel, che oggi
+è il Presidente della Facoltà di Informatica
+
+57
+00:05:11,232 --> 00:05:16,582
+qui a Princeton. E fu sviluppato quando lui era uno
+studente universitario che stava studiando per la
+
+58
+00:05:16,582 --> 00:05:22,725
+sua tesi finale di laurea. È un algoritmo veloce
+per il problema della simulazione a N corpi.
+
+59
+00:05:22,725 --> 00:05:28,548
+L'algoritmo semplice richiede un tempo proporzionale
+a N^2 ma l'algoritmo di Appel è un algoritmo
+
+60
+00:05:28,548 --> 00:05:33,452
+N log N, il che significa che gli scienziati
+sono ora in grado di fare simulazioni a N corpi
+
+61
+00:05:33,452 --> 00:05:41,478
+anche per enormi valori di N. Ciò ha permesso
+nuovi sviluppi nella ricerca. Perciò la sfida che
+
+62
+00:05:41,478 --> 00:05:47,677
+di solito dobbiamo affrontare è: il mio programma
+sarà in grado di gestire un input di grosse dimensioni?
+
+63
+00:05:47,677 --> 00:05:52,024
+A dire il vero, un programmatore affronta questa
+questione molto spesso nel suo lavoro.
+
+64
+00:05:52,024 --> 00:05:58,001
+Perché, perché il mio programma è così lento?
+Perché consuma tutta la memoria?
+
+65
+00:05:58,001 --> 00:06:05,000
+Questo problema cruccia i programmatori da moltissimo
+tempo. L'intuizione, avuta da Knuth negli anni '70, per affrontare
+
+66
+00:06:05,000 --> 00:06:10,030
+questo problema fu di usare il metodo scientifico
+
+67
+00:06:10,030 --> 00:06:16,062
+per comprendere la performance degli
+algoritmi. Forse non sveleremo
+
+68
+00:06:16,062 --> 00:06:23,010
+nuovi segreti dell'universo ma possiamo comunque
+utilizzare il metodo scientifico e considerare
+
+69
+00:06:23,010 --> 00:06:29,042
+il computer come qualcosa da studiare in
+quel modo e arrivare ad una comprensione
+
+70
+00:06:29,042 --> 00:06:34,008
+di come il nostro programma funzionerà.
+Analizziamo questa idea più nel dettaglio.
+
+71
+00:06:34,209 --> 00:06:39,063
+Questo è solo un breve sommario di ciò che
+noi intendiamo con metodo scientifico, il quale è
+
+72
+00:06:39,268 --> 00:06:44,086
+stato utilizzato con successo per qualche centinaio
+di anni ad oggi. Quello che faremo è
+
+73
+00:06:44,086 --> 00:06:50,008
+osservare una qualche caratteristica del mondo
+naturale. Nel nostro caso sarà il tempo di
+
+74
+00:06:50,008 --> 00:06:54,857
+esecuzione del nostro programma su un computer.
+Poi faremo un'ipotesi.
+
+75
+00:06:55,049 --> 00:06:59,079
+Proporremo un modello coerente con le
+osservazione e spereremo che
+
+76
+00:06:59,079 --> 00:07:04,040
+l'ipotesi fatta è buona abbastanza da
+permetterci di prevedere qualcosa.
+
+77
+00:07:04,040 --> 00:07:09,031
+Di solito, prevedere il tempo di esecuzione per
+un problema di dimensioni maggiori su un computer diverso.
+
+78
+00:07:09,197 --> 00:07:13,097
+Quindi verificheremo le previsioni facendo
+ulteriori osservazioni e convalideremo
+
+79
+00:07:13,097 --> 00:07:18,058
+finché non saremo soddisfatti di come il nostro
+modello di ipotesi concordi con le osservazioni.
+
+80
+00:07:18,058 --> 00:07:22,077
+Quello è un modo per assicurarsi di
+capire la performance dei nostri
+
+81
+00:07:22,077 --> 00:07:28,056
+programmi. Ora, nel metodo scientifico ci sono
+dei principi di base e il primo
+
+82
+00:07:28,056 --> 00:07:33,082
+è che se uno esegue degli esperimenti,
+poi dovrebbe anche aspettarsi che
+
+83
+00:07:33,082 --> 00:07:39,021
+qualcun'altro dovrebbe essere in grado di eseguire
+quegli esperimenti e ottenere gli stessi risultati.
+
+84
+00:07:39,021 --> 00:07:44,067
+Inoltre l'ipotesi deve avere una specifica
+proprietà per cui l'esperimento può
+
+85
+00:07:44,067 --> 00:07:49,736
+dimostrare che l'ipotesi è sbagliata. Quindi,
+l'ipotesi deve essere fatta con attenzione e
+
+86
+00:07:49,736 --> 00:07:55,433
+cercheremo di fare in modo che sia così. Perciò,
+di nuovo, la caratteristica del mondo naturale che studiamo
+
+87
+00:07:55,433 --> 00:08:00,822
+è qualche computer in particolare che
+esiste nel mondo naturale. Il computer trasforma
+
+88
+00:08:00,822 --> 00:08:07,049
+l'algoritmo da un'astrazione in un qualcosa
+di fisico e tangibile
+
+89
+00:08:07,049 --> 00:08:11,083
+come degli elettroni che si muovono
+all'interno del computer

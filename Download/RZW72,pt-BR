@@ -1,0 +1,471 @@
+1
+00:00:02,041 --> 00:00:07,088
+Okay. Então, nós olhamos a união rápida e rápido encontrar algoritmos. Ambos os quais
+
+2
+00:00:07,088 --> 00:00:13,034
+são fáceis de implementar. Mas simplesmente não pode suportar uma enorme dinâmica de conectividade
+
+3
+00:00:13,034 --> 00:00:18,151
+problemas. Então, como é que vamos fazer melhor? Isso é o que veremos a seguir. A
+
+4
+00:00:18,151 --> 00:00:23,731
+melhoria muito eficaz, ele é chamado de ponderação. E isso pode ter ocorrido a
+
+5
+00:00:23,731 --> 00:00:28,764
+você enquanto estamos olhando para estes algoritmos. A ideia é, quando
+
+6
+00:00:28,764 --> 00:00:34,735
+implementação do algoritmo de união rápida tomar medidas para evitar que as árvores altas. Se
+
+7
+00:00:34,735 --> 00:00:41,873
+você tem uma árvore de grande porte e uma pequena árvore de combinar junto o que você quer tentar
+
+8
+00:00:41,873 --> 00:00:48,184
+a fazer é evitar colocar a árvore de grande porte menor, que vai levar a altura longa
+
+9
+00:00:48,184 --> 00:00:54,376
+árvores. E há uma maneira relativamente fácil de fazer isso. O que nós vamos fazer é que vamos manter
+
+10
+00:00:54,376 --> 00:01:00,577
+o controle do número de objetos em cada árvore e, em seguida, vamos manter o equilíbrio por
+
+11
+00:01:03,558 --> 00:01:05,049
+sempre para garantir que a ligação raiz da árvore menor para a raiz do
+
+12
+00:01:06,539 --> 00:01:12,176
+maior árvore. Então, nós, nós evitar esta situação primeiro aqui onde vamos colocar o maior
+
+13
+00:01:12,176 --> 00:01:18,053
+árvore mais baixa. No algoritmo ponderada, colocamos sempre a menor árvore menor. Como nós,
+
+14
+00:01:18,053 --> 00:01:27,470
+vamos ver como podemos implementar isso. Vamos ver uma demonstração primeiro. Ok, então novamente começa em
+
+15
+00:01:27,470 --> 00:01:34,790
+nossa posição normal de partida, onde todo mundo está em sua própria árvore. E para
+
+16
+00:01:35,059 --> 00:01:42,249
+quando há apenas dois itens para ligar, ele funciona, funciona da mesma maneira como antes. Mas
+
+17
+00:01:42,249 --> 00:01:48,725
+agora, quando nós temos de oito a fundir-se com quatro e três, colocamos a oito como a criança,
+
+18
+00:01:48,725 --> 00:01:56,408
+, não importa que ordem os seus argumentos veio, porque é a mais pequena árvore. Assim,
+
+19
+00:01:56,408 --> 00:02:02,368
+seis e cinco não importa, qualquer um vai para baixo não importa. Nove e quatro,
+
+20
+00:02:02,368 --> 00:02:09,710
+agora, nove é o pequeno quatro é um dos grandes. Assim, nove vai ser o único
+
+21
+00:02:09,710 --> 00:02:20,136
+que vai abaixo. Dois e um, cinco e zero. Então, agora, cinco e zero-cinco está na
+
+22
+00:02:20,136 --> 00:02:33,812
+a árvore maior, então vai de zero abaixo. Sete e dois, dois é na maior árvore de forma
+
+23
+00:02:33,812 --> 00:02:46,129
+sete vai abaixo. Seis e um que está em árvores de tamanho igual. E sete e três,
+
+24
+00:02:46,129 --> 00:02:59,272
+três é menor na árvore de modo que passa por baixo. Assim, o algoritmo ponderada sempre
+
+25
+00:02:59,272 --> 00:03:08,686
+garante que a árvore menor vai abaixo. E, novamente, nós terminamos com um único
+
+26
+00:03:08,686 --> 00:03:15,571
+árvore que representa todos os objetos. Mas, desta vez, nós h av alguma garantia de que não
+
+27
+00:03:15,571 --> 00:03:21,267
+item é muito longe da raiz e vamos conversar sobre isso explicitamente em um segundo.
+
+28
+00:03:21,267 --> 00:03:27,980
+Então, aqui está um exemplo que mostra o efeito de fazer a união ponderada rápida
+
+29
+00:03:27,980 --> 00:03:35,236
+onde colocamos sempre a menor árvore abaixo para o mesmo conjunto de comandos sindicais.
+
+30
+00:03:35,236 --> 00:03:42,939
+Isto é, com uma centena de sites e 88 operações de união. Você pode ver no topo da grande
+
+31
+00:03:42,939 --> 00:03:49,768
+árvore tem algumas árvores, alguns nós, uma distância razoável da raiz. Na parte inferior, por
+
+32
+00:03:49,768 --> 00:03:55,908
+algoritmo ponderado todos os nós estão à distância de quatro a partir da raiz. O
+
+33
+00:03:55,908 --> 00:04:01,207
+distância média da raiz é muito, muito menor. Vamos olhar para o Java
+
+34
+00:04:01,207 --> 00:04:06,557
+implementação e então veremos em mais detalhe menos, no que quantitativa
+
+35
+00:04:06,557 --> 00:04:12,286
+informações. Então, usamos a mesma estrutura de dados, exceto, agora precisamos de um extra
+
+36
+00:04:12,286 --> 00:04:17,569
+matriz, que, para cada item, fornece o número de objetos na árvore encaminhado em
+
+37
+00:04:17,569 --> 00:04:22,971
+esse item. Isso vai manter na operação de união. Encontre implementação é
+
+38
+00:04:22,971 --> 00:04:28,589
+idêntico ao de união rápida, você está apenas verificando se as raízes são iguais. Para
+
+39
+00:04:28,589 --> 00:04:34,009
+implementação da união, vamos modificar o código para verificar os tamanhos. E
+
+40
+00:04:34,009 --> 00:04:40,118
+ligação raiz da árvore menor para a raiz da árvore maior, em cada caso. E
+
+41
+00:04:40,118 --> 00:04:46,049
+então depois de alterar a ligação id, nós também alterar o tamanho de matriz. Se fizermos id, ia
+
+42
+00:04:46,049 --> 00:04:52,241
+criança de j, então temos que incrementar o tamanho da árvore j pelo tamanho da árvore do i.
+
+43
+00:04:52,241 --> 00:04:58,495
+Ou se nós fazemos o contrário, então temos que incrementar o tamanho do i da árvore por
+
+44
+00:04:58,495 --> 00:05:04,849
+tamanho da árvore de j. Então, esse é o código completo em branco para a implementação rápida
+
+45
+00:05:04,849 --> 00:05:12,424
+união. Então, não o código muito, mas o desempenho muito, muito melhor. Na verdade, podemos
+
+46
+00:05:12,424 --> 00:05:19,194
+analisar o tempo de execução matematicamente e mostrar que operação definida, leva
+
+47
+00:05:19,194 --> 00:05:25,225
+tempo proporcional ao quão longe as árvores estão no nó na árvore, o
+
+48
+00:05:25,225 --> 00:05:31,445
+nós estão na árvore, mas podemos mostrar que é garantido que a profundidade de qualquer
+
+49
+00:05:31,445 --> 00:05:37,989
+nó da árvore é, no máximo, o logaritmo para a base de dois dos N. Usamos a notação
+
+50
+00:05:37,989 --> 00:05:43,974
+Lg sempre para logaritmo na base dois. E, e, até então, se N é um mil,
+
+51
+00:05:43,974 --> 00:05:49,246
+que vai ser 10, se N é um milhão que é 20, se N é um bilhões, que é
+
+52
+00:05:49,246 --> 00:05:55,745
+30. É um número muito pequeno comparado a N. Então, vamos olhar para a prova disso. Nós
+
+53
+00:05:55,745 --> 00:06:02,046
+fazer algumas provas matemáticas de, neste curso, quando eles são críticos como este
+
+54
+00:06:02,046 --> 00:06:07,981
+um. E por que é verdade que a profundidade de qualquer nó x é, no máximo, faça o login base dois de N?
+
+55
+00:06:07,981 --> 00:06:13,850
+Bem, a chave para a compreensão de que é, dê uma olhada exatamente quando é que a profundidade
+
+56
+00:06:13,850 --> 00:06:21,347
+de qualquer aumento nó? Quando ele vai ainda mais para baixo na árvore? Bem. O x da profundidade
+
+57
+00:06:21,347 --> 00:06:29,697
+vai aumentar em um, quando a sua árvore, T1 neste diagrama, é mesclado em algum outro
+
+58
+00:06:29,697 --> 00:06:37,835
+árvore, T2 neste diagrama. Bem, nesse ponto nós disse que só faria isso se o tamanho
+
+59
+00:06:37,835 --> 00:06:45,331
+de T2 foi maior do que a ou igual ao tamanho de T1. Assim, quando a profundidade de x aumenta,
+
+60
+00:06:45,331 --> 00:06:52,662
+do tamanho da sua árvore, pelo menos duplos. Então, essa é a chave, porque isso significa que o
+
+61
+00:06:52,662 --> 00:06:58,305
+tamanho da árvore contendo x pode dobrar no máximo log N vezes, porque se você começar
+
+62
+00:06:58,305 --> 00:07:05,205
+com um duplo e log N vezes, você começa N e só há N nós na árvore. Assim,
+
+63
+00:07:05,205 --> 00:07:11,631
+que é um esboço de uma prova de que a profundidade de qualquer nó x é a base mais log dois
+
+64
+00:07:11,631 --> 00:07:18,605
+N. E isso tem um impacto profundo sobre o desempenho deste algoritmo. Agora, em vez
+
+65
+00:07:18,605 --> 00:07:24,548
+da inicialização sempre leva tempo proporcional a N. Mas agora, tanto o sindicato
+
+66
+00:07:24,548 --> 00:07:31,010
+ea operação conectado ou encontrar leva tempo proporcional ao log base dois de N.
+
+67
+00:07:31,010 --> 00:07:37,477
+E isso é um algoritmo que escalas. Se N cresce de um milhão para um bilhão, que
+
+68
+00:07:37,477 --> 00:07:43,668
+custo vai de 20 a 30, que é completamente inaceitável. Agora, isso foi muito
+
+69
+00:07:43,668 --> 00:07:50,089
+fácil de implementar e, e nós poderíamos parar, mas, geralmente, o que acontece no projeto de
+
+70
+00:07:50,089 --> 00:07:57,004
+algoritmos é agora que entendemos o que é que o desempenho de ganhos, vamos dar uma
+
+71
+00:07:57,004 --> 00:08:02,075
+olhar e ver, bem, podemos melhorá-lo ainda mais. E, neste caso, é muito
+
+72
+00:08:02,075 --> 00:08:09,072
+fácil de melhorar muito, muito mais. E essa é a idéia de compressão caminho. E
+
+73
+00:08:09,072 --> 00:08:17,066
+idéia é que, bem, quando estamos a tentar encontrar a raiz da árvore contendo um,
+
+74
+00:08:17,066 --> 00:08:24,361
+um determinado nó. Estamos tocando todos os nós no caminho desse nó para a raiz.
+
+75
+00:08:24,568 --> 00:08:30,422
+Enquanto estamos doi ng que podemos muito bem fazer com que cada um dos que apenas um ponto para o
+
+76
+00:08:30,422 --> 00:08:37,299
+raiz. Não há nenhuma razão para não. Então, quando nós estamos procurando, nós estamos tentando encontrar o
+
+77
+00:08:37,299 --> 00:08:43,580
+raiz, de P. Depois de encontrá-lo, que pode muito bem voltar atrás e fazer cada nó
+
+78
+00:08:43,580 --> 00:08:51,046
+nesse caminho apenas apontar para a raiz. Isso vai ser um custo constante extra.
+
+79
+00:08:51,046 --> 00:08:57,088
+Fomos até uma vez o caminho para encontrar a raiz. Agora, vamos novamente para apenas achatar a
+
+80
+00:08:57,088 --> 00:09:03,099
+árvore fora. E o motivo seria, não há razão para não fazer isso. Tivemos uma linha de
+
+81
+00:09:03,099 --> 00:09:10,016
+código para achatar a árvore, surpreendentemente. Na verdade, para fazer um código de um forro, usamos
+
+82
+00:09:10,016 --> 00:09:15,058
+um, uma simples variante onde fazemos todos os outros nódulos no ponto de caminho para a sua
+
+83
+00:09:15,058 --> 00:09:19,885
+avô no caminho até a árvore. Agora, isso não é tão bom como totalmente
+
+84
+00:09:21,000 --> 00:09:26,077
+achatamento realmente na prática que, na verdade, é quase tão bom. Assim, com
+
+85
+00:09:26,077 --> 00:09:32,555
+uma linha de código, podemos manter as árvores quase totalmente plana. Agora, esta
+
+86
+00:09:32,828 --> 00:09:41,987
+pessoas algoritmo descobriu muito cedo depois de descobrir a ponderação e
+
+87
+00:09:41,987 --> 00:09:49,588
+acaba por ser fascinante para analisar completamente fora de nosso alcance. Mas dissemos
+
+88
+00:09:49,588 --> 00:09:55,749
+exemplo para ilustrar esta como até mesmo um algorithmah simples, pode ter interessante
+
+89
+00:09:55,749 --> 00:10:02,203
+e análise complexa. E o que foi provado por Hopcroft Ulman e Tarjan era que se
+
+90
+00:10:02,203 --> 00:10:07,792
+você tem N objetos, qualquer seqüência de M união e as operações de localização irá tocar o
+
+91
+00:10:07,792 --> 00:10:16,014
+matriz na maioria das ac (N + M lg estrela N) vezes. E agora, a LG N é uma espécie de função de engraçado.
+
+92
+00:10:16,248 --> 00:10:22,067
+É o número de vezes que você tem que ter o registro de N para obter um. E o caminho para
+
+93
+00:10:22,067 --> 00:10:28,061
+pensar, ele é chamado a função de log iterado. E no mundo real, é melhor
+
+94
+00:10:28,061 --> 00:10:36,126
+de pensar que, um número menor que cinco, porque dois lg ^ 65536 é cinco. Assim,
+
+95
+00:10:36,126 --> 00:10:42,528
+que significa que o tempo de execução de união rápida ponderada com compressão caminho
+
+96
+00:10:42,784 --> 00:10:49,990
+vai ser linear no mundo real e, na verdade, poderia ser melhorado até mesmo para um mais
+
+97
+00:10:49,990 --> 00:10:56,504
+função interessante chamada função de Ackermann, o que é ainda mais lentamente
+
+98
+00:10:56,504 --> 00:11:03,611
+crescente de  lg. E outro ponto sobre isso é que  parece que este é
+
+99
+00:11:03,611 --> 00:11:09,813
+tão perto de ser linear, que é proporcional à t ime N em vez de tempo
+
+100
+00:11:09,813 --> 00:11:15,925
+proporcional a N vezes a função crescendo lentamente em N. Existe um algoritmo simples
+
+101
+00:11:15,925 --> 00:11:22,008
+que é linear? E as pessoas, olhou por um longo tempo para isso, e realmente funciona
+
+102
+00:11:22,008 --> 00:11:27,700
+a ser o caso que se pode provar que não existe tal algoritmo. Então, há uma
+
+103
+00:11:27,700 --> 00:11:32,502
+monte de teoria que vai atrás dos algoritmos que usamos. E é importante
+
+104
+00:11:32,502 --> 00:11:38,022
+para nós saber que a teoria e que vai nos ajudar a decidir como escolher qual
+
+105
+00:11:38,022 --> 00:11:43,480
+algoritmos que vamos utilizar na prática, e onde se concentram nosso esforço em
+
+106
+00:11:43,480 --> 00:11:48,796
+tentando encontrar algoritmos melhores. É fato surpreendente que acabou por ser provado por
+
+107
+00:11:48,796 --> 00:11:54,181
+Friedman e Sachs, que não existe qualquer algoritmo de tempo linear para a união encontram
+
+108
+00:11:54,181 --> 00:12:00,293
+problema. Mas a união rápida ponderada com compressão caminho na prática é, está perto
+
+109
+00:12:00,293 --> 00:12:05,844
+bastante que vai permitir a solução de problemas enormes. Então, esse é o nosso
+
+110
+00:12:05,844 --> 00:12:11,713
+resumo de algoritmos para resolver o problema de conectividade dinâmica. Com o uso de
+
+111
+00:12:11,713 --> 00:12:17,128
+união ponderada rápido e com compressão de caminho, podemos resolver problemas que
+
+112
+00:12:17,128 --> 00:12:23,109
+não poderiam ser abordados. Por exemplo, se você tem um bilhão de operações
+
+113
+00:12:23,109 --> 00:12:28,845
+e um bilhão de objetos que eu disse antes, pode levar 30 anos. Nós podemos fazê-lo em
+
+114
+00:12:28,845 --> 00:12:34,212
+seis segundos. Agora, eo que é mais importante para reconhecer sobre isso é que
+
+115
+00:12:34,212 --> 00:12:40,012
+sua concepção algoritmo que permite que a solução para o problema. Um computador mais rápido
+
+116
+00:12:40,012 --> 00:12:45,529
+não ajudaria muito. Você pode gastar milhões em um super computador, e talvez
+
+117
+00:12:45,529 --> 00:12:51,165
+você poderia fazê-lo em seis anos em vez de 30, ou em dois meses, mas com um rápido
+
+118
+00:12:51,165 --> 00:13:02,056
+logaritmo, você pode fazê-lo em segundos, em segundo no seu próprio PC.

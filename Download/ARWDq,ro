@@ -1,0 +1,1681 @@
+1
+00:00:03,230 --> 00:00:04,080
+Bine ați revenit.
+
+2
+00:00:04,080 --> 00:00:07,380
+Astăzi  ne vom uita la Mergesort,
+care este unul dintre cei doi
+
+3
+00:00:07,380 --> 00:00:09,880
+algoritmi clasici de sortare care sunt
+critice
+
+4
+00:00:09,880 --> 00:00:12,340
+componente în infrastructura 
+de calcul din lume.
+
+5
+00:00:13,824 --> 00:00:16,398
+Noi avem o înțelegere științifică completă 
+a
+
+6
+00:00:16,398 --> 00:00:19,896
+proprietăților acestor algoritmi, și
+ei au fost dezvoltaţi
+
+7
+00:00:19,896 --> 00:00:23,130
+ca tipuri de sisteme practice și tipuri de 
+aplicații care
+
+8
+00:00:23,130 --> 00:00:26,560
+au fost foarte mult folosiţi în ultimii 50 de
+ani.
+
+9
+00:00:26,560 --> 00:00:28,550
+De fapt Quicksort, pe care o vom lua în considerare
+
+10
+00:00:28,550 --> 00:00:30,470
+data viitoare, a fost onorată ca una din top
+
+11
+00:00:30,470 --> 00:00:33,990
+10 algoritmi ai secolului 20 în
+știință și inginerie.
+
+12
+00:00:35,190 --> 00:00:38,540
+La această prelegere ne vom uita la
+Mergesort, care este
+
+13
+00:00:38,540 --> 00:00:43,629
+sortarea de bază la o mulțime de diferite
+sisteme de programare, inclusiv Java.
+
+14
+00:00:44,730 --> 00:00:46,750
+Data viitoare ne vom uita la Quicksort care
+
+15
+00:00:46,750 --> 00:00:49,520
+este de asemenea folosită în Java pentru diferite 
+aplicații.
+
+16
+00:00:52,720 --> 00:00:56,320
+În regulă, deci algoritmul de bază Mergesort.
+Cum va arăta?
+
+17
+00:00:57,870 --> 00:00:59,530
+Ideea este foarte simplă.
+
+18
+00:00:59,530 --> 00:01:02,820
+Ceea ce vom face este să împărțim o matrice
+în două jumătăți.
+
+19
+00:01:02,820 --> 00:01:06,200
+Recursiv, sortați recursiv fiecare dintre jumătăți.
+
+20
+00:01:06,200 --> 00:01:07,840
+Și apoi îmbinați rezultatul.
+
+21
+00:01:07,840 --> 00:01:09,720
+Asta e o vedere de ansamblu a Mergesort.
+
+22
+00:01:11,480 --> 00:01:14,240
+Acesta a fost de fapt unul dintre primii
+
+23
+00:01:14,240 --> 00:01:17,270
+algoritmi non-trivial pe care eu i-am implementat pe un calculator.
+
+24
+00:01:18,300 --> 00:01:22,450
+John Von Norman a realizat că la
+dezvoltarea lui
+
+25
+00:01:22,450 --> 00:01:25,300
+EDVAC, calculatorul lui EDVAC, unul dintre
+primele
+
+26
+00:01:25,300 --> 00:01:28,080
+calculatoare de uz general,  va avea nevoie de
+
+27
+00:01:28,080 --> 00:01:31,230
+o metodă de sortare și el a venit cu
+Mergesort.
+
+28
+00:01:31,230 --> 00:01:33,951
+El este larg creditat ca fiind
+inventatorul Mergesort.
+
+29
+00:01:36,230 --> 00:01:40,220
+Deci ideea de Mergesort este, se bazează pe
+ideea de a fuziona.
+
+30
+00:01:41,328 --> 00:01:44,982
+Și deci pentru a înțelege cum funcționează fuziunea
+ne vom
+
+31
+00:01:44,982 --> 00:01:48,730
+gandi la ideea unui fuziuni abstracte
+pe loc.
+
+32
+00:01:49,810 --> 00:01:54,470
+Deci, avem o matrice A și prima sa
+jumătate este sortată și a doua jumătate a sa este
+
+33
+00:01:54,470 --> 00:02:01,420
+sortată, iar calculul pe care noi trebuie să-l
+efectuăm este să înlocuim aceea cu matricea
+
+34
+00:02:01,420 --> 00:02:04,880
+sortată unde cele două sub-jumătăți au
+fuzionat împreună.
+
+35
+00:02:04,880 --> 00:02:05,855
+Să ne uităm la un demo.
+
+36
+00:02:05,855 --> 00:02:11,290
+[TUSE]
+
+37
+00:02:11,290 --> 00:02:13,200
+Metoda pe care o vom folosi este
+bazată
+
+38
+00:02:13,200 --> 00:02:17,880
+pe a lua o matrice auxiliară să dețină datele
+.
+
+39
+00:02:17,880 --> 00:02:21,100
+Acesta este unul dintre cele mai simple moduri de a
+implementa îmbinarea.
+
+40
+00:02:21,100 --> 00:02:24,890
+Deci primul lucru pe care îl facem este să copiem
+tot peste matricea auxiliară.
+
+41
+00:02:27,080 --> 00:02:31,580
+Acum, odată ce s-a realizat, ce vom dori să
+facem este să o copiem
+
+42
+00:02:31,580 --> 00:02:36,160
+înapoi la matricea inițială în ordine sortată.
+
+43
+00:02:36,160 --> 00:02:39,930
+În scopul de a face acest lucru, vom
+menține trei indici.
+
+44
+00:02:39,930 --> 00:02:46,320
+I, intrarea curentă în jumătatea din stânga, j,
+intrarea curentă pe jumătatea din dreapta și
+
+45
+00:02:46,320 --> 00:02:52,100
+k, intrarea curentă în rezultatul sortat.
+[TUSE] astfel primul lucru pe care
+
+46
+00:02:52,100 --> 00:03:00,000
+îl facem este, să luăm cea mai mică dintre cele două intrări
+indicate de i și j, și să le comparăm
+
+47
+00:03:00,000 --> 00:03:06,210
+și să o luăm pe cea mai mică, și să o mutam
+că o să fie următorul element de ieșire.
+
+48
+00:03:06,210 --> 00:03:09,170
+Și oricare dintre acestea este luată, noi incrementăm
+pointerul său.
+
+49
+00:03:10,330 --> 00:03:13,450
+Acum noi comparam minimul din nou, din nou,
+acel grup punctat
+
+50
+00:03:13,450 --> 00:03:17,030
+cu j este mai mic, asa că-l mutăm pe acela la k.
+
+51
+00:03:17,030 --> 00:03:19,810
+Incrementăm acel pointer j și, de asemenea,
+incrementăm k.
+
+52
+00:03:20,850 --> 00:03:25,050
+Acum, există două E, egale noi luăm mereu
+pe prima.
+
+53
+00:03:25,050 --> 00:03:29,570
+Deci, cea de pe stânga matricii merge la
+poziția lui k
+.
+
+54
+00:03:29,570 --> 00:03:31,200
+Și acum noi incrementăm i și k.
+
+55
+00:03:32,440 --> 00:03:36,300
+Și din nou, e o E și sunt egale.
+
+56
+00:03:36,300 --> 00:03:40,120
+Vom lua pe prima astfel încât noi o mutam
+pe aceea sus incrementăm  i și k.
+
+57
+00:03:41,470 --> 00:03:42,034
+Şi acum
+
+58
+00:03:42,034 --> 00:03:44,020
+j lui E este mai mic decât g.
+
+59
+00:03:44,020 --> 00:03:46,860
+Este urmatorul lucru care trebuie să meargă la
+ieșire.
+
+60
+00:03:46,860 --> 00:03:49,510
+Astfel noi mutam pe acela în sus și incrementăm j și
+k.
+
+61
+00:03:50,710 --> 00:03:52,770
+Acum cel indicat la i-ul meu, G
+
+62
+00:03:52,770 --> 00:03:56,480
+este cel mai mic, deci mutați-l și incrementați i 
+și k.
+
+63
+00:03:56,480 --> 00:04:04,040
+Mutați M în sus și incrementați i și k.
+Acum, ultimul element în submatricea stânga
+
+64
+00:04:04,040 --> 00:04:07,310
+este cel care o să fie mutat următorul. 
+Și acum 
+
+65
+00:04:07,310 --> 00:04:12,790
+acea primă subematrice este epuizată așa că într-adevăr
+tot ce trebuie să facem este să luăm
+
+66
+00:04:12,790 --> 00:04:16,120
+restul elementelor din partea
+dreaptă și să le mutăm înapoi.
+
+67
+00:04:17,680 --> 00:04:21,680
+De fapt, din moment ce am copiat, am putea
+optimiza cu evitarea acestor mișcări.
+
+68
+00:04:22,860 --> 00:04:28,860
+Aceasta este o abstractă 'pe loc' fuziune de
+a lua cele două sub-jumatati sortate
+
+69
+00:04:28,860 --> 00:04:32,660
+a unei matrici folosind o matrice auxiliar, mutați-le, 
+șiă
+
+70
+00:04:32,660 --> 00:04:36,450
+apoi puneți-le la loc în ordine sortată.
+Bine, așa că aici e
+
+71
+00:04:36,450 --> 00:04:40,650
+cod pentru fuziune, care este destul de
+direct din demo.
+
+72
+00:04:42,060 --> 00:04:47,290
+Mai întâi, în scopul de a sorta o matrice a
+
+73
+00:04:47,290 --> 00:04:52,610
+comparabilelor în această implementare trecem
+un link la
+
+74
+00:04:52,610 --> 00:04:57,840
+matricea auxiliară, de asemenea.
+Și avem trei argumente
+
+75
+00:04:57,840 --> 00:04:59,410
+lo, mid, și hi.
+
+76
+00:04:59,410 --> 00:05:02,840
+Deci, lo este prima parte a matricii care trebuie
+sortată.
+
+77
+00:05:02,840 --> 00:05:06,350
+Mid este punctul de mijloc care împarte prima
+
+78
+00:05:06,350 --> 00:05:09,320
+parte de cea de a doua, astfel încât condițiile noastre
+sunt
+
+79
+00:05:09,320 --> 00:05:12,830
+ ca de la lo la mid este sortată, iar de
+la mid plus 1 la hi este sortată.
+
+80
+00:05:13,966 --> 00:05:17,278
+[TUSE] astfel implementarea îmbinării, apoi,
+primul lucru
+
+81
+00:05:17,278 --> 00:05:20,600
+pe care il face este să copieze tot peste
+matricea auxiliară.
+
+82
+00:05:21,650 --> 00:05:23,220
+Și apoi stabilește pentru
+
+83
+00:05:23,220 --> 00:05:27,470
+această a patra buclă care realizează
+îmbinarea.
+
+84
+00:05:27,470 --> 00:05:30,970
+Începem pointerul noastru I în centrul stânga
+pe jumătatea stângă.
+
+85
+00:05:30,970 --> 00:05:33,430
+Indicatorul J pe partea stângă
+a jumătătii drepte.
+
+86
+00:05:33,430 --> 00:05:34,480
+Asta e la mid plus unu.
+
+87
+00:05:34,480 --> 00:05:37,690
+Și vom începe pointerul k la
+începutul lo.
+
+88
+00:05:37,690 --> 00:05:43,000
+Și pentru fiecare valoare al lui k ceea ce
+
+89
+00:05:43,000 --> 00:05:48,400
+cel mai des facem este compararea dacă aux al j
+este mai mic decât aux 
+
+90
+00:05:48,400 --> 00:05:48,900
+al i.
+
+91
+00:05:50,780 --> 00:05:55,730
+Și dacă este, vom muta elementul j
+deasupra, incrementăm j.
+
+92
+00:05:56,780 --> 00:06:00,490
+Dacă e mai mare mutăm elementul i deasupra
+ incrementăm i.
+
+93
+00:06:00,490 --> 00:06:02,690
+Apoi, în ambele cazuri, se incrementează a,
+
+94
+00:06:02,690 --> 00:06:06,910
+nu se implementează, incrementează k, și asta
+implementează îmbinarea.
+
+95
+00:06:06,910 --> 00:06:12,250
+În cazul în care indicatorul i este epuizat, atunci doar ne
+mutăm peste j, următorul element j.
+
+96
+00:06:12,250 --> 00:06:13,650
+În cazul în care indicatorul j este epuizat
+
+97
+00:06:13,650 --> 00:06:18,680
+vom trece peste următorul element al i-lea. 
+Deci, de fiecare dată când mutăm
+
+98
+00:06:18,680 --> 00:06:23,790
+un element nou în k si acela e codul 
+care impelementeaza
+
+99
+00:06:23,790 --> 00:06:28,812
+abstracta interclasare. 
+Acum, cu acest cod,
+
+100
+00:06:28,812 --> 00:06:33,896
+noi de asemenea introducem ideea de a face
+afirmații, doar să-l facă
+
+101
+00:06:33,896 --> 00:06:38,900
+mai ușor de depanat, codul nostru și să avem
+încrederea că e corect.
+
+102
+00:06:40,530 --> 00:06:46,410
+În acest caz, această inserție spune doar că noi
+dorim să
+
+103
+00:06:46,410 --> 00:06:51,710
+fim siguri ca de la lo la mid e sortat si
+ca mid plus
+
+104
+00:06:51,710 --> 00:06:55,050
+unu la high este sortat inainte de codul nostru si
+apoi noi
+
+105
+00:06:55,050 --> 00:06:58,580
+dorim să verificăm că, totul este 
+sortat după codul nostru.
+
+106
+00:06:59,976 --> 00:07:05,664
+Și, în general, programatorii, Java 
+programatorii știu că este o idee bună de a
+
+107
+00:07:05,664 --> 00:07:08,766
+încerca să facă aceste afirmații.
+
+108
+00:07:08,766 --> 00:07:11,112
+Nu numai că ajută la depistarea bug-urilor, dar se
+
+109
+00:07:11,112 --> 00:07:13,880
+ documentează, de asemenea, ceea ce se presupune codul
+să facă.
+
+110
+00:07:13,880 --> 00:07:17,190
+Și codul de îmbinare este un bun exemplu al
+acestuia.
+
+111
+00:07:17,190 --> 00:07:20,052
+Dacă puneți la începutul codului
+ceea ce vă așteptați
+
+112
+00:07:20,052 --> 00:07:24,180
+, sub forma de o aserțiune, care
+este codul în sine.
+
+113
+00:07:24,180 --> 00:07:25,730
+Și puneți la sfârșitul codului ceea ce
+voi
+
+114
+00:07:25,730 --> 00:07:28,820
+credeți că va face, din nou, sub formă
+de o aserțiune.
+
+115
+00:07:28,820 --> 00:07:31,010
+Voi testați ambele, că aceste condiții
+
+116
+00:07:31,010 --> 00:07:35,150
+dețin, și de asemenea, spun cuiva care citește
+codul, ce încercați să faceti cu el.
+
+117
+00:07:36,930 --> 00:07:42,990
+Deci Java e doar o declaratie afirmativă.
+O aduce conditia booleană.
+
+118
+00:07:42,990 --> 00:07:47,830
+În acest caz, am folosit acea metodă este
+sortată pe care am folosit-o înainte.
+
+119
+00:07:47,830 --> 00:07:52,880
+Asta returnează adevărat dacă cea portată este sortată 
+și fals în cazul în care nu este.
+
+120
+00:07:52,880 --> 00:07:56,280
+Și ce va face afirmația este că va arunca 
+o excepție
+
+121
+00:07:56,280 --> 00:07:57,850
+cu excepția cazului în care condiția este adevărată.
+
+122
+00:07:58,950 --> 00:08:00,852
+Acum, lucrul cu privire la afirmațiile din Java este
+
+123
+00:08:00,852 --> 00:08:04,250
+că le puteți activa sau dezactiva la 
+runtime.
+
+124
+00:08:04,250 --> 00:08:07,850
+Și asta e foarte important, pentru că 
+înseamnă că puteți
+
+125
+00:08:07,850 --> 00:08:11,550
+sa le puneţi în codul dvs. pentru a verifica în timp ce 
+developaţi.
+
+126
+00:08:11,550 --> 00:08:16,870
+Dar nu suportă nici un cost suplimentar
+în codul de producție.
+
+127
+00:08:16,870 --> 00:08:20,310
+Deci, în mod implicit, inserțiile sunt dezactivate.
+
+128
+00:08:20,310 --> 00:08:21,480
+Ceva nu merge bine
+
+129
+00:08:22,590 --> 00:08:26,830
+cineva analizează situația poate
+permite inserțiile și ei
+
+130
+00:08:28,270 --> 00:08:30,960
+de multe ori vă ajută sa aflaţi de unde, care este
+problema .
+
+131
+00:08:32,060 --> 00:08:36,980
+Deci, cea mai bună practică este de a folosi insertii
+la fel cum am făcut în acel
+
+132
+00:08:36,980 --> 00:08:39,870
+exemplu cu merge și să presupunem că
+
+133
+00:08:39,870 --> 00:08:42,010
+ei nu vor fi acolo in
+coduri de producție.
+
+134
+00:08:42,010 --> 00:08:44,240
+Voi nu ar trebui să le utilizați pentru lucruri, cum ar fi 
+verificarea
+
+135
+00:08:44,240 --> 00:08:45,825
+dacă intrarea este in modul care vă place.
+
+136
+00:08:45,825 --> 00:08:50,990
+Bine, deci cu acea merge 
+implementare, atunci
+
+137
+00:08:50,990 --> 00:08:56,020
+implementarea sortării este o destul de simplă, 
+procedură recursivă prezentată aici.
+
+138
+00:08:57,840 --> 00:09:03,390
+Deci, folosim procedura merge noi tocmai
+am arătat-o, și apoi procedura noastră de sortare.
+
+139
+00:09:03,390 --> 00:09:07,250
+Este recursivă astfel, controale dacă avem 
+ceva de făcut mai întâi.
+
+140
+00:09:07,250 --> 00:09:10,960
+Apoi se calculează valoarea midpoint
+la fel cum am facut
+
+141
+00:09:10,960 --> 00:09:14,990
+pentru o căutare binară. 
+Sortați prima jumătate.
+
+142
+00:09:14,990 --> 00:09:17,810
+Sortați a doua jumătate, și apoi îmbinați-le 
+împreună.
+
+143
+00:09:18,830 --> 00:09:24,080
+Și apoi sortarea efectiva ia doar un argument
+
+144
+00:09:24,080 --> 00:09:29,370
+al matricii creează o matrice auxiliară 
+si apoi o foloseste pe acea.
+
+145
+00:09:30,390 --> 00:09:36,300
+Acum, este important să nu creăm 
+matrice auxiliară  în
+
+146
+00:09:36,300 --> 00:09:38,840
+rutina recursivă, pentru că ar putea
+conduce
+
+147
+00:09:38,840 --> 00:09:43,460
+la cost extins de crearea matricei suplimentare.
+
+148
+00:09:43,460 --> 00:09:48,720
+Și veți vedea uneori Mergesort
+mergand prost din cauza acestei erori.
+
+149
+00:09:48,720 --> 00:09:53,170
+Altfel aceasta este o implementare
+directa.
+
+150
+00:09:53,170 --> 00:09:56,890
+Și este de fapt un prototip pentru 
+algoritmul de proiectare
+
+151
+00:09:56,890 --> 00:09:58,510
+pe care o să-l vedem venit din nou și din nou.
+
+152
+00:09:58,510 --> 00:10:00,450
+Se numește divide și cucerește .
+
+153
+00:10:00,450 --> 00:10:01,460
+Rezolva o problemă
+
+154
+00:10:01,460 --> 00:10:04,370
+prin împărțire în două jumătăți, rezolvarea
+celor două jumătăți,
+
+155
+00:10:04,370 --> 00:10:07,420
+și apoi punerea împreună a soluțiilor 
+obține răspunsul adecvat.
+
+156
+00:10:10,675 --> 00:10:15,450
+[TUSE] aici este o urmă de ceea ce Mergesort
+face și în cazul în care nu ați studiat un
+
+157
+00:10:15,450 --> 00:10:22,590
+program recursiv înainte de a fi util 
+a studia acest lucru în, în detaliu.
+
+158
+00:10:22,590 --> 00:10:28,550
+Acest lucru oferă exact ceea ce se întâmplă în timpul
+fiecăruia dintre apelurile de a fuziona .
+
+159
+00:10:28,550 --> 00:10:31,740
+Vom începe cu o mare problemă de rezolvat
+dar am împărțit-o în jumătate,
+
+160
+00:10:31,740 --> 00:10:34,660
+apoi o vom împărți pe aceea în jumătate, și apoi 
+vom împărți-o pe aceea în jumătate.
+
+161
+00:10:34,660 --> 00:10:35,710
+Și primul lucru
+
+162
+00:10:35,710 --> 00:10:38,110
+pe care noi îl facem de fapt este doar să comparăm
+
+163
+00:10:38,110 --> 00:10:41,150
+și schimbăm, dacă este necesar primele două
+elemente.
+
+164
+00:10:41,150 --> 00:10:43,960
+Și apoi vom face același lucru pentru următoarele 
+două elemente.
+
+165
+00:10:43,960 --> 00:10:48,040
+Apoi îmbinați cele două împreună pentru a obține
+primele patru facute.
+
+166
+00:10:48,040 --> 00:10:50,300
+Și apoi vom face același lucru pentru următoarele
+patru în șir.
+
+167
+00:10:50,300 --> 00:10:53,790
+Deci, acum avem două sub-matrici sortate la
+dimensiunea patru.
+
+168
+00:10:53,790 --> 00:10:56,330
+Și le imbinăm împreună pentru a obține una de
+dimensiunea opt.
+
+169
+00:10:56,330 --> 00:10:57,840
+Și apoi facem același lucru pe
+dreapta,
+
+170
+00:10:57,840 --> 00:11:00,890
+și eventual, avem doua de opt pe care le
+îmbinăm împreună
+
+171
+00:11:00,890 --> 00:11:03,250
+pentru a obține rezultatul final.
+
+172
+00:11:03,250 --> 00:11:06,110
+Foarte instructiv să studiezi această urmă să
+
+173
+00:11:06,110 --> 00:11:09,850
+înțelegi cu adevărat ce acest algoritm 
+recursiv face.
+
+174
+00:11:11,350 --> 00:11:14,080
+Deci, acum putem anima și din nou 
+mergesort mai 
+
+175
+00:11:14,080 --> 00:11:16,149
+eficient, astfel încât să putem face mai multe și mai multe
+elemente.
+
+176
+00:11:17,800 --> 00:11:20,820
+Puteti vedea ca are prima jumătate
+
+177
+00:11:20,820 --> 00:11:23,040
+sortată, acum se lucrează la cea de a doua 
+jumătate.
+
+178
+00:11:24,160 --> 00:11:26,100
+Și apoi, o dată ce devine cea de a doua jumătate
+sortată,
+
+179
+00:11:26,100 --> 00:11:29,430
+apoi se va merge mai departe și le îmbină
+corect împreună pentru a obține rezultatul sortat.
+
+180
+00:11:30,530 --> 00:11:34,490
+Are un pic de [tuse] dinamică suplimentară
+
+181
+00:11:34,490 --> 00:11:37,319
+în animație din cauza matricii
+auxiliare.
+
+182
+00:11:38,710 --> 00:11:41,010
+Să ne uităm la ea, atunci când este în ordine
+inversă
+
+183
+00:11:43,680 --> 00:11:49,590
+din nou devine prima jumătate gata, acum e de lucru la cea de a doua jumătate odată
+
+184
+00:11:49,590 --> 00:11:54,100
+ce acestă de-a doua jumătate e gata apoi merge 
+înainte și fuzionează împreună totul
+
+185
+00:11:54,100 --> 00:11:58,180
+e la fel de repede în ordine inversă ca 
+în ordine normală.
+
+186
+00:11:59,910 --> 00:12:04,210
+Astfel, puteți rula un Mergesort pe mari
+probleme.
+
+187
+00:12:04,210 --> 00:12:09,520
+Este un algoritm foarte eficient. 
+Și astfel, de exemplu,
+
+188
+00:12:09,520 --> 00:12:16,140
+ceea ce arată acest tabel, dacă ar fi să încercați
+să folosiți o sortare inserție pentru un imens
+
+189
+00:12:16,140 --> 00:12:18,660
+fișier, să spunem un fișier cu un miliard de elemente,
+pe
+
+190
+00:12:18,660 --> 00:12:21,770
+PC-ul vostru, ar lua câteva secole pentru a
+termina.
+
+191
+00:12:23,380 --> 00:12:26,300
+Chiar și pe un super calculator , dacă utilizați 
+sortare
+
+192
+00:12:26,300 --> 00:12:30,380
+inserție, în zilele noastre ar lua poate o săptămână sau 
+mai mult.
+
+193
+00:12:30,380 --> 00:12:32,150
+Dar, dacă aveți un algoritm bun ca
+
+194
+00:12:32,150 --> 00:12:34,540
+Mergesort, iar voi încercați să faceți un
+miliard de elemente,
+
+195
+00:12:34,540 --> 00:12:39,150
+o puteți face în doar mai puțin de o jumătate de
+oră pe PC-ul vostru.
+
+196
+00:12:39,150 --> 00:12:42,880
+Și un supercomputer poate face acest lucru
+instantaneu.
+
+197
+00:12:42,880 --> 00:12:46,150
+Și probleme mai mici, iau doar o clipă
+chiar pe PC-ul vostru.
+
+198
+00:12:46,150 --> 00:12:52,890
+Astfel, puteți cheltui o mulțime de bani sau mult
+timp, sau puteți folosi un algoritm bun.
+
+199
+00:12:52,890 --> 00:12:56,750
+Și asta e una din principalele noastre teme in acest
+curs.
+
+200
+00:12:56,750 --> 00:13:00,770
+Un algoritm bun este mult mai eficient
+decât cheltuind
+
+201
+00:13:00,770 --> 00:13:03,990
+bani sau timp irosind bani sau timp folosind
+unul rău.
+
+202
+00:13:06,750 --> 00:13:11,950
+Deci, să ne uităm la analiza
+Mergesort, că este un pic de matematică, dar foarte
+
+203
+00:13:11,950 --> 00:13:21,040
+instructivă pentru că acest lucru arată într-adevăr
+puterea metodei divide și cucerește.
+
+204
+00:13:21,040 --> 00:13:26,900
+Și ne permit să luăm o problemă care 
+ne lua timp pătratic cu metode
+
+205
+00:13:26,900 --> 00:13:33,200
+ca inserția și selecție sortare, și a obține
+rezultat în, în timp log N cu Mergesort.
+
+206
+00:13:33,200 --> 00:13:37,000
+Deci, asta e propoziția Mergesort folosește
+cel mult N lg N
+
+207
+00:13:37,000 --> 00:13:41,050
+comparări și 6 N lg N accese matrice pentru a
+sorta orice matrice de dimensiune N.
+
+208
+00:13:42,310 --> 00:13:48,190
+Și modul de a dovedi această afirmație este
+ de la
+
+209
+00:13:48,190 --> 00:13:53,900
+examinarea codului, la a scrie ceea ce-i
+numită o relație de recurență.
+
+210
+00:13:53,900 --> 00:13:59,140
+Și totul este, e o reflecție
+matematică a ceea ce se întâmplă în cod.
+
+211
+00:13:59,140 --> 00:14:04,220
+Dacă sortăm N elemente atunci lăsăm C de N
+să denote
+
+212
+00:14:04,220 --> 00:14:07,610
+numărul de comparări de care avem nevoie pentru
+a sorta N elemente.
+
+213
+00:14:08,620 --> 00:14:14,740
+În scopul de a obține asta, sortăm
+jumătatea stângă și jumătatea din dreapta și
+
+214
+00:14:14,740 --> 00:14:20,100
+această notație maxim de N supra 2 si
+minim de N supra 2, asta e N supra 
+
+215
+00:14:20,100 --> 00:14:25,450
+2 rotunjit in sus si N supra 2 rotunjit in jos, acestea sunt
+marimile celor doua submatrici, si
+
+216
+00:14:25,450 --> 00:14:27,410
+vom apela aceeași rutină pentru 
+acea
+
+217
+00:14:27,410 --> 00:14:29,460
+mărime, astfel încât numărul de comparări de care aveti 
+nevoie .
+
+218
+00:14:29,460 --> 00:14:33,060
+Pentru asta este C de N supra 2, maxim de N
+supra 2
+
+219
+00:14:33,060 --> 00:14:35,737
+pentru stanga si maxim de, minim de N
+supra 2 pentru dreapta.
+
+220
+00:14:35,737 --> 00:14:40,450
+Și apoi pentru merge, avem nevoie de cel puțin, 
+cel mult N comparări.
+
+221
+00:14:41,690 --> 00:14:45,940
+În cazul în care nici unul nu se epuizează, avem nevoie de exact N
+comparări.
+
+222
+00:14:45,940 --> 00:14:49,300
+Și așa -și asta e adevărat, atâta timp cât N este 
+mai mare decât 1.
+
+223
+00:14:49,300 --> 00:14:50,530
+În cazul în care nu există decât un singur element, noi nu 
+
+224
+00:14:50,530 --> 00:14:55,580
+facem comparări deloc. 
+Deci, aceasta este o formulă matematică pe care noi
+
+225
+00:14:55,580 --> 00:15:02,830
+am derivat-o prin examinarea codului dar
+complet descrisă matematic
+
+226
+00:15:02,830 --> 00:15:07,200
+ceea ce e o limită superioară a numărului de 
+comparări care vor fi necesare.
+
+227
+00:15:07,200 --> 00:15:11,170
+Și în mod similar pentru numărul de accese 
+matrice, dacă numeri până la numărul de
+
+228
+00:15:11,170 --> 00:15:15,930
+ori accesezi o matrice pentru o
+fuziune ar putea fi de cel mult șase.
+
+229
+00:15:17,040 --> 00:15:20,800
+Deci, acestea sunt formule matematice și 
+există tehnici
+
+230
+00:15:20,800 --> 00:15:23,240
+pentru rezolvarea acestora și nu vom intra în 
+asta.
+
+231
+00:15:23,240 --> 00:15:25,610
+Acesta nu este un curs de matematică
+discretă.
+
+232
+00:15:27,940 --> 00:15:34,820
+Dar ceea ce noi apoi facem este arătăm cum se rezolvă
+recurența când N este o putere a lui 2.
+
+233
+00:15:34,820 --> 00:15:36,530
+Și apoi se dovedește că deține pentru 
+toate
+
+234
+00:15:36,530 --> 00:15:39,090
+N, care se poate dovedi prin inducție de la 
+recurență.
+
+235
+00:15:40,280 --> 00:15:45,040
+Deci, dacă aveți această recurență [TUSE] 
+care
+
+236
+00:15:45,040 --> 00:15:47,540
+este similară cu cele despre
+care vorbim .
+
+237
+00:15:47,540 --> 00:15:52,840
+Este exact același lucru atunci când N este o putere a
+lui 2 hai, să ne uităm la acesta.
+
+238
+00:15:52,840 --> 00:15:53,010
+Dacă
+
+239
+00:15:53,010 --> 00:16:00,520
+D de N este 2D de N supra 2 plus N cu D de
+1 egal cu 0, atunci D de N este egal cu N log N.
+
+240
+00:16:00,520 --> 00:16:04,800
+Ne vom uita la trei dovezi ale acestuia doar
+presupunând că N este o putere a lui 2.
+
+241
+00:16:04,800 --> 00:16:07,140
+Dacă N este o putere a lui 2, atunci N supra 2
+
+242
+00:16:07,140 --> 00:16:10,350
+este, de asemenea, o putere a lui doi, astfel recurența 
+are sens.
+
+243
+00:16:11,510 --> 00:16:15,310
+Deci, aceasta este doar o reprezentare grafică
+dacă noi
+
+244
+00:16:15,310 --> 00:16:18,140
+dorim să calculăm D de N noi dorim să calculăm
+D
+
+245
+00:16:18,140 --> 00:16:24,470
+de N supra 2 de două ori.
+Deci, asta e 2 și apoi costurile suplimentare
+
+246
+00:16:24,470 --> 00:16:30,285
+pentru îmbinare este N, dar dacă vom 
+face acest lucru de două ori apoi avem  2N supra 2.
+
+247
+00:16:30,285 --> 00:16:34,590
+Așa că haideți să avem 2N supra 2s și apoi pentru
+
+248
+00:16:34,590 --> 00:16:38,110
+fiecare dintre acestea noi am împărțit în N
+supra
+
+249
+00:16:38,110 --> 00:16:43,130
+4S și fiecare dintre cele 4N supra 4s are o
+transversală în plus pentru îmbinare de N supra 4.
+
+250
+00:16:43,130 --> 00:16:48,980
+Bine 2N supra 2 este N, 4N supra 4 este N și noi
+vom tot merge în jos, făcând asta până
+
+251
+00:16:48,980 --> 00:16:54,660
+Trecem la D de 2 si avem mereu pentru
+transversală în plus pentru îmbinare, avem N.
+
+252
+00:16:54,660 --> 00:16:56,940
+Și cât de multe etape avem noi aici?
+
+253
+00:16:56,940 --> 00:17:00,740
+Ei bine, acesta este numărul de ori voi împărțiți 
+N cu 2 pentru a ajunge până la 2.
+
+254
+00:17:00,740 --> 00:17:04,630
+Asta e exact log baza 2 de N, astfel încât 
+total general de
+
+255
+00:17:04,630 --> 00:17:08,220
+toate costurile pentru îmbinare, care sunt
+unde sunt comparările,
+
+256
+00:17:08,220 --> 00:17:12,950
+sunt logN ori N, N log N. 
+Este un fel de dovadă
+
+257
+00:17:12,950 --> 00:17:17,550
+grafică  sau o dovadă prin imagine că
+recurența are acea soluție.
+
+258
+00:17:18,600 --> 00:17:24,110
+Aici este un pic mai mult de o matematică:
+vom scrie recurența în jos,
+
+259
+00:17:24,110 --> 00:17:28,880
+și apoi vom împărți ambele părți prin N.
+
+260
+00:17:32,090 --> 00:17:38,640
+Deci apoi aceasta este D de N supra N  egal cu D de
+N supra 2 supra N supra 2 plus 1.
+
+261
+00:17:38,640 --> 00:17:40,480
+Deci, se divide cu N.
+
+262
+00:17:40,480 --> 00:17:43,670
+Deci, acum, aceasta este o recurență care 
+telescopează.
+
+263
+00:17:43,670 --> 00:17:47,780
+Primul termen din partea dreaptă este 
+exact la fel
+
+264
+00:17:47,780 --> 00:17:51,710
+ca în partea stângă, astfel se poate aplica 
+aceeași formulă.
+
+265
+00:17:51,710 --> 00:17:55,140
+Și tot ce face este să se dividă cu 2 din nou si 
+apoi aruncă un alt 1.
+
+266
+00:17:55,140 --> 00:17:57,570
+Și noi tot facem asta până
+
+267
+00:17:57,570 --> 00:18:00,450
+trecem la D de 1, care este 0.
+
+268
+00:18:00,450 --> 00:18:02,990
+Și când am făcut asta, am aruncat
+lg N 1s.
+
+269
+00:18:02,990 --> 00:18:09,510
+Așa că am obține D de N supra N  egal cu log N, sau D 
+de N este egal cu N log N.
+
+270
+00:18:09,510 --> 00:18:11,560
+Asta e altă dovadă de expansiune.
+
+271
+00:18:14,180 --> 00:18:20,560
+Sau folosind una dintre aceste tehnici
+ați putea obține doar ideea că D de N este
+
+272
+00:18:20,560 --> 00:18:28,890
+aproape de Log N sau puteți scrie un program
+pentru a extinde recurența și găsiți asta.
+
+273
+00:18:28,890 --> 00:18:33,130
+Și apoi, o dată ce avem ideea că D de N
+
+274
+00:18:33,130 --> 00:18:39,700
+este egal cu N lg N, ne putem conecta înapoi în 
+formula originală.
+
+275
+00:18:39,700 --> 00:18:43,100
+Cu ipoteza inductivă că D de N 
+este egal cu
+
+276
+00:18:43,100 --> 00:18:45,395
+N lg N, vrem să arătăm că D de 2N
+
+277
+00:18:45,395 --> 00:18:52,210
+este egal cu 2N lg 2N, folosind recurența D de
+2N este egal cu 2D de N plus 2N.
+
+278
+00:18:52,210 --> 00:18:56,290
+Conectați în N log N noi obținem rezultatul
+dorit.
+
+279
+00:18:56,290 --> 00:19:00,190
+Noi folosim aceeași idee pe recurențele noastre
+inițiale
+
+280
+00:19:00,190 --> 00:19:04,770
+pentru comparații accese matrice pentru a arăta că
+funcționarea,
+
+281
+00:19:04,770 --> 00:19:10,030
+numărul de comparații accese matrice este
+proporțional cu N log N pentru Mergesort.
+
+282
+00:19:10,030 --> 00:19:14,365
+Deci, ăsta e timpul de execuție Mergesort este
+rapid
+
+283
+00:19:14,365 --> 00:19:18,370
+alt lucru pe care noi, de obicei, vrem să-l știm
+este memoria.
+
+284
+00:19:18,370 --> 00:19:21,060
+Iar una dintre caracteristicile Mergesort este 
+că în
+
+285
+00:19:21,060 --> 00:19:25,810
+aplicații practice, aceasta folosește spațiu 
+suplimentar proporțional cu N.
+
+286
+00:19:25,810 --> 00:19:29,550
+Asta este, avem nevoie de acea matrice suplimentară auxiliară
+ pentru ultima îmbinare.
+
+287
+00:19:30,880 --> 00:19:34,510
+Am luat două submatrici sortate și am vorbit 
+despre o abstractă
+
+288
+00:19:34,510 --> 00:19:37,610
+în-loc îmbinare, dar nu am avut o 
+efectivă îmbinare în-loc.
+
+289
+00:19:37,610 --> 00:19:39,410
+Am folosit o submatrice suplimentară.
+
+290
+00:19:40,948 --> 00:19:44,846
+Deci locul lui N este important.
+
+291
+00:19:44,846 --> 00:19:47,630
+De multe ori, noi sortăm tot ce
+avem.
+
+292
+00:19:47,630 --> 00:19:50,590
+Vrem să umplem memoria cu lucruri
+să sortăm și apoi le sortăm.
+
+293
+00:19:51,620 --> 00:19:57,380
+Și căutarea și selecția în shellsort sunt
+în loc, nu folosesc nici o memorie suplimentară.
+
+294
+00:19:57,380 --> 00:20:00,500
+Dar cu Mergesort puteți doar sorta cu adevărat
+jumătate de ce puteți
+
+295
+00:20:00,500 --> 00:20:05,920
+potrivi în memorie, pentru că aveți nevoie de acea
+matrice auxiliară pentru cealaltă jumătate.
+
+296
+00:20:05,920 --> 00:20:08,910
+Dacă doriți, din nou, în cazul în care credeți că
+lucrurile pe care le studiați
+
+297
+00:20:08,910 --> 00:20:13,800
+sunt ușoare, gândiți-vă la ideea de a face 
+efectiv o îmbinare în loc.
+
+298
+00:20:13,800 --> 00:20:16,530
+Oamenii au venit cu metode de a
+obține acest lucru.
+
+299
+00:20:16,530 --> 00:20:19,420
+Deci, este teoretic posibil, dar 
+metodele sunt
+
+300
+00:20:19,420 --> 00:20:22,980
+în general prea complexe pentru a fi utile în
+practică și
+
+301
+00:20:22,980 --> 00:20:24,310
+nu sunt utilizate.
+
+302
+00:20:24,310 --> 00:20:28,060
+Dar ar putea exista acolo o cale ușoară
+de a face îmbinare in loc.
+
+303
+00:20:28,060 --> 00:20:31,500
+Acesta este un alt mare algoritm care așteaptă să
+fie descoperit.
+
+304
+00:20:31,500 --> 00:20:34,480
+Acum există un, un număr de îmbunătățiri
+practice pe care le putem
+
+305
+00:20:34,480 --> 00:20:39,690
+folosi pentru a face Mergesort chiar mai eficient 
+decât cel simplu
+
+306
+00:20:39,690 --> 00:20:41,930
+la care ne-am uitat și vom arunca o privire
+la acelea
+
+307
+00:20:41,930 --> 00:20:48,150
+pentru că sunt exemple de tehnici
+pe care le putem folosi pentru alți algoritmi.
+
+308
+00:20:48,150 --> 00:20:53,640
+Primul lucru este că Mergesort este prea
+complicat de utilizat pentru matrici mici.
+
+309
+00:20:53,640 --> 00:20:58,880
+Deci, spunem submatricile sunt doar de două, sau 
+trei, sau patru nu e prea 
+
+310
+00:20:58,880 --> 00:21:03,950
+mult deasupra cu cererile recursive și așa 
+mai departe pentru a obține asta în mod eficient.
+
+311
+00:21:03,950 --> 00:21:09,660
+Și ce e mai rău este, natura recursivă
+a sortarii cu siguranță
+
+312
+00:21:09,660 --> 00:21:13,480
+înseamnă că o să fie o mulțime de
+submatrici să fie sortate.
+
+313
+00:21:13,480 --> 00:21:17,290
+Deci, o îmbunătățire pe care o putem face este să 
+utilizăm sortare inserare , și doar
+
+314
+00:21:17,290 --> 00:21:22,510
+întrerupt și utilizați sortare inserare care este
+simplă și eficientă pentru submatrici mici.
+
+315
+00:21:22,510 --> 00:21:26,790
+Deci, asta este adăugând aceasta linie de cod la
+Mergesort se va face puțin mai rapid.
+
+316
+00:21:26,790 --> 00:21:27,490
+Poate cu 20% mai repede.
+
+317
+00:21:29,140 --> 00:21:33,330
+Cea de a doua îmbunătățire pe care o putem face
+care va îmbunătăți performanța
+
+318
+00:21:33,330 --> 00:21:38,520
+pentru cazurile în care matricea este sortată parțial, 
+este doar să
+
+319
+00:21:38,520 --> 00:21:40,950
+oprești dacă este deja sortată.
+
+320
+00:21:40,950 --> 00:21:44,120
+Și asta se va întâmpla în cazul
+ în care cel mai mare element din
+
+321
+00:21:44,120 --> 00:21:48,190
+prima jumătate este mai mic sau egal cu
+cel mai mic element din a doua jumătate.
+
+322
+00:21:48,190 --> 00:21:49,990
+Asta înseamnă că e gata.
+
+323
+00:21:49,990 --> 00:21:51,080
+Deci asta este ușor.
+
+324
+00:21:51,080 --> 00:21:53,860
+Tocmai am pus un test în Mergesort
+recursiv pentru ca,
+
+325
+00:21:53,860 --> 00:21:57,880
+prin această linie de cod, să verificăm
+dacă am terminat.
+
+326
+00:21:57,880 --> 00:22:00,160
+În acest fel, de exemplu, dacă ar fi să numiți
+
+327
+00:22:00,160 --> 00:22:03,560
+Mergesort pentru o matrice care este deja în 
+ordine 
+
+328
+00:22:03,560 --> 00:22:09,880
+doar ar face acest test de fiecare dată și ar 
+făcut în timp liniar.
+
+329
+00:22:09,880 --> 00:22:13,520
+Asta e destul de util, deși nu, nu
+în totalitate de ajutor
+
+330
+00:22:13,520 --> 00:22:15,490
+dar există o mulțime de situații în care 
+asta e de ajutor.
+
+331
+00:22:18,120 --> 00:22:23,470
+Un alt lucru care este posibil să se facă și 
+ un pic îţi îndoaie mintea astfel e recomandat
+
+332
+00:22:23,470 --> 00:22:28,370
+doar pentru experți. 
+Este de a salva un
+
+333
+00:22:28,370 --> 00:22:33,320
+pic de timp pe care nu-l aveți cu adevărat, 
+să copiați peste, în matricea auxiliară.
+
+334
+00:22:33,320 --> 00:22:36,650
+Puteți comuta într-un fel rolul 
+input
+
+335
+00:22:36,650 --> 00:22:40,520
+și matricea auxiliară de fiecare dată când 
+faceți un apel recursiv.
+
+336
+00:22:40,520 --> 00:22:43,120
+Aveți în continuare nevoie de matrice, dar
+
+337
+00:22:43,120 --> 00:22:48,160
+aveți posibilitatea să configurați codul în acest mod care
+[TUSE]
+
+338
+00:22:48,160 --> 00:22:52,240
+sortează, pentru a sorta o matrice, pune rezultatul în 
+cealaltă matrice.
+
+339
+00:22:52,240 --> 00:22:55,240
+Pentru a interclasa o matrice, puneti rezultatul înapoi în
+prima.
+
+340
+00:22:55,240 --> 00:22:59,930
+Deci, este miscare  recursivă a argumentului pentru 
+face treaba.
+
+341
+00:22:59,930 --> 00:23:02,490
+Și este eficient, aceasta înseamnă că nu trebuie, de fapt,
+să 
+
+342
+00:23:02,490 --> 00:23:04,890
+mutați elemente, și aceea salvează un pic de  
+timp.
+
+343
+00:23:06,870 --> 00:23:09,630
+Deci aici este o vizualizare
+
+344
+00:23:09,630 --> 00:23:15,110
+a ce Mergesort practic ar putea arata
+, iar aceasta este cu
+
+345
+00:23:15,110 --> 00:23:19,770
+ o mare tăiere la subfisiere mici.
+Așa că voi
+
+346
+00:23:19,770 --> 00:23:25,360
+aveti un senzatie vizuala a cum aceasta sortare
+ajunge sa-si faca treaba.
+
+347
+00:23:25,360 --> 00:23:28,828
+Așa că este prima bucată mică și apoi
+următoarea bucată
+
+348
+00:23:28,828 --> 00:23:32,429
+mică și apoi se îmbină la un loc, și
+așa mai departe și așa mai departe.
+
+349
+00:23:32,429 --> 00:23:34,765
+E o bună reprezentare vizuală a
+
+350
+00:23:34,765 --> 00:23:40,577
+cum Mergesort isi face treaba.
+Acesta este algoritmul de bază Mergesort
+
+351
+00:23:40,577 --> 00:23:45,650
+că ne vom uita la diferite
+versiuni în următoarea parte.

@@ -1,0 +1,279 @@
+1
+00:00:02,022 --> 00:00:08,015
+Ok, also ist QuickFind zu langsam für große Probleme. Wie geht es besser?
+
+2
+00:00:08,015 --> 00:00:14,035
+Unser erster Versuch ist eine Alternative namens QuickUnion.
+
+3
+00:00:14,035 --> 00:00:20,082
+Dies ist die sogenannte "bequeme" Herangehensweise an Algorithmusdesign, bei der wir versuchen,
+
+4
+00:00:20,082 --> 00:00:27,506
+erst dann zu arbeiten, wenn wir es müssen. Sie verwendet die gleiche Datenstruktur oder Feld ID der Größe N,
+
+5
+00:00:27,506 --> 00:00:34,280
+aber mit einer anderen Bedeutung. Wir werden ein Feld als
+
+6
+00:00:34,280 --> 00:00:41,298
+eine Menge Bäume betrachten, die als ein Wald bezeichnet wird, so wie rechts zu sehen.
+
+7
+00:00:41,298 --> 00:00:49,468
+Jeder Eintrag in das Feld enthält eine Referenz auf seinen Elternknoten im Baum.
+
+8
+00:00:49,468 --> 00:00:57,425
+Der Elternknoten von 3 ist also 4, der von 4 ist 9. Also ist der Eintrag für 3 im Feld vier
+
+9
+00:00:57,425 --> 00:01:06,681
+und der für 4 ist neun. Jeder Eintrag im Feld hat
+
+10
+00:01:06,681 --> 00:01:13,179
+eine dazugehörige Wurzel, und zwar die seines Baums. Elemente, die allein in ihrer Menge sind,
+
+11
+00:01:13,179 --> 00:01:19,303
+zeigen auf sich selbst, also zeigt 1 auf sich selbst,
+
+12
+00:01:19,303 --> 00:01:26,108
+aber auch 9, da es die Wurzel des Baums ist, der 2,
+
+13
+00:01:26,108 --> 00:01:32,419
+4 und 3 enthält. Also können wir aus dieser Datenstruktur
+
+14
+00:01:32,419 --> 00:01:40,202
+jedem Element eine Wurzel zuordnen, die repräsentativ für die Gesamtmenge ist.
+
+15
+00:01:40,202 --> 00:01:47,044
+Die Wurzel von drei ist also 9. Sobald wir also diese Wurzeln
+
+16
+00:01:47,044 --> 00:01:52,956
+berechnen können, können wir die Suchoperation implementieren, indem wir einfach prüfen,
+
+17
+00:01:52,956 --> 00:01:57,592
+ob die beiden zu untersuchenden Elemente, die verbunden sein sollen, die gleiche Wurzel haben.
+
+18
+00:01:57,592 --> 00:02:02,373
+Das ist äquivalent zu der Aussage, ob sie in der gleichen Menge sind.
+
+19
+00:02:02,373 --> 00:02:09,240
+Das ist also das Problem, die jeweiligen Wurzeln zu finden, aber die Union-Operation ist sehr einfach.
+
+20
+00:02:09,240 --> 00:02:15,254
+Um zwei Elemente in verschiedenen Mengen zu vereinigen,
+
+21
+00:02:15,254 --> 00:02:21,613
+müssen wir nur die ID von Ps Wurzel auf die ID von Qs Wurzel setzen.
+
+22
+00:02:21,613 --> 00:02:28,748
+Wenn also P´s Baum auf Q zeigen soll, würden wir den Eintrag für 9 auf
+
+23
+00:02:28,748 --> 00:02:35,027
+sechs ändern, um drei und fünf zu vereinen, also die Mengen, drei und fünf beinhalten.
+
+24
+00:02:35,027 --> 00:02:41,317
+Und durch den Wechsel eines einzigen Eintrags im Feld bekommen wir die beiden großen Mengen
+
+25
+00:02:41,317 --> 00:02:46,295
+vereinigt. Das ist der QuickUnion-Algorithmus. Da eine Vereinigungsoperation
+
+26
+00:02:46,295 --> 00:02:52,429
+nur durch eine einzige Veränderung in den Einträgen des Felds geschieht.
+
+27
+00:02:52,429 --> 00:02:57,907
+Die Suchoperation ist etwas aufwändiger. Aber sehen wir uns das Demo der Implementierung an.
+
+28
+00:02:57,907 --> 00:03:03,569
+Wir fangen genauso an, aber jetzt bedeutet das ID-Feld, dass jeder Eintrag
+
+29
+00:03:03,569 --> 00:03:09,415
+einen kleinen Baum beinhaltet, in dem jeder Knoten auf sich selbst zeigt.
+
+30
+00:03:09,415 --> 00:03:15,284
+Er ist die Wurzel seines eigenen Baums, also können wir jetzt drei und vier
+
+31
+00:03:15,284 --> 00:03:21,236
+in einer Menge vereinen, indem wir die Wurzel der Menge, die das erste Element enthält, nehmen,
+
+32
+00:03:21,236 --> 00:03:26,624
+und es zum Kind der Wurzel der zweiten Menge machen.
+
+33
+00:03:26,624 --> 00:03:33,029
+In diesem Fall nehmen wir vier als Kindknoten von drei.
+
+34
+00:03:33,259 --> 00:03:39,823
+Und jetzt 3 und 8. Wir nehmen also wieder das erste Element und machen es zum Kind des Baums,
+
+35
+00:03:39,823 --> 00:03:47,532
+der das zweite Element enthält. Jetzt sind also 3, 4 und 8
+
+36
+00:03:47,532 --> 00:03:56,434
+in der gleichen Menge. Sechs und fünf gehen unter fünf. Neun und vier,
+
+37
+00:03:56,434 --> 00:04:06,045
+die Wurzel des Baums, der vier enthält ist acht. Und die Wirzel des Baums, der neun enthält ist
+
+38
+00:04:06,045 --> 00:04:13,745
+9. Also wird neun ein Kind von acht. Zwei und eins, das ist einfach.
+
+39
+00:04:14,007 --> 00:04:20,993
+Also wenn wir jetzt acht und neun verbunden haben, haben wir geprüft, dass
+
+40
+00:04:20,993 --> 00:04:28,011
+sie die gleiche Wurzel haben, nämlich acht, also sind sie verbunden.
+
+41
+00:04:28,011 --> 00:04:34,230
+5 und 4: Die Wurzel von 4 ist acht, die von fünf ist fünf. Sie sind verschieden.
+
+42
+00:04:34,230 --> 00:04:42,339
+Sie sind also nicht verbunden. Fünf und null. Fünf wird ein Kind von 0.
+
+43
+00:04:42,339 --> 00:04:52,836
+Sieben und zwei: Sieben wird ein Kind der Wurzel von zwei, also von eins. Sechs und Eins: Die wurzel von sechs ist null, eins ist
+
+44
+00:04:52,836 --> 00:05:00,636
+seine eigene Wurzel, also wird null das Kind von eins. Jede dieser Vereinigungoperationen
+
+45
+00:05:00,636 --> 00:05:10,069
+beinhaltet nur das Ändern eines einzigen Eintrags im Feld. Und zum Schluß, sieben und drei.
+
+46
+00:05:10,069 --> 00:05:18,755
+Die Wurzel von sieben ist eins, die von drei ist acht, also wird eins das Kind von acht.
+
+47
+00:05:18,755 --> 00:05:26,012
+Also haben wir jetzt eine große Menge mit allen Elementen.
+
+48
+00:05:26,012 --> 00:05:32,668
+Also sehen wir uns jetzt die Implementierung der QuickUnion an. Der Konstruktor ist der gleiche wie vorher.
+
+49
+00:05:32,668 --> 00:05:40,967
+Wir implementieren das Feld und setzen jedes Element als seine eigene Wurzel.
+
+50
+00:05:40,967 --> 00:05:46,005
+Jetzt haben wir eine private Methode, die die Suche nach der Wurzel implementiert, indem sie
+
+51
+00:05:46,005 --> 00:05:51,352
+die Elternzeiger durchsucht, bis wir zu dem Punkt kommen, wo i gleich der ID von i ist, und wenn es
+
+52
+00:05:51,352 --> 00:05:57,369
+nicht gleich ist, gehen wir eine Ebene im Baum höher, setzen i = id[i] und geben
+
+53
+00:05:57,369 --> 00:06:02,005
+es zurück. Also kann man an jedem Knoten starten, man folgt einfach den i=id(i) bis
+
+54
+00:06:02,005 --> 00:06:07,396
+sie gleich sind, dann ist man an der Wurzel. Mit dieser privaten Methode können wir die Suchoperation implementieren oder
+
+55
+00:06:07,396 --> 00:06:11,959
+die Vereinigungsoperation. Man findet einfach die Wurzel von P
+
+56
+00:06:11,959 --> 00:06:17,316
+und die von Q und prüft, ob sie gleich sind. Und die Vereinigung
+
+57
+00:06:17,316 --> 00:06:23,342
+ist einfach auch das Finden der beiden Wurzeln und dann das Ändern der id der ersten
+
+58
+00:06:23,342 --> 00:06:30,310
+auf die zweite. Sogar weniger Code als für QuickFind, keine for-Schleifen.
+
+59
+00:06:30,310 --> 00:06:37,139
+Es gibt eine Schleife, über die wir uns etwas Gedanken machen müssen.
+
+60
+00:06:37,139 --> 00:06:43,326
+Aber das ist eine schnelle und elegante Implementierung, um das dynamische Vereinigungsproblem zu lösen.
+
+61
+00:06:43,326 --> 00:06:50,318
+Also fragen wir uns jetzt, kann dieser Code effektiv sein,
+
+62
+00:06:50,582 --> 00:06:57,657
+um große Probleme zu lösen? Nun leider ist QuickUnion schneller, aber es ist auch
+
+63
+00:06:57,657 --> 00:07:04,042
+zu langsam, aber eine andere Art von zu langsam.
+
+64
+00:07:04,042 --> 00:07:10,005
+Quick Find kann mal schnell sein, aber auch mal zu langsam.
+
+65
+00:07:10,005 --> 00:07:16,256
+Und bei QuickUnion werden die Bäume einfach zu groß.
+
+66
+00:07:16,256 --> 00:07:22,065
+Das würde heißen, dass die Suchoperation zu teuer wird. Man könnte einen zu langen
+
+67
+00:07:22,065 --> 00:07:28,432
+dünnen Baum bekommen. Immer ein Objekt auf das nächste zeigen lassen und dann eine Suchoperation zu starten,
+
+68
+00:07:28,432 --> 00:07:33,976
+würde bedeuten, den gesamten Baum durchsuchen zu müssen.
+
+69
+00:07:34,183 --> 00:07:40,184
+Es wären also N Feldzugriffe nur für eine Suchoperation,
+
+70
+00:07:40,184 --> 00:07:44,013
+und das ist zu langsam, wenn man viele Operationen hat.

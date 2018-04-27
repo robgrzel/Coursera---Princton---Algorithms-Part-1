@@ -1,0 +1,590 @@
+1
+00:00:02,041 --> 00:00:07,088
+Bene, abbiamo visto gli algoritmi quick-union e
+quick-find. Entrambe
+
+2
+00:00:07,088 --> 00:00:13,034
+sono facili da implementare, ma semplicemente
+non possono gestire un problema di connessione
+dinamica di grandi dimensioni
+
+3
+00:00:13,034 --> 00:00:18,151
+Allora, come migliorare? E' quello che
+vedremo di seguito
+
+4
+00:00:18,151 --> 00:00:23,731
+Un miglioramento molto efficace è
+chiamato ponderato. Potrebbe esservi venuto
+
+5
+00:00:23,731 --> 00:00:28,764
+in mente mentre valutavamo questi algoritmi.
+L'idea è che mentre
+
+6
+00:00:28,764 --> 00:00:34,735
+si implementa l'algoritmo quick-union si facciano
+dei passi per evitare di avere alberi alti. Se
+
+7
+00:00:34,735 --> 00:00:41,873
+si devono unire un albero grande ed uno
+piccolo quello che dovete cercare
+
+8
+00:00:41,873 --> 00:00:48,184
+di fare è evitare di mettere quello grande nella
+posizione bassa, perchè porterebbe ad un albero
+
+9
+00:00:48,184 --> 00:00:54,376
+alto. C'è un modo relativamente semplice
+per farlo. Ciò che facciamo è tenere
+
+10
+00:00:54,376 --> 00:01:00,577
+traccia del numero di oggetti in ogni albero
+e poi, manterremo un equilibrio
+
+11
+00:01:03,558 --> 00:01:05,049
+assicurandoci sempre di collegare la radice
+dell'albero più piccolo alla radice
+
+12
+00:01:06,539 --> 00:01:12,176
+di quello più grande. Così evitiamo questa prima
+situazione dove il più grande
+
+13
+00:01:12,176 --> 00:01:18,053
+viene posto nel livello inferiore. Nell'algoritmo
+ponderato mettiamo sempre il più piccolo sotto.
+
+14
+00:01:18,053 --> 00:01:27,470
+Come lo facciamo lo vedremo implementandolo.
+Vediamo prima una demo. Iniziamo dalla solita
+
+15
+00:01:27,470 --> 00:01:34,790
+posizione di partenza, quella nella quale
+ognuno appartiene al proprio albero.
+
+16
+00:01:35,059 --> 00:01:42,249
+Quando ci sono solo due elementi da collegare
+funziona esattamente come prima.
+
+17
+00:01:42,249 --> 00:01:48,725
+Ma ora che vogliamo unire 8 con 4 e 3,
+mettiamo 8 come figlio,
+
+18
+00:01:48,725 --> 00:01:56,408
+non importa l'ordine degli argomenti,
+perchè quello è l'albero più piccolo.
+
+19
+00:01:56,408 --> 00:02:02,368
+Così 6 e 5 non danno problemi, chi va sotto
+non è un problema. Vediamo 9 e 4
+
+20
+00:02:02,368 --> 00:02:09,710
+e 9 è il piccolo e 4 è quello grande.
+Allora 9 sarà quello che andrà
+
+21
+00:02:09,710 --> 00:02:20,136
+posto sotto. Vediamo 2 e 1, 5 e zero.
+Ora 5 è
+
+22
+00:02:20,136 --> 00:02:33,812
+nell'albero più grande così zero va sotto.
+Vediamo 7 e 2, 2 è nell'albero più grande così
+
+23
+00:02:33,812 --> 00:02:46,129
+7 va sotto. Vediamo 6 e 1 che sono in alberi
+della stessa dimensione. Vediamo 7 e 3.
+
+24
+00:02:46,129 --> 00:02:59,272
+3 è nell'albero più piccolo così va sotto.
+Quindi l'algoritmo pesato garantisce sempre
+
+25
+00:02:59,272 --> 00:03:08,686
+che l'albero più piccolo va sotto.
+Di nuovo ci ritroviamo con un solo
+
+26
+00:03:08,686 --> 00:03:15,571
+albero che rappresenta tutti gli oggetti. Ma
+questa volta abbiamo qualche garanzia che
+
+27
+00:03:15,571 --> 00:03:21,267
+nessun oggetto sarà troppo lontano dalla radice
+ne parleremo più chiaramente tra poco.
+
+28
+00:03:21,267 --> 00:03:27,980
+Qui abbiamo un esempio che mostra
+l'effetto di eseguire l'unione pesata
+
+29
+00:03:27,980 --> 00:03:35,236
+dove mettiamo sempre l'albero più piccolo
+sotto con lo stesso insieme di comandi di unione.
+
+30
+00:03:35,236 --> 00:03:42,939
+Questo vale per un centinaio di oggetti e
+88 operazioni di unione. Potete vedere che l'albero
+
+31
+00:03:42,939 --> 00:03:49,768
+grande, in cima, ha alcuni alberi ed alcuni nodi,
+ad una certa distanza dalla radice. Nella parte bassa
+
+32
+00:03:49,768 --> 00:03:55,908
+nell'algoritmo pesato, tutti i nodi sono ad una
+distanza massima dalla radice di 4.
+
+33
+00:03:55,908 --> 00:04:01,207
+La distanza media dalla radice è molto inferiore.
+Diamo un'occhiata al codice Java
+
+34
+00:04:01,207 --> 00:04:06,557
+e così vediamo maggiormente in dettaglio
+le informazioni relative alle quantità.
+
+35
+00:04:06,557 --> 00:04:12,286
+Utilizzeremo le stesse strutture dati, tranne
+che ora ci serve un array in più
+
+36
+00:04:12,286 --> 00:04:17,569
+quello che per ogni elemento ci dice
+il numero di oggetti dell'albero da attraversare per
+
+37
+00:04:17,569 --> 00:04:22,971
+arrivare a quell'elemento. Sarà aggiornato
+nell'operazione di unione. L'operazione find
+
+38
+00:04:22,971 --> 00:04:28,589
+è identica a quella di quick union, dovete
+solo controllare se le radici sono uguali.
+
+39
+00:04:28,589 --> 00:04:34,009
+Per l'implementazione dell'unione, dobbiamo
+modificare il codice per controllare le dimensioni,
+
+40
+00:04:34,009 --> 00:04:40,118
+e per collegare la radice dell'albero più piccolo
+a quella dell'albero più grande in ogni caso.
+
+41
+00:04:40,118 --> 00:04:46,049
+Poi, dopo aver cambiato il collegamento id[i],
+dobbiamo anche cambiare l'array della dimensione, se id[i]i
+
+42
+00:04:46,049 --> 00:04:52,241
+diventa figlio di j, allora dobbiamo incrementare
+la dimensione dell'albero di j con quella dell'albero di i.
+
+43
+00:04:52,241 --> 00:04:58,495
+O, se facciamo nell'altro modo, dobbiamo
+incrementare la dimensione dell'albero di i
+
+44
+00:04:58,495 --> 00:05:04,849
+con quella dell'albero di j. Ecco qui il codice
+completo nella parte bianca per implementare
+
+45
+00:05:04,849 --> 00:05:12,424
+quick union. Non è molto lungo, ma è
+molto meglio come velocità. In fatti possiamo
+
+46
+00:05:12,424 --> 00:05:19,194
+analizzare matematicamente il tempo di lavoro
+e mostrare che definite le operazioni, impiega
+
+47
+00:05:19,194 --> 00:05:25,225
+un tempo proporzionale a quanto deve scendere
+in basso attraverso i nodi dell'albero.
+
+48
+00:05:25,225 --> 00:05:31,445
+Possiamo dimostrare che è garantito che
+la profondità di ogni
+
+49
+00:05:31,445 --> 00:05:37,989
+nodo nell'albero, è al massimo il logaritmo
+in base 2 di N. Usiamo sempre la notazione
+
+50
+00:05:37,989 --> 00:05:43,974
+Lg per i logaritmi in base 2.
+Così se N è mille
+
+51
+00:05:43,974 --> 00:05:49,246
+il valore sarà 10, se N è un milione sarà
+20, se N è un miliardo sarà
+
+52
+00:05:49,246 --> 00:05:55,745
+30. E' un numero molto piccolo paragonato
+ad N. Ora vediamo la dimostrazione.
+
+53
+00:05:55,745 --> 00:06:02,046
+In questo corso facciamo qualche dimostrazione
+matematica se è importante come questa.
+
+54
+00:06:02,046 --> 00:06:07,981
+Allora, perchè è vero che la profondità massima di ogni
+nodo x è al massimo il logaritmo in base 2 di N?
+
+55
+00:06:07,981 --> 00:06:13,850
+Bene, la chiave per capirlo è guardare esattamente
+in quale punto la profondità
+
+56
+00:06:13,850 --> 00:06:21,347
+di un nodo aumenta. Dove scende ulteriormente
+nell'albero? la profondità di x
+
+57
+00:06:21,347 --> 00:06:29,697
+aumenta di uno quando il suo albero, T1 nel
+diagramma, è incorporato in qualche altro
+
+58
+00:06:29,697 --> 00:06:37,835
+albero, T2 nel diagramma. A questo punto
+diciamo che facciamo così solo se la dimensione
+
+59
+00:06:37,835 --> 00:06:45,331
+è maggiore od uguale a quella di T1.
+Così quando la profondità di x aumenta
+
+60
+00:06:45,331 --> 00:06:52,662
+la dimensione del suo albero almeno radddoppia.
+Questa è la chiave perchè significa che
+
+61
+00:06:52,662 --> 00:06:58,305
+la dimensione dell'albero contenente x al
+massimo può aumentare di logN perchè se tu cominci
+
+62
+00:06:58,305 --> 00:07:05,205
+con uno e lo aumenti di logN ottieni N e
+ci sono solo N nodi nell'albero.
+
+63
+00:07:05,205 --> 00:07:11,631
+Questa è una traccia della dimostrazione che
+la profondità di ogni nodo è al massimo log base 2
+
+64
+00:07:11,631 --> 00:07:18,605
+di N. Questo ha un impatto importante nella
+resa di questo algoritmo. Fino ad ora
+
+65
+00:07:18,605 --> 00:07:24,548
+le inizializzazioni sono state sempre proporzionali
+ad N, ma ora sia l'unione
+
+66
+00:07:24,548 --> 00:07:31,010
+sia la ricerca sono operazioni con tempo
+proporzionale al logaritmo in base due di N.
+
+67
+00:07:31,010 --> 00:07:37,477
+Questo è un algoritmo che cresce in proporzione.
+Se N cresce da un milione a un miliardo
+
+68
+00:07:37,477 --> 00:07:43,668
+il costo va da 20 a 30, che non
+è accettabile. E' vero che è molto
+
+69
+00:07:43,668 --> 00:07:50,089
+facile da implementare e che ci potremmo fermare,
+ma quello che succede in genere nel progettare
+
+70
+00:07:50,089 --> 00:07:57,004
+algoritmi è che dobbiamo capire cosa
+consideriamo una resa vantaggiosa,
+
+71
+00:07:57,004 --> 00:08:02,075
+Diamo un'occhiata e vediamo di migliorarlo.
+In questo caso è molto
+
+72
+00:08:02,075 --> 00:08:09,072
+facile migliorarlo anche di molto. Questa
+è l'dea della compressione del percorso.
+
+73
+00:08:09,072 --> 00:08:17,066
+Quando noi cerchiamo di trovare
+la radice dell'albero contenete
+
+74
+00:08:17,066 --> 00:08:24,361
+un dato nodo, noi attraversiamo tutti i nodi
+sul cammino da quel nodo alla radice.
+
+75
+00:08:24,568 --> 00:08:30,422
+Mentre facciamo questa operazione, possiamo
+far si che ognuno di questi nodi punti proprio
+
+76
+00:08:30,422 --> 00:08:37,299
+alla radice. Non c'è motivo per non farlo.
+Così quando guardiamo, cerchiamo di trovare
+
+77
+00:08:37,299 --> 00:08:43,580
+la radice di P e dopo averla trovata, possiamo
+tornare indietro e far si che ogni nodo
+
+78
+00:08:43,580 --> 00:08:51,046
+di quel cammino punti proprio alla radice.
+Questo diventa un costo extra costante
+
+79
+00:08:51,046 --> 00:08:57,088
+Noi risaliamo il cammino una volta per trovare la
+radice. Ora risaliamo di niovo proprio per appiattire
+
+80
+00:08:57,088 --> 00:09:03,099
+l'albero. E non c'è motivo per non farlo.
+Ci serve una linea di codice per
+
+81
+00:09:03,099 --> 00:09:10,016
+appiattire l'albero. Stupefacente. Veramente,
+per scrivere una linea di codice, usiamo
+
+82
+00:09:10,016 --> 00:09:15,058
+una semplice variazione dove facciamo
+si che ogni nodo nel cammino punti a suo
+
+83
+00:09:15,058 --> 00:09:19,885
+nonno nel percorso per risalire l'albero.
+Ora, non è altrettatanto valido come
+
+84
+00:09:21,000 --> 00:09:26,077
+appiattirlo completamente, ma nella pratica
+va bene ugualmente. Così
+
+85
+00:09:26,077 --> 00:09:32,555
+con una unica linea di codice possiamo
+appiattire quasi completamente l'albero. Questo
+
+86
+00:09:32,828 --> 00:09:41,987
+algoritmo è stato scoperto abbastanza in fretta
+dopo aver immaginato l'uso di un "peso", è anche
+
+87
+00:09:41,987 --> 00:09:49,588
+interessante da analizzare anche oltre il
+nostro scopo. Ma noi abbiamo utilizzato
+
+88
+00:09:49,588 --> 00:09:55,749
+questo esempio per spiegare come anche
+un semplice algoritmo possa essere interessante
+
+89
+00:09:55,749 --> 00:10:02,203
+e complesso da analizzare. Quello che è stato
+dimostrato da Hopcroft Ulman e Tarjan è che se
+
+90
+00:10:02,203 --> 00:10:07,792
+si hanno N oggetti, qualsiasi sequenza di M
+operazioni di unione e ricerca visiterà 
+
+91
+00:10:07,792 --> 00:10:16,014
+l'array al massimo c(N+M lg* N) volte.
+Lg*N è una funzione particolare.
+
+92
+00:10:16,248 --> 00:10:22,067
+E' il numero di volte che devi prendere il
+lgN per arrivare ad uno. Il modo di pensarla
+
+93
+00:10:22,067 --> 00:10:28,061
+è chiamato la funzione iterativa del logaritmo.
+Nel mondo reale è meglio
+
+94
+00:10:28,061 --> 00:10:36,126
+pensare a questo come ad un numero
+minore di 5 perchè lg2^65536 è 5.
+
+95
+00:10:36,126 --> 00:10:42,528
+Questo significa che il tempo di elaborazione
+di quick union pesato con la compressione del cammino
+
+96
+00:10:42,784 --> 00:10:49,990
+sarà lineare nel mondo reale e veramente
+può essere migliorato per arrivare ad una funzione più
+
+97
+00:10:49,990 --> 00:10:56,504
+interessante chiamata la funzione di
+Ackermann, che cresce anche più lentamente
+
+98
+00:10:56,504 --> 00:11:03,611
+del logaritmo. Un altro punto interessante
+di questo algoritmo è che sembra
+
+99
+00:11:03,611 --> 00:11:09,813
+molto prossimo a diventare lineare quando
+il tempo è proporzionale ad N piuttosto che
+
+100
+00:11:09,813 --> 00:11:15,925
+essere proporzionale a N volte la funzione
+lenta di crescita in N. C'è un algoritmo
+
+101
+00:11:15,925 --> 00:11:22,008
+semplice e lineare? Lo si è cercato a lungo,
+e veramente questo funziona per dimostrare che
+
+102
+00:11:22,008 --> 00:11:27,700
+un tale algoritmo non esiste.
+C'è molta teoria
+
+103
+00:11:27,700 --> 00:11:32,502
+dietro all'algoritmo che usiamo.
+E' importante che noi
+
+104
+00:11:32,502 --> 00:11:38,022
+conosciamo la teoria, perché ci aiuti a
+decidere come scegliere
+
+105
+00:11:38,022 --> 00:11:43,480
+l'algoritmo che useremo nella pratica
+e dove concentrare i nostri sforzi
+
+106
+00:11:43,480 --> 00:11:48,796
+per trovare algoritmi migliori. E' un fatto
+sorprendente,ed è stato dimostrato da
+
+107
+00:11:48,796 --> 00:11:54,181
+Friedman and Sachs, che non ci sia un
+algoritmo lineare per i problemi di unione
+
+108
+00:11:54,181 --> 00:12:00,293
+e ricerca. Ma, quick union pesato con
+il compattamento del cammino è, in pratica
+
+109
+00:12:00,293 --> 00:12:05,844
+abbastanza vicino ad essere la soluzione
+valida per problemi di grandi dimensioni.
+
+110
+00:12:05,844 --> 00:12:11,713
+Riassumiamo gli algoritmi per risolvere il
+problema della connessione dinamica. Se usiamo
+
+111
+00:12:11,713 --> 00:12:17,128
+quick union pesato con la compressione
+del cammino, possiamo risolvere problemi
+
+112
+00:12:17,128 --> 00:12:23,109
+che altrimenti non potremmo trattare.
+Per esempio, se si hanno un miliardo di operazioni
+
+113
+00:12:23,109 --> 00:12:28,845
+ed un miliardo di oggetti, come ho detto
+prima, ci potrebbero volere 30 anni. Noi
+
+114
+00:12:28,845 --> 00:12:34,212
+lo possiamo risolvere in 6 secondi. Ciò che
+è più importante capire di tutto questo è
+
+115
+00:12:34,212 --> 00:12:40,012
+la struttura dell'algoritmo che permette
+la soluzione del problema. Un computer più
+
+116
+00:12:40,012 --> 00:12:45,529
+veloce non aiuta molto. Non potete spendere
+milioni per un  super computer e magari
+
+117
+00:12:45,529 --> 00:12:51,165
+risolvere il problema in 6 anni anziché 30,
+piuttosto che in 2 mesi, ma con
+
+118
+00:12:51,165 --> 00:13:02,056
+un algoritmo veloce lo potete risolvere
+in secondi sul vostro PC.

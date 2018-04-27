@@ -1,0 +1,311 @@
+1
+00:00:01,034 --> 00:00:06,408
+Hasta ahora, hemos estado habando de tiempos de proceso. Ahora debemos hablar también acerca de los requerimientos de memoria de nuestros programas. 
+
+2
+00:00:06,408 --> 00:00:11,047
+Bien, basicamente queremos saber 
+
+3
+00:00:11,047 --> 00:00:16,088
+cuántos bits, o cuantos bytes (grupos de 8 bits) usa el programa. Y realmente estaremos hablando 
+
+4
+00:00:16,088 --> 00:00:22,064
+en términos de millones o billones de bits y sorprendentemente
+
+5
+00:00:22,064 --> 00:00:27,608
+hay una controversia aún sobre estas definiciones básicas. Los científicos de la computación
+
+6
+00:00:27,608 --> 00:00:34,683
+piensan que un millón de bits es 2 a la 20 y que un billón de bits es 2 a la 30 porque esa es la cantidad
+
+7
+00:00:34,683 --> 00:00:40,949
+ de cosas posibles que se pueden incluir en 30 bits, y todo es consistente con
+
+8
+00:00:40,949 --> 00:00:46,889
+nuestros cálculos. Otros científicos suscriben la idea de un millón o un billón por muchas
+
+9
+00:00:46,889 --> 00:00:54,014
+razones usualmente vamos a utilizar 2 a la 20, quiero decir, un megabyte. Ahora y en viejas computadoras que
+
+10
+00:00:54,014 --> 00:01:00,437
+utilizamos por muchos años, utilizamos máquinas de 32 bits, de modo que los punteros eran de cuatro bytes.
+
+11
+00:01:00,662 --> 00:01:07,042
+Recién en los últimos años hemos migrado mayoritariamente a un modelo en el cual las máquinas son de 64 bits y
+
+12
+00:01:07,042 --> 00:01:12,765
+los punteros son de 8 bytes. Esto nos permite direccionar mucha más memoria pero los punteros
+
+13
+00:01:12,765 --> 00:01:19,278
+usan mucho más espacio y efectivamente esta transición causó muchos problemas
+
+14
+00:01:19,510 --> 00:01:25,230
+inicialmente porque los programas usaban mucho más espacio de lo que la gente pensaba que
+
+15
+00:01:25,230 --> 00:01:30,121
+deberían. Ustedes no tendrán que atravesar esta clase de transición del modo
+
+16
+00:01:30,121 --> 00:01:35,997
+que nosotros lo hicimos porque 64 bits son definitivamente suficientes para direccionar cualquier cosa que ustedes pudieran
+
+17
+00:01:35,997 --> 00:01:41,720
+necesitar direccionar, 2 a la 64 es realmente un número inmenso. De modo que en términos de bytes tenemos que
+
+18
+00:01:41,720 --> 00:01:47,751
+comenzar con un uso de memoria típico. Ahora nuevamente, esto es muy dependiente de la máquina
+
+19
+00:01:47,751 --> 00:01:53,432
+y de la implementación, pero estos números son razonables y se encuentran en las implementaciones
+
+20
+00:01:53,432 --> 00:01:58,294
+típicas. Así, un campo lógico o booleano, sería bueno que tomara sólo un bit porque
+
+21
+00:01:58,294 --> 00:02:03,834
+es sólo verdadero o falso, pero realmente usualmente necesitamos un byte para un
+
+22
+00:02:03,834 --> 00:02:09,343
+booleano. Todo byte ocupa un byte. Un caracter hoy en día ocupa dos bytes, es decir caracteres de 16 bits.
+
+23
+00:02:09,541 --> 00:02:16,788
+No hace mucho utilizábamos 8 bits para los caracteres. Los enteros comunes ocupan cuatro bytes
+
+24
+00:02:16,788 --> 00:02:23,226
+o 32 bits y un flotante también ocupa cuatro bytes; un entero de tipo largo (long int) ocupa ocho y un doble (doble precisión) ocupa ocho.
+
+25
+00:02:23,227 --> 00:02:29,932
+Usualmente utilizamos los tipo doble (double) para punto flotante y los tipo int para los enteros en la mayoría
+
+26
+00:02:30,169 --> 00:02:37,093
+de las aplicaciones. Así que, esto es para los tipos primitivos. Y luego para los arreglos hay una
+
+27
+00:02:37,093 --> 00:02:44,086
+cierta cantidad de sobrecarga para crear un arreglo y entonces si hay n items, es
+
+28
+00:02:44,345 --> 00:02:51,763
+n veces el costo que tenga el tipo primitivo, de modo que un arreglo de tipos doble va a ocupar digamos 8n + 24.
+
+29
+00:02:51,763 --> 00:02:58,439
+Y un arreglo de dos dimensiones bien, podemos avanzar y calcular la cosa
+
+30
+00:02:58,439 --> 00:03:03,376
+exacta pero ahora, ahora es tiempo de usar la notación con tilde. Y entonces para arreglos podríamos
+
+31
+00:03:03,376 --> 00:03:08,957
+decir que un doble es tilde 8n para uni-dimensional. Para bi-dimensional,
+
+32
+00:03:09,197 --> 00:03:15,878
+un arreglo bi-dimensional de dobles ocupa tilde 8mn. Y hay términos adicionales para el 
+
+33
+00:03:15,878 --> 00:03:22,483
+desperdicio pero m y n van a ser por mucho suficientemente precisos. Así que esa es nuestra ocupación
+
+34
+00:03:22,483 --> 00:03:29,675
+básica para los tipos primitivos y los arreglos en una implementación típica de Java. Ahora, un montón de
+
+35
+00:03:29,675 --> 00:03:35,580
+nuestros programas y objetos como listas encadenadas y cosas así. Entonces tenemos también que considerar
+
+36
+00:03:35,580 --> 00:03:42,250
+en la sobrecarga de objetos a las referencias cruzadas y también hay relleno incluído en
+
+37
+00:03:42,250 --> 00:03:48,599
+las implementaciones típicas para lograr que cada objeto use múltiplos de ocho
+
+38
+00:03:48,599 --> 00:03:55,869
+bytes. De modo que, por ejemplo si tienes un objeto fecha que tiene tres variables enteras (tipo int)
+
+39
+00:03:55,869 --> 00:04:03,256
+instanciadas, entonces ese objeto podría tomar un total de 32 bytes. Cada entero toma cuatro
+
+40
+00:04:03,256 --> 00:04:10,571
+bytes, el desperdicio del objeto es de dieciseis bytes. Necesita cuatro bytes de relleno de modo que son un
+
+41
+00:04:10,571 --> 00:04:17,784
+total de 32 bytes. Lo otro que a menudo aparece son las cadenas (strings) y las
+
+42
+00:04:17,784 --> 00:04:25,274
+cadenas son un poquito más complicadas que los arreglos pero la implementación
+
+43
+00:04:25,274 --> 00:04:32,577
+típica de una cadena en Java tiene una referencia a un arreglo de caracteres
+
+44
+00:04:32,819 --> 00:04:39,649
+y entonces, tiene valores enteros para el valor del desplazamiento en un valor de hash y también algo de 
+
+45
+00:04:39,649 --> 00:04:46,864
+relleno y sumando todo [tos] el costo de una cadena es aproximadamente 2n +
+
+46
+00:04:46,864 --> 00:04:54,023
+64 bytes. De modo que esto es lo básico que necesitamos para analizar el uso de memoria para un
+
+47
+00:04:54,023 --> 00:04:59,011
+programa de Java típico. Así para los tipos de dato primitivos, si es un
+
+48
+00:04:59,011 --> 00:05:03,947
+tipo primitivo son cuatro para un entero, y ocho para un doble, y así. Si es
+
+49
+00:05:03,947 --> 00:05:09,600
+un referencia, van a ser ocho bytes y el puntero al arreglo requiere 24
+
+50
+00:05:09,600 --> 00:05:15,416
+bytes más la memoria para cada entrada, en un objeto dieciseis bytes más la memoria para
+
+51
+00:05:15,416 --> 00:05:22,061
+las variables instanciadas más, si hay una clase interna,  son otros ocho bytes como
+
+52
+00:05:22,061 --> 00:05:29,381
+dijimos para los nodos de las listas encadenadas. Y tambien hay relleno. Entonces
+
+53
+00:05:29,381 --> 00:05:34,234
+tenemos que pensar quién es responsable por los objetos referenciados, saben, en
+
+54
+00:05:34,234 --> 00:05:41,163
+algunos casos. Y vamos a ocuparnos de eso cuando lleguemos a estas situaciones. Así, como un
+
+55
+00:05:41,163 --> 00:05:46,374
+ejemplo, un ejemplo simple de análisis de uso de memoria, echemos una mirada a cuánta
+
+56
+00:05:46,374 --> 00:05:52,052
+memoria está estimada la función UF de unión rápida de hace algunas clases, que usa en
+
+57
+00:05:52,052 --> 00:06:00,305
+función de n. Y hay sólo un par de elementos de memoria y cada uno de ellos
+
+58
+00:06:00,305 --> 00:06:07,675
+es facilmente analizado utilizando lo básico que vimos recién, es un objeto asi que dieciseis
+
+59
+00:06:07,681 --> 00:06:14,878
+bytes de sobrecarga, hay dos arreglos de enteros. Cada uno de ellos tiene un 
+
+60
+00:06:14,878 --> 00:06:22,530
+sobrecarga del arreglo de 24 más y luego 4n por las n entradas. Y vn entradas toman cuatro
+
+61
+00:06:22,530 --> 00:06:29,784
+bytes y hay 4 bytes para la cantidad y hay cuatro bytes de relleno y
+
+62
+00:06:29,784 --> 00:06:36,147
+si suman todo resulta 8n + 88 lo cual es tilde 8n y otra vez, todo lo que
+
+63
+00:06:36,147 --> 00:06:42,661
+decimos es que cuando n es grande, lo único que nos importa en términos de analizar
+
+64
+00:06:42,661 --> 00:06:51,260
+la memoria es que tenemos [tos] 2n enteros, dos arreglos de tamaño n cada uno de
+
+65
+00:06:51,260 --> 00:06:59,364
+los cuales ocupan cuatro bytes para un total general de 8n bytes. Ok. Entonces, en resumen
+
+66
+00:06:59,364 --> 00:07:05,670
+realmente podemos figurarnos cuantas veces tenemos que girar la manivela en las
+
+67
+00:07:05,670 --> 00:07:11,267
+computadoras modernas. Podemos hacerlo con un análisis empírico donde realmente ejecutamos el 
+
+68
+00:07:11,267 --> 00:07:15,604
+programa, podemos hacer experimentos y usar [inaudible] ley exponencial, formular
+
+69
+00:07:15,604 --> 00:07:20,748
+hipótesis y hacer predicciones. Pero podemos hacer más, podemos hacer un análisis
+
+70
+00:07:20,748 --> 00:07:26,452
+matemático donde podemos identificar las operaciones más costosas, analizar la frecuencia 
+
+71
+00:07:26,452 --> 00:07:32,020
+de ejecución de esas operaciones y utilizar la notación de tilde para simplificar el análisis.
+
+72
+00:07:32,020 --> 00:07:37,664
+Podemos realmente explicar el comportamiento, no solamente predecirlo. Y este es un buen
+
+73
+00:07:37,664 --> 00:07:42,819
+ejemplo del uso del método científico para entender los artefactos que 
+
+74
+00:07:42,819 --> 00:07:46,890
+estamos estudiando, los algoritmos. Nuestros modelos matemáticos usualmente son
+
+75
+00:07:46,890 --> 00:07:51,562
+independientes de un sistema de computación particular, e incluso implican también a máquinas que 
+
+76
+00:07:51,562 --> 00:07:56,411
+aún no fueron construídas. Pero siempre validamos nuestros modelos matemáticos corriendo
+
+77
+00:07:56,411 --> 00:08:05,677
+experimentos en máquinas reales de modo que podemos tener confianza donde estamos haciendo
+
+78
+00:08:05,677 --> 00:08:13,000
+predicciones y analizando algoritmos.

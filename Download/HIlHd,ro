@@ -1,0 +1,517 @@
+1
+00:00:02,006 --> 00:00:07,042
+Bine. Vom termina prin a vorbi
+despre unele, aplicații practice de arbori 
+
+2
+00:00:07,042 --> 00:00:13,038
+roșu negru. Și, în particular, arbori B
+care sunt o versiune generală, generală. Așa că
+
+3
+00:00:13,038 --> 00:00:20,797
+ideea din spatele arborilor B este că
+de multe ori, datele pe care , încercăm să le
+
+4
+00:00:20,797 --> 00:00:26,010
+stocăm sunt, sunt într-adevăr mari. Există o, o
+cantitate mare de date. Și noi
+
+5
+00:00:26,010 --> 00:00:32,103
+ne vom uita la un model mai general pentru
+stocare externă. Unde, noi lucrăm cu
+
+6
+00:00:32,103 --> 00:00:38,031
+blocuri continue de date, care sunt mari.
+Poate patru, 4k sau mai mari, sau poate chiar un
+
+7
+00:00:38,031 --> 00:00:43,301
+întreg fișier. Și tot ce dorim să numere este
+prima dată când am accesat o pagină, pentru că
+
+8
+00:00:43,301 --> 00:00:49,878
+costul principal este încercarea de a găsi unde
+este pagina. După ce e citit ajungem să citim
+
+9
+00:00:49,878 --> 00:00:56,455
+toate paginile aproape gratuit. Așa că
+proprietatea reală de stocare externă că
+
+10
+00:00:56,455 --> 00:01:02,117
+nu memoria locală, este că timpul
+necesar pentru a ajunge la o pagină este mult mai mare
+
+11
+00:01:02,117 --> 00:01:08,267
+decât timpul de acces la date într-o
+pagină. Deci, ceea ce vrem să facem este să încercăm să
+
+12
+00:01:08,267 --> 00:01:14,858
+accesăm datele care sunt afară, extern, folosind
+un număr minim de probe. E un model 
+
+13
+00:01:14,858 --> 00:01:22,423
+de sistem de fișiere care este destul de funcțional.
+Și așa arborii B sunt o generalizare a
+
+14
+00:01:22,423 --> 00:01:30,116
+arborilor echilbrați, care permite acest lucru.
+Ideea este de a, permite nu doar două sau trei,
+
+15
+00:01:30,116 --> 00:01:38,021
+chei pe nod, dar un număr mare ca
+numărul care poate încăpea într-o pagină. Deci, ar putea
+
+16
+00:01:38,021 --> 00:01:45,401
+fi, M = 1000 sau M = 4000. Și bine, noi
+trebuie să avem cel puțin, două, chei la
+
+17
+00:01:45,401 --> 00:01:53,466
+rădăcină. Și, iar singura restricție
+este că, nu vrem nodurile să ajungă
+
+18
+00:01:53,466 --> 00:02:00,146
+ prea goale. Deci avem mai puțin decât M. Dar noi
+dorim să avem cel puțin M supra doi. Și, după cum
+
+19
+00:02:00,146 --> 00:02:06,578
+veți vedea, aceasta este, o generalizare a,
+doi-trei arbori. Acest lucru ne permite să, să construim
+
+20
+00:02:06,578 --> 00:02:12,650
+arbori echilibrați care, sunt foarte, foarte
+superficiali. De obicei, acestea sunt stabilite, astfel
+
+21
+00:02:12,650 --> 00:02:19,776
+că, toate datele sunt în nodurile 
+externe. Și astfel nodurile externe nu au 
+
+22
+00:02:19,776 --> 00:02:26,534
+link-uri, ele au doar chei. Și ele sunt, 
+păstrate în ordine sortată. Deci, de exemplu,
+
+23
+00:02:26,534 --> 00:02:33,859
+aceasta este un extern, aceasta este M = șase. acesta
+este un nod cinci extern. Deci are cinci
+
+24
+00:02:33,859 --> 00:02:40,634
+chei. Are, spatiu și pentru înca una 
+temporară, și apoi ce se va întâmpla
+
+25
+00:02:40,634 --> 00:02:46,292
+este că, când introduceți într-un nod complet,
+se va împărți în la fel ca înainte. Și
+
+26
+00:02:46,292 --> 00:02:53,071
+apoi vom trece împărțirea cauzând o
+împărțire superioară astfel încât cheile roșii în
+
+27
+00:02:53,071 --> 00:02:59,955
+nodurile interne copii ale cheilor de jos
+care direcționează căutarea. Și este
+
+28
+00:02:59,955 --> 00:03:06,946
+acesta, e un mic detaliu suplimentar. Doar
+ face implementarea un pic
+
+29
+00:03:06,946 --> 00:03:13,777
+mai ușoară și acesta e modul în care se face 
+de obicei. Așa că pentru acum ideea principală este că
+
+30
+00:03:13,777 --> 00:03:21,234
+e ca un 233 cu excepția faptului că noi permitem
+cu mult mai multe chei pe nod. Și când un nod
+
+31
+00:03:21,234 --> 00:03:27,982
+devine plin se împarte. In doua astfel un nod
+este întotdeauna între jumătate și plin. Așa că
+
+32
+00:03:27,982 --> 00:03:33,339
+este în 1000, se împarte în două. Și atunci
+fiecare parte are 500. Și atunci putem folosi,
+
+33
+00:03:33,339 --> 00:03:39,145
+acea proprietatea a arborilor, în
+analiză, arată că, nu vor
+
+34
+00:03:39,145 --> 00:03:45,559
+fi foarte multe probe de a ajunge la orice cheie. Deci, 
+căutarea este, știți, la fel 
+
+35
+00:03:45,559 --> 00:03:52,148
+cum am făcut, doar generalizată.
+Există o listă de chei la fiecare nod intern
+
+36
+00:03:52,148 --> 00:03:59,857
+și acea cheie, vă spune că, atunci
+link-urile pentru fiecare cheie care vă dau, un loc
+
+37
+00:03:59,857 --> 00:04:07,332
+unde cheia ar trebui să fie. Așa că, acest
+link este pentru toate cheile în arborele B
+
+38
+00:04:07,332 --> 00:04:13,449
+care sunt între această cheie și cea următoare
+și în fiecare caz, e în acest fel. Deci, dacă
+
+39
+00:04:13,449 --> 00:04:18,571
+căutăm E. B și acest arbore b 
+ar merge pe link-ul din stânga. Și apoi
+
+40
+00:04:18,571 --> 00:04:22,774
+privim pe al doilea link deoarece E este
+între D și H. Și acesta e doar modul
+
+41
+00:04:22,774 --> 00:04:27,228
+în care e organizat. Și atunci când ajungeți la un
+nod extern doar căutați și așa
+
+42
+00:04:27,228 --> 00:04:30,918
+asta e o,asta e toate căutările 
+terminate în nodul extern, cu alte
+
+43
+00:04:30,918 --> 00:04:36,596
+cuvinte aceasta e doar o generalizare a ceea ce
+noi tocmai am făcut. Și inserarea, funcționează în același
+
+44
+00:04:36,596 --> 00:04:43,086
+mod, unde ajungem la partea de jos, și apoi,
+și apoi împărțim. Deci, să ne uităm doar la
+
+45
+00:04:43,086 --> 00:04:49,012
+inserarea lui A  în acest arbore B. Vine
+în nodul din stânga. Și atunci asta
+
+46
+00:04:49,012 --> 00:04:54,509
+face asta temporar depașit. Are cu 
+una mai mult. Așa că l-am împărțit în două
+
+47
+00:04:54,509 --> 00:05:00,060
+noduri. Și asta ne face să adăugăm o nouă
+intrare în acest nod intern. În acest
+
+48
+00:05:00,060 --> 00:05:06,658
+caz, este C, care este cel mai mic
+în această nouă pagină. Și asta a trebuit să fie
+
+49
+00:05:06,658 --> 00:05:11,469
+adăugată. Și ne putem muta peste toți aceia. E destul de timp după modelul
+
+50
+00:05:11,469 --> 00:05:15,626
+de memorie. Noi doar calculăm numărul de
+câte ori noi accesăm paginile. Trebuie să mișcăm
+
+51
+00:05:15,626 --> 00:05:19,623
+lucrurile din jur gratis. Și ați putea avea
+o structură hibridă unde utilizați
+
+52
+00:05:19,623 --> 00:05:24,502
+ceva diferit pentru modelul
+intern. Dar, de obicei e bine doar să faceți
+
+53
+00:05:24,502 --> 00:05:31,293
+asta. Acum acela devine depăşit. Așa că
+trebuie să se împartă și trebuie să creăm o nouă
+
+54
+00:05:31,293 --> 00:05:37,974
+cale, chiar în același fel cum am 
+făcut. Așa că fără a vedea toate detaliile
+
+55
+00:05:37,974 --> 00:05:44,994
+puteți înțelege că aceeași idee de bază
+va funcționa în această situație unde
+
+56
+00:05:44,994 --> 00:05:52,403
+avem de-a face cu mult, mult mai multă memorie.
+Și astfel rezultatul final este că o căutare sau
+
+57
+00:05:52,403 --> 00:05:58,429
+o inserție într-un B-arbore într-o ordine m,
+acolo vom pune cheile M pe
+
+58
+00:05:58,429 --> 00:06:05,205
+pagină, necesită între log bază M - 1 de N și
+log bază M/2 de N probe și acesta va
+
+59
+00:06:05,205 --> 00:06:11,481
+fi un număr foarte mic, așa să spunem
+M este 1000, log bază M/2 este, este
+
+60
+00:06:11,481 --> 00:06:17,857
+log bază 500. Deci la ce putere trebuie să
+ridicați 500 pentru a obține mai mult decât N? În 
+
+61
+00:06:17,857 --> 00:06:24,182
+practică aceasta va fi ca patru sau 
+cinci. Și putem păstra pagina rădăcină în
+
+62
+00:06:24,182 --> 00:06:30,233
+memorie astfel încât aceasta înseamnă, pentru orice
+aplicație de conceput, puteți obține la
+
+63
+00:06:30,233 --> 00:06:36,833
+orice set de date. Chiar dacă sunt trilioane
+de, de seturi de date în acest imens, imens
+
+64
+00:06:36,833 --> 00:06:42,846
+fișier. Puteți ajunge la orice cu doar
+cinci sau șase probe. Asta e destul de uimitor.
+
+65
+00:06:42,846 --> 00:06:49,058
+Este într-adevăr un exemplu uluitor de
+tehnologie algoritmică. Făcând ceva ce
+
+66
+00:06:49,058 --> 00:06:55,117
+nu v-ați fi gândit cu adevărat, în mod necesar, 
+că ați fi putut face acest lucru așa de ușor.
+
+67
+00:06:55,117 --> 00:07:01,264
+Păstrați o căutare dinamică în tabelă de simboluri cu trilioane de chei, astfel încât să puteți
+
+68
+00:07:01,264 --> 00:07:08,398
+ajunge la orice cheie doar privind cinci sau șase
+locuri, dar asta e ceea ce asigură arborii B pentru
+
+69
+00:07:08,398 --> 00:07:15,619
+noi. Aceasta este o simulare care arată un, un
+B-arbore în creștere astfel încât atunci când o pagină, în partea de sus,
+
+70
+00:07:15,619 --> 00:07:21,896
+există doar o pagină care se umple. Când
+se umple, e roșie, și asta desparte
+
+71
+00:07:21,896 --> 00:07:28,332
+în două  jumătăti de pagini și apoi se adaugă cheile 
+pe o parte sau pe altă parte astfel încât fiecare.
+
+72
+00:07:28,332 --> 00:07:34,388
+aflată în acest tabel unele pagini primesc o
+cheie nouă și în cele din urmă una dintre ele se umple
+
+73
+00:07:34,388 --> 00:07:40,467
+și se desparte. Acum avem trei pagini și
+noi continuăm, în cele din urmă una dintre ele se umple
+
+74
+00:07:40,467 --> 00:07:46,108
+și se desparte. Acum avem patru pagini și
+acum de data aceasta prima se umple și
+
+75
+00:07:46,108 --> 00:07:51,131
+se desparte și așa mai departe. Deci, negrul este
+partea ocupată a paginii.Albul este
+
+76
+00:07:51,131 --> 00:07:57,000
+partea neocupată. Și pagina completă
+pe cale de a se împărți apoi chiar mai jos sunt
+
+77
+00:07:57,000 --> 00:08:03,364
+două pagini. Deci, acest lucru arată procesul de
+construire a unui mare B-arbore. Și asta și voi
+
+78
+00:08:03,364 --> 00:08:09,569
+puteți vedea cantitatea de negru. E într-un fel
+pe jumătate goală. E un pic mai mult de jumătate
+
+79
+00:08:09,569 --> 00:08:16,045
+goală, de obicei, acum, cum arată aceasta. Și, și
+oamenii au variante ale acestor algoritmi
+
+80
+00:08:16,045 --> 00:08:22,077
+că aceasta ține mai mult, mult mai mult de jumătate
+goală dacă acest tip de spațiu este o este o
+
+81
+00:08:22,077 --> 00:08:29,283
+considerație. Deci, cum am menționat, arborii
+roșu negru și B-arborii sunt utilizați pe scară largă ca
+
+82
+00:08:29,283 --> 00:08:35,098
+sistem de tabele simbol. Implementarea
+Java a hărții arborelui si setului arborelui sunt
+
+83
+00:08:35,098 --> 00:08:42,019
+arborii roșu negru, C++, utilizările 
+librariei de șabloane standard, arborii roșu negru.
+
+84
+00:08:42,043 --> 00:08:48,096
+Și este de asemenea, utilizat în, kernel-ul Linux,
+și în multe alte sisteme. B-arborii,
+
+85
+00:08:48,096 --> 00:08:56,004
+există mai multe variante diferite, care, dau
+caracteristici diferite de, utilizare a spațiului
+
+86
+00:08:56,052 --> 00:09:04,087
+și alte caracteristici. În cele mai multe
+baze de date, în zilele noastre pe care, pe care le-ați putea
+
+87
+00:09:04,087 --> 00:09:12,038
+folosi. Bazele de date Sql sau Oracle și altele,
+se bazează pe o variantă a B-arborilor
+
+88
+00:09:12,065 --> 00:09:18,099
+deoarece sunt atât de, atât de eficienți. Dar 
+știți cu adevărat că structura voastră de date și
+
+89
+00:09:18,099 --> 00:09:24,061
+algoritmi este folosită de o mulțime de oameni atunci când
+apare în cultura populară.
+
+90
+00:09:24,061 --> 00:09:31,608
+Prietenul meu Philippe Flajolet care a murit recent
+a fost un celebru matematician francez mi-a trimis
+
+91
+00:09:31,608 --> 00:09:37,426
+un e-mail târziu într-o noapte. El a fost destul de
+entuziasmat pentru că el privea o re-rulare
+
+92
+00:09:37,426 --> 00:09:43,331
+a unei emisiuni engleze, de fapt canadiene 
+la French TV. Nu știam că-și petrece
+
+93
+00:09:43,331 --> 00:09:47,553
+ timpul său făcând asta. Dar el a fost foarte
+entuziasmat pentru că a văzut acest clip.
+
+94
+00:09:47,553 --> 00:09:51,093
+>> A fost din nou ușa roșie.
+>> Am crezut că ușa roșie a fost containerul 
+
+95
+00:09:51,093 --> 00:09:53,953
+de depozitare.
+>> Dar nu a mai fost roșie, a fost
+
+96
+00:09:53,953 --> 00:09:56,577
+neagră.
+>> Deci, roșie întoarsă la neagră înseamnă ce?
+
+97
+00:09:56,577 --> 00:10:00,515
+>> Deficitele bugetare, cerneală roșie, cerneală neagră.
+>> Ar putea fi de la un arbore binar de căutare.
+
+98
+00:10:00,515 --> 00:10:04,339
+Arborele roșu negru urmărește fiecare simplă
+cale de la un nod la o frunză descendentă care
+
+99
+00:10:04,339 --> 00:10:08,565
+are același număr de noduri negre.
+>> Asta te ajută cu doamnele?
+
+100
+00:10:08,565 --> 00:10:12,663
+>> Deci, nu numai că există o anumită emoție în
+acel dialog dar este, de asemenea, din punct de vedere tehnic
+
+101
+00:10:12,663 --> 00:10:16,540
+corect, pe care nu de multe ori îl găsiți cu
+matematica în cultura populară a informaticii.
+
+102
+00:10:16,540 --> 00:10:20,788
+Un arbore  roșu negru urmărește fiecare
+cale simplă de la un nod la o frunză descendentă
+
+103
+00:10:20,788 --> 00:10:26,226
+cu același număr de noduri negre,
+au primit acest drept. Și asta e de asemenea adevărul
+
+104
+00:10:26,226 --> 00:10:31,063
+arborilor B și ambele metode sunt
+foarte eficiente și larg utilizate.

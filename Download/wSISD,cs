@@ -1,0 +1,423 @@
+1
+00:00:03,054 --> 00:00:09,019
+Vítejte zpátky. Dnes se podíváme
+na mnoho zajímavých
+
+2
+00:00:09,019 --> 00:00:15,011
+využití tabulek symbolů a
+datové struktury binárních vyhledávacích stromů
+
+3
+00:00:15,011 --> 00:00:21,413
+v kontextu zpracování geometrických
+dat. Tak pojďme na to. Smysl
+
+4
+00:00:21,413 --> 00:00:27,378
+je v tom, že budeme mluvit o geometrických objektech,
+ne pouze o jednoduchých klíčích jakými jsou
+
+5
+00:00:27,378 --> 00:00:33,338
+textové řetězce a čísla. Podívejme se na příklad. Řekněme, že geometrické objekty jsou body
+
+6
+00:00:33,338 --> 00:00:38,346
+v rovině a vy specifikujete obdélník, který je orientovaný 
+
+7
+00:00:38,346 --> 00:00:43,404
+horizontálními/vertikálními osami. A například můžete chtít vědět, které body jsou uvnitř
+
+8
+00:00:43,404 --> 00:00:48,200
+obdélníku a kolik bodů je mimo obdélník ? Nebo třeba to co
+
+9
+00:00:48,200 --> 00:00:54,011
+zpracováváte jsou obdélníky. Máte skupinu obdélníků a chcete vědět, které
+
+10
+00:00:54,011 --> 00:01:00,291
+z nich se protínají ? Nebo kolik těch průniků je ? Tohle
+
+11
+00:01:00,291 --> 00:01:05,837
+jsou zajímavé problémy a mají velké množství aplikací, od
+
+12
+00:01:05,837 --> 00:01:11,806
+počítačem řízeného designu po hry a filmy, a také v abstrakcích jako například databáze
+
+13
+00:01:11,806 --> 00:01:17,849
+a dalších situacích kde se může vyskytnout více klíčů nebo více dimenzí.
+
+14
+00:01:18,065 --> 00:01:24,856
+Zároveň je to velmi zajímavé rozšíření myšlenek, které jsme probírali v lekcím o tabulkách 
+
+15
+00:01:24,856 --> 00:01:30,175
+symbolů pro všechny známé aplikace. Navíc, což je překvapivé, binární
+
+16
+00:01:30,175 --> 00:01:34,300
+vyhledávací stromy a s nimi spojené algoritmy, které jsme probírali budou
+
+17
+00:01:34,300 --> 00:01:39,774
+schopny nabídnout velmi efektivní řešení množství důležitých problémů v této oblasti.
+
+18
+00:01:39,774 --> 00:01:45,943
+Ve skutečnosti umožnili vývoj a technologický posun ve všech těchto
+
+19
+00:01:45,943 --> 00:01:51,135
+oblastech. Tak - pro začátek se podíváme na jednoduchý problém, kterému říkáme
+
+20
+00:01:51,135 --> 00:01:56,761
+jedno-rozměrné prohledání rozsahu. Což
+skutečně vytváří základ toho, co zde
+
+21
+00:01:56,761 --> 00:02:02,146
+budeme dělat. Je to tak trochu
+rozšíření API Tříděné tabulky symbolů,
+
+22
+00:02:02,146 --> 00:02:07,837
+kterou jsme již dříve probírali, a teď budeme
+mít operace: prohledání rozsahu a
+
+23
+00:02:07,837 --> 00:02:12,797
+spočtení rozsahu [Eng. range-count]. Čili, jedno-rozměrný prostě
+znamená, že máme jeden klíč. Máme tedy vloženo
+
+24
+00:02:12,797 --> 00:02:19,116
+mnoho párů klíč-hodnota, a to, co chceme s nimi dělat,
+je moci v nich hledat klíč a
+
+25
+00:02:19,116 --> 00:02:24,770
+hodnotu, která k němu patří. A také chceme
+umožnit mazání prvků. Ale pak také chceme, aby tyto
+
+26
+00:02:24,770 --> 00:02:30,703
+operace prováděly hledání rozsahu [Eng. range-search] a spočtení rozsahů [range-count].
+Tedy, najít všechny klíče, které jsou mezi dvěma
+
+27
+00:02:30,703 --> 00:02:36,083
+danými klíči, či respektive zjistit, kolik prvků [Eng. keys] je
+mezi dvěma danými klíči. Takže, v tomto
+
+28
+00:02:36,083 --> 00:02:42,251
+příkladu zde vpravo máme vloženo několik
+klíčů-hodnot, a jednoduše je ukazujeme
+
+29
+00:02:42,251 --> 00:02:47,992
+v setříděném pořadí. Ale pak, mohli byste říci:
+dobrá, ale kolik vlastně je klíčů, které jsou
+
+30
+00:02:47,992 --> 00:02:53,780
+mezi "g" a "k"? V tomto případě jsou tam
+jen dva. A potom klient (pracující s API) se může zeptat:
+
+31
+00:02:53,780 --> 00:02:59,598
+Dobrá, ale jaké klíče to jsou? A Vy budete chtít
+umět vrátit je. A toto je velmi
+
+32
+00:02:59,598 --> 00:03:06,010
+běžná operace, řekněme, v databázích. Např.
+chcete zjistit, kolik daňových poplatníků má
+
+33
+00:03:06,010 --> 00:03:11,335
+roční mzdu mezi jedním milionem a deseti
+miliony, a potom kteří to jsou,
+
+34
+00:03:11,335 --> 00:03:17,431
+a tak dále. Čili, prohledávání rozsahu je velmi
+důležitou základní operací. Nyní, v
+
+35
+00:03:17,431 --> 00:03:23,459
+geometrické interpretaci, prostě přemýšlíme
+o klíčích jako o bodech nějaké čáry. A stejně tak
+
+36
+00:03:23,459 --> 00:03:29,627
+i hodnoty jsou vlastně vymezeny jako
+body úsečky. Mohli bychom takto převést třebas
+
+37
+00:03:29,627 --> 00:03:34,856
+písmena na čísla, nebo bychom mohli naopak použít ty klíče
+jako čísla... A potom to, co
+
+38
+00:03:34,856 --> 00:03:41,119
+hledáme, je funkčnost vyhledání či spočítání těch bodů,
+které jsou v daném úseku [Eng. interval] čáry - v jednom rozměru. Takže,
+
+39
+00:03:41,575 --> 00:03:47,272
+jak tohle budeme programovat? No,
+tohle je ten základní problém, který je velmi
+
+40
+00:03:47,272 --> 00:03:52,356
+podobný našemu problému symbolové tabulky. My
+bychom sice mohli uvažovat o uchovávání těchto věcí v
+
+41
+00:03:52,356 --> 00:03:57,529
+netříděném poli [Eng. unordered array]. Prostě je dát do
+pole, a pak, no, vkládání bude, vlastně je
+
+42
+00:03:57,529 --> 00:04:03,254
+*rychlé*. Prostě prvek přidáme na konec toho
+pole. Možná budeme muset občas použít pře-alokaci [Eng. resize],
+
+43
+00:04:03,254 --> 00:04:08,371
+abychom pole zvětšili. Ale to je
+pro nás nezajímavé, neboť při velkém množství
+
+44
+00:04:08,371 --> 00:04:13,899
+klíčů, abyste mohli spočítat všechny klíče, které spadají
+do daného rozsahu [range], musíte projít
+
+45
+00:04:13,899 --> 00:04:19,711
+všechny klíče a testovat, zda
+jsou v tom rozsahu či nikoli, a vracet
+
+46
+00:04:19,711 --> 00:04:26,043
+je stejným způsobem. Takže to má lineární složitost - trvá to přímo úměrně
+velkému množství klíčů. Pokud si udržujete
+
+47
+00:04:26,267 --> 00:04:32,638
+prvky hezky seřazené - např. jako v případě binárního stromu,
+pak je třeba vkládat prvky tam, kam dle pořadí patří, aby se pole udrželo
+
+48
+00:04:32,638 --> 00:04:38,591
+seřazené. Možná budete potřebovat
+posunout všechny větší klíče o jednu pozici,
+
+49
+00:04:38,596 --> 00:04:44,209
+a tak podobně, nebo základní implementace
+binárních stromů, (vzpomeňte si) když jsme dělali symbolové tabulky,
+
+50
+00:04:44,406 --> 00:04:49,662
+tohle uměla. Tedy: čas potřebný pro vložení může být
+lineární, ale pak můžete použít binární
+
+51
+00:04:49,662 --> 00:04:55,329
+strom na vyhledání dvou koncových bodů,
+což zabere času pouze
+
+52
+00:04:55,329 --> 00:05:00,631
+úměrně logaritmu(báze 2) z počtu vstupů [Eng. log in]. A potom
+z toho již dokážete snadno určit kolik klíčů
+
+53
+00:05:00,631 --> 00:05:06,243
+ta je, nebo je vrátit - všechny mezi tím
+nejnižším indexem v rozsahu a tím indexem,
+
+54
+00:05:06,243 --> 00:05:12,027
+který je nejvyšší v tom rozsahu. Takže, tyto
+základní postupy [Eng. implementations] nejsou
+
+55
+00:05:12,027 --> 00:05:18,179
+přijatelné pro řešení velkého množství klíčů, pač
+mají (některé) operace s lineární časovou náročností. Tedy,
+
+56
+00:05:18,179 --> 00:05:24,035
+co doopravdy chceme je: mít časovou náročnost
+úměrnou logaritmu množství vstupů. Pro vkládání a
+
+57
+00:05:24,035 --> 00:05:29,186
+spočátání. Při vyhledání všech klíčů v daném rozsahu
+se samozřejmě musíme dotknout každého klíče,
+
+58
+00:05:29,186 --> 00:05:35,413
+který vracíme, takže čas běhu
+bude přímo úměrný počtu
+
+59
+00:05:35,413 --> 00:05:43,042
+klíčů, které byly nalezeny. Nicméně, toto jsou
+realistické cíle. A jsou snadno
+
+60
+00:05:43,042 --> 00:05:51,545
+dosažitelné. Tak [kašel] ... tak například co
+třeba jedno-rozměrné spočítání rozsahu? [Eng. range counting]
+
+61
+00:05:51,545 --> 00:05:58,014
+Dobrá, to, co se chystáme udělat, je prostě udržovat
+klíče ve vyhledávacím binárním stromu a my
+
+62
+00:05:58,014 --> 00:06:03,484
+jsme se již podívali na implementaci hodnotící [Eng. rank]
+funkce pro binární stromy, kde pro
+
+63
+00:06:03,484 --> 00:06:09,342
+každý klíč můžeme spočítat kolik klíčů
+tam je takových, které jsou přísně menší než daný
+
+64
+00:06:09,342 --> 00:06:15,508
+klíč. Takže, v tomto případě, hodnost (Eng. rank) "e" je dvě
+a hodnost "h" je tři, a tak dále. Čili, v
+
+65
+00:06:15,508 --> 00:06:21,413
+binárním stromu tyto hodnotící (Eng. rank) čísla rostou
+spolu s tím, jak pokračujeme v
+
+66
+00:06:21,413 --> 00:06:27,662
+postupného přechodu, a to je jednoduché
+spočítat. Jen si potřebujete udržovat hodnotící strom [Eng. rank tree]
+
+67
+00:06:27,662 --> 00:06:33,813
+jako oddělenou hodnotu, nebo si udržovat proměnnou, která má
+délku shodnou se stromem, a z níž je snadné doplnit
+
+68
+00:06:33,813 --> 00:06:40,760
+tu hodnost. Tedy, kolik je klíčů
+mezi, pro příklad, "e" a "s"? Inu, jeden, dva,
+
+69
+00:06:40,760 --> 00:06:51,297
+tři, čtyři, pět. Je to vlastně jen ten
+rozdíl mezi těmi hodnostmi, plus jeden pokud
+
+70
+00:06:51,623 --> 00:07:00,361
+ten horní [kašel] prvek v našem hledání
+je v tabulce a ne +jeden klíč za ní. Tedy,
+
+71
+00:07:00,361 --> 00:07:08,274
+Je tam stejný počet klíčů mezi "e"
+a "s" jako je mezi "e" a "t" : pět.
+
+72
+00:07:08,274 --> 00:07:15,192
+Mezi "f" a "t" jsou pouze čtyři. Tedy,
+jde skutečně o 1-rozměrné "spočtení rozsahu", což je
+
+73
+00:07:15,192 --> 00:07:22,412
+velmi jednoduchý výpočet, který
+má složitost jen log n, s využitím binárního vyhl.stromu.
+
+74
+00:07:22,412 --> 00:07:28,297
+To [zakašlání] množství zkontrolovaných uzlů během
+vyhledávání se rovná Délka hledací cesty
+
+75
+00:07:28,297 --> 00:07:33,789
+k nízkému prvku + Délka hledací
+cesty k vysokému, abychom [zakašlání] našli jejich řády,
+
+76
+00:07:33,976 --> 00:07:39,595
+a časová složitost bude přímo úměrná
+log N. [zakašlání]. A to je celé prohledání rozsahu.
+
+77
+00:07:39,595 --> 00:07:46,018
+Tedy, prostě provedeme rekurzívní hledání.
+K nalezení všech klíčů mezi spodním a vysokým nám stačí:
+
+78
+00:07:46,214 --> 00:07:51,472
+podívat se do levého podstromu zda kterýkoli klíč z jeho rozpětí
+by vůbec mohl spadat do hledaného rozsahu. Pak se podívat na
+
+79
+00:07:51,472 --> 00:07:57,106
+aktuální uzel a pak na pravý podstrom,
+zda některý z jeho klíčů by mohl spadat do
+
+80
+00:07:57,106 --> 00:08:02,555
+našeho rozsahu. A je snadné určit zda
+některý klíč může spadat do rozsahu prostě tím,
+
+81
+00:08:02,555 --> 00:08:08,476
+že zkontrolujeme zda jejich rozpětí překrývá
+kořen nebo ne. Tedy, hledáme-li
+
+82
+00:08:08,476 --> 00:08:14,469
+všechny klíče mezi písmeny "f" a "t", tak se musíme
+podívat na oba podstromy kořene
+
+83
+00:08:14,469 --> 00:08:19,643
+"s". Ale nemusíme se dívat např. na levý
+podstrom kořene "e", protože všechny klíče v něm jsou menší
+
+84
+00:08:19,643 --> 00:08:26,018
+než "e", a tedy jsou rozhodně menší než "f". Tedy,
+tam se dívat vůbec nemusíme.
+
+85
+00:08:26,018 --> 00:08:31,419
+Ale to je jen drobná úprava
+rekurzivního stromového hledání k nalezení všech klíčů.
+
+86
+00:08:31,635 --> 00:08:37,702
+A je zřetelné, že časová složitost
+tohoto algoritmu bude přímo úměrná
+
+87
+00:08:37,702 --> 00:08:47,518
+počtu vrácených klíčů plus log N. Tak,
+to je celé jedno-rozměrné prohledání rozsahu pomocí
+
+88
+00:08:47,518 --> 00:08:51,040
+binárního stromu.

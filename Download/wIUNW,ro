@@ -1,0 +1,1023 @@
+1
+00:00:02,880 --> 00:00:06,853
+Bine ați revenit, astăzi vom vorbi
+despre arbori de căutare echilibrați,
+
+2
+00:00:06,853 --> 00:00:12,150
+Care ne vor duce la o implementare finală
+ a tabelei de simboluri care poate oferi rapid
+
+3
+00:00:12,340 --> 00:00:17,130
+performanță pentru toate opțiunile simulative
+la care ne-am uitat, garantat.
+
+4
+00:00:17,130 --> 00:00:22,038
+Deci, aici e analiza a unde am rămas cu
+tabelele simple.
+
+5
+00:00:22,255 --> 00:00:27,019
+Am aruncat o privire ultima dată la
+arborele binar de căutare,
+
+6
+00:00:27,236 --> 00:00:32,866
+Care, dacă lucrurile sunt bine modelate de eforturi 
+aleatoare, are o mare performanță.
+
+7
+00:00:33,083 --> 00:00:39,002
+Ei primesc căutare și introducere la timp
+proporțional pentru log de bază doi de N și ei
+
+8
+00:00:39,002 --> 00:00:44,055
+au suport la operații comandate .
+Dar, de fapt, scopul nostru este ca aceste
+
+9
+00:00:44,055 --> 00:00:48,386
+operații să dureze garantat un timp proporțional cu log N.
+
+10
+00:00:48,603 --> 00:00:54,114
+Pentru că nu avem control asupra
+ordinii operațiilor și nu pot fi
+
+11
+00:00:54,114 --> 00:00:57,606
+complet aleatoare. 
+De fapt, în multe aplicații reale,
+
+12
+00:00:57,606 --> 00:01:01,733
+ele nu sunt foarte aleatoare.
+Deci, la asta o să ne uităm acum
+
+13
+00:01:01,733 --> 00:01:07,320
+găsirea unei implementări care poate
+să fie rapidă, garantat, pentru toate operațiile
+
+14
+00:01:07,320 --> 00:01:09,260
+pe tabelele de simboluri.
+
+15
+00:01:09,260 --> 00:01:14,172
+Asta e provocarea noastră.
+Deci, despre ce urmează să vorbim, 
+
+16
+00:01:14,172 --> 00:01:19,744
+este un algoritm, destul de
+vechi, numit arbori 2-3, și o
+
+17
+00:01:19,744 --> 00:01:25,457
+implementare particulară care necesită 
+foarte puțin cod, numită rotaţie la stânga 
+
+18
+00:01:25,457 --> 00:01:31,381
+arbori binari de căutare rosu-negru si apoi vom vorbi despre
+o generalizare numită arbori B. Și aceste
+
+19
+00:01:31,381 --> 00:01:36,460
+metode sunt folosite pe scară largă în toată
+infrastructura noastră de calcul.
+
+20
+00:01:38,500 --> 00:01:45,187
+Pentru a începe, vom vorbi despre arbori de cautare 
+2-3, model care stă la baza
+
+21
+00:01:45,406 --> 00:01:50,148
+implementării concise și eficiente la care
+urmează să ne uităm.
+
+22
+00:01:50,148 --> 00:01:56,131
+Astfel, arborele 2-3 este un mod de a generaliza
+BSTs pentru a oferi flexibilitatea de care noi
+
+23
+00:01:56,131 --> 00:02:00,728
+avem nevoie pentru a garanta o performanța rapidă.
+Ideea este foarte simplă,
+
+24
+00:02:00,728 --> 00:02:06,127
+Noi permitem una sau două chei pe nod.
+Asta înseamnă că noi permitem posibilitatea ca
+
+25
+00:02:06,127 --> 00:02:09,994
+ceva numit un 3-nod 
+să poată stoca 
+două chei,
+
+26
+00:02:09,994 --> 00:02:15,674
+Dar atunci trebuie să aibă trei succesori. Într-un nod BST regulat, nod 2, avem
+
+27
+00:02:15,674 --> 00:02:20,190
+un link pentru cheile care sunt mai puțin de
+cheia în nod, și un link pentru
+
+28
+00:02:20,190 --> 00:02:24,279
+cheile, care sunt mai mari.
+Într-un nod 3, avem nevoie de trei link-uri, unul pentru
+
+29
+00:02:24,279 --> 00:02:29,867
+mai puțin, unul pentru între și unul pentru mai mare.
+O altă proprietate a acestor arbori 2-3 este 
+
+30
+00:02:29,867 --> 00:02:35,029
+că vom avea un echilibru perfect,
+Acesta este: fiecare cale de la ruta la un
+
+31
+00:02:35,029 --> 00:02:38,790
+link nul va avea același link
+în arborele 2-3 .
+
+32
+00:02:38,790 --> 00:02:46,121
+Astfel încât, așa cum am menționat, ordinea simetrică este
+parte din definiția unui arbore 2-3.
+
+33
+00:02:46,121 --> 00:02:51,648
+Fiecare 3-nod are trei link-uri și două chei.
+Link-ul din stânga este pentru cheile care,
+
+34
+00:02:51,648 --> 00:02:56,850
+indică spre un arbore 2-3 cu cheile care
+sunt mai mici decât cea mai mică dintre cele două
+
+35
+00:02:56,850 --> 00:03:01,077
+chei din 3-nod.
+Link-ul de mijloc indică spre un arbore 2-3 care
+
+36
+00:03:01,077 --> 00:03:04,459
+conține toate cheile care sunt între cele
+două chei.
+
+37
+00:03:04,459 --> 00:03:09,661
+Și link-ul drept indică spre arborele 2-3
+care conține toate cheile care sunt mai mari
+
+38
+00:03:09,661 --> 00:03:12,913
+decât cea mai mare dintre cele două chei în 
+nodul 3.
+
+39
+00:03:12,913 --> 00:03:17,010
+Bine, hai să aruncăm o privire la un demo de
+căutare într-un arbore 2-3.
+
+40
+00:03:17,010 --> 00:03:23,407
+Astfel încât spunem că avem acest arbore 2-3 aici și noi
+dorim să căutăm dacă este sau nu H una
+
+41
+00:03:23,407 --> 00:03:26,818
+din cheile arborelui.
+Astfel încât vom începe de la rădăcină,
+
+42
+00:03:26,818 --> 00:03:30,815
+Comparăm cheia de cautare față de cheia sau
+cheile din nod.
+
+43
+00:03:30,815 --> 00:03:36,436
+Și urmăm link-ul corespunzător la
+intervalul pe care știm că trebuie să conțină
+
+44
+00:03:36,436 --> 00:03:41,923
+cheia de căutare, prin definiție, a arborelui și
+apoi vom continua recursiv căutarea.
+
+45
+00:03:41,923 --> 00:03:47,409
+Astfel încât, dacă suntem în căutarea lui H, este mai mic decât
+M, astfel încât singurul loc in care ar putea fi în acest
+
+46
+00:03:47,409 --> 00:03:50,051
+arbore 2-3  este în arborele 2-3,  link-ul din partea 
+stângă,
+
+47
+00:03:50,051 --> 00:03:54,656
+Așa că urmăm linkul din stânga.
+Acum, noi comparăm H cu E și J, și în
+
+48
+00:03:54,656 --> 00:04:00,359
+acest caz este între, așa că acum o
+să luăm legătura de mijloc, care este
+
+49
+00:04:00,359 --> 00:04:06,212
+singurul loc în care H, posibil, ar putea fi.
+In acest caz, acel nod, un nod arbore 2-3 
+
+50
+00:04:06,212 --> 00:04:11,315
+conține H, așa că e un succes de căutare. 
+Să luăm un alt exemplu de
+
+51
+00:04:11,315 --> 00:04:15,217
+căutare fără succes, o cheie care nu este în
+arbore.
+
+52
+00:04:15,217 --> 00:04:19,270
+Ca de obicei, vom începe de la rădăcină.
+Este mai puțin, așa că mergem la stânga.
+
+53
+00:04:19,270 --> 00:04:23,383
+Și e mai mic decât ambele chei,
+Deci, dacă e în arbore, ar trebui să
+
+54
+00:04:23,383 --> 00:04:26,982
+fie în link-ul din stânga și este între cele
+două chei.
+
+55
+00:04:26,982 --> 00:04:31,540
+Deci, dacă e în arbore, ar trebui să
+fie pe link-ul din mijloc.
+
+56
+00:04:31,540 --> 00:04:34,922
+Și acel link este nul, astfel că este o căutare
+ratată.
+
+57
+00:04:34,922 --> 00:04:40,951
+Deci, căutarea este o generalizare naturală
+a căutării în, arbori binari de căutare.
+
+58
+00:04:41,172 --> 00:04:46,675
+Acum cum e cu introducerea?
+Ei bine, e un tip similar de strategie ca și
+
+59
+00:04:46,675 --> 00:04:53,502
+cu arbori regulați de căutare binară, cu excepția
+că noi manipulăm al doilea și al 3-lea nod pentru a
+
+60
+00:04:53,502 --> 00:04:58,964
+menține echilibrul perfect în arbore.
+Deci, cazul ușor este dacă cheia se răsucește într-un
+
+61
+00:04:58,964 --> 00:05:04,930
+2-nod din partea de jos, ca acesta.
+Să presupunem că noi inserăm K. K este mai mic decât
+
+62
+00:05:04,930 --> 00:05:09,762
+M așa că mergem la stânga. 
+K este mai mare decât ambele chei, așa că mergem la
+
+63
+00:05:09,762 --> 00:05:14,030
+dreapta.
+K este mai mic de L, deci căutarea se termină la
+
+64
+00:05:14,030 --> 00:05:19,219
+link-ul din stânga lui L.
+Și pentru a efectua o inserție tot ce avem nevoie să
+
+65
+00:05:19,219 --> 00:05:23,990
+facem este înlocuim acel 2-nod cu un 3-nod
+conținând K.
+
+66
+00:05:23,990 --> 00:05:28,676
+Acum, K este inserat în 2-3 arbore și 
+satisface toate regulile.
+
+67
+00:05:28,886 --> 00:05:34,553
+Acum, dacă inserăm într-un 3-nod în
+partea de jos, trebuie să facem mai multă muncă.
+
+68
+00:05:34,553 --> 00:05:40,149
+Și, în special, munca pe care o facem este să
+adăugăm cheia la un 3-nod pentru a crea un
+
+69
+00:05:40,149 --> 00:05:45,955
+4-nod temporar și apoi despărțim acel
+4-nod și mutăm cheia lui de mijloc în
+
+70
+00:05:45,955 --> 00:05:48,403
+părinte. 
+Deci, haideți să vedem un exemplu.
+
+71
+00:05:48,613 --> 00:05:54,000
+Dacă vom introduce Z în acest
+arbore, este mai mare decât N, deci mergem la
+
+72
+00:05:54,000 --> 00:05:59,770
+dreapta. Este mai mare decât R, așa că mergem la 
+dreapta. Și acum e mai mare decât x,
+
+73
+00:05:59,770 --> 00:06:05,779
+și acela este un link nul la dreapta lui x,
+astfel căutarea se termină acolo, ceea ce 
+
+74
+00:06:05,779 --> 00:06:11,935
+vrem noi să facem este să introducem Z în acel 3-nod. 
+Modul în care facem asta este să facem mai întâi un
+
+75
+00:06:11,935 --> 00:06:15,820
+4-nod temporar care inlocuieşte acel
+3-nod.
+
+76
+00:06:15,820 --> 00:06:23,339
+Și atunci ăsta nu e un arbore 2-3 deoarece
+a luat acel 4-nod cu trei chei și
+
+77
+00:06:23,339 --> 00:06:27,705
+patru link-uri.
+Dar ce putem face este să împărțim acel 4-nod
+
+78
+00:06:27,705 --> 00:06:34,436
+și să trecem cheia de mijloc sus la părinte.
+Deci, împărțim în două 2-nod și trecem
+
+79
+00:06:34,436 --> 00:06:40,502
+cheia de mijloc la parinte.
+Asta-i un fel de operație magică și
+
+80
+00:06:40,502 --> 00:06:45,407
+credeți-mă, e mai ușor să se realizeze în
+implementare decât în grafice.
+
+81
+00:06:45,407 --> 00:06:50,834
+Dar acum se poate vedea că, acea locală
+transformare pe 2-3 arbore  completează
+
+82
+00:06:50,834 --> 00:06:54,366
+inserarea.
+Acum, în cazul în care părinte a fost un 3-nod,
+
+83
+00:06:54,366 --> 00:06:59,924
+ar deveni un 4-nod temporar și ar 
+continua procesul de deplasare în sus pe arbore.
+
+84
+00:07:00,120 --> 00:07:03,913
+Acesta este un demo de căutare și inserare într-un 
+2-3 arbore.
+
+85
+00:07:03,913 --> 00:07:06,660
+Deci, să ne uităm la o divizare dublă ca
+aceea.
+
+86
+00:07:06,660 --> 00:07:10,039
+Să spunem că  inserăm L, în acest
+arbore.
+
+87
+00:07:10,039 --> 00:07:16,296
+Se duce în jos la mijloc, și se răsucește
+având nevoie ca să fie introdus în 3-nod
+
+88
+00:07:16,296 --> 00:07:20,035
+în mijloc. 
+Deci, vom transforma asta într-un
+
+89
+00:07:20,394 --> 00:07:23,271
+4-nod.
+Acum, L este cheia de mijloc a aceluia.
+
+90
+00:07:23,271 --> 00:07:29,240
+Deci, vom împărți acel 4-nod în, 
+două 2-noduri și mutăm L la părinte.
+
+91
+00:07:30,140 --> 00:07:36,603
+4-noduri aveau patru linkuri, iar cele două
+2-noduri aveau patru lungimi, așa că nimic nu 
+
+92
+00:07:36,603 --> 00:07:41,506
+trebuie schimbat mai jos.
+Și apoi această inserție în părinte
+
+93
+00:07:41,506 --> 00:07:47,510
+a schimbat dintr-un doi, un 3 nod într-un
+4-nod adăugând, în esență, o lungime din cauza
+
+94
+00:07:47,510 --> 00:07:52,666
+împărțirii cu două 2-noduri în cazul în care acolo
+a fost doar un 3-nod înainte.
+
+95
+00:07:52,666 --> 00:07:56,726
+Dar acum, că nu este un arbore 2-3, așa că avem
+de împărțit din nou.
+
+96
+00:07:56,726 --> 00:08:02,269
+Și în acest caz nu există nici un părinte, așa că
+creăm unul nou iar înălțimea
+
+97
+00:08:02,269 --> 00:08:06,717
+ arborelui crește cu unu.
+Asta e singura dată când înălțimea unui 2-3
+
+98
+00:08:06,717 --> 00:08:12,418
+arbore se modifică, atunci când rădăcinile se separă
+înălțimea introdusă crește cu unu.
+
+99
+00:08:12,420 --> 00:08:18,477
+Deci, ăsta e un demo a inserției într-un
+3-nod în partea inferioară, într-un arbore 2-3 care
+
+100
+00:08:18,477 --> 00:08:24,336
+se infiltrează până la capăt în partea de sus.
+Acum să ne uităm la construirea unui arbore 2-3
+
+101
+00:08:24,336 --> 00:08:29,569
+de la un arbore inițial gol.
+Asadar, dacă începem doar cu inserarea unei chei,
+
+102
+00:08:29,569 --> 00:08:35,170
+acest lucru creează doar un nod-2 
+care conține cheia, un arbore 2-3
+
+103
+00:08:35,170 --> 00:08:39,076
+legal, așa că e bine. 
+Acum, inserarea E, ei bine,
+
+104
+00:08:39,076 --> 00:08:46,003
+se duce la B dacă e în arborele din stânga lui S. 
+Acesta e un link nul, deci avem nevoie să convertim
+
+105
+00:08:46,003 --> 00:08:50,693
+acel 2-nod într-un 3-nod. 
+Bine? Și ăsta e arborele 2-3 legal.
+
+106
+00:08:50,693 --> 00:08:56,239
+Ne oprim asadar din introducerea lui A în acela. 
+Am convertit acel 3-nod într-un 
+
+107
+00:08:56,586 --> 00:09:01,993
+4-nod temporar, dar pr care trebuie să-l împărțim mutând E la părinte 
+
+108
+00:09:01,993 --> 00:09:07,817
+creând un nou nod rădăcină și crescând
+dimensiunea arborelui cu unu. Dar acum ăsta e un
+
+109
+00:09:07,817 --> 00:09:12,960
+legal 2-3 arbore așa că ne oprim.
+Inserați R în acela, merge la dreapta
+
+110
+00:09:12,960 --> 00:09:15,215
+lui E. 
+Transformați într-un 3-nod,
+
+111
+00:09:15,215 --> 00:09:21,562
+Acum, introduceți C. Se duce la
+stânga lui E, trebuie să fie unit cu A într-un
+
+112
+00:09:21,562 --> 00:09:25,571
+nou 3-nod.
+Din nou, acesta e un 2-3 arbore legal si 
+
+113
+00:09:25,571 --> 00:09:28,327
+ne oprim.
+Acum inserăm H, acest tip merge la
+
+114
+00:09:28,327 --> 00:09:33,254
+dreapta lui E.
+Acest 3-nod se transformă într-un 4-nod.
+
+115
+00:09:33,254 --> 00:09:38,600
+Acesta este un 4-nod temporar și despărțim și
+mutăm R la părinte,
+
+116
+00:09:39,384 --> 00:09:44,363
+Acum, acest părinte este legal și nu există
+nimic mai mult de făcut.
+
+117
+00:09:44,363 --> 00:09:48,514
+Avem un trei arbore legal,
+2-3 arbore. Inserăm X,
+
+118
+00:09:48,788 --> 00:09:52,173
+Este mai mare decât R, 
+Merge la dreapta.
+
+119
+00:09:52,447 --> 00:09:58,120
+Acolo e un 2-nod, e loc pentru X.
+Inserăm P,
+
+120
+00:09:58,340 --> 00:10:02,381
+Acesta merge între E și R.
+2-nod care conține H,
+
+121
+00:10:02,601 --> 00:10:07,377
+Link-ul din dreapta este nul, 
+Așa că am convertit acel 2-nod într-un 3-nod
+
+122
+00:10:07,377 --> 00:10:12,741
+și acum avem un 2-3 arbore legal.
+Acum, voi, puteți vedea această următoare inserție
+
+123
+00:10:12,741 --> 00:10:16,047
+va provoca unele divizări ori de câte ori
+ este.
+
+124
+00:10:16,268 --> 00:10:19,060
+Deci inserăm L,
+Asta e între E și R.
+
+125
+00:10:19,060 --> 00:10:25,231
+Deci, merge în, 3-nod care conține H și
+P și convertim aceea într-un temporar
+
+126
+00:10:25,599 --> 00:10:29,420
+4-nod.
+Împărțim acel 4-nod, mutăm L la părinte.
+
+127
+00:10:29,420 --> 00:10:33,348
+Acum, acei părinți ai lui 4-nod și care trebuie să
+fie împărțiți,
+
+128
+00:10:33,567 --> 00:10:38,951
+Și creăm un nou nod rădăcină.
+Și apoi înălțimea arborelui creste cu
+
+129
+00:10:38,951 --> 00:10:42,079
+unu,
+E un 2-3 arbore legal, așa că ne oprim.
+
+130
+00:10:42,079 --> 00:10:47,536
+Aceste transformări locale,
+convertirea unui 2-nod la un 3-nod sau
+
+131
+00:10:47,536 --> 00:10:52,629
+convertirea unui 3 la 4, și apoi
+divizarea și trecerea unui nod în sus.
+
+132
+00:10:52,629 --> 00:10:58,813
+Acestea sunt doar operațiile pe care trebuie să le luăm
+în considerare pentru a obține echilibru în 
+
+133
+00:10:58,813 --> 00:10:59,900
+arborele nostru de cautare.
+În regulă.
+
+134
+00:10:59,900 --> 00:11:06,326
+Așa cum am menționat și această diagramă 
+arată, divizarea a 4-nod și un 2-3
+
+135
+00:11:06,326 --> 00:11:11,857
+arbore este o transformare locală.
+Aceasta doar implică schimbarea a unui 
+
+136
+00:11:11,857 --> 00:11:16,169
+număr constant de link-uri.
+Deci, în acest exemplu, se prezintă situația
+
+137
+00:11:16,169 --> 00:11:21,212
+generală, atunci când 4-nod care trebuie să fie împărțit este
+lungimea de mijloc,
+
+138
+00:11:21,212 --> 00:11:24,872
+Dar același lucru este valabil în cazul în care este la stânga sau la dreapta.
+
+139
+00:11:24,872 --> 00:11:28,394
+Și acei șase subarbori desenați ar putea fi
+uriași.
+
+140
+00:11:28,394 --> 00:11:33,904
+Ei ar putea conține milioane de chei,
+Dar nu contează ceea ce conțin.
+
+141
+00:11:33,904 --> 00:11:38,833
+Noi nu îi atingem deloc,
+Nici nu ne-am atinge de ceva mai sus de acest nod
+
+142
+00:11:38,833 --> 00:11:44,415
+în arbore, până când are loc divizarea.
+Deci, transformarea aceea desparte acel b,
+
+143
+00:11:44,415 --> 00:11:50,096
+c, d, nod și introduce C în 
+3-nod la rădăcină, doar implică, ceea ce face
+
+144
+00:11:50,096 --> 00:11:56,795
+acel 3-nod într-un 4-nod temporar. 
+Și face acel, 4-nod în două 2-nod-uri
+
+145
+00:11:56,795 --> 00:12:02,758
+și ajustează lungimile corespunzător.
+Doar un număr constant de operații și
+
+146
+00:12:02,758 --> 00:12:09,813
+de aceea, această operație, este, în
+general, eficientă. Să ne uităm doar la
+
+147
+00:12:10,164 --> 00:12:17,640
+proprietățile la nivel global pe care aceste
+manipulări le menține.
+
+148
+00:12:17,872 --> 00:12:24,707
+Cele două lucruri care sunt critice este că
+, într-un, într-un arbore 2-3, avem mereu
+
+149
+00:12:24,707 --> 00:12:28,839
+ordine simetrică.
+Acesta este cuvântul cu care am definit, pentru
+
+150
+00:12:29,085 --> 00:12:32,652
+2-noduri și 3-noduri, și avem, de asemenea, 
+balans perfect.
+
+151
+00:12:32,652 --> 00:12:36,341
+Distanța de la rădăcină la partea de jos
+este mereu aceeași.
+
+152
+00:12:36,341 --> 00:12:40,891
+Și pentru a dovedi asta, avem nevoie doar să arătăm 
+că fiecare transformare menține
+
+153
+00:12:40,891 --> 00:12:45,994
+Ordine simetrică și balans perfect, și
+acestea sunt toate posibilele transformări
+
+154
+00:12:45,994 --> 00:12:49,868
+pe care le-am putea face.
+Dacă despărțim rădăcina, atunci, asta e,
+
+155
+00:12:49,868 --> 00:12:54,849
+ceea ce se întâmplă la rădăcină, iar în cazul în care nu a existat
+balans perfect înainte, acolo e perfect
+
+156
+00:12:54,849 --> 00:12:59,611
+balans după, cu înălțimea cu unul mai mare. 
+În cazul în care părintele a fost un 2-nod, atunci
+
+157
+00:12:59,611 --> 00:13:04,717
+transformarea este o transformare locală
+și dacă vă uitați la unde sunt link-urile,
+
+158
+00:13:04,717 --> 00:13:09,886
+atunci este ușor a vedea de inductie, care, dacă
+a existat balans perfect înainte există
+
+159
+00:13:09,886 --> 00:13:13,996
+balans perfect după aceea, 
+Pentru că nu am schimbat nimic din
+
+160
+00:13:13,996 --> 00:13:16,923
+echilibrul perfect în oricare din acei
+subarbori.
+
+161
+00:13:16,923 --> 00:13:21,344
+Și asta e adevărat, în fiecare caz. 
+Dacă 3-nod-urile la dreapta și acesta
+
+162
+00:13:21,344 --> 00:13:25,391
+este cu unul mai mare și acei patru sunt cu unul mai mic
+și după aceea e la fel.
+
+163
+00:13:25,391 --> 00:13:29,813
+Dacă a existat balans perfect înainte 
+există balans perfect după aceea,
+
+164
+00:13:29,813 --> 00:13:32,907
+pentru că nu am modificat înălțimea vreunor noduri.
+
+165
+00:13:32,907 --> 00:13:35,982
+Tocmai doar am mutat lucrurile la nivel local în 
+noduri.
+
+166
+00:13:36,174 --> 00:13:40,658
+Și acest lucru este atunci când acest părinte este un 3-nod,
+apoi există cazuri arbore,
+
+167
+00:13:40,658 --> 00:13:44,950
+Dacă am despărțit ultima divizarea la
+de mijloc și am despărțit la dreapta,
+
+168
+00:13:44,950 --> 00:13:49,452
+Și din nou, schimbând 4-nod la, la un
+2-nod și adăugând link-uri.
+
+169
+00:13:49,637 --> 00:13:54,387
+Dacă a existat balans perfect înainte,
+există balans perfect după, pentru că noi
+
+170
+00:13:54,387 --> 00:13:57,780
+nu am schimbat înălțimile a orice altceva
+în arbore.
+
+171
+00:13:58,027 --> 00:14:04,870
+Deci, operațiile noastre mențin ordinea simetrică 
+și balansul perfect într-un 2-3 arbore.
+
+172
+00:14:05,092 --> 00:14:10,592
+Deci, asta ne va da, un foarte ușor
+mod de a descrie o performanță.
+
+173
+00:14:10,815 --> 00:14:17,280
+Apelul, sau operațiile au costuri care e
+proporțional cu calea link -ului de la,
+
+174
+00:14:17,503 --> 00:14:23,003
+înălțime la partea de jos, și fiecare cale de 
+rădăcină la un link nul are aceeași
+
+175
+00:14:23,003 --> 00:14:25,827
+lungime.
+Cât de lungi pot fi acele căi?
+
+176
+00:14:25,827 --> 00:14:31,846
+Ei bine, nu este greu să vedem că, în 
+cel mai rău caz, dacă toate sunt de 2 noduri,
+
+177
+00:14:31,846 --> 00:14:35,860
+ele pot fi, cel mai lung, log baza
+doi de N.
+
+178
+00:14:35,860 --> 00:14:41,748
+Acum, și în cazul în care sunt toate 3-noduri, ar fi 
+fi log bază trei de N, care este mai puțin,
+
+179
+00:14:41,748 --> 00:14:47,567
+Este în jur de 0,63 log bază doi de N.
+Deci, toate căile într-un 2-3 arbore cu N
+
+180
+00:14:47,567 --> 00:14:53,035
+noduri trebuie să aibă o lungime între acele
+două limite și acelea sunt numere destul 
+
+181
+00:14:53,035 --> 00:14:56,813
+de mici.
+Pentru un milion de noduri, care e între doisprezece
+
+182
+00:14:56,813 --> 00:15:00,396
+și douăzeci. 
+Și, dacă, în cazul în care este de un miliard de noduri, asta e
+
+183
+00:15:00,396 --> 00:15:04,952
+între optsprezece și 30. 
+Acestea sunt numere remarcabil mici, astfel
+
+184
+00:15:04,952 --> 00:15:09,649
+vom avea garantat 
+performanță, chiar și pentru baze de date imense,
+
+185
+00:15:10,029 --> 00:15:14,561
+Vom fi în măsură să garantăm că
+putem obține căutare și inserare cu
+
+186
+00:15:14,561 --> 00:15:17,960
+doar de la optsprezece la 30 de operații și este
+destul de remarcabil, într-adevăr.
+
+187
+00:15:18,220 --> 00:15:24,686
+Deci, aici e ceea ce tabelul nostru, va arăta,
+atunci când terminăm implementarea a 2-3
+
+188
+00:15:24,686 --> 00:15:27,956
+arbori.
+Fiecare operație este garantată să fie un
+
+189
+00:15:27,956 --> 00:15:31,524
+timp constant log n.
+Acum, constanta depinde de
+
+190
+00:15:31,895 --> 00:15:37,693
+implementare, exact de ce fel de
+manipulări avem nevoie pentru a face, pentru a converti,
+
+191
+00:15:38,362 --> 00:15:44,327
+3-noduri la 4-noduri și așa mai departe.
+Dar este, ușor de văzut de la demo și de la
+
+192
+00:15:44,327 --> 00:15:48,869
+diagrame că acelea au de gând să fie
+constante, garantat performanță 
+
+193
+00:15:48,869 --> 00:15:54,483
+logaritmică pentru toate operațiile, care este
+cu siguranță ceea ce ne dorim într-o implementare tabel simbol.
+
+194
+00:15:54,483 --> 00:15:57,394
+Acum, ce-i cu
+implementarea?
+
+195
+00:15:57,394 --> 00:16:02,076
+Ei bine, nu o să vorbim de fapt 
+despre o implementare directă de 2-3
+
+196
+00:16:02,076 --> 00:16:07,354
+arbori, pentru că este într-un fel complicat.
+Este dificil să se mențină multiple tipuri
+
+197
+00:16:07,354 --> 00:16:10,580
+de noduri.
+Ați putea avea nevoie de multiple comparări 
+
+198
+00:16:10,580 --> 00:16:14,814
+pentru a muta în jos arborele.
+Dacă există un 2, 3-nod, este nevoie de mai multe
+
+199
+00:16:14,814 --> 00:16:18,578
+comparări decât la un 2-nod,
+Deci, este complicat să analizăm.
+
+200
+00:16:18,780 --> 00:16:23,821
+Trebuie să ținem calea, ținem evidența
+link-urilor cum vom merge în susul și în josul arborelui
+
+201
+00:16:23,821 --> 00:16:28,189
+să luam, să ne ocupăm de divizare,
+Și există, și există o mulțime de cazuri.
+
+202
+00:16:28,391 --> 00:16:34,070
+Am desenat toate cazurile și, și, acolo e un,
+dacă divizați în mijlocul
+
+203
+00:16:34,070 --> 00:16:37,881
+unui 4-nod sau la dreapta unui 2-nod.
+Acolo sunt doar o mulțime de cazuri.
+
+204
+00:16:37,881 --> 00:16:42,690
+Deci, ați putea-o face, dar noi nu avem de gând
+pentru că există o cale mult mai ușoară.
+
+205
+00:16:42,690 --> 00:16:48,370
+Deci, asta e 2-3 arbori, 
+A, un model de implementare a arbori echilibrați
+
+206
+00:16:48,370 --> 00:16:50,960
+în timp logaritmic garantat.

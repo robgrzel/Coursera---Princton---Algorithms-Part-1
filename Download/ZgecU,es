@@ -1,0 +1,348 @@
+1
+00:00:02,022 --> 00:00:08,015
+¡Muy bien! Así que QuickFind es demasiado lento para
+problemas grandes. Entonces, ¿cómo vamos a hacerlo
+
+2
+00:00:08,015 --> 00:00:14,035
+mejor? Nuestro primer intento es una
+alternativa llamada, Quick-union. Este es
+
+3
+00:00:14,035 --> 00:00:20,082
+el llamado enfoque perezoso al diseño de
+algoritmos donde intentamos evitar hacer el trabajo
+
+4
+00:00:20,082 --> 00:00:27,506
+hasta que tengamos que hacerlo. Usa la misma
+estructura de datos o array ID de tamaño M pero ahora
+
+5
+00:00:27,506 --> 00:00:34,280
+tiene una interpretación distinta. Vamos a
+pensar en el array como una
+
+6
+00:00:34,280 --> 00:00:41,298
+representación de un conjunto de árboles llamados
+un bosque como se muestra a la derecha. Así que cada
+
+7
+00:00:41,298 --> 00:00:49,468
+entrada en el array va a contener una
+referencia a su padre en el árbol. Así,
+
+8
+00:00:49,468 --> 00:00:57,425
+por ejemplo, el padre de 3 es cuatro, el padre
+de 4 es 9. Entonces la entrada de 3 es cuatro y
+
+9
+00:00:57,425 --> 00:01:06,681
+la entrada de 4 es nueve en el array. Ahora cada
+entrada en el array tiene asociada a ella
+
+10
+00:01:06,681 --> 00:01:13,179
+una raíz. Esa es la raíz de su árbol.
+Los elementos que están por sí mismos en
+
+11
+00:01:13,179 --> 00:01:19,303
+sólo sy propio componente conectado,
+apuntan a sí mismos, así que "uno" apunta a
+
+12
+00:01:19,303 --> 00:01:26,108
+sí mismo pero "nueve" también apunta a sí mismo.
+Es la raíz del árbol, que contiene "dos",
+
+13
+00:01:26,108 --> 00:01:32,419
+"cuatro" y "tres". Así que, desde esta estructura
+de datos podemos asociar con cada ítem
+
+14
+00:01:32,419 --> 00:01:40,202
+una raíz, que es representativa, digamos, de
+su componente conectado. Así pues la
+
+15
+00:01:40,202 --> 00:01:47,044
+raíz de "tres" es "nueve", subiendo a esa raíz.
+Ahora, una vez podemos calcular esas raíces,
+
+16
+00:01:47,044 --> 00:01:52,956
+entonces podemos implementar la operación de
+encontrar simplemente comprobando si los dos ítems
+
+17
+00:01:52,956 --> 00:01:57,592
+con los que se supone tenemos que comprobar
+son conectivos donde tienen la misma raíz.
+
+18
+00:01:57,592 --> 00:02:02,373
+Eso es equivalente a decir, ¿están en
+el mismo componente conectivo? Eso es
+
+19
+00:02:02,373 --> 00:02:09,240
+algo de trabajo, encontrar las raíces de cada
+ítem pero la operación de unión es muy fácil.
+
+20
+00:02:09,240 --> 00:02:15,254
+Para combinar componentes que contengan
+dos ítems diferentes. Dos ítems que están en
+
+21
+00:02:15,254 --> 00:02:21,613
+diferentes componentes. Todo lo que hacemos es
+fijar el ID de la ruta de P al ID de la ruta de Q.
+
+22
+00:02:21,613 --> 00:02:28,748
+Vamos a hacer que el árbol de P apunte a Q. En este
+caso, cambiaríamos la entrada de "nueve" a
+
+23
+00:02:28,748 --> 00:02:35,027
+"seis" para combinar "tres" y "cinco". Los
+componentes que contiene "tres" y "cinco". Y
+
+24
+00:02:35,027 --> 00:02:41,317
+con sólo cambiar un valor en el array conseguimos
+que los dos componentes grandes emerjan
+
+25
+00:02:41,317 --> 00:02:46,295
+juntos. Ese es el algoritmo Quick-union.
+Porque una operación de unión sólo
+
+26
+00:02:46,295 --> 00:02:52,429
+implica cambiar una entrada en el array.
+La operación de encontrar requiere un poco más de
+
+27
+00:02:52,429 --> 00:02:57,907
+trabajo. Vamos a ver la implementación,
+una demo de esa en funcionamiento primero.
+
+28
+00:02:57,907 --> 00:03:03,569
+De nuevo empezamos de la misma forma pero ahora
+la idea de entrada de array significa en realidad que
+
+29
+00:03:03,569 --> 00:03:09,415
+cada una de estas cosas es un pequeño árbol
+donde el nodo "uno" de cada uno de ellos apunta
+
+30
+00:03:09,415 --> 00:03:15,284
+a sí mismo. Es la raíz de su propio árbol
+así que ahora si tenemos que poner cuatro y tres en
+
+31
+00:03:15,284 --> 00:03:21,236
+el mismo componente, entonces todo lo que hacemos
+es tomar la raíz del componente que contiene
+
+32
+00:03:21,236 --> 00:03:26,624
+el primer ítem y hacerlo hijo de la
+raíz del componente
+
+33
+00:03:26,624 --> 00:03:33,029
+que contiene el segundo ítem. En este caso
+simplemente hacemos a cuatro padre de tres. Ahora
+
+34
+00:03:33,259 --> 00:03:39,823
+tres y ocho. Así que de nuevo, tomamos el
+primer ítem y lo hacemos hijo de la raíz
+
+35
+00:03:39,823 --> 00:03:47,532
+del árbol que contiene el segundo ítem. Así
+ahora tres, cuatro, y ocho están en el mismo
+
+36
+00:03:47,532 --> 00:03:56,434
+componente. Seis y cinco, seis va debajo de
+cinco. Nueve y cuatro, ahora cuatro es la
+
+37
+00:03:56,434 --> 00:04:06,045
+raíz del árbol que contiene cuatro es ocho.
+Y la raíz del árbol que contiene nueve es
+
+38
+00:04:06,045 --> 00:04:13,745
+nueve. Así que hacemos nueve un hijo de
+ocho. Dos y uno, ése es fácil.
+
+39
+00:04:14,007 --> 00:04:20,993
+Ahora si tomamos nuestro, nuestro ocho y nueve
+conectados, simplemente comprobamos que tienen
+
+40
+00:04:20,993 --> 00:04:28,011
+la misma raíz y ambos tienen la misma
+raíz ocho y por tanto están conectados. Cinco
+
+41
+00:04:28,011 --> 00:04:34,230
+y cuatro su raíz cuarta es 8. La raíz quinta es
+cinco. Son diferentes. No están
+
+42
+00:04:34,230 --> 00:04:42,339
+conectados. Cinco y cero. Cinco va a ser
+un hijo de cero. Siete y dos siete va
+
+43
+00:04:42,339 --> 00:04:52,836
+a ser un hijo de la raíz de dos que es uno.
+
+44
+00:04:52,836 --> 00:05:00,636
+ruta, por eso cero se convierte en hijo de uno.
+Cada una de estas operaciones de unión sólo
+
+45
+00:05:00,636 --> 00:05:10,069
+afecta a cambios en una entrada del array.
+Y finalmente, siete y tres. Por eso la raíz de
+
+46
+00:05:10,069 --> 00:05:18,755
+siete es uno, la raíz de tres es ocho, uno
+se convierte en hijo de ocho. Bien y ahora tenemos
+
+47
+00:05:18,755 --> 00:05:26,012
+uno conectado con todos los elementos
+juntos. Muy bien, por eso ahora vamos a ver
+
+48
+00:05:26,012 --> 00:05:32,668
+el código para implementar Quick-union.
+El constructor es el mismo que en el
+
+49
+00:05:32,668 --> 00:05:40,967
+otro. Creamos el array y entonces colocamos
+cada elemento para que sea su propia raíz. Ahora tenemos un
+
+50
+00:05:40,967 --> 00:05:46,005
+método privato que implementa este
+proceso de encontrar la raíz siguiendo
+
+51
+00:05:46,005 --> 00:05:51,352
+los punteros padre hasta que llegamos al punto
+donde I es igual a ID o I, y si no es
+
+52
+00:05:51,352 --> 00:05:57,369
+igual, sólo movemos I un nivel por encima en
+el árbol, poner I igual a ID de I y devolverlo.
+
+53
+00:05:57,369 --> 00:06:02,005
+Por eso empezando en cualquier nodo, sólo 
+tienes que seguir ID igual a ID o I hasta que son
+
+54
+00:06:02,005 --> 00:06:07,396
+iguales y entonces estás en una raíz y es
+un método privado que podemos utilizar para
+
+55
+00:06:07,396 --> 00:06:11,959
+implementar la operación de localizar o la 
+operación de conectar. Sólo encuentras la
+
+56
+00:06:11,959 --> 00:06:17,316
+raíz de P y la raíz de Q y si
+compruebas si son iguales. Y entonces la operación
+
+57
+00:06:17,316 --> 00:06:23,342
+de unión es simplemente encontrar las dos raíces I
+y entonces fijar la idea de que el primero podría
+
+58
+00:06:23,342 --> 00:06:30,310
+ser el el segundo. En realidad, menos código que 
+para Quick Find, no más bucles. Hay
+
+59
+00:06:30,310 --> 00:06:37,139
+un bucle del que tenemos que preocuparnos
+un poco. Pero es una rápida y
+
+60
+00:06:37,139 --> 00:06:43,326
+elegante implementación de código para resolver
+el problema de conectividad dinámica llamado
+
+61
+00:06:43,326 --> 00:06:50,318
+Quick-union. Por eso ahora vamos a tener que
+ver si ¿es efectivo este código para
+
+62
+00:06:50,582 --> 00:06:57,657
+problemas grandes? Bueno desafortunadamente
+la Quick-union es más rápida, pero es también demasiado
+
+63
+00:06:57,657 --> 00:07:04,042
+lenta. Y es una forma un poco diferente de
+ser demasiado lenta entonces para Quick Find, hay
+
+64
+00:07:04,042 --> 00:07:10,005
+veces en las que puede ser rápida, pero también
+hay veces en las que puede ser demasiado lenta. Y
+
+65
+00:07:10,005 --> 00:07:16,256
+el defecto para Quick-union es que los
+árboles pueden llegar a ser demasiado altos. Lo que significaría
+
+66
+00:07:16,256 --> 00:07:22,065
+que la operación de localización sería demasiado
+cara. Podrías terminar con un largo
+
+67
+00:07:22,065 --> 00:07:28,432
+y delgado árbol. De cada objeto que apunta sólo
+al siguiente y entonces para hacer una operación de localización
+
+68
+00:07:28,432 --> 00:07:33,976
+para los objetos al fondo prodría significar
+recorrer todo el camino a lo largo del árbol
+
+69
+00:07:34,183 --> 00:07:40,184
+Costos involucrados en los ejes del rayo sólo
+para ejecutar la operación de búsqueda y esta
+estaría
+
+70
+00:07:40,184 --> 00:07:44,013
+sería demasiado lento si se tienen muchas operaciones.

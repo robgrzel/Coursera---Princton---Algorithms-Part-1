@@ -1,0 +1,264 @@
+1
+00:00:00,082 --> 00:00:07,017
+Ahora veamos a un cliente de diccionario,
+otra aplicación muy útil y común 
+
+2
+00:00:07,017 --> 00:00:13,336
+ tablas de símbolo. En este caso, vamps
+a escribir un cliente llamado Lookup CSV
+
+3
+00:00:13,549 --> 00:00:19,166
+que va tomar tres
+argumentos. El primero será el nombre de un archivo
+
+4
+00:00:19,166 --> 00:00:24,924
+uno de los archivos de valores separados por coma.
+y los siguientes 2 argumentos son enteros
+
+5
+00:00:24,924 --> 00:00:32,660
+los cuales nos indican como que tomar como llaves
+y valores en el archivo. En este ejemplo el
+
+6
+00:00:32,660 --> 00:00:39,055
+archivo CSV relaciona URL a direcciones IP; de 
+modo que cada línea tiene un URL y una dirección IP y están
+
+7
+00:00:39,055 --> 00:00:45,089
+separadas por comas; y en general, un archivo CSV
+puede tener muchos campos separados por
+
+8
+00:00:45,089 --> 00:00:50,838
+comas. Los numeramos cero,
+uno, etc. empezando desde la izquierda.
+
+9
+00:00:50,838 --> 00:00:57,157
+Así que lo que vamos a hacer con este cliente
+es especificar con enteros cual
+
+10
+00:00:57,157 --> 00:01:03,778
+campo es la llave y cual es el valor.
+Si llamamos este cliente con el segundo
+
+11
+00:01:03,778 --> 00:01:09,849
+argumento cero y un tercer argumento uno, 
+quiere decir que que queremos usar el campo URL cero en
+
+12
+00:01:09,849 --> 00:01:15,854
+el archivo CSV como la llave, y usar la dirección IP
+que es el campo uno en el CSV como 
+
+13
+00:01:15,854 --> 00:01:21,633
+el valor, querrás asociar llaves con
+valores, para que el cliente pueda construir una tabla
+
+14
+00:01:21,633 --> 00:01:27,602
+de símbolo que nos haga asociaciones para cada
+línea en el archivo, y este puede ser un archivo enorme.
+
+15
+00:01:27,602 --> 00:01:34,836
+Entonces, si queremos ver la dirección 
+IP asociada con un URL dado, 
+
+16
+00:01:34,836 --> 00:01:41,698
+podemos escribir la URL y el cliente 
+devolverá la dirección IP, ejecutará la búsqueda
+
+17
+00:01:41,698 --> 00:01:48,539
+De esta manera, Adobe.com ha obtenido la dirección
+IP que se muestra en esta línea aquí en la
+
+18
+00:01:48,539 --> 00:01:55,145
+tabla, etc. Princeton.edu tiene
+esta direción IP y ebay.edu no está en el archivo.
+
+19
+00:01:55,145 --> 00:02:00,898
+Ahora, por otro lado, podemos desde 
+el mismo archivo, podemos construir una
+
+20
+00:02:00,898 --> 00:02:07,277
+tabla de símbolos donde tratemos la dirección IP
+como la llave y el URL como el valor.
+
+21
+00:02:07,277 --> 00:02:13,180
+En ese caso, construirá una tabla
+de símbolos con direcciones IP como llaves y podremos
+
+22
+00:02:13,180 --> 00:02:19,223
+escribir una dirección IP y obtener 
+el URL asociado. Así que con un cliente, podemos
+
+23
+00:02:19,223 --> 00:02:27,473
+manejar búsquedas de todo tipo en archivos CSV.
+Por ejemplo, aquí esta otro archivo CSV de
+
+24
+00:02:27,473 --> 00:02:36,056
+Biología que trata con aminoácidos
+y codones y nombres, en este caso,
+
+25
+00:02:36,056 --> 00:02:44,332
+el primer campo son tres letras de la
+secuencia de DNA, la cual representa un codón
+
+26
+00:02:44,332 --> 00:02:51,926
+y ciertos codones tienen nombre, esos son
+los aminoácidos. De esa forma TCC es llamado serina y
+
+27
+00:02:51,926 --> 00:03:01,152
+etc. Esa es una asociación que es
+bien conocida por un biólogo y la puedes
+
+28
+00:03:01,152 --> 00:03:08,259
+usar esto como llave en el cliente CSV para rápidamente
+obtener el nombre asociado a un codón dado.
+
+29
+00:03:08,493 --> 00:03:14,773
+Ese fue otro ejemplo simple. Esto
+es una herramienta muy general. Cualquier archivo CSV
+
+30
+00:03:14,773 --> 00:03:21,389
+puede escoger cualquier campo como la llave y
+cualquier otro como el valor.  Aquí tenemos 
+
+31
+00:03:21,389 --> 00:03:28,091
+otro ejemplo en donde podemos aplicarlo.
+La lista de una clase, la cual tiene el año en que
+
+32
+00:03:28,091 --> 00:03:36,046
+la persona se graduó, el apellido, nombre, nombre del grado
+y usuario, de modo que en 
+
+33
+00:03:36,046 --> 00:03:43,006
+la primera llamada, podemos usa el nombre 
+de usuario como la llave y el primer nombre como
+
+34
+00:03:43,006 --> 00:03:48,027
+el valor; así que si escribimos el nombre de usuario de alguien, 
+obtenemos el nombre y de nuevo,
+
+35
+00:03:48,027 --> 00:03:53,061
+con el mismo usuario del cliente como llave,
+obtenemos la sección como valor. Toda clase
+
+36
+00:03:53,061 --> 00:03:58,069
+de procesamiento de la información que podamos
+necesitar hacer para enormes cantidades de datos
+
+37
+00:03:58,069 --> 00:04:03,476
+representados en archivos de valores
+separados por comas, este cliente el cual está basado
+
+38
+00:04:03,476 --> 00:04:08,099
+en una tabla de símbolos proveerá ser
+útil. Y aquí está la 
+
+39
+00:04:08,099 --> 00:04:14,039
+implementación, es muy simple,
+dada la API de tabla de Simbolo que hemos
+
+40
+00:04:14,039 --> 00:04:20,062
+articulado y las implementaciones que 
+tenemos. Qué hacemos para implementar búsquedas
+
+41
+00:04:20,062 --> 00:04:27,069
+búsquedas en CSV? Bueno, lo primeto es 
+configurar un flujo que vaya en el primer
+
+42
+00:04:27,069 --> 00:04:33,675
+argumento, ese es nuestro archivo de entrada; 
+y después, obtener los números de los campos, 
+
+43
+00:04:33,675 --> 00:04:39,072
+la llave y el valor. Y ahora construimos una
+tabla simple que asocie cadenas con
+
+44
+00:04:39,072 --> 00:04:46,007
+cadenas. Entonces ahí hay un ciclo while
+donde mientras leamos una nueva línea, en esa línea leída
+
+45
+00:04:46,007 --> 00:04:51,675
+barre la línea y divide de acuerdo a 
+las comas en elementos en el arreglo, y
+
+46
+00:04:51,675 --> 00:04:57,549
+entonces, el índice del arreglo va a 
+construir los campos que vamos a usar
+
+47
+00:04:57,549 --> 00:05:03,496
+de manera que la llave es la cadena en el 
+campo de llave en el arreglo y el valor es la
+
+48
+00:05:03,496 --> 00:05:08,517
+cadena en el campo valor en el
+arreglo, y simplemente ponemos eso 
+
+49
+00:05:08,517 --> 00:05:14,362
+en la tabla de símbolo. Así, este ciclo solo construye
+la tabla de símbolos desde el archivo. Entonces desde
+
+50
+00:05:14,362 --> 00:05:20,108
+la entrada estándar, tomamos las consultas, solo leemos
+una cadena, verificamos si la tabla de símbolos
+
+51
+00:05:20,108 --> 00:05:26,177
+contiene la cadena, si no, imprimimos
+no encontrada, y si lo hace, imprimimos el valor
+
+52
+00:05:26,177 --> 00:05:31,091
+asociado con la llave. De modo que es muy 
+poco el código basado en la implementación de
+
+53
+00:05:31,091 --> 00:05:40,034
+ una tabla de símbolos lo que nos da
+la funcionalidad de un diccionario.

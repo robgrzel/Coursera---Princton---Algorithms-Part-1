@@ -1,0 +1,459 @@
+1
+00:00:01,087 --> 00:00:07,024
+De hecho el orden de crecimiento en las clasificaciones son tan importantes que han
+
+2
+00:00:07,024 --> 00:00:13,038
+llevado a enormes cantidades de investigación en años recientes y hablaremos brevemente de
+
+3
+00:00:13,038 --> 00:00:19,692
+eso ahora. Entonces, la vida es un poco más complicada que lo señalado en
+
+4
+00:00:19,692 --> 00:00:25,747
+el último ejemplo y un problema es que los "inputs" (las entradas) pueden hacer que la performance (el desempeño) del
+
+5
+00:00:25,747 --> 00:00:31,076
+algoritmo varíe ampliamente. Entonces a menudo tenemos que pensar acerca de diferentes maneras de
+
+6
+00:00:31,076 --> 00:00:37,001
+analizar el algoritmo dependiendo del "input". Entonces, el tiempo de proceso va a estar
+
+7
+00:00:37,001 --> 00:00:42,014
+en algún lugar entre el mejor caso y el peor caso. El mejor caso es el límite inferior
+
+8
+00:00:42,014 --> 00:00:48,008
+en cuanto a costo. Asegura que el tiempo de proceso va a ser siempre
+
+9
+00:00:48,008 --> 00:00:53,368
+mayor que eso, o no menor que eso, y luego está el peor caso que es el de más
+
+10
+00:00:53,368 --> 00:00:58,562
+difícil "input". Si analizamos que entonces podemos garantizar que el tiempo de proceso en
+
+11
+00:00:58,562 --> 00:01:04,327
+el algoritmo no será mayor que ese. Y luego en un montón de situaciones
+
+12
+00:01:04,327 --> 00:01:11,078
+podríamos considerar que nuestro "input" sea aleatorio. Bien, vamos a necesitar de algún modo modelar lo que
+
+13
+00:01:11,078 --> 00:01:17,577
+queremos significar por aleatorio para el problema que estamos resolviendo pero hay un montón de situaciones
+
+14
+00:01:17,577 --> 00:01:24,680
+en las que podemos hacer eso y luego tenemos una manera para predecir el desempeño aún cuando el
+
+15
+00:01:24,680 --> 00:01:33,369
+"input" pudiera variar ampliamente. Así por ejemplo para 3-sum, es más o menos siempre lo mismo.
+
+16
+00:01:33,617 --> 00:01:39,441
+Con la notación de tilde, la única variabilidad en ese algoritmo es la
+
+17
+00:01:39,441 --> 00:01:46,514
+cantidad de veces que el contador es incrementado y eso está en términos de bajo orden así que
+
+18
+00:01:46,514 --> 00:01:53,318
+esto no va a estropear nuestro análisis. Para búsquedas binarias es, podrían encontrar
+
+19
+00:01:53,318 --> 00:02:00,553
+enseguida en cuyo caso es tiempo constante y podemos demostrar que el caso promedio
+
+20
+00:02:00,553 --> 00:02:08,205
+y el peor son ambos logaritmos base 2 de (N). Hay otros ejemplos en los que hay
+
+21
+00:02:08,205 --> 00:02:17,256
+mucha más variabilidad aún. Entonces, tenemos estos diferentes tipos de análisis dependiendo
+
+22
+00:02:17,256 --> 00:02:22,398
+del "input'. Pero la pregunta es: ¿qué pasa con el problema real que el
+
+23
+00:02:22,398 --> 00:02:28,543
+cliente está tratando de resolver? Entonces tenemos que entender esos dos para poder
+
+24
+00:02:28,543 --> 00:02:33,933
+entender el desempeño del algoritmo. Y hay dos aproximaciones que son
+
+25
+00:02:33,933 --> 00:02:40,346
+exitosas en esto. Una es diseñar para el peor caso, sólo para asegurarnos que
+
+26
+00:02:40,346 --> 00:02:45,403
+el algoritmo siempre corra rápido y esa es definitivamente ideal. Otra es
+
+27
+00:02:45,403 --> 00:02:50,794
+si no pueden hacer eso, es aleatorizar y luego depender de alguna clase de
+
+28
+00:02:50,794 --> 00:02:55,769
+garantía probabilística, y veremos ejemplos de ambas a medida que avanzamos
+
+29
+00:02:55,769 --> 00:03:00,546
+en el curso. Ahora, esa clase de consideraciones, saben, la idea de orden
+
+30
+00:03:00,546 --> 00:03:06,058
+de crecimiento, lleva a la discusión de lo que se llama, lo que yo llamo teoría de
+
+31
+00:03:06,058 --> 00:03:12,022
+los algoritmos. Y aquí nuestros objetivos son, tenemos un problema a resolver, como resolver el
+
+32
+00:03:12,022 --> 00:03:17,500
+problema de suma-3 y queremos saber cuán difícil es. Queremos encontrar el mejor
+
+33
+00:03:17,500 --> 00:03:24,302
+algoritmo para resolver ese problema. La aproximación que el científico en computación usa
+
+34
+00:03:24,302 --> 00:03:30,091
+para esto es tratar de suprimir del análisis tanto detalle como sea posible. Y
+
+35
+00:03:30,091 --> 00:03:37,015
+así sólo analizar el tiempo de proceso o dentro de un factor constante. Eso es
+
+36
+00:03:37,015 --> 00:03:42,831
+a lo que el orden de crecimiento está arribando, y también quiero no preocuparme por el modelo de "input".
+
+37
+00:03:42,831 --> 00:03:48,070
+Y así nos enfocamos en un diseño para el peor caso y podemos hablar del desempeño
+
+38
+00:03:48,090 --> 00:03:54,372
+de los algoritmos sólo en términos de orden de crecimiento y realmente es posible, es
+
+39
+00:03:54,372 --> 00:03:59,357
+realmente posible hacer eso de un modo muy riguroso que nos enseña mucho
+
+40
+00:03:59,357 --> 00:04:04,692
+sobre la dificultad de resolver problemas. Y nuestro objetivo es encontrar un algoritmo
+
+41
+00:04:04,692 --> 00:04:11,326
+óptimo donde podemos garantizar dentro de un factor constante cierto desenpeño para 
+
+42
+00:04:11,326 --> 00:04:17,735
+cualquier "input" porque hemos cubierto el peor caso, pero también podemos haber aprobado que no
+
+43
+00:04:17,735 --> 00:04:24,022
+se sabía que el algoritmo podía proveer una mejor garantía de desempeño. Voy a dar un par 
+
+44
+00:04:24,022 --> 00:04:31,549
+de ejempos fáciles de esto. Ahora, para hacer esto, están estas notaciones comunmente
+
+45
+00:04:31,549 --> 00:04:39,745
+usadas llamadas Theta mayúscula, O mayúscula y Omega mayúscula. Entonces esas
+
+46
+00:04:40,033 --> 00:04:47,396
+definiciones se dan acá. Entonces, la notación Theta mayúscula es sóo una forma de describir el
+
+47
+00:04:47,396 --> 00:04:53,733
+orden de crecimiento. Theta(N)^2 es una especie de abreviatura para cualquier cosa N^2. Está limitada
+
+48
+00:04:53,733 --> 00:05:00,393
+arriba y abajo por el tiempo constante N^2 y eso es lo que realmente usamos para clasificar
+
+49
+00:05:00,393 --> 00:05:05,730
+algoritmos. Y luego, está la notación O mayúscula que es el límite superior de
+
+50
+00:05:05,730 --> 00:05:11,360
+desempeño. Cuando decimos O(N^2), queremos decir que es menos que algun tiempo constante N^2
+
+51
+00:05:11,360 --> 00:05:17,569
+a medida que N crece. Y Omega mayúscula se usa para el límite inferior, significa mayor que algún
+
+52
+00:05:17,569 --> 00:05:23,694
+tiempo constante N^2 a medida que N aumenta. Entonces esas tres notaciones podemos usarlas para
+
+53
+00:05:23,918 --> 00:05:30,113
+clasificar algoritmos, y les voy a mostrar a continuación. Así, ejemplos de nuestros
+
+54
+00:05:30,113 --> 00:05:36,725
+1-sum, 2-sum y 3-sum son fácil de articular entonces nuestro objetivo es establecer
+
+55
+00:05:36,725 --> 00:05:42,829
+la dificultad del problema y desarrollar un algoritmo óptimo. Así, el
+
+56
+00:05:42,829 --> 00:05:48,999
+problema 1-sum es OO en el arreglo. Bien, un límite superior en la dificultad del
+
+57
+00:05:48,999 --> 00:05:54,299
+problema es algún algoritmo específico. Entonces, por ejemplo, el algoritmo de fuerza bruta
+
+58
+00:05:54,299 --> 00:06:00,049
+que miraba, que mira a cada elemento del arreglo es un algoritmo específico y significa
+
+59
+00:06:00,049 --> 00:06:06,490
+eso, y eso toma un tiempo O(N). Tenemos que mirar a todos, es menos que un tiempo 
+
+60
+00:06:06,490 --> 00:06:12,307
+constante N para cierta constante. Entonces, el tiempo de proceso del algoritmo óptimo tiene que ser
+
+61
+00:06:12,307 --> 00:06:17,616
+O(N) que es el límite superior para ese algoritmo específico del tiempo de
+
+62
+00:06:17,616 --> 00:06:23,431
+proceso del algoritmo óptimo. Pero en este caso también es fácil desarrollar un
+
+63
+00:06:23,431 --> 00:06:29,052
+límite inferior, que es una prueba de que ningún algoritmo puede hacerlo mejor. Bien, para 1-sum
+
+64
+00:06:29,052 --> 00:06:34,536
+tienen que examinar todos los elementos en el arreglo. Si saltean alguno, entonces ese
+
+65
+00:06:34,536 --> 00:06:40,016
+podría ser cero y eso significa que el algoritmo óptimo tiene que tener un tiempo
+
+66
+00:06:40,016 --> 00:06:46,270
+de proceso por lo menos N por alguna constante donde decimos que el tiempo de proceso es Omega de N. Ahora,
+
+67
+00:06:46,270 --> 00:06:52,287
+en este caso, el límite superior y el inferior coinciden. Entonces, haciendo el factor constante 
+
+68
+00:06:52,287 --> 00:06:59,133
+así, es una prueba de que el algoritmo de fuerza bruta para 1-sum es óptimo. Su
+
+69
+00:06:59,133 --> 00:07:05,459
+tiempo de proceso es Theta(N). Es al mismo tiempo Omega y O(N). Eso es, para ese simpe problema
+
+70
+00:07:05,459 --> 00:07:11,576
+estaba bien para obtener el algoritmo óptimo. Para problemas más complicados va a ser
+
+71
+00:07:11,576 --> 00:07:17,027
+más difícil obtener el balance superior y el balance inferior, y particularmente un balance
+
+72
+00:07:17,027 --> 00:07:22,617
+superior y un balance inferior que coincidan. Por ejemplo, miremos al 3-sum. Así, el balance
+
+73
+00:07:22,617 --> 00:07:30,211
+superior para 3-sum, digamos nuestro primer algritmo de fuerza bruta, digamos que la prueba, fue una prueba
+
+74
+00:07:30,211 --> 00:07:37,375
+en la que el tiempo de proceso del algoritmo óptimo es O(N^3) pero encontramos un
+
+75
+00:07:37,375 --> 00:07:43,691
+mejor algoritmo, cuyo tiempo de proceso es O(N^2) lg N. Entonces, ese es un mejor límite
+
+76
+00:07:43,691 --> 00:07:49,526
+superior. El límite inferior, bueno, tenemos que examinar todas las entradas porque otra vez, podríamos
+
+77
+00:07:49,526 --> 00:07:56,274
+saltear alguna que haga 3-sum igual a cero y eso es una prueba de que el tiempo de proceso en
+
+78
+00:07:56,274 --> 00:08:02,304
+el algoritmo óptimo es Omega(N) pero nadie conoce el límite superior o inferior para
+
+79
+00:08:02,304 --> 00:08:08,280
+3-sum. Entonces hay una brecha entre el límite superior y el inferior y es un
+
+80
+00:08:08,280 --> 00:08:14,237
+problema abierto. ¿Hay un algoritmo óptimo para 3-sum? No sabemos cuál es. Ni 
+
+81
+00:08:14,237 --> 00:08:20,592
+siquiera sabemos si hay un algoritmo cuyo tiempo de proceso sea menor que O(N^2) ni sabemos
+
+82
+00:08:20,592 --> 00:08:27,130
+si los límites superior e inferior son lineales.  Entonces ese es un ejemplo de un problema abierto en
+
+83
+00:08:27,130 --> 00:08:33,181
+la teoría de algoritmos, no sabemos cuán difícil es resolver el problema
+
+84
+00:08:33,181 --> 00:08:40,448
+3-sum. Ahora, este punto de vista ha sido extremadamente exitoso en décadas recientes. Tenemos
+
+85
+00:08:40,448 --> 00:08:45,958
+un problema nuevo, desarrollamos algún algoritmo, probamos el límite inferior. Si
+
+86
+00:08:45,958 --> 00:08:51,679
+hay una brecha, buscamos un nuevo algoritmo que baje el límite superior o tratamos
+
+87
+00:08:51,679 --> 00:08:56,527
+de encontrar una manera de elevar el límite inferior. Usualmente es muy difícil demostrar
+
+88
+00:08:56,527 --> 00:09:02,164
+límites inferiores no triviales. Límites inferiores triviales, como mirar cada item de "input" 
+
+89
+00:09:02,164 --> 00:09:07,435
+no es tan difícil. Límites inferiores no triviales como por ejempo, la prueba que estuvimos 
+
+90
+00:09:07,435 --> 00:09:13,251
+hablando acerca del problema Union-Find son mucho más difíciles. Y en las últimas 
+
+91
+00:09:13,251 --> 00:09:20,081
+varias décadas la gente ha aprendido acerca de la dificultad computacional de los problemas 
+
+92
+00:09:20,081 --> 00:09:26,124
+examinando límites superiores que decrecen suavemente de modo que los algoritmos eran mejores peores casos 
+
+93
+00:09:26,124 --> 00:09:31,979
+de tiempo de proceso para cantidades y cantidades de problemas importantes y muchos algoritmos 
+
+94
+00:09:31,979 --> 00:09:37,944
+óptimos y muchas brechas aún permanecen. Es un campo de investigación
+
+95
+00:09:37,944 --> 00:09:43,617
+fascinante en el cual mucha gente está involucrada. Ahora, hay un par de advertencias en
+
+96
+00:09:43,617 --> 00:09:48,770
+el contexto de este curso. La primera es que podría ser demasiado pesimista
+
+97
+00:09:48,770 --> 00:09:54,409
+enfocarse en el peor caso. Tenemos datos ahí afuera. Tenemos problemas que
+
+98
+00:09:54,409 --> 00:09:59,786
+resolver. Quizás los datos no consitituyan el pero caso, y hay muchos campos de la ingeniería y la ciencia
+
+99
+00:09:59,786 --> 00:10:05,194
+en los que no nos enfocamos en el peor caso. El peor caso para este curso sería
+
+100
+00:10:05,194 --> 00:10:10,708
+que caiga un rayo y se termine y no tenemos un pan para eso. Y de la
+
+101
+00:10:10,708 --> 00:10:16,301
+misma manera es verdad para los algoritmos.  Tal vez deberíamos enfocarnos en entender
+
+102
+00:10:16,301 --> 00:10:21,252
+las propiedades de los "inputs" y encontrar algoritmos que sean eficientes para esos "inputs". Y la 
+
+103
+00:10:21,252 --> 00:10:26,645
+otra cosa es que para realmente predecir y comparar algoritmos necesitamos
+
+104
+00:10:26,645 --> 00:10:33,210
+hacer un anáisis más detallado que lo que es dentro de un factor constante. Así que hablamos acerca de 
+
+105
+00:10:33,210 --> 00:10:39,719
+la notación con tilde en Theta mayúscula, O mayúscula y Omega mayúscula, que son usadas en la
+
+106
+00:10:39,719 --> 00:10:46,161
+teoría de algoritmos. Y realmente hay tanta investigación publicada sobre la teoría
+
+107
+00:10:46,161 --> 00:10:51,608
+de algoritmos que un montón de gente comete el error de interpretar que los resultados de la O mayúscula
+
+108
+00:10:51,608 --> 00:10:56,964
+se supone que dan mejores límites superiores sobre la dificultad del
+
+109
+00:10:56,964 --> 00:11:02,179
+problema como modelos aproximados del tiempo de proceso y eso es realmente un error.
+
+110
+00:11:02,179 --> 00:11:07,619
+Entonces, en este curso, vamos a enfocarnos en aproximar modelos por medio de, saben
+
+111
+00:11:07,619 --> 00:11:12,738
+asegurarnos que usamos la notación con tilde y trataremos de dar resultados específicos para
+
+112
+00:11:12,738 --> 00:11:17,766
+ciertas cantidades de interés y la constante, cualquier constante no inespecífica en
+
+113
+00:11:17,766 --> 00:11:22,271
+el tiempo de proceso tendrá que ver con propiedades de la máquina y del
+
+114
+00:11:22,271 --> 00:11:27,542
+sistema, entonces serán capaces de utilizar estos resutados para predecir desempeño y para
+
+115
+00:11:27,542 --> 00:11:29,013
+comparar algoritmos.

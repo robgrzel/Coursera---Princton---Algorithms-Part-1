@@ -1,0 +1,516 @@
+1
+00:00:00,000 --> 00:00:04,085
+Xin chào, hôm nay ta sẽ nói về 
+bài toán tìm hợp - union find
+
+2
+00:00:04,085 --> 00:00:09,098
+Một loạt các thuật toán giải bài toán 
+liên thông động - dynamic connectivity
+
+3
+00:00:09,098 --> 00:00:14,091
+Ta sẽ học hai thuật toán kinh điển 
+Quick Find và Quick Union
+
+4
+00:00:14,091 --> 00:00:20,078
+và một số ứng dụng và cải tiến các thuật toán đó.
+Mục tiêu của bài hôm nay
+
+5
+00:00:20,078 --> 00:00:27,039
+thực ra là để đi qua từng bước mà từ nay 
+ta sẽ luôn thực hiện
+
+6
+00:00:27,039 --> 00:00:32,039
+để phát triển một thuật toán hữu ích.
+Bước đầu tiên là mô hình hóa bài toán.
+
+7
+00:00:32,039 --> 00:00:37,031
+Về cơ bản là cố gắng tìm hiểu đâu là các thành tố chính
+của bài toán cần giải quyết.
+
+8
+00:00:37,031 --> 00:00:41,681
+Sau đó, ta sẽ tìm một thuật toán nào đó để giải bài toán.
+Nhiều khi, thuật toán đầu tiên
+
+9
+00:00:41,681 --> 00:00:46,486
+ta nghĩ ra đủ nhanh và vừa với bộ nhớ,
+
+10
+00:00:46,486 --> 00:00:52,024
+khi đó ta sẽ chỉ việc quyết định dùng nó.
+Nhưng nhiều trường hợp khác, có thể
+
+11
+00:00:52,024 --> 00:00:56,074
+nó không đủ nhanh hoặc ta không có đủ bộ nhớ cho nó.
+Khi đó, ta sẽ tìm hiểu xem vấn đề nằm ở đâu
+
+12
+00:00:56,074 --> 00:01:01,037
+tìm một cách khắc phục nguyên nhân của vấn đề đó
+
+13
+00:01:01,037 --> 00:01:06,051
+tìm một thuật toán mới, và lặp đi lặp lại công việc này
+cho đến khi hài lòng. Đó là cách tiếp cận khoa học
+
+14
+00:01:06,051 --> 00:01:11,099
+trong việc thiết kế và phân tích thuật toán. 
+Ta xây dựng các mô hình toán học để cố gắng tìm hiểu
+
+15
+00:01:11,099 --> 00:01:17,061
+xem chuyện gì đang xảy ra, và rồi ta làm thực nghiệm
+để thẩm định các mô hình đó
+
+16
+00:01:17,061 --> 00:01:22,089
+và để cải tiến. Trước hết, ta sẽ nói về
+bài toán liên thông động - dynamic connectivity
+
+17
+00:01:22,089 --> 00:01:29,021
+mô hình của bài toán tìm hợp - union find.
+Ý tưởng như sau. 
+
+18
+00:01:29,021 --> 00:01:33,090
+Ta có một tập gồm N đối tượng.
+Không quan trọng chúng là cái gì.
+
+19
+00:01:33,090 --> 00:01:39,002
+Ta sẽ dùng các số từ 0 đến N-1
+để mô hình hóa các đối tượng của ta.
+
+20
+00:01:39,002 --> 00:01:43,082
+Tiếp theo là khái niệm về liên kết - connection
+giữa hai đối tượng. Ta hình dung sẽ có 
+
+21
+00:01:43,082 --> 00:01:48,057
+một lệnh kết nối hai đối tượng. 
+Cho hai đối tượng, cho một liên kết giữa chúng.
+
+22
+00:01:48,057 --> 00:01:53,093
+Và phần quan trọng của bài toán là truy vấn find
+hay truy vấn connected
+
+23
+00:01:53,093 --> 00:01:59,097
+truy vấn đó hỏi xem có hay không
+một đường nối giữa hai đối tượng đó.
+
+24
+00:01:59,097 --> 00:02:05,021
+Ví dụ, trong tập hợp gồm 10 đối tượng này, 
+ta đã thực hiện một loạt các lệnh union
+
+25
+00:02:05,021 --> 00:02:10,278
+kết nối giữa 4 và 3, 3 và 8, 6 và 5, 9 và 4, 
+
+26
+00:02:10,278 --> 00:02:16,526
+2 và 1. Và bây giờ ta có một truy vấn connected 
+hỏi xem 0 và 7 có kết nối với nhau hay không.
+
+27
+00:02:16,526 --> 00:02:22,713
+Ở đây câu trả lời là không. 
+Nhưng nếu câu hỏi là
+
+28
+00:02:22,713 --> 00:02:28,281
+8 có nối với 9 hay không, câu trả lời sẽ là có, 
+mặc dù ta không có đường nối trực tiếp
+
+29
+00:02:28,281 --> 00:02:33,629
+giữa 8 và 9, ta có một đường nối từ 8 qua 3, 4 và tới 9.
+
+30
+00:02:33,629 --> 00:02:39,783
+Đó là bài toán của ta. 
+Ta cần hỗ trợ thực hiện hai lệnh trên
+
+31
+00:02:39,783 --> 00:02:45,444
+cho tập các đối tượng đã cho. Giả sử ta thêm union 5, 0
+
+32
+00:02:45,444 --> 00:02:51,026
+để tạo một kết nối giữa 5 với 0. 
+union 7 và 2 tạo một kết nối
+
+33
+00:02:51,026 --> 00:02:56,744
+giữa 7 và 2. Và union 6 và 1 nối giữa 6 và 1.
+Bây giờ nếu ta muốn
+
+34
+00:02:56,744 --> 00:03:02,836
+nối 1 và 0, ta cũng làm được.
+Nhưng đó là một kết nối thừa.
+
+35
+00:03:02,836 --> 00:03:08,528
+Và giờ, nếu ta hỏi xem 0 có nối với 7 không
+câu trả lời sẽ là Có.
+
+36
+00:03:08,528 --> 00:03:13,858
+Và đó là bài toán của ta, các lệnh union
+và các truy vấn connected xen vào nhau
+
+37
+00:03:13,858 --> 00:03:18,991
+Ta cần hỗ trợ được các lệnh đó 
+cho một số lượng lớn các đối tượng.
+
+38
+00:03:18,991 --> 00:03:23,833
+Và đây là một ví dụ lớn hơn nhiều.
+Bạn sẽ thấy là ta sẽ cần
+
+39
+00:03:23,833 --> 00:03:28,128
+các thuật toán hiệu quả cho bài toán này. 
+Đầu tiên, bạn thấy là ta sẽ cần
+
+40
+00:03:28,128 --> 00:03:33,085
+một cái máy tính. Một người tính toán 
+thủ công sẽ cần khá nhiều thời gian
+
+41
+00:03:33,085 --> 00:03:38,205
+để xem có kết nối hay không. 
+Trường hợp này có một kết nối.
+
+42
+00:03:38,205 --> 00:03:43,805
+Các thuật toán ta học hôm nay sẽ không
+tìm ra đường đi nối giữa hai đối tượng.
+
+43
+00:03:43,805 --> 00:03:48,847
+Nó chỉ trả lời câu hỏi
+Có một đường đi hay không?
+
+44
+00:03:48,847 --> 00:03:53,721
+Ở phần II khóa học, ta sẽ học 
+các thuật toán thực sự tìm đường đi.
+
+45
+00:03:53,721 --> 00:03:59,220
+Chúng không chạy nhanh bằng union find
+vì chúng phải làm nhiều việc hơn. 
+
+46
+00:03:59,220 --> 00:04:05,972
+Các thuật toán này ứng dụng cho 
+đủ loại đối tượng. Chúng được dùng
+
+47
+00:04:05,972 --> 00:04:11,906
+cho ảnh kĩ thuật số, trong đó các đối tượng
+là các điểm ảnh. Chúng dùng cho mạng máy tính
+
+48
+00:04:11,906 --> 00:04:17,444
+với các đối tượng là các máy tính,
+cho mạng xã hội, với đối tượng là người
+
+49
+00:04:17,444 --> 00:04:23,528
+cho chip máy tính, với đối tượng là phần tử mạch
+hay các thứ trừu tượng như các tên biến
+
+50
+00:04:23,528 --> 00:04:29,334
+trong một chương trình, hay phần tử trong một
+tập hợp toán học, hay những thứ vật lý
+
+51
+00:04:29,334 --> 00:04:34,802
+như các vị trí kim loại trong một hệ composite
+Như vậy là đủ loại đối tượng
+
+52
+00:04:34,802 --> 00:04:40,574
+nhưng trong lập trình, ta sẽ gắn cho 
+mỗi đối tượng một cái tên.
+
+53
+00:04:40,574 --> 00:04:46,810
+và ta dùng các số nguyên từ 0 đến N-1 để
+gọi tên các đối tượng. Đó là khởi đầu thuận tiện
+
+54
+00:04:46,810 --> 00:04:53,605
+cho các chương trình của ta, vì ta có thể
+dùng các số nguyên làm chỉ số mảng
+
+55
+00:04:53,605 --> 00:05:00,160
+để truy nhập nhanh tới thông tin liên quan 
+đến mỗi đối tượng. Và bỏ qua được nhiều 
+
+56
+00:05:00,160 --> 00:05:05,777
+chi tiết không liên quan đến union find. 
+Thực tế, việc tạo ánh xạ
+
+57
+00:05:05,777 --> 00:05:10,444
+từ tên đối tượng tới các số nguyên từ 0 đến N-1 
+
+58
+00:05:10,444 --> 00:05:14,914
+là áp dụng một bảng kí hiệu hoặc 
+một thuật toán tìm kiếm, trong khóa học này
+
+59
+00:05:14,914 --> 00:05:20,300
+ta sẽ học các cấu trúc dữ liệu và thuật toán
+
+60
+00:05:20,501 --> 00:05:26,316
+để giải bài toán đó. Bây giờ, về các liên kết,
+ta cần một số tính chất trừu tượng
+
+61
+00:05:26,316 --> 00:05:33,545
+mà các liên kết - connection - phải thỏa mãn
+Các tính chất đều tự nhiên và trực quan. 
+
+62
+00:05:33,775 --> 00:05:40,563
+Kết nối là một quan hệ tương đương.
+Nghĩa là mỗi đối tượng đều kết nối với chính nó. 
+
+63
+00:05:40,563 --> 00:05:47,148
+Nó là quan hệ đối xứng- symmetric, 
+nếu P nối với Q, thì Q cũng nối với P. 
+
+64
+00:05:47,148 --> 00:05:53,205
+Nó là quan hệ bắc cầu - transitive,
+nếu P nối với Q, Q nối với R, thì P cũng nối với R.
+
+65
+00:05:53,205 --> 00:05:59,128
+Các tính chất này rất trực quan, nhưng 
+vẫn cần phát biểu một cách tường minh
+
+66
+00:05:59,128 --> 00:06:05,292
+ và đảm bảo rằng các thuật toán của ta
+bảo vệ các tính chất đó.
+
+67
+00:06:05,292 --> 00:06:12,452
+Khi ta có một quan hệ tương đương, 
+một tập các đối tượng cùng với các kết nối
+
+68
+00:06:12,452 --> 00:06:19,172
+tách thành các tập con, gọi là các thành phần liên thông.
+Một thành phần liên thông là một tập tối đa
+
+69
+00:06:19,172 --> 00:06:25,056
+ các đối tượng đôi một có đường nối tới nhau. 
+Chẳng hạn trong ví dụ nó này
+
+70
+00:06:25,056 --> 00:06:30,936
+có ba thành phần liên thông, 
+một thành phần chỉ gồm duy nhất đối tượng 0; 
+
+71
+00:06:30,936 --> 00:06:36,239
+thành phần thứ hai gồm 1, 4 và 5; 
+thành phần thứ ba gồm bốn đối tượng còn lại.
+
+72
+00:06:36,239 --> 00:06:42,244
+Các thành phần này đều có đặc điểm: hai 
+đối tượng bất kì bên trong đều liên thông với nhau và
+
+73
+00:06:42,244 --> 00:06:47,096
+không có đối tượng nào bên ngoài 
+liên thông với một đối tượng bên trong.
+
+74
+00:06:47,096 --> 00:06:53,126
+Đó là các thành phần liên thông. Các thuật toán
+của ta sẽ lưu các thành phần liên thông
+
+75
+00:06:53,126 --> 00:06:59,319
+và dùng tri thức đó để nhanh chóng trả lời
+các truy vấn được đưa ra.
+
+76
+00:06:59,319 --> 00:07:04,949
+Ta cần cài đặt hai thao tác: 
+truy vấn find và lệnh union.
+
+77
+00:07:04,949 --> 00:07:09,840
+Và ta sẽ lưu giữ các thành phần liên thông.
+
+78
+00:07:09,840 --> 00:07:14,449
+find sẽ kiểm tra xem hai đối tượng có thuộc 
+cùng một thành phần liên thông hay không. 
+
+79
+00:07:14,449 --> 00:07:20,243
+Lệnh union sẽ thay thế hai 
+thành phần liên thông chứa hai đối tượng
+
+80
+00:07:20,243 --> 00:07:25,872
+bằng hợp của chúng. Ví dụ, 
+nếu ta có các thành phần liên thông này
+
+81
+00:07:25,872 --> 00:07:31,906
+và ta chạy union để nối 2 và 5.
+ta cần nhập
+
+82
+00:07:31,906 --> 00:07:37,965
+thành phần liên thông chứa 2 
+với thành phần chứa 5 thành một
+
+83
+00:07:37,965 --> 00:07:44,453
+để được một thành phần liên thông lớn
+Và ta còn lại hai thành phần liên thông.
+
+84
+00:07:44,453 --> 00:07:52,821
+Trong lập trình, nó dẫn đến việc 
+định nghĩa một cấu trúc dữ liệu
+
+85
+00:07:52,821 --> 00:07:59,122
+đặc tả các phương thức mà
+ta cần cài đặt để giải bài toán này.
+
+86
+00:07:59,122 --> 00:08:04,980
+Với Java, ta sẽ tạo một lớp có tên UF
+với hai phương thức, 
+
+87
+00:08:05,224 --> 00:08:12,425
+một phương thức cài đặt lệnh union,
+một phương thức cài đặt truy vấn connected
+
+88
+00:08:12,425 --> 00:08:19,052
+Constructor lấy tham số N là số phần tử
+
+89
+00:08:19,052 --> 00:08:26,030
+và xây dựng cấu trúc dữ liệu dựa trên số đối tượng.
+
+90
+00:08:26,030 --> 00:08:31,089
+Khi xây dựng thuật toán, ta phải luôn nhớ rằng
+
+91
+00:08:31,089 --> 00:08:37,029
+số lượng đối tượng có thể rất lớn
+số lượng thao tác cũng vậy
+
+92
+00:08:37,029 --> 00:08:42,076
+Ta có thể có số lần gọi union và connected rất lớn
+
+93
+00:08:42,076 --> 00:08:48,315
+và thuật toán của ta cần phải hiệu quả
+trong các điều kiện đó. 
+
+94
+00:08:48,315 --> 00:08:56,011
+Trong khóa học này, 
+ta thường kiểm tra thiết kế API
+
+95
+00:08:56,011 --> 00:09:04,029
+trước khi đi quá sâu vào bài toán, 
+ta viết một chương trình client 
+
+96
+00:09:04,029 --> 00:09:11,050
+sử dụng cấu trúc dữ liệu mà 
+ta đang phát triển. Ở ví dụ này, ta có
+
+97
+00:09:11,050 --> 00:09:19,074
+một chương trình client đọc thông tin 
+từ standard input, Đầu tiên là một số nguyên
+
+98
+00:09:19,074 --> 00:09:27,381
+là số đối tượng cần xử lý.
+Và một chuỗi các cặp tên đối tượng
+
+99
+00:09:27,381 --> 00:09:35,070
+Nhiệm vụ của chương trình client là
+đọc số nguyên từ input chuẩn và 
+
+100
+00:09:35,070 --> 00:09:42,068
+tạo một đối tượng UF. 
+Và trong khi input vẫn còn chưa hết
+
+101
+00:09:42,068 --> 00:09:47,089
+nó sẽ đọc một cặp số nguyên từ input
+Và nếu hai số đó không liên thông
+
+102
+00:09:47,089 --> 00:09:52,663
+nó sẽ kết nối hai đối tượng đó
+và output chúng. Nếu chúng đã liên thông
+
+103
+00:09:52,663 --> 00:09:58,266
+chương trình sẽ bỏ qua. Đó là một 
+chương trình client tốt để đảm bảo rằng
+
+104
+00:09:58,266 --> 00:10:04,702
+các cài đặt thuật toán UF sẽ 
+chạy đúng như trông đợi của ta.
+
+105
+00:10:04,702 --> 00:10:10,348
+Vậy là ta đã mô tả các thao tác mà ta
+muốn cài đặt, chi tiết đến tận mức code
+
+106
+00:10:10,348 --> 00:10:15,091
+và ta đã có chương trình client để chạy thử cài đặt đó

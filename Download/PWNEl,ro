@@ -1,0 +1,162 @@
+1
+00:00:01,076 --> 00:00:06,044
+În continuare, ne vom uita la o versiune ascendentă 
+a Mergesort. Ei bine, Mergesort este
+
+2
+00:00:06,044 --> 00:00:11,006
+ușor de înțeles ca un program recursiv.
+Această versiune ascendentă care nu are nici o
+
+3
+00:00:11,006 --> 00:00:16,814
+recursivitate, este, de asemenea, destul de simplu de
+înțeles și de codat. Ideea de bază
+
+4
+00:00:16,814 --> 00:00:23,057
+este să ne gândim la matrice ca fiind un pic
+la început un set de puțin sortate
+
+5
+00:00:23,057 --> 00:00:28,065
+submatrice de de dimensiune unu. Și apoi ce această
+metodă va face este să parcurgă și să îmbine
+
+6
+00:00:28,065 --> 00:00:33,048
+acele submatrici mici de mărime unu
+împreună în perechi pentru a obține submatrici de dimensiune
+
+7
+00:00:33,048 --> 00:00:38,038
+doi. Apoi, întreaga matrice compusă
+din submatrici  sortate de dimensiunea doi, și
+
+8
+00:00:38,038 --> 00:00:43,059
+apoi vom face o altă parcurgere pentru a ajunge la
+dimensiunea patru, apoi dimensiunea opt, și așa
+
+9
+00:00:43,059 --> 00:00:49,036
+mai departe. Așa că, după cum puteți vedea în acest exemplu
+vom începe prin fuzionarea primelor două 
+
+10
+00:00:49,036 --> 00:00:55,360
+submatrici de dimensiune unu pentru a face o matrice de dimensiune
+doi-E, M - acestea sunt sortate, și apoi vom face același 
+
+11
+00:00:55,360 --> 00:01:01,001
+lucru pentru următoarele două elemente și 
+următoarele două și așa mai departe, până când în cele din urmă
+
+12
+00:01:01,001 --> 00:01:06,088
+în loc de șaisprezece elemente individuale noi
+avem opt submatrici sortate de dimensiune doi.
+
+13
+00:01:06,090 --> 00:01:12,012
+Apoi, la o altă trecere, putem lua
+E, M și G, R și să le îmbinăm
+
+14
+00:01:12,012 --> 00:01:17,735
+împreună pentru a face EGMR, și E, S și 
+O, R le îmbinăm împreună pentru a face EORS, și
+
+15
+00:01:17,735 --> 00:01:22,744
+așa mai departe. Și avem patru submatrici de dimensiune patru. Înca o trecere face două
+
+16
+00:01:22,745 --> 00:01:29,304
+submatrici de dimensiune opt, iar ultima trecere
+este doar o matrice sortată. Linia de jos în
+
+17
+00:01:29,304 --> 00:01:34,943
+aceasta este succesiunea de treceri prin
+întreaga matrice și nu e nevoie deloc 
+
+18
+00:01:34,943 --> 00:01:41,338
+de recursivitate. Este extrem de ușor de codat, după cum puteți vedea din acest cod. Noi folosim
+
+19
+00:01:41,338 --> 00:01:47,442
+același cod de îmbinare ca și mai înainte și vom lua
+un imbricat for loop. Prima dintre ele este
+
+20
+00:01:47,442 --> 00:01:53,373
+mărimea submatricii și acest loop este 
+executat în timp log N pentru că de fiecare dată
+
+21
+00:01:53,373 --> 00:02:00,162
+noi dublăm dimensiunea submatricii până
+ajungem la N. Și apoi trecem prin
+
+22
+00:02:00,449 --> 00:02:07,553
+alegerea de la mic la mic + mărime-1,
+și apoi următoarea parte este mic + mărime + mărime-1
+
+23
+00:02:07,553 --> 00:02:13,307
+până când ajungem la sfârșitul matricii 
+unde noi am putea să nu avem o plină
+
+24
+00:02:13,307 --> 00:02:19,397
+submatrice de dimensiune sz. Acesta este un cod 
+pe deplin complet, puternic, industrial pentru
+
+25
+00:02:19,397 --> 00:02:25,756
+sortare. Singurul dezavantaj așa cum 
+ar fi în mod regulat Mergesort e că utilizează spațiu
+
+26
+00:02:25,756 --> 00:02:31,956
+suplimentar proporțional cu dimensiunea
+matricii. Dar altfel, e o metodă bună
+
+27
+00:02:31,956 --> 00:02:39,857
+pentru fuziune. Acesta este o sortare Mergesort de jos în sus.
+Dacă vă uitați la această urmă vizuală puteți
+
+28
+00:02:39,857 --> 00:02:45,477
+vedea cum funcționează. Totul este total
+nesortat, apoi acesta devine sortat până la
+
+29
+00:02:45,477 --> 00:02:49,712
+submatrici la dimensiunea patru, apoi opt,
+șaisprezece, și 32. Acum, în acest caz,
+
+30
+00:02:49,712 --> 00:02:55,320
+a doua submatrice ce trebuie sortată este mai mică
+dar rutinei de îmbinare nu-i pasă cu adevărat
+
+31
+00:02:55,320 --> 00:03:01,225
+de asta atât de mult. Puteți îmbina lucrurile
+care nu sunt egale în dimensiune. Și apoi avem
+
+32
+00:03:01,225 --> 00:03:07,106
+o matrice finală sortată. Indiferent de dimensiune,
+partea de jos a Mergesort face treaba în
+
+33
+00:03:07,106 --> 00:03:13,833
+log N treceri. Fiecare trecere folosind aproximativ N
+comparări pentru un cost total de aproximativ N log N.

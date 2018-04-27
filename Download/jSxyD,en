@@ -1,0 +1,1100 @@
+1
+00:00:02,173 --> 00:00:03,420
+Welcome back.
+
+2
+00:00:03,420 --> 00:00:06,550
+Today we're going to talk about
+algorithms and data structures for
+
+3
+00:00:06,550 --> 00:00:11,330
+implementing some fundamental data
+types called bags, queues, and stacks.
+
+4
+00:00:11,330 --> 00:00:13,290
+You may be somewhat familiar with these,
+
+5
+00:00:13,290 --> 00:00:15,710
+but today we're going to take
+a careful and close look at them.
+
+6
+00:00:16,820 --> 00:00:21,020
+The idea is that in many applications,
+we have collections of
+
+7
+00:00:21,020 --> 00:00:25,010
+objects that we want to maintain and
+the operations are very simple.
+
+8
+00:00:25,010 --> 00:00:28,320
+We want to add something to the
+collection, maybe remove something from
+
+9
+00:00:28,320 --> 00:00:31,890
+the collection and iterate through
+the objects in a collection,
+
+10
+00:00:31,890 --> 00:00:36,060
+performing some operation on them,
+and of course test if it's empty.
+
+11
+00:00:36,060 --> 00:00:39,130
+Now for most of these,
+the intent is very clear.
+
+12
+00:00:39,130 --> 00:00:44,380
+The key is, when it comes to removing
+an item, which item do we remove?
+
+13
+00:00:44,380 --> 00:00:49,680
+The two fundamental classic data
+structures for this, the stack and
+
+14
+00:00:49,680 --> 00:00:55,958
+the queue, differ in the way in which
+the item to be removed is chosen.
+
+15
+00:00:55,958 --> 00:01:00,450
+For the stack, we take out the item
+that was most recently added.
+
+16
+00:01:02,270 --> 00:01:05,605
+The terminology that we use is
+pushed to in certain items and
+
+17
+00:01:05,605 --> 00:01:08,350
+pop to remove the item
+most recently added.
+
+18
+00:01:08,350 --> 00:01:12,238
+That's also called the LIFO discipline,
+last in, first out.
+
+19
+00:01:12,238 --> 00:01:16,109
+For queue,
+we examine the item least recently added.
+
+20
+00:01:16,109 --> 00:01:19,642
+In those operations to distinguish them,
+
+21
+00:01:19,642 --> 00:01:23,870
+we call NQ to insert an item and
+DQ to remove an item.
+
+22
+00:01:23,870 --> 00:01:28,400
+And that's also call the FIFO discipline,
+first in, first out.
+
+23
+00:01:28,400 --> 00:01:31,649
+So we're going to take a look today
+at how to implement these things.
+
+24
+00:01:32,890 --> 00:01:37,100
+Our sub text today is all
+about modular programming.
+
+25
+00:01:37,100 --> 00:01:40,890
+And that's going to be a discipline that
+we're going to follow carefully throughout
+
+26
+00:01:40,890 --> 00:01:42,220
+this course.
+
+27
+00:01:42,220 --> 00:01:47,200
+The idea is to completely separate
+the interface and the implementation.
+
+28
+00:01:47,200 --> 00:01:52,280
+So when we have these types of
+data structures and data types
+
+29
+00:01:52,280 --> 00:01:57,570
+that are precisely defined, like stacks
+and queues and so forth, what we want to
+
+30
+00:01:57,570 --> 00:02:02,590
+do is completely separate the details
+of the implementation from the client.
+
+31
+00:02:02,590 --> 00:02:06,780
+The client can have many different
+implementations from which to choose,
+
+32
+00:02:06,780 --> 00:02:10,380
+but the client code should only
+perform the basic operations.
+
+33
+00:02:11,410 --> 00:02:12,610
+The implementation,
+
+34
+00:02:12,610 --> 00:02:16,030
+on the other hand, can't know
+the details of the client needs.
+
+35
+00:02:16,030 --> 00:02:20,470
+All it's supposed to do is
+implement those operations.
+
+36
+00:02:20,470 --> 00:02:24,560
+In that way, many clients can
+reuse the same implementation.
+
+37
+00:02:24,560 --> 00:02:28,040
+So this allows us to create modular,
+
+38
+00:02:28,040 --> 00:02:32,620
+reusable libraries of algorithms and
+data structures that we can use
+
+39
+00:02:32,620 --> 00:02:36,260
+to build more complicated algorithms and
+data structures.
+
+40
+00:02:36,260 --> 00:02:41,350
+It also allows us to focus on
+performance when appropriate.
+
+41
+00:02:41,350 --> 00:02:45,710
+Again, this is a modular
+programming style that's enabled by
+
+42
+00:02:45,710 --> 00:02:48,790
+object oriented programming languages,
+such as Java.
+
+43
+00:02:48,790 --> 00:02:53,790
+And we'll be very disciplined
+in our use of this style.
+
+44
+00:02:53,790 --> 00:02:56,460
+So to begin, we will talk about stacks.
+
+45
+00:02:58,440 --> 00:03:00,100
+Stacks are familiar.
+
+46
+00:03:00,100 --> 00:03:04,560
+Many of you probably implemented stacks in
+an introductory programming course, but
+
+47
+00:03:04,560 --> 00:03:08,900
+we'll do a thorough introduction
+to implementations right now.
+
+48
+00:03:09,910 --> 00:03:16,390
+As a warm up, let's suppose that we
+have a string, a collection of stings.
+
+49
+00:03:16,390 --> 00:03:18,420
+They might be short, they might be long.
+
+50
+00:03:18,420 --> 00:03:24,680
+And what we want to have is the ability
+to save away a collection of strings and
+
+51
+00:03:24,680 --> 00:03:28,790
+remove and return the most recently
+added string periodically, and
+
+52
+00:03:28,790 --> 00:03:30,010
+also test if it's empty.
+
+53
+00:03:31,250 --> 00:03:33,070
+So that's our API.
+
+54
+00:03:33,070 --> 00:03:36,319
+We have a constructor to
+create an empty stack.
+
+55
+00:03:37,880 --> 00:03:44,930
+For insert, we have a method called
+push that take a string as argument and
+
+56
+00:03:44,930 --> 00:03:50,460
+for remove, we have a method, pop, that
+returns the string most recently added.
+
+57
+00:03:50,460 --> 00:03:53,598
+We have an is empty test
+which returns a boolean.
+
+58
+00:03:53,598 --> 00:03:57,440
+Also in some applications,
+we would include the size as well.
+
+59
+00:03:58,450 --> 00:04:05,245
+So again, as always, we'll first write
+a client and then look at implementations.
+
+60
+00:04:05,245 --> 00:04:12,210
+And our simple client is to
+take some strings on standard
+
+61
+00:04:12,210 --> 00:04:17,870
+input and some pop commands which
+are indicated with hyphens.
+
+62
+00:04:17,870 --> 00:04:23,620
+And so, this client reads
+strings from standard input.
+
+63
+00:04:23,620 --> 00:04:27,560
+If the string is equal
+to the hyphen character,
+
+64
+00:04:27,560 --> 00:04:32,870
+it'll pop the string at the top
+of the stack and print it.
+
+65
+00:04:32,870 --> 00:04:36,978
+Otherwise, if it's a string that's
+not equal to the hyphen character,
+
+66
+00:04:36,978 --> 00:04:38,976
+it'll just push it onto the stack.
+
+67
+00:04:38,976 --> 00:04:42,498
+So in the example down below here,
+
+68
+00:04:42,498 --> 00:04:46,629
+if we have this file called tobe.text,
+
+69
+00:04:46,629 --> 00:04:53,316
+then what the client will do is push
+to be or not to all on the stack.
+
+70
+00:04:53,316 --> 00:04:55,362
+Then when it comes to this hyphen,
+
+71
+00:04:55,362 --> 00:05:00,090
+it'll pop the most recently inserted
+item which is 'to' in this case.
+
+72
+00:05:00,090 --> 00:05:04,480
+Then it'll put be on the top of
+the stack and then pop the top
+
+73
+00:05:04,480 --> 00:05:09,035
+item on the stack which is now be, and
+then pop the item most recently added.
+
+74
+00:05:09,035 --> 00:05:12,530
+Be is gone, to is gone so
+the next is not, and so forth.
+
+75
+00:05:12,530 --> 00:05:17,860
+So this is a simple test client that
+we can use to test our implementations.
+
+76
+00:05:17,860 --> 00:05:21,660
+So now let's look at the code for
+implementing a stack.
+
+77
+00:05:23,000 --> 00:05:27,240
+The first implementation that
+we'll look at uses linked lists.
+
+78
+00:05:27,240 --> 00:05:30,432
+If you're not familiar with linked lists,
+
+79
+00:05:30,432 --> 00:05:35,780
+you'll need to review that in
+section 1.1 through 1.3 of the book,
+
+80
+00:05:35,780 --> 00:05:40,600
+or in our introduction to programming and
+Java book.
+
+81
+00:05:40,600 --> 00:05:45,290
+Even if you are familiar with linked
+lists, it's worth taking a look at this
+
+82
+00:05:45,290 --> 00:05:50,170
+code because it's the style of coding
+that we'll use throughout the course for
+
+83
+00:05:50,170 --> 00:05:52,440
+much more complicated data structures.
+
+84
+00:05:52,440 --> 00:05:58,360
+So the idea is to keep a linked list
+which consists of nodes that have
+
+85
+00:05:58,360 --> 00:06:03,911
+strings in them, and references,
+to the next item in the linked list.
+
+86
+00:06:05,260 --> 00:06:11,030
+And to implement a stack when we do a push
+
+87
+00:06:11,030 --> 00:06:15,570
+operation, we insert a new node at
+the beginning of the linked list.
+
+88
+00:06:15,570 --> 00:06:17,380
+And we do a pop operation,
+
+89
+00:06:17,380 --> 00:06:21,130
+we remove the first node from
+the beginning of the linked list.
+
+90
+00:06:21,130 --> 00:06:23,640
+That's the most recently added item.
+
+91
+00:06:23,640 --> 00:06:25,454
+So let's look at what
+that code looks like.
+
+92
+00:06:25,454 --> 00:06:30,720
+We use to implement
+linked list in all linked
+
+93
+00:06:30,720 --> 00:06:34,510
+data structures throughout the course, we
+use what's called an inner class in Java.
+
+94
+00:06:34,510 --> 00:06:39,770
+And that's just a way to describe
+that we're going to be manipulating
+
+95
+00:06:39,770 --> 00:06:46,350
+node objects that each consists of
+a string and a reference to another node.
+
+96
+00:06:46,350 --> 00:06:53,880
+So the pop operation for
+linked lists is very easy to implement.
+
+97
+00:06:53,880 --> 00:07:00,140
+First, we are going to need to
+return the first item on the list,
+
+98
+00:07:00,140 --> 00:07:01,510
+so we save that away.
+
+99
+00:07:01,510 --> 00:07:04,119
+Take first.item and
+save that in the variable item.
+
+100
+00:07:05,150 --> 00:07:10,020
+Then, to get rid of the first node,
+we just advance our pointer
+
+101
+00:07:10,020 --> 00:07:15,270
+to the first item on the list
+to point to the next item.
+
+102
+00:07:15,270 --> 00:07:19,900
+And then that first node is ready to
+be reclaimed by the garbage collector.
+
+103
+00:07:19,900 --> 00:07:25,460
+And then the last thing we need to do is
+just return the item that we saved away.
+
+104
+00:07:27,200 --> 00:07:30,480
+So that is the pop operation,
+what about the push operation?
+
+105
+00:07:33,110 --> 00:07:37,360
+Push operation, we want to add a new node
+at the beginning of the linked list.
+
+106
+00:07:37,360 --> 00:07:41,815
+So first thing we do is save away
+the pointer to the beginning of the list,
+
+107
+00:07:41,815 --> 00:07:45,350
+that's oldfirst = first.
+
+108
+00:07:45,350 --> 00:07:48,180
+Then we create a new node that's
+going to be the new node that we
+
+109
+00:07:48,180 --> 00:07:49,535
+put at the beginning of the list.
+
+110
+00:07:49,535 --> 00:07:52,260
+That's first = new Node.
+
+111
+00:07:52,260 --> 00:07:54,760
+And then we set its instance variables.
+
+112
+00:07:54,760 --> 00:07:59,770
+Its item is the string that we want to
+put at the beginning of a list,
+
+113
+00:07:59,770 --> 00:08:01,440
+in this case, not.
+
+114
+00:08:01,440 --> 00:08:04,500
+And its next the oldfirst
+item on the list,
+
+115
+00:08:04,500 --> 00:08:06,590
+which is now the second item on the list.
+
+116
+00:08:06,590 --> 00:08:10,400
+So after this operation, we're first
+pointing to the beginning of the list.
+
+117
+00:08:10,400 --> 00:08:14,130
+And we have the items on
+the list in a decreasing order of
+
+118
+00:08:14,130 --> 00:08:15,560
+when they were put onto the stack.
+
+119
+00:08:16,880 --> 00:08:23,020
+So that also is a foreliner to
+implement the stack push operation.
+
+120
+00:08:23,020 --> 00:08:27,970
+So this is a complete linked-list
+implementation of all
+
+121
+00:08:27,970 --> 00:08:34,310
+the code to implement a linked-list for
+a stack of strings in Java.
+
+122
+00:08:34,310 --> 00:08:39,590
+It's a class, the constructor doesn't have
+to do anything, there's no constructor.
+
+123
+00:08:40,670 --> 00:08:47,700
+We have this inner class that we use to
+build the items in the linked-list and we
+
+124
+00:08:47,700 --> 00:08:53,140
+make it an inner class so we can directly
+refer to those instance variables.
+
+125
+00:08:53,140 --> 00:08:58,058
+And then the only instance variable
+of a stack is a reference to
+
+126
+00:08:58,058 --> 00:09:02,421
+the first node on the list and
+it starts out being null.
+
+127
+00:09:02,421 --> 00:09:09,964
+And then isEmpty is just testing whether
+the first note on the list is null.
+
+128
+00:09:09,964 --> 00:09:15,452
+And then push is the four lines of code
+that I gave on the previous line and
+
+129
+00:09:15,452 --> 00:09:21,140
+pop is the three lines of code that
+I gave on the slide before that.
+
+130
+00:09:21,140 --> 00:09:25,290
+That is a complete implementation for
+linked-list that would work with
+
+131
+00:09:25,290 --> 00:09:28,940
+as a fine push down stack
+implementation for any client.
+
+132
+00:09:30,120 --> 00:09:35,070
+So now we can analyze the performance of
+that so that we can provide clients with
+
+133
+00:09:35,070 --> 00:09:40,710
+information on how well the algorithm
+data structure will perform.
+
+134
+00:09:40,710 --> 00:09:41,900
+In this case,
+
+135
+00:09:41,900 --> 00:09:47,030
+it's easy to see that every operation
+takes constant time in the worst case.
+
+136
+00:09:47,030 --> 00:09:49,720
+There's only a few instructions for
+each one of the operations.
+
+137
+00:09:49,720 --> 00:09:50,420
+There's no loops.
+
+138
+00:09:51,610 --> 00:09:54,610
+So that's obviously a very
+desirable characteristic.
+
+139
+00:09:55,710 --> 00:09:57,920
+Then, how about space usage?
+
+140
+00:09:59,140 --> 00:10:02,720
+That depends very much on
+the implementation and the machine so
+
+141
+00:10:02,720 --> 00:10:08,330
+this is a typical Java implementation
+that we do the analysis for.
+
+142
+00:10:08,330 --> 00:10:10,393
+And you can test this out for
+
+143
+00:10:10,393 --> 00:10:15,617
+different types of environments easily and
+it's representative.
+
+144
+00:10:15,617 --> 00:10:19,305
+So, in Java, in inner class there is, for
+
+145
+00:10:19,305 --> 00:10:23,407
+every object there's 16 bytes of overhead.
+
+146
+00:10:23,407 --> 00:10:27,615
+There's some extra overhead, 8 bytes,
+because it's an inner class.
+
+147
+00:10:27,615 --> 00:10:32,408
+And then there's 2 references
+that we built in our class node,
+
+148
+00:10:32,408 --> 00:10:37,740
+1 to a string and another 1 to a node and
+those are each 8 bytes.
+
+149
+00:10:37,740 --> 00:10:40,810
+So we have 40 bytes per stack note.
+
+150
+00:10:40,810 --> 00:10:44,600
+If we have a stack of size N,
+we have about 40 N bytes.
+
+151
+00:10:44,600 --> 00:10:48,320
+There's a little extra for it first,
+but that's about N overhead for
+
+152
+00:10:48,320 --> 00:10:49,050
+the whole stack.
+
+153
+00:10:49,050 --> 00:10:55,130
+But when N is large, 40 N is a very close
+estimate to the amount of space needed.
+
+154
+00:10:55,130 --> 00:10:56,620
+This does not include the space for
+
+155
+00:10:56,620 --> 00:11:00,370
+the strings themselves,
+which are owned by the client.
+
+156
+00:11:00,370 --> 00:11:04,290
+But with that, we can properly assess
+
+157
+00:11:04,290 --> 00:11:08,300
+the resource usage of this implementation
+for different client programs.
+
+158
+00:11:10,090 --> 00:11:15,290
+Now, it's constant time but
+there's faster implementations of stack.
+
+159
+00:11:15,290 --> 00:11:20,650
+And since stack is used in
+the inner loop of some algorithms,
+
+160
+00:11:20,650 --> 00:11:25,350
+it's important to think about
+even faster implementations.
+
+161
+00:11:25,350 --> 00:11:29,600
+And another natural way to implement
+a stack is to use an array to store
+
+162
+00:11:29,600 --> 00:11:31,810
+the items on a stack, so
+let's take a look at that.
+
+163
+00:11:33,380 --> 00:11:37,470
+This alternative of choosing
+between linked structures and
+
+164
+00:11:37,470 --> 00:11:40,380
+arrays is fundamental, and
+it's going to come up again and
+
+165
+00:11:40,380 --> 00:11:45,390
+again when we consider more complicated
+data structures and algorithms.
+
+166
+00:11:45,390 --> 00:11:49,650
+So, we want to be sure to analyze
+it in the simple case for
+
+167
+00:11:49,650 --> 00:11:54,150
+stacks to set the stage for
+more complicated applications later on.
+
+168
+00:11:55,920 --> 00:12:01,325
+To use an array, we just keep the n
+items on the stack in the array
+
+169
+00:12:02,435 --> 00:12:07,425
+and the array location
+with index N is the place,
+
+170
+00:12:07,425 --> 00:12:10,745
+the top of the stack,
+where the next item is going to go.
+
+171
+00:12:10,745 --> 00:12:16,455
+So to push,
+we just add a new item at s of N into pop,
+
+172
+00:12:16,455 --> 00:12:21,075
+we remove the item that's at
+s of N- 1 in decrement N.
+
+173
+00:12:22,460 --> 00:12:26,000
+Now there's a fundamental
+defect in using an array and
+
+174
+00:12:26,000 --> 00:12:31,210
+that is that you have to declare
+the size of the array ahead of time and
+
+175
+00:12:31,210 --> 00:12:34,070
+then so the stack has a certain capacity.
+
+176
+00:12:34,070 --> 00:12:37,650
+And if there's more items on
+the stack than the capacity,
+
+177
+00:12:37,650 --> 00:12:39,390
+we'll have to deal with that problem.
+
+178
+00:12:39,390 --> 00:12:43,320
+And that's a fundamental problem
+that we have to deal with in
+
+179
+00:12:43,320 --> 00:12:48,320
+array implementations in all sorts
+of algorithms data structures.
+
+180
+00:12:48,320 --> 00:12:53,920
+So, again, considering it for
+this simple case will pay off later on.
+
+181
+00:12:55,980 --> 00:13:03,530
+So here's the full implementation of stack
+for using an array to represent the stack.
+
+182
+00:13:03,530 --> 00:13:08,690
+Now we have an instance variable
+which is an array of strings,
+
+183
+00:13:08,690 --> 00:13:12,490
+and our variable N which is
+both the size of the stack and
+
+184
+00:13:12,490 --> 00:13:17,000
+the index of the next open
+position on the stack.
+
+185
+00:13:18,430 --> 00:13:23,530
+This one has a constructor, and
+the constructor creates the array.
+
+186
+00:13:23,530 --> 00:13:26,940
+Now, we're cheating in this
+implementation to keep it simple, and
+
+187
+00:13:26,940 --> 00:13:29,290
+we'll take care of this
+cheat in a little while,
+
+188
+00:13:29,290 --> 00:13:34,170
+by requiring the client to provide
+the capacity of the stack.
+
+189
+00:13:34,170 --> 00:13:37,350
+In a few applications, this might be fine,
+
+190
+00:13:37,350 --> 00:13:41,740
+but in many many applications,
+that's too onerous of requirement.
+
+191
+00:13:41,740 --> 00:13:44,130
+The client really can't
+know how big the stack is.
+
+192
+00:13:44,130 --> 00:13:48,540
+The client might have a lot of stacks that
+need to be maintained simultaneously and
+
+193
+00:13:48,540 --> 00:13:52,110
+maybe they reached their maximum
+capacities at different times and
+
+194
+00:13:52,110 --> 00:13:53,040
+various other things.
+
+195
+00:13:53,040 --> 00:13:56,540
+So we need to remove this cheat and
+we will, but
+
+196
+00:13:56,540 --> 00:14:01,870
+the code is nearly trivial
+if we have the capacity.
+
+197
+00:14:01,870 --> 00:14:04,390
+To check if it's empty we check if N is 0.
+
+198
+00:14:04,390 --> 00:14:08,720
+To push an item,
+we use N to index into the array,
+
+199
+00:14:08,720 --> 00:14:10,580
+put the item there and then increment N.
+
+200
+00:14:10,580 --> 00:14:15,380
+That's the shortcut in many
+programming languages nowadays for
+
+201
+00:14:15,380 --> 00:14:17,650
+use the index and then increment it.
+
+202
+00:14:17,650 --> 00:14:20,140
+And to pop, we decrement the index and
+
+203
+00:14:20,140 --> 00:14:23,020
+then use it to return
+the item in the array.
+
+204
+00:14:23,020 --> 00:14:26,580
+So each of the operations is a one-liner.
+
+205
+00:14:26,580 --> 00:14:30,035
+And this is a fine implementation for
+some clients.
+
+206
+00:14:30,035 --> 00:14:32,475
+That's array implementations of stack,
+
+207
+00:14:32,475 --> 00:14:36,575
+but it breaks the API by requiring
+the client to provide the capacity.
+
+208
+00:14:37,875 --> 00:14:39,835
+So what are we going to do about that?
+
+209
+00:14:39,835 --> 00:14:42,765
+There are a couple of things
+that we didn't consider.
+
+210
+00:14:42,765 --> 00:14:46,505
+We didn't put in code to throw
+an exception if the client
+
+211
+00:14:46,505 --> 00:14:48,045
+pops from an empty stack.
+
+212
+00:14:48,045 --> 00:14:50,000
+Probably should do that.
+
+213
+00:14:50,000 --> 00:14:54,150
+And for overflow, what happens
+when the client does too much?
+
+214
+00:14:54,150 --> 00:14:57,570
+We're going to talk about
+an approach called resizing
+
+215
+00:14:57,570 --> 00:15:01,380
+that will allow us to avoid overflow for
+clients.
+
+216
+00:15:03,710 --> 00:15:06,600
+There's another issue about
+
+217
+00:15:06,600 --> 00:15:11,770
+whether clients can insert null
+items into the data structure.
+
+218
+00:15:11,770 --> 00:15:15,810
+In this case, we do allow
+the client to insert null items.
+
+219
+00:15:15,810 --> 00:15:21,505
+But we do have to worry in Java
+about a problem called Loitering and
+
+220
+00:15:21,505 --> 00:15:26,900
+that is the idea that we have
+references to an object in
+
+221
+00:15:26,900 --> 00:15:32,080
+our array implementation in the stack
+array when we're not really using it.
+
+222
+00:15:32,080 --> 00:15:35,110
+So when we decrement that value N,
+
+223
+00:15:35,110 --> 00:15:39,990
+there's still a pointer to the thing that
+we took off the stack in that array.
+
+224
+00:15:39,990 --> 00:15:43,350
+Even though we know we're not using it,
+the Java system doesn't know that.
+
+225
+00:15:44,470 --> 00:15:51,201
+So to avoid that and
+really allow most efficient use of memory,
+
+226
+00:15:51,201 --> 00:15:57,040
+it's best to set that
+removed item entry to null.
+
+227
+00:15:57,040 --> 00:16:01,800
+So there's no reference to the old item
+left there and then the garbage collector
+
+228
+00:16:01,800 --> 00:16:06,730
+can reclaim the memory since
+there's no outstanding references.
+
+229
+00:16:06,730 --> 00:16:13,640
+That's a detail, but an important one
+that we have to take care of in our
+
+230
+00:16:13,640 --> 00:16:17,332
+implementations to make sure that we're
+getting most efficient use of memory.
+
+231
+00:16:17,332 --> 00:16:24,346
+[BLANK AUDIO]

@@ -1,0 +1,639 @@
+1
+00:00:02,048 --> 00:00:07,034
+Bienvenidos de nuevo. Hoy, vamos a ver
+las Colas Preferentes, que son una variante de
+
+2
+00:00:07,034 --> 00:00:12,051
+la ordenamiento que generaliza el concepto
+para permitir una estructura de datos más flexible que
+
+3
+00:00:12,051 --> 00:00:17,069
+podamos utilizar para cualquier tipo de aplicaciones.
+Para empezar, veremos el API y 
+
+4
+00:00:17,069 --> 00:00:24,820
+algunas implementaciones elementales. Hace una
+semana aproximadamente, vimos las colecciones
+
+5
+00:00:24,820 --> 00:00:29,813
+en Java y la idea de unas estructuras elementales de datos
+donde insertamos y borramos
+
+6
+00:00:29,813 --> 00:00:34,900
+elementos. Y entonces, las estructuras de datos
+difieren en base del tipo de elemento que elegimos
+
+7
+00:00:34,900 --> 00:00:39,863
+eliminar. Observamos la pila inferior de almacenamiento, de donde removimos el elemento que fue
+
+8
+00:00:39,863 --> 00:00:44,776
+añadido más recientemente, Y la cola donde
+eliminamos el elemento añadido más antiguo.
+
+9
+00:00:44,776 --> 00:00:48,643
+Después, hablamos de una cola aleatoria o saco donde podríamos
+
+10
+00:00:48,643 --> 00:00:53,580
+eliminar un elemento aleatorio o arbitrario.
+Hoy, hablaremos de lo
+
+11
+00:00:53,580 --> 00:00:58,247
+que se denomina la cola de prioridad y para ello,
+insertamos elementos, pero llegado el momento de
+
+12
+00:00:58,247 --> 00:01:03,059
+eliminar, tendremos en cuenta que los elementos están
+en un orden global y deseamos eliminar
+
+13
+00:01:03,059 --> 00:01:09,044
+El más grande o más pequeño de estos. En un
+pequeño ejemplo, si insertamos P, Q y E
+
+14
+00:01:09,044 --> 00:01:15,190
+y eliminamos el más grande, desearemos eliminar
+la Q. Más tarde insertaremos X, A, 
+
+15
+00:01:15,190 --> 00:01:21,144
+y M, y eliminamos el mayor. El
+mayor ahora es la X. Insertaremos P,
+
+16
+00:01:21,144 --> 00:01:26,069
+L, y E y entonces, después de un momento,
+eliminaremos el mayor: P. Este es nuestra idea básica
+
+17
+00:01:26,069 --> 00:01:32,064
+Esa es una definición de lo que es una cola
+de prioridad. Entonces, el API se verá muy
+
+18
+00:01:32,064 --> 00:01:39,719
+similar a nuestra pila o API de cola con la
+diferencia de que queremos tener elementos
+
+19
+00:01:39,719 --> 00:01:46,919
+genéricos que son comparables. Entonces el lenguaje
+Java para ello está en el encabezado de la clase.
+
+20
+00:01:47,127 --> 00:01:52,785
+Decimos que nuestro typo genérico Clave (Key) extiende
+Comparación de Clave (Comparable of Key). Y eso sólo significa
+
+21
+00:01:52,785 --> 00:01:58,805
+que nuestras claves deben ser comparables y debemos
+tener un método compareTo() que lo
+
+22
+00:01:58,805 --> 00:02:06,052
+comparará con otra clave. De otra manera tendremos
+un constructor y de hecho para algunas
+
+23
+00:02:06,052 --> 00:02:11,872
+aplicaciones es conveniente tener un
+constrcutor que acepta un array de claves como
+
+24
+00:02:11,872 --> 00:02:17,807
+argumento. Luego, un insert() que pone
+algo adentro como empujar en una pila or
+
+25
+00:02:17,807 --> 00:02:24,142
+encolar en una cola. Luego borra el
+máximo. Me referí a borrar el mínimo
+
+26
+00:02:24,383 --> 00:02:30,043
+Solo para evitar confusiones, nosotros tenemos la
+implementación separa implementación
+
+27
+00:02:30,043 --> 00:02:36,284
+usualmente MinPq, cuando se elimina el mínimo.
+Entonces se prueba isEmpty() y también se
+
+28
+00:02:36,284 --> 00:02:42,908
+algunas veces tenemos un método extra que sólo
+nos da el valor de la cláve mayor y 
+
+29
+00:02:42,908 --> 00:02:49,602
+también el tamaño lo que es útil a veces en
+colecciones. Tal vez quieras también que sea
+
+30
+00:02:49,602 --> 00:02:55,675
+iterable pero nos saltaremos eso por ahora
+Hay muchas aplicaciones de
+
+31
+00:02:55,675 --> 00:03:01,039
+colas de prioridad. Aún considerando que aparecieron como
+una estructura de datos relativamente tardías
+
+32
+00:03:01,039 --> 00:03:06,508
+ahora vemos que hay muchos
+algortimos que son much más fáciles de
+
+33
+00:03:06,508 --> 00:03:12,314
+implementar cuando pensamos en la abstracción
+de prioridad de clave. Tenemos datos que estamos
+
+34
+00:03:12,314 --> 00:03:16,841
+procesando no podemos procesarlos todos al mismo tiempo.
+Tenemos que guardarlo de alguna manera. Y entonces,
+
+35
+00:03:16,841 --> 00:03:22,342
+lo que la cola de prioridad nos dice es -
+Organicemoslo de algunas maneras en las que
+
+36
+00:03:22,342 --> 00:03:27,657
+siempre tomamos la mejor para procesar lo que
+sigue. Y resulta ser muy cercano a
+
+37
+00:03:27,657 --> 00:03:32,965
+una técnica de diseño de algoritmos genérica
+a la que recurriremos en muchas, muchas
+
+38
+00:03:32,965 --> 00:03:38,286
+aplicaciones diferentes. Hoy,
+vamos a hablar acerca de simulación controlada por eventos
+
+39
+00:03:38,286 --> 00:03:44,500
+que es una interesante idea que está basada
+en colas prioritarias pero se usa también en
+
+40
+00:03:44,500 --> 00:03:50,126
+cálculo numérico y veremos en
+algoritmos para compresión de datos y búsqueda
+
+41
+00:03:50,126 --> 00:03:56,048
+gráfica que es útil. Y en muchas
+otras aplicaciones de Ciencia de la Computación y
+
+42
+00:03:56,048 --> 00:04:02,277
+en computación científica. Generaliza la pila
+y la cola y nos da una estructura
+
+43
+00:04:02,277 --> 00:04:09,783
+de datos que podemos usar para diseñar
+efectivamente algoritmos de todo tipo. Entonces aquí
+
+44
+00:04:10,046 --> 00:04:18,242
+tenemos un cliente particular que ayudará
+a explicar la idea. Entonces nuestro, nuestro desafío es
+
+45
+00:04:18,518 --> 00:04:26,215
+digamos esto en la web tenemos
+billones de transacciones, saben, y están
+
+46
+00:04:26,215 --> 00:04:32,012
+es propagado a lo largo de nuestro almacén
+de datos o al procesador de alguna manera. Y sólo una 
+
+47
+00:04:32,012 --> 00:04:37,616
+muy gran número de transacciones. De hecho,
+no podríamos posiblemente esperar siquiera almacenarlas
+
+48
+00:04:37,616 --> 00:04:43,299
+todas. Hay millones de ellas allí
+pasando tan rápido como es posible. Pero
+
+49
+00:04:43,299 --> 00:04:48,825
+nos interesan las más grandes y
+tal vez es la mayor cantidad de
+
+50
+00:04:48,825 --> 00:04:54,559
+dólares, o el mayor costo, o cualquier cosa
+que resulte ser. Entonces podemos tomar
+
+51
+00:04:54,559 --> 00:04:59,581
+algunos números que podemos almacenar. Me gustaría,
+almacenar, las mil
+
+52
+00:04:59,581 --> 00:05:04,986
+más grandes. Pueden imaginarse una compañía
+de tarjetas de créditos buscando fraudes - se va
+
+53
+00:05:04,986 --> 00:05:11,016
+preocupar de llevar registro de las mayores
+transacciones. Entonces tal vez podemos almacenar
+
+54
+00:05:11,016 --> 00:05:16,444
+millones o miles de ellas. Entonces ese es
+nuestro parámetro M - es el número que podemos
+
+55
+00:05:16,444 --> 00:05:21,606
+almacenar pero el numero total de
+elementos no hay manera que podamos almacenarlos
+
+56
+00:05:21,606 --> 00:05:26,814
+Entonces estos son sólo datos de pruebas
+en donde tenemos todas estas
+
+57
+00:05:26,814 --> 00:05:32,653
+transacciones y de esta forma somos capaces de 
+tomar datos como estos y nuevamente
+
+58
+00:05:32,844 --> 00:05:38,610
+una corriente ilimitada de datos. Pero digamos que 
+queremos mantener el seguimiento de los primeros
+cinco
+
+59
+00:05:38,895 --> 00:05:46,723
+[tos] valores usando la tercera columna
+como el valor. Así que vamos a observar
+
+60
+00:05:46,723 --> 00:05:52,023
+un programa cliente llamado TopM que toma el argumento
+de la linea de comandos, cuantos y
+
+61
+00:05:52,023 --> 00:05:58,026
+en este caso, dira cinco y luego
+va a tomar de la entrada estandar las
+
+62
+00:05:58,026 --> 00:06:03,914
+transacciones e imprimira las primeras
+cinco. Entonces, ese es un ejemplo canonico de una
+
+63
+00:06:03,914 --> 00:06:09,485
+cola de prioridad cliente y debemos
+diseñar un programa que pueda hacer eso. Entonces,
+
+64
+00:06:09,485 --> 00:06:17,909
+con la abstracción de la cola de prioridad eso
+no es muy difícil de hacer. Entonces, vamos a 
+
+65
+00:06:17,909 --> 00:06:25,799
+usando una cola de prioridad mínima así 
+se podrá mantener. Esto será [tose] Esta será
+
+66
+00:06:25,799 --> 00:06:31,420
+una en donde podemos borrar el mínimo
+y será genérica para que tengamos un
+
+67
+00:06:31,420 --> 00:06:35,964
+tipo de transacción que contiene esta 
+información incluyendo el ordenamiento natural
+
+68
+00:06:36,152 --> 00:06:41,475
+en donde está ordenada por dólares esa última
+columna. Entonces, construiremos una nueva cola de
+
+69
+00:06:41,475 --> 00:06:46,625
+prioridad, cola de mínima prioridad o tendremos
+la posibilidad de borrar el mínimo. Y
+
+70
+00:06:46,625 --> 00:06:52,449
+entonces leemos de la entrada estándar. Leemos 
+la línea, construimos la transacción desde el
+
+71
+00:06:52,449 --> 00:06:58,920
+información es esa línea. Esto llenará los
+campos y entonces la ponemos
+
+72
+00:06:58,920 --> 00:07:04,950
+transacciones en la cola de prioridad. Ahora, si la cola
+de prioridad tiene más de M elementos
+
+73
+00:07:04,950 --> 00:07:11,075
+porque insertamos ese, tneonces queremos 
+eliminar el más chico ahi y de esa 
+
+74
+00:07:11,075 --> 00:07:17,193
+forma, se mantiene un registro del mayor M. 
+Cuando se obtiene uno nuevo, entonces
+
+75
+00:07:17,193 --> 00:07:22,732
+desechar el más pequeño que haya. Con lo que, incluso con este inmenso flujo de elementos
+
+76
+00:07:22,732 --> 00:07:27,980
+solo le seguimos la pista a los M elementos más grandes, y eso es un buen
+
+77
+00:07:27,980 --> 00:07:34,040
+cliente canónico para colas de prioridad. Ahora
+como vamos a implementar o resolver este
+
+78
+00:07:34,040 --> 00:07:39,081
+problema, o puede pensar en muchas maneras
+de seguir adelante y resolver este problema sobre
+
+79
+00:07:39,081 --> 00:07:44,088
+encontrar los M mayores elementos del flujo de N elementos. Por ejemplo, podría
+
+80
+00:07:44,088 --> 00:07:51,832
+ordenarlos. Y luego solo mirar a los M
+elementos al final. Pero al enviar el problema
+
+81
+00:07:51,832 --> 00:07:57,801
+ya descarté esta opción aquel porque no se
+dispone del espacio para ordenarlos todos,
+
+82
+00:07:57,801 --> 00:08:03,280
+de almacenar todos. Así que el ordenamiento
+no aplica. Veremos un par de implementaciones
+
+83
+00:08:03,280 --> 00:08:09,082
+de cola de prioridad elementaria que son
+sencillas. Como sabes, mantener
+
+84
+00:08:09,082 --> 00:08:14,309
+los objetos como lo haríamos en la pila y
+entonces cuando necesitamos el más pequeño o 
+
+85
+00:08:14,309 --> 00:08:20,425
+el más grande, miramos todos ellos. Pero
+esto va a ser demasiado lento. M es grande
+
+86
+00:08:20,425 --> 00:08:26,099
+y N es enorme, y M<i>N va a ser demasiado
+lento. Lo que haríamos sería mirar su </i>
+
+87
+00:08:26,099 --> 00:08:31,377
+implementación práctica y muy simple
+usando una estructura de datos llamada pila
+
+88
+00:08:31,377 --> 00:08:36,838
+binaria que realiza el trabajo en un tiempo
+proporcional a N log M y solo necesita un espacio M.
+
+89
+00:08:36,838 --> 00:08:42,079
+Y esto es bastante cercano a lo mejor que
+podríamos hacer en teoría y tiene
+
+90
+00:08:42,079 --> 00:08:47,010
+una implementación y estructura de
+datos muy importante, útil y práctica.
+
+91
+00:08:47,010 --> 00:08:56,344
+Correcto. Hasta aquí es sólo una visión general
+de dos implementaciones elementarias para colas
+
+92
+00:08:56,344 --> 00:09:03,894
+de prioridad usando las operaciones de ejemplo que 
+dí antes. Puedes imaginar guardar
+
+93
+00:09:03,894 --> 00:09:09,361
+el objeto, digamos, en una lista enlazada o en
+un vector doble y sólo mantener un
+
+94
+00:09:09,361 --> 00:09:14,568
+orden como haríamos en la
+pila sólo manteniéndolos en la forma que 
+
+95
+00:09:14,568 --> 00:09:19,593
+entran. Y pondremos un objeto nuevo al
+final del vector y lo eliminaremos del
+
+96
+00:09:19,593 --> 00:09:25,566
+final del vector. O podrías hacerlo en una lista
+enlazada, y entonces cuando haya que buscarlo
+
+97
+00:09:25,566 --> 00:09:30,435
+quitar el máximo, tiene que analizar todo para encontrar el máximo
+
+98
+00:09:30,629 --> 00:09:37,014
+Esta es una forma en la que se podría
+implementar esto, con una lista enlazada o
+
+99
+00:09:37,014 --> 00:09:42,605
+con el redimensionamiento del vector. O se podría
+decir que intentaremos mantener las cosas en
+
+100
+00:09:42,605 --> 00:09:48,009
+orden. Y entonces esto quizá involucraría algo
+de trabajo, es como la ordenación por inserción,
+
+101
+00:09:48,009 --> 00:09:53,429
+encuentras una posición para poner el nuevo objeto y
+entonces lo colocas en la posición correcta. Y otra vez,
+
+102
+00:09:53,429 --> 00:09:59,071
+podrías hacerlo con una lista enlazada o con
+el redimensionamiento del vector pero entonces, con el vector,
+
+103
+00:09:59,071 --> 00:10:04,568
+tendrías que mover todos los objetos mayores una
+posición para encajar el objeto nuevo. Cuando
+
+104
+00:10:04,568 --> 00:10:09,588
+insertamos E y se supone que mantenemos
+el ordens, tenemos que mover L, M,
+
+105
+00:10:09,588 --> 00:10:14,906
+y P para colocar E y así sucesivamente.
+Pero la ventaja de esto puede ser que
+
+106
+00:10:14,906 --> 00:10:20,682
+eliminar el máximo es fácil. Solo quitamos
+el del extremo. Para eliminar la
+
+107
+00:10:20,682 --> 00:10:26,650
+Q - sabemos que está al final para eliminar
+el máximo. En este punto, que es X - está
+
+108
+00:10:26,650 --> 00:10:32,845
+justo al final, y P está justo al final. 
+Puedes imaginar las implementaciones de
+
+109
+00:10:32,845 --> 00:10:38,971
+colas de prioridad usando estas dos estrategias
+básicas. No hay mucho código involucrado. Esta
+
+110
+00:10:38,971 --> 00:10:45,098
+es una implementación como vector ordenado de 
+colas de prioridad y es bastante
+
+111
+00:10:45,098 --> 00:10:52,843
+sencilla. No dijimos que esta es la
+versión trampa donde se requiere que el cliente
+
+112
+00:10:52,843 --> 00:10:59,282
+proporcione una capacidad pero podríamos fácilmente
+cambiar esto por un vector redimensionable. Así que
+
+113
+00:10:59,482 --> 00:11:06,243
+insert() lo coloca al final, y dado que si
+borrado de máximos desordenado debe ir
+
+114
+00:11:06,243 --> 00:11:12,334
+a través de todo el arreglo para buscar
+el máximo cuando lo refina el resultado y
+
+115
+00:11:12,334 --> 00:11:18,583
+cambia que somos el último y luego lo borra
+de la misma manera que lo hacemos
+
+116
+00:11:18,583 --> 00:11:24,536
+dentro de la pila. Usará menos e
+intercambiará solo como lo haríamos en métodos
+
+117
+00:11:24,536 --> 00:11:30,179
+de ordenación. Así que esta es una muy buena implementación si
+la cola de prioridad iba a ser muy pequeña
+
+118
+00:11:30,179 --> 00:11:36,440
+todo el tiempo. Así que, sin 
+implementarla, puedes comprender esta
+
+119
+00:11:36,440 --> 00:11:42,949
+tabla que si usamos una implementación de
+un vector desordenado podemos insertar
+
+120
+00:11:42,949 --> 00:11:47,940
+en tiempo constante pero tenemos
+que mirar todos los elementos para eliminar el
+
+121
+00:11:47,940 --> 00:11:54,343
+máximo o incluso encontrarlo. Si 
+lo mantenemos en orden, podemos encontrar el máximo
+
+122
+00:11:54,343 --> 00:12:00,827
+o eliminarlo en tiempo constante pero nos lleva
+un tiempo lineal insertar. Y como con
+
+123
+00:12:00,827 --> 00:12:07,073
+operaciones con colas y pilas, estas
+inserciones y borrados pueden estar mezcladas de
+
+124
+00:12:07,073 --> 00:12:13,329
+forma arbitraria y podrían existir inmensas
+cantidades  de ellos. Cada uno de esos es
+
+125
+00:12:13,329 --> 00:12:20,425
+muy atractivo dado que tomarán N veces
+el número de operaciones.
+
+126
+00:12:20,651 --> 00:12:28,096
+Mientras que lo que podemos esperar y lo que
+realmente lograremos es conseguir un tiempo de log N
+
+127
+00:12:28,096 --> 00:12:34,936
+para todas las operaciones, tiempo proporcional a log N
+para todas las operaciones. Con la estructura de datos más inteligente
+
+128
+00:12:34,936 --> 00:12:41,677
+e interesante 
+podemos realmente conseguir el objetivo. Esto es
+
+129
+00:12:41,677 --> 00:12:47,032
+la API básica y algunas implementaciones
+elementales para colas de prioridad.

@@ -1,0 +1,613 @@
+1
+00:00:02,079 --> 00:00:07,071
+Observând ce se întâmplă așa cum am făcut-o în
+ultima secțiune ne dă o, un mod de a
+
+2
+00:00:07,071 --> 00:00:12,075
+prezice performanța dar chiar nu
+ne ajută să înțelegem ce algoritmul.
+
+3
+00:00:12,075 --> 00:00:17,056
+face. Deci în continuare, ne vom uita la 
+modelul matematic. Un mod de a obține un mai bun
+
+4
+00:00:17,056 --> 00:00:24,080
+concept a ceea ce se întâmplă cu adevărat. Din nou,
+acest concept a fost într-adevăr elaborat și
+
+5
+00:00:24,080 --> 00:00:33,047
+popularizat de Don Knuth începând de la 
+sfârșitul anilor '60. La acea vreme, sistemele informatice
+
+6
+00:00:33,047 --> 00:00:40,068
+deveneau într-adevăr complicate pentru
+prima dată. Și oamenii de știință de calculatoare au fost
+
+7
+00:00:40,068 --> 00:00:46,015
+preocupați dacă noi într-adevăr 
+o să fim capabili să înțelegem ce se
+
+8
+00:00:46,015 --> 00:00:52,043
+întâmplă. Și Knuth a fost foarte direct în 
+a spune că acest lucru este ceva ce noi
+
+9
+00:00:52,043 --> 00:00:56,884
+cu siguranță putem face. Putem calcula 
+timpul total de funcționare a unui program prin
+
+10
+00:00:57,087 --> 00:01:02,059
+identificarea tuturor operațiunile de bază, 
+încercând să imagineze costurile, încercând să priceapă
+
+11
+00:01:02,059 --> 00:01:07,043
+frecvența de execuție și însumând 
+frecvența de timp de costuri pentru toate
+
+12
+00:01:07,043 --> 00:01:11,083
+operațiuni. Trebuie să analizați 
+programul pentru a determina ce set de
+
+13
+00:01:11,083 --> 00:01:17,004
+operații și costul depinde de mașina și de calculatorul în sistem este
+
+14
+00:01:17,004 --> 00:01:22,038
+despre ceea ce am vorbit înainte. Frecvența 
+ne conduce la matematică, pentru că depinde de
+
+15
+00:01:22,038 --> 00:01:27,369
+algoritm  și datele de intrare. Knuth a
+scris o serie de cărți care dau foarte
+
+16
+00:01:27,369 --> 00:01:34,678
+ foarte detaliate și exacte analize în cadrul unui 
+anumit model de calculator pentru o gamă largă
+
+17
+00:01:34,678 --> 00:01:39,997
+de algoritmi. Deci, de la Knuth, știm
+că, în principiu, putem obține exacte
+
+18
+00:01:39,997 --> 00:01:46,700
+modele matematice pentru performanța
+algoritmilor sau programe și operații. În 
+
+19
+00:01:46,700 --> 00:01:53,156
+regulă. Deci, ce, cum arată acest proces? Ei bine, puteți, dacă doriți, să executați
+
+20
+00:01:53,156 --> 00:01:59,044
+experimente. În, în vremuri străvechi, ne-am
+ uita de fapt la manualul calculatorului 
+
+21
+00:01:59,044 --> 00:02:04,621
+și fiecare calculator a venit cu un manual care
+a spus exact cât de mult fiecare instrucțiune
+
+22
+00:02:04,621 --> 00:02:09,589
+ar dura.  Dar în zilele noastre, e un pic
+mai complicat. Deci, vom rula experimente
+
+23
+00:02:09,589 --> 00:02:15,079
+și, și puteți merge mai departe și să faceți un miliard 
+de căutări și să vă dați seama că poate pe calculatorul 
+
+24
+00:02:15,079 --> 00:02:20,432
+dumneavoastră, o căutare ia 2.1 nano secunde. Sau
+voi puteți face funcții mai complicate
+
+25
+00:02:20,432 --> 00:02:25,126
+cum ar fi sinus de calculator sau arc tangentă
+deși asta deja se apropie de 
+
+26
+00:02:25,126 --> 00:02:30,644
+analiza algoritmilor. Deci, există o 
+cale de a determina costurile
+
+27
+00:02:30,644 --> 00:02:38,182
+operațiilor de bază. Și așa, noi tocmai în
+cele mai multe, cele mai multe cazuri noi doar
+
+28
+00:02:38,182 --> 00:02:44,137
+vom postula că e un constantă și voi
+vă puteți da seama ce constantă este.
+
+29
+00:02:44,137 --> 00:02:49,477
+Deși când lucrăm cu o
+colecție de obiecte, de n obiecte acolo
+
+30
+00:02:49,477 --> 00:02:54,845
+ există unele lucruri care iau timp
+proporțional cu N cum ar fi dacă aveți de gând să
+
+31
+00:02:54,845 --> 00:03:00,591
+alocați o matrice de dimensiune N ia timp
+proporțional cu N deoarece în Java
+
+32
+00:03:00,591 --> 00:03:06,061
+implicit este că toate elementele din
+matrice se inițalizează la zero. În alte
+
+33
+00:03:06,061 --> 00:03:11,951
+operații aceasta depinde de implementarea 
+sistemului și una importantă este
+
+34
+00:03:11,951 --> 00:03:17,503
+concatenare string-uri. Dacă voi concatenați
+două string-uri timpul de rulare este
+
+35
+00:03:17,503 --> 00:03:23,832
+proporțional cu lungimea string-ului.
+De multe ori programatorii începători în Java, fac
+
+36
+00:03:23,832 --> 00:03:30,713
+o greșeală presupunând că este o operație 
+constantă de timp, pe când nu e așa. În regulă, deci
+
+37
+00:03:30,713 --> 00:03:39,428
+acesta e costul fiecărei operații. Mai 
+interesantă este frecvența de operare,
+
+38
+00:03:39,428 --> 00:03:46,229
+de executare a operațiilor. Deci, aceasta este
+o, o, e o variantă foarte simplă a
+
+39
+00:03:46,229 --> 00:03:50,237
+problema 3SUM. Asta e problema o 
+sumă. Asta e cât de multe numere sunt
+
+40
+00:03:50,237 --> 00:03:54,333
+de fapt egale cu zero? Câte numere 
+unice adăugați până la zero? Deci, aceea, e
+
+41
+00:03:54,333 --> 00:03:59,111
+doar una pentru buclă, și trecem prin, și 
+am testat numărul zero și incremenăm sau
+
+42
+00:03:59,111 --> 00:04:05,417
+numărăm. Și prin analizarea acelui cod voi puteți
+vedea că i și count trebuie să fie declarate
+
+43
+00:04:05,417 --> 00:04:11,511
+și apoi ele trebuie să se atribuie la zero. 
+Acolo sunt comparații ale lui i împotriva lui N și
+
+44
+00:04:11,511 --> 00:04:17,484
+acolo e N + una dintre ele. Acolo sunt comparații
+ale lui A(i) împotriva lui zero, acolo sunt N dintre acelea,
+
+45
+00:04:17,484 --> 00:04:23,985
+N acces matrice  și numărul incrementat
+este  numărul de ori când există un increment este
+
+46
+00:04:23,985 --> 00:04:30,251
+variabil. i a fost incrementat de N ori, dar
+count ar putea fi incrementat orice număr de la 
+
+47
+00:04:30,251 --> 00:04:37,432
+zero la N ori. Și așa că frecvența este
+dependentă de datele de intrare. Sau am putea
+
+48
+00:04:37,432 --> 00:04:43,369
+avea nevoie de un model pentru a descrie aceea sau poate
+acolo sunt alte operații care sunt mult mai
+
+49
+00:04:43,369 --> 00:04:48,289
+costisitoare și nu va trebui să ne facem griji cu privire
+ la asta. Deci, să ne uităm la următoarea mult mai 
+
+50
+00:04:48,289 --> 00:04:53,678
+complicată problemă este despre 
+frecvența de executare a instrucțiunilor în
+
+51
+00:04:53,678 --> 00:04:59,039
+acest program care este problema 2-SUM,
+cât de multe perechi de numere întregi se însumează la zero?
+
+52
+00:04:59,324 --> 00:05:06,207
+Ei bine, în acest caz, trebuie să faceți un
+pic de matematică pentru a vedea că, atunci când noi
+
+53
+00:05:06,465 --> 00:05:14,510
+când i merge de la zero la N, și j merge
+de la i+a la N numărul de comparații
+
+54
+00:05:14,510 --> 00:05:21,812
+pe care le facem, plus acces matrice pe care 
+o facem este doi pentru fiecare dată declarația if
+
+55
+00:05:21,812 --> 00:05:28,044
+este executată pentru a[i] și a[j] și acel moment
+este, este executat de N-1  ori
+
+56
+00:05:28,044 --> 00:05:34,394
+prima dată prin buclă și N -2 ori a doua oară
+și așa mai departe. Este suma numerelor întregi
+
+57
+00:05:34,637 --> 00:05:40,395
+de la zero până la N-1 care este o simplă 
+sumă discretă 1/2N(N-1) și
+
+58
+00:05:40,395 --> 00:05:47,383
+întrucât, iar din moment ce o facem de două ori 
+numărul de acces matrice este N(N-1). Deci,
+
+59
+00:05:47,383 --> 00:05:54,516
+putem merge mai departe și să obținem aceste numărări 
+exacte actuale. Dar deja, se face un pic
+
+60
+00:05:54,516 --> 00:06:01,465
+plictisitor să facem asta. Și încă de la 
+Turing care a știut, de asemenea, asta și la fel de bine ca
+
+61
+00:06:01,465 --> 00:06:06,921
+Babbage, că vrem să avem o 
+măsură a cantității de muncă implicate în
+
+62
+00:06:06,921 --> 00:06:12,909
+proces. El a recunoscut că voi nu 
+doriți neapărat să mergeți și să faceți 
+
+63
+00:06:12,909 --> 00:06:18,975
+în detaliu. Este încă util să avem 
+o estimare brută. Deci, ați putea număra
+
+64
+00:06:18,975 --> 00:06:24,920
+de câte ori care se aplică fiecare 
+operație, ați putea da ponderi și, și număra
+
+65
+00:06:24,920 --> 00:06:32,113
+scăderi [nu se aude] şi aşa mai departe. Dar poate că noi
+ar trebui să le numărăm doar pe cele care sunt cele mai
+
+66
+00:06:32,113 --> 00:06:39,614
+costisitoare asta a spus Turing în 1947,
+și realist asta e ceea ce facem
+
+67
+00:06:39,614 --> 00:06:46,852
+în zilele noastre. Deci, mai degrabă decât a merge și de a număra fiecare detaliu, vom lua unele
+
+68
+00:06:46,852 --> 00:06:52,856
+operații de bază, care sunt probabil cele mai 
+costisitoare și sau și sau pe cea care este
+
+69
+00:06:53,071 --> 00:06:59,480
+executată mai des. Cea care costă
+și frecvența este cea mai mare și folosim asta
+
+70
+00:06:59,480 --> 00:07:05,075
+ca un proxy pentru timpul de rulare. În esență,
+făcând ipoteza că timpul de rulare
+
+71
+00:07:05,075 --> 00:07:10,237
+este, va creste ca o constanta
+de ori asta [inaudibil]. Deci, în acest caz, avem
+
+72
+00:07:10,237 --> 00:07:15,278
+de gând să alegem accesele de matrice. Deci, asta e
+prima simplificare. Și a doua
+
+73
+00:07:15,278 --> 00:07:20,383
+simplificare este că vom
+ignora termenii de ordine mici în formulele
+
+74
+00:07:20,383 --> 00:07:26,239
+pe care le derivăm. Și există un mod ușor să 
+facem asta. Se numește notația tilda
+
+75
+00:07:26,481 --> 00:07:33,552
+și, și ideea este când N este mare într-o
+formulă ca aceasta termenul N ^ 3 este mult,
+
+76
+00:07:33,552 --> 00:07:40,492
+mult mai mare decât termenul N sau șaisprezece. De fapt, atât de mult încât nu am mai
+
+77
+00:07:40,773 --> 00:07:47,845
+observa decât cu greu acești termeni de ordine de mici. Deci,
+toate aceste formule sunt tilda o șesime
+
+78
+00:07:47,853 --> 00:07:54,344
+N^3 și asta e o reprezentativă bună sau
+aproximativă, aproximarea la aceste
+
+79
+00:07:54,344 --> 00:08:00,766
+cantități. Și simplifică foarte mult
+calculele lor la un, printr-un mod
+
+80
+00:08:00,766 --> 00:08:05,963
+la mai mici, la ordine mai mici ca asta. Deci, 
+concentrându-se pe o singură operație și, aruncând
+
+81
+00:08:05,963 --> 00:08:11,653
+deoparte tilde,  termenii mai mici și
+aceasta este o definiție tehnică a tilda.
+
+82
+00:08:11,885 --> 00:08:16,868
+E doar, f(n) tilda g(n) ) înseamnă
+lim de f(n) supra g(n) egal unu, și puteți
+
+83
+00:08:16,868 --> 00:08:23,395
+verifica că va ține în aceste tipuri de situații. Deci, asta simplifică foarte mult
+
+84
+00:08:23,395 --> 00:08:30,482
+numărarea  frecvenței. Și dacă
+noi doar alegem un lucru noi doar
+
+85
+00:08:30,482 --> 00:08:36,049
+vorbim despre tilda N^2 și, poate, un alt
+tilda N^2 pentru incrementul pentru 
+
+86
+00:08:36,049 --> 00:08:41,323
+problema 2 SUM, bine. Deci, din nou, atunci când N este
+mare, termenii sunt neglijabili și când N
+
+87
+00:08:41,323 --> 00:08:46,493
+este foarte mic, nu sunt neglijabile
+dar nu ne pasă cu adevărat pentru că noi
+
+88
+00:08:46,493 --> 00:08:51,522
+încercăm să estimăm timpul de funcționare pentru N 
+mare și timpul de funcționare pentru N mic vor fi
+
+89
+00:08:51,522 --> 00:08:57,491
+mici indiferent de ce. Bine, deci
+acum, noi folosim ambele modelul costului și
+
+90
+00:08:57,491 --> 00:09:04,228
+notația tilda și apoi noi putem simplu
+spune, , că acest program folosește tilda N^2
+
+91
+00:09:04,228 --> 00:09:11,630
+accese matrice și are implicit
+ipoteza că noi credem că timpul de funcționare
+
+92
+00:09:11,630 --> 00:09:18,362
+va fi tilda, o constantă, ori N
+pătrat. Bine, acum ce e cu 3-SUM
+
+93
+00:09:18,362 --> 00:09:25,618
+să facem o, o problemă reală. Deci, acum,
+avem o buclă triplă. Și apoi, trebuie
+
+94
+00:09:25,618 --> 00:09:32,888
+să facem o problemă combinatorială mai 
+complicată nu este mare lucru într-adevăr
+
+95
+00:09:33,151 --> 00:09:40,710
+ne uitam la numărul distinct de
+moduri în care puteți alege trei lucruri din N
+
+96
+00:09:40,963 --> 00:09:48,188
+și că e coeficient binomial. Și 
+din nou, făcând matematica și utilizând tilda,
+
+97
+00:09:48,188 --> 00:09:54,284
+e doar tilda o șesime N ^ 3 trei accese 
+matrice pentru fiecare triplă astfel putem spune
+
+98
+00:09:54,284 --> 00:10:01,006
+o jumătate N ^ 3. Deci nu calculăm și
+însumăm costurile tuturor operațiilor care e
+
+99
+00:10:01,006 --> 00:10:07,581
+prea mult de lucru. Noi alegem cel mai
+costisitor în ceea ce privește timpul de cost frecvență
+
+100
+00:10:07,795 --> 00:10:15,170
+și aproximarea că și încercarea de a obține un
+model bun pentru timpul de execuție. Deci, acum
+
+101
+00:10:15,462 --> 00:10:22,422
+cel mai mult, noi nu vom face o completă
+matematică discretă în acest curs, dar
+
+102
+00:10:22,422 --> 00:10:29,101
+există câteva lucruri de bază pe care vom dori 
+să le folosim și sunt, nu sunt atât de dificil de
+
+103
+00:10:29,101 --> 00:10:35,245
+înțeles. Deci, de multe ori află
+că avem nevoie de a veni cu o estimare
+
+104
+00:10:35,245 --> 00:10:40,872
+a unei sume discrete. Cum am facut pentru unu +
+doi până la N. Sau unele dintre pătrate sau
+
+105
+00:10:41,118 --> 00:10:48,044
+alte lucruri, cum ar fi 3-SUM buclă
+triplă. Și astfel, de fapt, dacă ați avut baza
+
+106
+00:10:48,044 --> 00:10:53,351
+de calcul, un mod de vă gândi la ea ca să 
+înlocuiți doar suma cu un interval,
+
+107
+00:10:53,351 --> 00:10:58,158
+integral. Aceasta de obicei funcționează sau putem face
+matematica și să utilizăm așa-numitul
+
+108
+00:10:58,158 --> 00:11:03,920
+Euler-Maclaurin formulă de însumare pentru a obține
+o aproximare adevărată. Dar dacă vă gândiți 
+
+109
+00:11:03,920 --> 00:11:10,409
+în acest fel ne veți crede când spunem
+că, acel lucru este tilda o jumătate N ^ 2 sau
+
+110
+00:11:10,409 --> 00:11:16,378
+sumă de unu + unu pe doi + o treime până la unu
+/ N. E ca și integrală de la x = unu la
+
+111
+00:11:16,378 --> 00:11:22,262
+N din 1/x și asta e logaritm natural de N. Acum
+chiar un tip de buclă triplă 3-Sum 
+
+112
+00:11:22,262 --> 00:11:27,214
+pe care ați folosit-o la mai multe integrale, eu va voi
+da repede 1/6 N^3.
+
+113
+00:11:27,438 --> 00:11:33,368
+Există mult mai multe și alte tehnici
+pe care le-am putea folosi pentru acesta. Și noi nu 
+
+114
+00:11:33,368 --> 00:11:38,774
+le vom învăța pe toate acelea, dar noi ne
+vom referi uneori la rezultate de acest tip.
+
+115
+00:11:38,774 --> 00:11:45,637
+Bine, deci în principiu, Knuth ne spune
+că modelele matematice exacte sunt
+
+116
+00:11:45,637 --> 00:11:52,928
+disponibile în practică, putem obține într-adevăr
+formule complicate. Noi, de asemenea, am putea nevoie de
+
+117
+00:11:52,928 --> 00:11:59,568
+ceva matematică avansată pe care
+teoreticianul o va descoperi. Dar asta poate că
+
+118
+00:11:59,799 --> 00:12:06,565
+oamenii care învață pentru prima 
+dată algoritmi nu ar fi de așteptat să știe. Deci, la
+
+119
+00:12:06,565 --> 00:12:12,338
+final modelele cu grijă exacte, sunt cele mai bune,
+lăsate pentru ieșire, experți. Sunt
+
+120
+00:12:12,338 --> 00:12:19,079
+într-adevăr o mulțime de lucruri care pot merge mai departe. Pe 
+de alta parte modele aproximative
+
+121
+00:12:19,079 --> 00:12:25,087
+cu siguranță merită. Și pentru toți
+algoritmii pe care îi considerăm vom încerca să
+
+122
+00:12:25,087 --> 00:12:31,656
+comunicăm un model aproximativ rezonabil
+care poate fi folosit pentru a descrie timpul de 
+
+123
+00:12:31,656 --> 00:12:38,035
+funcționare. Uneori vom da
+dovezi matematice și alte ori 
+
+124
+00:12:38,035 --> 00:12:48,060
+trebuie să cităm doar activitatea unor experți.

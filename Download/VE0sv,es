@@ -1,0 +1,271 @@
+1
+00:00:01,024 --> 00:00:06,048
+El primer método elemental al que vamos a echar un vistazo en un fácil
+
+2
+00:00:06,048 --> 00:00:11,083
+método conocido como ordenación por selección. La idea de la ordenación por selección es comenzar con un
+
+3
+00:00:11,083 --> 00:00:17,101
+un vector (o array) no ordenado, usaremos una baraja de cartas como ejemplo, y en cada iteración,
+
+4
+00:00:17,101 --> 00:00:22,867
+recorreremos el vector intentando encontrar la entrada más pequeña que quede, en este caso,
+
+5
+00:00:22,867 --> 00:00:28,693
+el 2 es la entrada más pequeña, y a continuación lo intercambiaremos con la primera entrada
+
+6
+00:00:28,693 --> 00:00:34,199
+del vector y así tendremos el paso uno completado. La ordenación por selección se basa en 
+
+7
+00:00:34,199 --> 00:00:39,376
+repetir esta idea. OK. Así que el método básico de ordenación por selección, es, en la i-ésima
+
+8
+00:00:39,376 --> 00:00:44,626
+iteración, encontrar la entrada más pequeña que quede a la derecha de i, es decir con un 
+
+9
+00:00:44,626 --> 00:00:50,252
+indice mayor que i, y a continuación intercambiarlo con i. Así, al empezar, i está a la izquierda del todo y 
+
+10
+00:00:50,252 --> 00:00:55,711
+los restantes, todas las entradas restantes, a su derecha. Recorremos el vector y
+
+11
+00:00:55,711 --> 00:01:02,516
+el más pequeño es el dos, la tercera entrada por la derecha, asi que lo intercambiamos. Y este
+
+12
+00:01:02,516 --> 00:01:08,889
+es el primer paso. Ahora la parte del vector a la izquierda de i se encuentra ya
+
+13
+00:01:08,889 --> 00:01:15,193
+ordenado y simplemente continuamos. Asi que ahora el más pequeño es el tres. Lo intercambiamos con i,
+
+14
+00:01:15,193 --> 00:01:21,511
+e incrementamos i. Así que ahora tenemos dos y tres en orden, y continuamos. Encontramos 
+
+15
+00:01:21,511 --> 00:01:27,958
+el más pequeño, el cuatro. Lo intercambiamos con i, incrementamos i. Encontramos el más pequeño, que es el
+
+16
+00:01:27,958 --> 00:01:34,712
+cinco, lo intercambiamos con i, incrementamos i. Encontramos el más pequeño, intercambiamos con i, incrementamos i.
+
+17
+00:01:34,712 --> 00:01:40,689
+En cada iteración, tenemos que recorrer todas las entradas restantes para
+
+18
+00:01:40,689 --> 00:01:45,788
+encontrar la más pequeña. Entonces, cuando la hayamos encontrado, solo tenemos que intercambiar dos cartas
+
+19
+00:01:45,979 --> 00:01:52,898
+estas son las dos propiedades clave de la ordenación por selección. Ahora ocho es la más pequeña y la
+
+20
+00:01:52,898 --> 00:01:59,486
+intercambiamos. Y ahora, sabemos que están en orden, pero el programa no, así que tenemos que 
+
+21
+00:01:59,486 --> 00:02:06,816
+comparar i y n y ver si son iguales y entonces se intercambia consigo misma y hace 
+
+22
+00:02:06,816 --> 00:02:13,226
+lo mismo por última vez. Y así, después de este proceso, ya sabemos que todo el 
+
+23
+00:02:13,226 --> 00:02:19,445
+vector esta ordenado, por completo. Bien. Una forma de entender
+
+24
+00:02:19,445 --> 00:02:24,768
+la manera en que el algoritmo funciona es pensar en invariantes. Así, en la
+
+25
+00:02:24,768 --> 00:02:30,924
+ordenación por selección, tenemos un puntero que es nuestra variable i, que recorre de izquierda a derecha.
+
+26
+00:02:30,924 --> 00:02:36,345
+Esta indicado con una pequeña flecha roja en esta representación. Los
+
+27
+00:02:36,345 --> 00:02:42,235
+invariantes son las entradas a la izquierda de la flecha, que nunca cambian
+
+28
+00:02:42,235 --> 00:02:48,743
+y están en orden ascendente. Ninguna entrada a la derecha de la flecha es más pequeña que
+
+29
+00:02:48,743 --> 00:02:54,859
+ninguna otra entrada a la izquierda de la misma. Esa es la manera en que lo hacemos. Y el algoritmo 
+
+30
+00:02:54,859 --> 00:03:00,837
+mantiene esos invariantes encontrando la entrada más pequeña de la derecha e intercambiandola
+
+31
+00:03:00,837 --> 00:03:06,827
+con la siguiente. Así que el código implementa los invariantes. Así, para mover el
+
+32
+00:03:06,827 --> 00:03:12,739
+puntero a la derecha, incrementamos i. Y ahora el invariante podría estar mal asi que
+
+33
+00:03:12,739 --> 00:03:18,425
+tenemos que solucionarlo. Podría estar mal porque podríamos tener un elemento a la
+
+34
+00:03:18,425 --> 00:03:23,812
+derecha del puntero que sea menor que el elemento del 
+
+35
+00:03:23,812 --> 00:03:29,143
+puntero. Así que lo que tenemos que hacer es identificar el índice de esa entrada con el valor más pequeño
+
+36
+00:03:29,143 --> 00:03:34,170
+e intercambiarlo. Entonces, una vez que lo hayamos intercambiado, de nuevo, preservamos nuestro invariante.
+
+37
+00:03:34,170 --> 00:03:38,846
+En este punto, ningún elemento a la izquierda del puntero va a cambiar y todos 
+
+38
+00:03:38,846 --> 00:03:44,536
+los elementos, no hay ningún elemento a la derecha [tos] y esto nos da
+
+39
+00:03:44,768 --> 00:03:52,713
+inmediatamente nuestro código para la implementación de la ordenación por selección. Identificamos el, la
+
+40
+00:03:52,713 --> 00:03:59,009
+longitud del vector, que es n. Entonces tenemos un bucle que recorre todos
+
+41
+00:03:59,009 --> 00:04:05,112
+los elementos del vector, mantenemos una variable "min" que es el indice de, va a ser
+
+42
+00:04:05,112 --> 00:04:10,045
+el indice del elemento más pequeño a la derecha del puntero i. Tenemos un
+
+43
+00:04:10,045 --> 00:04:15,626
+bucle interno, ese "for j", si encuentra un elemento más pequeño, actualiza "min" y entonces cuando
+
+44
+00:04:15,626 --> 00:04:21,509
+hemos mirado todos los elementos a la derecha de i, intercambiamos el más pequeño de ellos
+
+45
+00:04:21,509 --> 00:04:27,083
+con i. Esta es la implementación completa del algoritmos de ordenación por selección. Ahora es fácil 
+
+46
+00:04:27,083 --> 00:04:34,073
+desarrollar un modelo matemático del coste de la ordenación por selección y aquí esta la
+
+47
+00:04:34,073 --> 00:04:42,054
+proposición que lo describe. Esta selección usa unas N^2 / 2
+
+48
+00:04:42,056 --> 00:04:48,011
+comparaciones y exactamente N intercambios. Y mirando esta traza de la ordenación
+
+49
+00:04:48,011 --> 00:04:55,525
+por selección realmente es una prueba, una prueba visual de esta proposición. En este
+
+50
+00:04:55,525 --> 00:05:00,493
+diagrama, las entradas en negro, son las que son examinadas para encontrar
+
+51
+00:05:00,493 --> 00:05:06,621
+el valor mínimo cada vez, con el mínimo en rojo. Las entradas en gris no se tocan,
+
+52
+00:05:06,621 --> 00:05:12,492
+estan su posición final. Bien, como podéis ver, esto no va a ser 
+
+53
+00:05:12,492 --> 00:05:19,709
+normalmente una matriz de N por N y más o menos la mitad de los elementos en la matriz estan negros o sobre
+
+54
+00:05:19,709 --> 00:05:27,029
+N^2 / 2 y puedes ver también la formula (N - 1) + (N - 2), que 
+
+55
+00:05:27,245 --> 00:05:33,329
+es numero total de comparaciones usadas. Y entonces en cada uno de los N valores de la
+
+56
+00:05:33,329 --> 00:05:40,218
+variable i hay un intercambio que es el coste en términos de numero de
+
+57
+00:05:40,218 --> 00:05:48,070
+intercambios. Ahora, lo que es interesante de esta proposición del método de ordenación por selección es
+
+58
+00:05:48,070 --> 00:05:54,257
+que, no importa en que orden este la entrada. El método de selección va a usar
+
+59
+00:05:54,257 --> 00:06:00,458
+N al cuadrado veces porque siempre tiene que recorrer todo el vector para buscar el valor
+
+60
+00:06:00,458 --> 00:06:06,752
+mínimo. Y otra propiedad es que no se puede conseguir mover menos datos porque
+
+61
+00:06:06,752 --> 00:06:12,842
+la selección por selección hace exactamente un numero linear de intercambios. Cada elemento es puesto en 
+
+62
+00:06:12,842 --> 00:06:19,459
+su posición final con solo un intercambio. Veamos una animación de
+
+63
+00:06:19,459 --> 00:06:25,693
+la ordenación por selección en funcionamiento. [Tos] Podéis ver nuestro puntero moviéndose de derecha a 
+
+64
+00:06:25,693 --> 00:06:31,919
+izquierda cada vez que encuentra el elemento más pequeño a la derecha lo coloca en su 
+
+65
+00:06:31,919 --> 00:06:39,637
+posición. Ahora, si es vector esta parcialmente ordenado, no le importa a este
+
+66
+00:06:39,637 --> 00:06:45,854
+método. También tendrá, aunque este completamente ordenado, también tendrá que 
+
+67
+00:06:45,854 --> 00:06:51,359
+recorrer hasta el final buscando donde esta el elemento más pequeño. Esta es la ordenación por selección, nuestro primer
+
+68
+00:06:51,359 --> 00:06:59,072
+método de ordenación elemental.

@@ -1,0 +1,350 @@
+1
+00:00:02,022 --> 00:00:08,015
+Allora dato che il QuickFind è troppo lento
+per problemi di grandi dimensioni. Come possiamo
+
+2
+00:00:08,015 --> 00:00:14,035
+fare meglio? Il nostro primo tentativo è
+l'alternativa chiamata Quick-union. Questo è
+
+3
+00:00:14,035 --> 00:00:20,082
+quello che vieneì chiamato approccio pigro alla struttura
+dell'algoritmo dove noi cerchiamo di evitare il lavoro
+
+4
+00:00:20,082 --> 00:00:27,506
+fino a che lo dobbiamo fare. Utilizza la stessa
+struttura dati, un array id[i] di dimensione M, ma ora
+
+5
+00:00:27,506 --> 00:00:34,280
+ha un significato diverso. Dobbiamo
+pensare che questo array
+
+6
+00:00:34,280 --> 00:00:41,298
+rappresenti un insieme di alberi, ciò che
+si chiama foresta, come illustrato sulla destra.
+
+7
+00:00:41,298 --> 00:00:49,468
+Ogni valore dell'array conterrà un
+puntatore al suo genitore nell'albero.
+
+8
+00:00:49,468 --> 00:00:57,425
+Così, per esempio, il genitore di 3 è 4,
+il genitore di 4 è 9. Così il valore di 3 è 4
+
+9
+00:00:57,425 --> 00:01:06,681
+e il valore di 4 nell'array è 9. Ogni valore
+nell'array è collegato ad una radice.
+
+10
+00:01:06,681 --> 00:01:13,179
+Questa è la radice del suo stesso albero.
+Gli elementi che sono isolati
+
+11
+00:01:13,179 --> 00:01:19,303
+che sono connessi con se stessi,
+puntano a se stessi, quindi uno punta
+
+12
+00:01:19,303 --> 00:01:26,108
+a se stesso, ma anche 9 punta a se stesso, quindi
+è la radice dell'albero che contiene due elementi
+
+13
+00:01:26,108 --> 00:01:32,419
+4 e 3. Così, da questa struttura dati
+possiamo associare ad ogni elemento
+
+14
+00:01:32,419 --> 00:01:40,202
+una radice, che rappresenta, diciamo,
+la sua componente connessa. In questo modo
+
+15
+00:01:40,202 --> 00:01:47,044
+risalendo alla radice troviamo che la radice di 3 è  9.
+Ora se noi possiamo calcolare queste radici
+
+16
+00:01:47,044 --> 00:01:52,956
+allora possiamo anche implementare l'operazione di ricerca
+semplicemente controllando se due elementi
+
+17
+00:01:52,956 --> 00:01:57,592
+quelli che stiamo controllando con l'algoritmo,
+siano collegati nel caso abbiano la stessa radice.
+
+18
+00:01:57,592 --> 00:02:02,373
+Questo equivale a chiedersi:sono nello
+stesso componente collegato? Così richiede
+
+19
+00:02:02,373 --> 00:02:09,240
+un pò di lavoro, trovare la radice di ognuno,
+ma l'operazione di unione è molto semplice.
+
+20
+00:02:09,240 --> 00:02:15,254
+Come unire componenti che contengano
+due elementi differenti, cioè due elementi che siano
+
+21
+00:02:15,254 --> 00:02:21,613
+in componenti diversi. Tutto quello che facciamo
+è porre l'id[i] della radice di P come id[i] della radice di Q
+
+22
+00:02:21,613 --> 00:02:28,748
+Poniamo che sia l'albero di P a puntare a quello
+di Q. In questo caso cambiamo il valore di 9
+
+23
+00:02:28,748 --> 00:02:35,027
+in 6 per unire 3 e 5. Abbiamo i componenti
+che contengono 3 e 5.
+
+24
+00:02:35,027 --> 00:02:41,317
+Cambiando solo un valore dell'array
+otteniamo l'unione di due grandi elementi.
+
+25
+00:02:41,317 --> 00:02:46,295
+Questo è l'algoritmo Quick-union.
+Se l'operazione di unione richiede
+
+26
+00:02:46,295 --> 00:02:52,429
+solo il cambiamento di un ingresso nell'array
+l'operazione di ricerca richiede un po più
+
+27
+00:02:52,429 --> 00:02:57,907
+di lavoro. Vediamo ora l'implementazione,
+Prima una dimostrazione dell'operazione.
+
+28
+00:02:57,907 --> 00:03:03,569
+Iniziamo di nuovo nello stesso modo, ma
+ora il valore id[i] significa proprio che
+
+29
+00:03:03,569 --> 00:03:09,415
+ognuno di questi oggetti è un piccolo
+albero, dove ogni nodo punta
+
+30
+00:03:09,415 --> 00:03:15,284
+a se stesso. E' la radice del suo stesso albero.
+Così se ora dobbiamo mettere 4 e 3
+
+31
+00:03:15,284 --> 00:03:21,236
+nell stesso componente, tutto quello che facciamo
+è prendere la radice, del componente contenente
+
+32
+00:03:21,236 --> 00:03:26,624
+il primo elemento e ne facciamo un figlio
+della radice del componente che
+
+33
+00:03:26,624 --> 00:03:33,029
+contiene il secondo elemento. In questo caso
+abbiamo reso 4 padre di 3. Ora vediamo
+
+34
+00:03:33,259 --> 00:03:39,823
+3 e 8. Di nuovo prendiamo il primo
+elemento e lo rendiamo un figlio della radice
+
+35
+00:03:39,823 --> 00:03:47,532
+dell'albero che contiene il secondo elemento.
+Ora 3, 4 e 8 sono nello stesso
+
+36
+00:03:47,532 --> 00:03:56,434
+componente. Riguardo 6 e 5, 6
+va sotto cinque. Vediamo 9 e 4. Ora 4
+
+37
+00:03:56,434 --> 00:04:06,045
+e la radice dell'albero contenente quattro
+è 8. La radice dell'albero che contiene 9
+
+38
+00:04:06,045 --> 00:04:13,745
+è 9. Ora facciamo che 9 diventi figlio
+di 8. 2 e 1 sono facili da unire.
+
+39
+00:04:14,007 --> 00:04:20,993
+Ora che abbiamo connesso 8 e 9
+verifichiamo che essi abbiano
+
+40
+00:04:20,993 --> 00:04:28,011
+la stessa radice ed entrambi hanno proprio
+la stessa radice 8 quindi sono connessi.
+
+41
+00:04:28,011 --> 00:04:34,230
+Vediamo 5 e 4. La radice di 4 è 8,
+quella di 5 è 5. Sono differenti. Non sono
+
+42
+00:04:34,230 --> 00:04:42,339
+connessi. Vediamo 5 e zero con 5 che
+diventa un figlio di zero. Vediamo 7 e 2 con 7
+
+43
+00:04:42,339 --> 00:04:52,836
+che diventa figlio della radice di 2 che è 1.
+Vediamo 6 e 1. La radice di 6 è zero, è radice
+
+44
+00:04:52,836 --> 00:05:00,636
+di se stesso, così zero diventa figlio di 1.
+Ognuna di queste operazioni di unione
+
+45
+00:05:00,636 --> 00:05:10,069
+comporta solo il cambiamento di un valore dell'array.
+E alla fine, vediamo 7 e 3. Così la radice di 7
+
+46
+00:05:10,069 --> 00:05:18,755
+è uno, la radice di 3 è 8, e 1 diventa figlio
+di 8. Ora abbiamo un unico
+
+47
+00:05:18,755 --> 00:05:26,012
+oggetto connesso con tutti gli elementi
+collegati tra loro. Molto bene, ora diamo un'occhiata
+
+48
+00:05:26,012 --> 00:05:32,668
+al codice per implementare Quick-union.
+Il costruttore è lo stesso dell'algoritmo precedente
+
+49
+00:05:32,668 --> 00:05:40,967
+Creiamo l'array e poi inizializziamo ogni
+elemento per essere radice di se stesso. Ora abbiamo
+
+50
+00:05:40,967 --> 00:05:46,005
+un metodo privato per implementare il
+processo della ricerca della radice cercando
+
+51
+00:05:46,005 --> 00:05:51,352
+i puntatori dei genitori, fino al punto in cui i
+è uguale al valore di id[i]  e se non lo è
+
+52
+00:05:51,352 --> 00:05:57,369
+noi spostiamo i su di un livello nell'albero,
+poniamo i uguale al valore id[i] e lo restituiamo.
+
+53
+00:05:57,369 --> 00:06:02,005
+Così partendo da qualsiasi nodo si considera
+il valore contenuto per vedere se è uguale al valore
+di id[i]. fino a che
+
+54
+00:06:02,005 --> 00:06:07,396
+sono uguali e se lo sono sei arrivato alla radice. Questo è
+un metodo privato che possiamo usare
+
+55
+00:06:07,396 --> 00:06:11,959
+per implementare l'operazione di ricerca
+o quella di collegamento. Si trovano semplicemente
+
+56
+00:06:11,959 --> 00:06:17,316
+la radice di P e la radice di Q e si verifica
+che siano uguali. Poi l'operazione di unione
+
+57
+00:06:17,316 --> 00:06:23,342
+è semplicemente trovare le due radici e
+porre che l'id[i] del primo diventi quello del
+
+58
+00:06:23,342 --> 00:06:30,310
+secondo. In realtà abbiamo meno codice di
+quello usato per Quick Find, non ci sono cicli for.
+
+59
+00:06:30,310 --> 00:06:37,139
+C'è questo loop che ci deve spaventare
+un pò. Ma è una implementazione veloce
+
+60
+00:06:37,139 --> 00:06:43,326
+ed elegante del codice per risolvere il problema
+della connessione dinamica chiamato
+
+61
+00:06:43,326 --> 00:06:50,318
+Quick-union. Ora ci chiediamo questo
+codice è efficace per risovere
+
+62
+00:06:50,582 --> 00:06:57,657
+problemi di grandi dimensioni? Sfortunatamente
+Quick-union è veloce, ma è ancora troppo
+
+63
+00:06:57,657 --> 00:07:04,042
+lento. Il suo essere lento è diverso dalla
+lentezza di Quick Find, ci sono volte
+
+64
+00:07:04,042 --> 00:07:10,005
+che può essere veloce, ma ci sono anche volte
+che è ancora troppo lento.
+
+65
+00:07:10,005 --> 00:07:16,256
+Il difetto per Quick-union è che l'albero può
+crescere troppo. Questo significa
+
+66
+00:07:16,256 --> 00:07:22,065
+che l'operazione di ricerca diventa
+troppo costosa. La puoi liquidare con un albero
+
+67
+00:07:22,065 --> 00:07:28,432
+profondo senza foglie. Ogni elemento punta
+solo al successivo così una operazione di ricerca
+
+68
+00:07:28,432 --> 00:07:33,976
+per ggetti in profondità significherà
+percorrere tutto l'albero.
+
+69
+00:07:34,183 --> 00:07:40,184
+I costi della ricerca in ampiezza 
+dell'operazione di ricerca
+
+70
+00:07:40,184 --> 00:07:44,013
+rendono l'algoritmo troppo lento se servono
+molte operazioni.

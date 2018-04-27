@@ -1,0 +1,429 @@
+1
+00:00:01,013 --> 00:00:06,020
+Bienvenidos. Mi nombre es Bob Sedgewick, soy profesor de Ciencias Computacionales en Princeton. Éste es nuestro
+
+2
+00:00:06,020 --> 00:00:11,014
+curso en línea Algoritmos, desarrollado por mí y Kevin Wayne en Princeton.
+
+3
+00:00:11,014 --> 00:00:16,002
+Vamos a comenzar con una discusión general de por qué es posible que desee estudiar
+
+4
+00:00:16,002 --> 00:00:21,005
+algoritmos y un poco de la discusión sobre los recursos que usted necesita para tomar
+
+5
+00:00:21,005 --> 00:00:26,543
+este curso. Entonces, ¿qué es este curso? Se trata de un curso sobre algoritmos de nivel intermedio.
+
+6
+00:00:26,543 --> 00:00:31,062
+Vamos a concentrarnos en la programación y resolución de problemas en el
+
+7
+00:00:31,062 --> 00:00:35,870
+contexto de las aplicaciones reales, y nos vamos a concentar en dos cosas,
+
+8
+00:00:35,870 --> 00:00:41,756
+en algoritmos, que son métodos para la solución de problemas, y en estructuras de datos, que almacenan
+
+9
+00:00:41,756 --> 00:00:46,651
+la información asociada al problema, y van de la mano con
+
+10
+00:00:46,651 --> 00:00:51,600
+los algoritmos. Éstos son los temas básicos que vamos a cubrir en las partes 1 y 2 
+
+11
+00:00:51,600 --> 00:00:56,559
+del curso. La primera parte es sobre cómo ordenar y buscar tipos de datos. Vamos a considerar un
+
+12
+00:00:56,559 --> 00:01:00,810
+número de estructuras de datos y algoritmos que son básicos para todos los métodos que
+
+13
+00:01:00,810 --> 00:01:05,811
+consideraremos, incluyendo de pilas, colas, bolsas y colas de prioridad. A continuación, vamos a considerar
+
+14
+00:01:05,811 --> 00:01:09,852
+algoritmos clásicos para ordenar, poner las cosas en orden. Ellos son quicksort,
+
+15
+00:01:09,852 --> 00:01:15,130
+mergesort, heapsort y radix sorts. Y vamos a considerar los métodos clásicos de
+
+16
+00:01:15,130 --> 00:01:19,932
+búsqueda, incluyendo los árboles binarios de búsqueda, árboles binarios red-black de búsqueda y tablas
+
+17
+00:01:19,932 --> 00:01:25,166
+hash. La segunda parte del curso es sobre algoritmos más avanzados, incluyendo
+
+18
+00:01:25,166 --> 00:01:30,425
+algoritmos de grafos, algoritmos clásicos de búsqueda en grafos, árbol mínimo de expansión y
+
+19
+00:01:30,425 --> 00:01:35,417
+algoritmos de camino más corto, algoritmos para procesar cadenas, que incluyen expresiones
+
+20
+00:01:35,417 --> 00:01:41,178
+regulares y compresión de datos. Y entonces veremos algoritmos más avanzados que hacen uso de
+
+21
+00:01:41,178 --> 00:01:46,890
+los algoritmos básicos que hemos desarrollado anteriormente en el curso. Así que, ¿por qué uno
+
+22
+00:01:46,890 --> 00:01:52,075
+debería estudiar los algoritmos? Bueno, su aporte e impacto son muy amplios y de largo alcance.
+
+23
+00:01:52,075 --> 00:01:57,185
+Desde Internet a la biología, hasta computación comercial, gráficos por computadora,
+
+24
+00:01:57,185 --> 00:02:02,512
+seguridad, redes sociales, multimedia y aplicaciones científicas, los algoritmos están
+
+25
+00:02:02,512 --> 00:02:07,805
+a nuestro alrededor. Se utilizan para las películas y los videojuegos, para simular la colisión de
+
+26
+00:02:07,805 --> 00:02:12,910
+partículas, se usan para estudiar el genoma, y ​​todo tipo de otras
+
+27
+00:02:12,910 --> 00:02:18,319
+aplicaciones. Por lo tanto, ésa es una razón importante para estudiar algoritmos, su impacto
+
+28
+00:02:18,319 --> 00:02:23,329
+es amplio y de largo alcance. Los algoritmos también son interesantes de estudiar, ya que,
+
+29
+00:02:23,329 --> 00:02:28,064
+tienen raíces antiguas. Ahora, el primer algoritmo que estudiamos se remonta a 300
+
+30
+00:02:28,064 --> 00:02:32,588
+AC, que data por lo menos de la época de Euclides. El concepto de un algoritmo se formalizó,
+
+31
+00:02:32,588 --> 00:02:37,651
+en realidad, aquí, en Princeton, por Church y Turing, en la década de 1930. Pero la mayoría de los algoritmos
+
+32
+00:02:37,651 --> 00:02:41,806
+que consideramos, fueron descubiertos en las últimas décadas. De hecho, algunos fueron
+
+33
+00:02:41,806 --> 00:02:46,452
+descubiertos por los estudiantes en un curso, como éste, por ejemplo. Y hay un montón de
+
+34
+00:02:46,452 --> 00:02:51,595
+otros algoritmos que esperan ser descubiertos por los estudiantes como usted. La razón principal por la que
+
+35
+00:02:51,595 --> 00:02:57,239
+la gente estudia algoritmos, es ser capaz de resolver problemas que no podrían abordar de otro
+
+36
+00:02:57,239 --> 00:03:02,498
+modo. Por ejemplo, en la primera conferencia, vamos a hablar del
+
+37
+00:03:02,498 --> 00:03:07,234
+problema de conectividad de red, donde el problema es, dado un gran conjunto de elementos
+
+38
+00:03:07,234 --> 00:03:12,135
+que están conectados entre sí por parejas, determinar si hay una manera de ir de un elemento a otro
+
+39
+00:03:12,135 --> 00:03:17,134
+siguiendo un camino a través de las conexiones. Como se puede ver en este ejemplo, no es
+
+40
+00:03:17,134 --> 00:03:22,282
+claro si hay o no un camino así, necesitamos un programa de computadora para hacerlo, de
+
+41
+00:03:22,282 --> 00:03:28,793
+hecho, necesitamos un algoritmo eficiente para hacerlo. En este caso, la respuesta es si existe
+
+42
+00:03:28,793 --> 00:03:34,241
+tal camino. Otra razón para estudiar los algoritmos es para estímulo
+
+43
+00:03:34,241 --> 00:03:39,795
+intelectual. Los algoritmos son objetos muy interesantes para estudiar. Don Knuth,
+
+44
+00:03:39,795 --> 00:03:45,275
+quien escribió varios libros sobre algoritmos y fue un pionero en el campo, dijo:
+
+45
+00:03:45,275 --> 00:03:50,553
+"Un algoritmo debe ser visto para ser creído." No se puede simplemente pensar en un
+
+46
+00:03:50,553 --> 00:03:55,998
+algoritmo, se tiene que trabajar con él. Otra cita de Francis Sullivan dice:
+
+47
+00:03:55,998 --> 00:04:01,412
+"Los grandes algoritmos son la poesía de la computación." Al igual que el verso, pueden ser
+
+48
+00:04:01,412 --> 00:04:05,905
+lacónicos, evasivos, densos e incluso misteriosos. Pero, una vez desbloqueados, brindan una
+
+49
+00:04:05,905 --> 00:04:11,473
+nueva luz brillante sobre algunos aspectos de la informática. Los algoritmos son interesantes para
+
+50
+00:04:11,473 --> 00:04:17,057
+la estimulación intelectual. Otra razón por la cual mucha gente estudia algoritmos, y sospecho
+
+51
+00:04:17,057 --> 00:04:21,565
+que es el caso de muchos de ustedes, es que es necesario comprender buenos algoritmos, 
+
+52
+00:04:21,565 --> 00:04:26,760
+algoritmos eficientes, buenas estructuras de datos, con el fin de ser un programador competente. Linus
+
+53
+00:04:26,760 --> 00:04:31,358
+Torvalds, creador de Linux, dice que la diferencia entre un mal
+
+54
+00:04:31,358 --> 00:04:36,708
+programador y uno bueno es si él considera que su código es más importante que sus estructuras de datos
+
+55
+00:04:36,708 --> 00:04:41,739
+o viceversa. Los malos programadores se preocupan por el código, los buenos se preocupan
+
+56
+00:04:41,739 --> 00:04:45,943
+por las estructuras de datos, y sus relaciones. Y yo agregaría, los
+
+57
+00:04:45,943 --> 00:04:50,048
+algoritmos que los procesan. Niklaus Wirth, otro de los pioneros en las ciencias de la
+
+58
+00:04:50,048 --> 00:04:55,438
+computación, escribió un famoso libro llamado Algoritmos + Estructuras de Datos = Programas.
+
+59
+00:04:55,438 --> 00:05:02,079
+[Tos]. Otra razón hoy en día para estudiar los algoritmos es que se han convertido en un
+
+60
+00:05:02,079 --> 00:05:08,420
+lenguaje común para el entendimiento de la naturaleza. Los algoritmos son modelos computacionales, y
+
+61
+00:05:08,420 --> 00:05:14,892
+los modelos algorítmicos están reemplazando a los modelos matemáticos en la investigación científica.
+
+62
+00:05:14,892 --> 00:05:20,287
+En el siglo XX los matemáticos desarrollaron modelos matemáticos para tratar de
+
+63
+00:05:20,287 --> 00:05:25,251
+comprender los fenómenos naturales. Pronto se hizo evidente que los modelos
+
+64
+00:05:25,251 --> 00:05:30,561
+matemáticos eran difíciles de resolver. Fue difícil crear soluciones, para ser capaz
+
+65
+00:05:30,561 --> 00:05:36,011
+de probar una hipótesis sobre un fenómeno natural. Así, más y más y más hoy
+
+66
+00:05:36,011 --> 00:05:41,189
+en día la gente está desarrollando modelos computacionales, donde intentan simular
+
+67
+00:05:41,189 --> 00:05:46,568
+lo que podría estar sucediendo en la naturaleza con el fin de tratar de entenderla mejor. Los algoritmos
+
+68
+00:05:46,568 --> 00:05:52,069
+juegan un papel muy importante en este proceso. Y vamos a ver algunos ejemplos de
+
+69
+00:05:52,069 --> 00:05:58,009
+esto en este curso. Otra razón importante es que si sabes, efectivamente, la forma de
+
+70
+00:05:58,009 --> 00:06:03,067
+utilizar algoritmos y estructuras de datos, vas a tener una mucho
+
+71
+00:06:03,067 --> 00:06:09,851
+mejor oportunidad en una entrevista de trabajo en la
+industria de la tecnología, que si no lo sabes.
+
+72
+00:06:09,851 --> 00:06:15,953
+Por lo tanto, aquí hay un montón de razones por las que yo estudié algoritmos.
+
+73
+00:06:15,953 --> 00:06:21,761
+Su impacto amplio y de largo alcance, que tienen raíces antiguas y presentan nuevas
+
+74
+00:06:21,761 --> 00:06:26,175
+oportunidades, que nos permiten resolver problemas que, de otra manera,  no podríamos 
+
+75
+00:06:26,175 --> 00:06:30,003
+considerar, se pueden utilizar para la estimulación intelectual, para convertirse en un
+
+76
+00:06:30,003 --> 00:06:34,049
+programador competente. Ellos podrían descubrir los secretos de la vida en el universo, y
+
+77
+00:06:34,049 --> 00:06:38,461
+además son buenos para la diversión y el beneficio. De hecho, un programador podría preguntar: ¿por qué estudiar
+
+78
+00:06:38,461 --> 00:06:42,433
+algo más? Bueno, hay un montón de buenas razones para estudiar otras cosas, pero
+
+79
+00:06:42,433 --> 00:06:47,557
+yo sostengo que no hay una buena razón para no estudiar algoritmos. [Tos] Por lo tanto, para este
+
+80
+00:06:47,557 --> 00:06:53,714
+curso tenemos dos recursos de los que quiero hablar para asegurarme de que las personas
+
+81
+00:06:53,714 --> 00:06:59,374
+están familiarizados con ellos antes de entrar en el
+contenido. Éste es un modelo de publicación que
+
+82
+00:06:59,374 --> 00:07:04,472
+Kevin Wayne y yo desarrollamos y hemos estado utilizando durante muchos años, y creemos que es una
+
+83
+00:07:04,472 --> 00:07:09,507
+manera muy eficaz para apoyar las clases que vamos a estar dando
+
+84
+00:07:09,507 --> 00:07:14,659
+en este curso. En la parte inferior, y es opcional para este curso, tenemos un
+
+85
+00:07:14,659 --> 00:07:19,887
+libro de texto. Es un libro tradicional, es el libro de texto que cubre ampliamente los temas del
+
+86
+00:07:19,887 --> 00:07:24,285
+curso, de hecho, cubre muchos más temas de lo que podemos presentar en la clase. Y luego,
+
+87
+00:07:24,285 --> 00:07:28,668
+como apoyo al libro de texto, un material en línea gratis que llamamos sitio del libro. Usted
+
+88
+00:07:28,668 --> 00:07:33,839
+puede ir a los libros, el sitio web del libro para ver las diapositivas de las clases. Pero lo más importante,
+
+89
+00:07:33,839 --> 00:07:39,967
+hay código, hay ejercicios, hay una gran contenido de información en este sitio web. De hecho,
+
+90
+00:07:39,967 --> 00:07:45,329
+tal vez diez veces más de lo que hay en el libro, incluyendo un resumen de los contenidos. Por lo tanto,
+
+91
+00:07:45,329 --> 00:07:51,211
+durante este curso estarás yendo al sitio web del libro con frecuencia mientras trabajes
+
+92
+00:07:51,211 --> 00:07:57,075
+en línea. La gente suele preguntar sobre los requisitos previos. Estamos asumiendo que la gente
+
+93
+00:07:57,075 --> 00:08:02,820
+que toma este curso sabe programar, y conoce los conceptos básicos de bucles (o ciclos), arreglos,
+
+94
+00:08:02,820 --> 00:08:09,307
+funciones. Tienen una cierto conocimiento sobre programación orientada a objetos y recursividad.
+
+95
+00:08:09,307 --> 00:08:15,713
+Utilizamos el lenguaje Java, pero no nos detendremos en los detalles de Java, en su mayoría lo usamos
+
+96
+00:08:15,713 --> 00:08:21,546
+como un lenguaje expositivo. Hacemos un poco de matemática, pero no matemáticas avanzadas. Si usted desea
+
+97
+00:08:21,546 --> 00:08:27,875
+revisar el material que creemos que es un requisito previo para el material en este
+
+98
+00:08:27,875 --> 00:08:33,399
+curso, usted puede hacer un repaso rápido de las secciones 1.1 y 1.2 del
+
+99
+00:08:33,399 --> 00:08:39,110
+libro, ya sea en el sitio del libro o en el libro de texto. Si desea una revisión a fondo,
+
+100
+00:08:39,110 --> 00:08:43,722
+tenemos un libro lleno de texto llamado An Introduction to Programming in Java: An
+
+101
+00:08:43,722 --> 00:08:49,338
+Interdisciplinary Approach. Hay un sitio de libro y libro de texto también. Sin embargo, la
+
+102
+00:08:49,338 --> 00:08:53,968
+conclusión es que usted debería ser capaz de programar, y el ejercicio rápido para estar
+
+103
+00:08:53,968 --> 00:08:58,688
+listo es escribir un programa Java en su computadora, tal vez usando un modelo de programación
+
+104
+00:08:58,688 --> 00:09:03,287
+tal como se describe en el sitio web del libro. Vamos a ofrecer información mucho más detallada
+
+105
+00:09:03,287 --> 00:09:07,847
+a medida que nos adentramos en las tareas del curso. Usted puede utilizar su propio ambiente de programación
+
+106
+00:09:07,847 --> 00:09:13,294
+si se siente a gusto con uno o puede descargar el nuestro. Tenemos instrucciones
+
+107
+00:09:13,294 --> 00:09:15,039
+en la web acerca de cómo hacer eso.

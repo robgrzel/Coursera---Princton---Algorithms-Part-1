@@ -1,0 +1,389 @@
+1
+00:00:01,034 --> 00:00:06,408
+Jusqu'ici, nous avons parlé de temps d'exécution. 
+Il est maintenant temps de parler
+
+2
+00:00:06,408 --> 00:00:11,047
+de la consommation mémoire.
+A la base, on a besoin de connaitre
+
+3
+00:00:11,047 --> 00:00:16,088
+combien de bits le programme utilise ou
+octet, un bloc de 8 bits. En fait, nous allons
+
+4
+00:00:16,088 --> 00:00:22,064
+parler en terme de millions de bits ou
+milliards de bit et étonnamment
+
+5
+00:00:22,064 --> 00:00:27,608
+il y a une contreverse au sujet même de 
+ces simples définitions. Les informaticiens
+
+6
+00:00:27,608 --> 00:00:34,683
+pensent qu'1 million de bits est 2^20 et
+1 milliard est 2^30 car c'est le nombre
+
+7
+00:00:34,683 --> 00:00:40,949
+ de valeurs possibles qui tiennent dans 
+30 bits et tout est cohérent avec
+
+8
+00:00:40,949 --> 00:00:46,889
+nos calculs. Les autres scientifiques gardent
+1 million ou 1 milliard. Pour plein
+
+9
+00:00:46,889 --> 00:00:54,014
+de raisons, nous utiliserons 2^20, je
+veux dire un megaoctet. Les vieux ordinateurs
+
+10
+00:00:54,014 --> 00:01:00,437
+que l'on a longtemps utilisé étaient des machines 
+32-bit, donc les pointeurs faisaient 4 octets.
+
+11
+00:01:00,662 --> 00:01:07,042
+Récemment, nous sommes passé à des 
+modèles de machine 64-bit et donc
+
+12
+00:01:07,042 --> 00:01:12,765
+à des pointers de 8 octers. Cela nous permet
+d'addresser plus de mémoire mais les pointeurs
+
+13
+00:01:12,765 --> 00:01:19,278
+utilisent plus de place et en fait, cette
+transition a causé pas mal de problèmes
+
+14
+00:01:19,510 --> 00:01:25,230
+au début car les programmes utilisaient
+bien plus de place que ce que les gens
+
+15
+00:01:25,230 --> 00:01:30,121
+pensaient. Vous n'allez pas avoir
+à revivre ce genre de problème
+
+16
+00:01:30,121 --> 00:01:35,997
+parce que 64 bits est définitivement
+suffisant pour addresser tout ce que vous
+
+17
+00:01:35,997 --> 00:01:41,720
+avez besoin d'addresser. 2^64 est vraiment
+un très gros nombre. En parlant d'octet, commençons
+
+18
+00:01:41,720 --> 00:01:47,751
+par les utilisations mémoire typique. Une fois de plus, 
+c'est fortement dépendant de la machine et de
+
+19
+00:01:47,751 --> 00:01:53,432
+l'implémentation, mais ces chiffres sont
+raisonnables et se retrouve dans les implémentations
+
+20
+00:01:53,432 --> 00:01:58,294
+courantes. Donc le booléen. Ca serait bien
+qu'un booléen ne prenne qu'un bit car en fait
+
+21
+00:01:58,294 --> 00:02:03,834
+un booléen, c'est juste vrai ou faux. Mais 
+en fait il faut compter 1 octet pour un
+
+22
+00:02:03,834 --> 00:02:09,343
+booléen. Tous les byte font 1 octet. De nos
+jours, les caractères font 2 octets, 16-bit char.
+
+23
+00:02:09,541 --> 00:02:16,788
+Il n'y a pas si longtemps, on utilisait 8 bits pour
+les char. Un entier, le int standard, fait 4 octets
+
+24
+00:02:16,788 --> 00:02:23,226
+ou 32 bits et un float fait aussi 4 octets.
+Le long int en fait 8 et le double aussi.
+
+25
+00:02:23,227 --> 00:02:29,932
+En général, on utilise double pour les nombre réels
+et int pour le entiers dans la pluspart des
+
+26
+00:02:30,169 --> 00:02:37,093
+applications. Ca, c'était pour les types de base.
+Pour les tableaux, il y a un certain
+
+27
+00:02:37,093 --> 00:02:44,086
+surcoût pour la construction du trableau
+et si il y a n éléments, c'est
+
+28
+00:02:44,345 --> 00:02:51,763
+ce que coûte le type de base fois n
+donc un tableau de double serait
+
+29
+00:02:51,763 --> 00:02:58,439
+8n + 24. Pour un tableau à 2 dimensions et bien
+on pourrait continuer et calculer le truc exact
+
+30
+00:02:58,439 --> 00:03:03,376
+mais maintenant, il est temps d'utiliser
+la notation tilde (~). Et donc pour les tableaux
+
+31
+00:03:03,376 --> 00:03:08,957
+on pourrait dire qu'un tableau de 
+double est ~8n pour une dimension.
+
+32
+00:03:09,197 --> 00:03:15,878
+Pour un tableau de double à deux dimensions
+on a ~8mn.  Et il y a aussi le terme en plus pour le
+
+33
+00:03:15,878 --> 00:03:22,483
+surcoût, mais pour des grandes valeurs de
+m et n, c'est suffisamment précis. Voila pour
+
+34
+00:03:22,483 --> 00:03:29,675
+l'utilisation standard des types de base 
+et des tableaux dans une implémentation Java.
+
+35
+00:03:29,675 --> 00:03:35,580
+Beaucoup de nos programmes utilisent des objets
+comme les listes chaînes, etc. Donc nous devons ajouter
+
+36
+00:03:35,580 --> 00:03:42,250
+le surcoût des références croisées, et 
+il y a aussi le padding qui est inclus dans 
+
+37
+00:03:42,250 --> 00:03:48,599
+chaque implémentation standard de façon
+à ce que chaque objet utilise un multiple
+
+38
+00:03:48,599 --> 00:03:55,869
+de 8 octets. Par exemple, si vous avez un objet
+date qui est composé de 3 variables
+
+39
+00:03:55,869 --> 00:04:03,256
+int alors cet objet prendrait 
+au total 32 octets. Chaque int utilise 4
+
+40
+00:04:03,256 --> 00:04:10,571
+octets, le surcoût de l'objet est de 16 octets
+Il faut 4 octets de padding pour
+
+41
+00:04:10,571 --> 00:04:17,784
+arriver à un total de 32 octets. L'autre cas
+qui arrive souvent est la chaine de caractères
+
+42
+00:04:17,784 --> 00:04:25,274
+et c'est plus compliqué pour une string
+que pour un tableau, mais l'implémentation
+
+43
+00:04:25,274 --> 00:04:32,577
+standard d'une chaîne en Java contient 
+une référence à un tableau de caractères
+
+44
+00:04:32,819 --> 00:04:39,649
+puis des int pour les valeurs d'offset, 
+de nombre et de hash et ensuite
+
+45
+00:04:39,649 --> 00:04:46,864
+du padding. En compatibilisant tout, the
+coût d'une chaîne est d'à peu près 2n+
+
+46
+00:04:46,864 --> 00:04:54,023
+64 octets. Donc voilà les bases qui vont nous
+servir à analyser l'utilisation mémoire 
+
+47
+00:04:54,023 --> 00:04:59,011
+d'un programme Java standard. Pour les
+types de base, valeur de type de données, si
+
+48
+00:04:59,011 --> 00:05:03,947
+c'est un type de base, c'est 4 pour un int, 
+8 pour un double et ainsi de suite. Si c'est
+
+49
+00:05:03,947 --> 00:05:09,600
+une référence, cela va être 8 octets, c'est 
+pour le pointeur. Un tableau prend 24 octets
+
+50
+00:05:09,600 --> 00:05:15,416
+plus la mémoire de chaque éléments.
+Un objet, c'est 16 octets plus la mémoire
+
+51
+00:05:15,416 --> 00:05:22,061
+pour chaque instance de variable, et ajouter
+8 octets si il y a une classe interne, comme
+
+52
+00:05:22,061 --> 00:05:29,381
+ce qu'on avait dit pour nœuds des listes chainées.
+Et ensuite, il y a le padding. Donc, ensuite
+
+53
+00:05:29,381 --> 00:05:34,234
+nous devons réfléchir à qui est responsable
+des objets pointés, vous savez, dans
+
+54
+00:05:34,234 --> 00:05:41,163
+certains cas. On s'en occupera quand
+la situation se présentera. Donc prenons
+
+55
+00:05:41,163 --> 00:05:46,374
+un exemple, un simple exemple, d'analyse
+d'utilisation mémoire. Regardons combien
+
+56
+00:05:46,374 --> 00:05:52,052
+la fonction WeightedQuickUnionUF, 
+des lectures précédentes utilise
+
+57
+00:05:52,052 --> 00:06:00,305
+en fonction de N. Il y a seulement quelques
+éléments en mémoire, et chacun d'entre eux
+
+58
+00:06:00,305 --> 00:06:07,675
+peuvent être facilement analysés en utilisant
+les bases que je viens de donner. C'est un objet
+
+59
+00:06:07,681 --> 00:06:14,878
+donc 16 octets pour le surcoût. Il y a
+deux tableaux d'int. Chacun d'entre eux
+
+60
+00:06:14,878 --> 00:06:22,530
+ont un surcoût de 24, plus 4n pour les n
+éléments. Chacun des n éléments prends 4
+
+61
+00:06:22,530 --> 00:06:29,784
+octets. Puis il y a 4 octets pour le count
+and 4 octets pour le padding et
+
+62
+00:06:29,784 --> 00:06:36,147
+quand vous additionnez tout, cela donne
+8n+88, ce qui fait ~8n. Une fois de plus, 
+
+63
+00:06:36,147 --> 00:06:42,661
+tout ce que cela dit c'est que quand n est grand
+tout ce qui nous intéresse pour l'analyse de
+
+64
+00:06:42,661 --> 00:06:51,260
+la mémoire est que nous avons 2n entiers
+2 tableaux de taille n, qui font chacun
+
+65
+00:06:51,260 --> 00:06:59,364
+4 octets pour un total de 8n octets.
+Ok. Donc pour résumer on
+
+66
+00:06:59,364 --> 00:07:05,670
+peut vraiment déterminer combien de fois on
+doit faire tourner les rouages d'un ordinateur
+
+67
+00:07:05,670 --> 00:07:11,267
+moderne. On peut le faire de façon
+empirique en exécutant réellement le
+
+68
+00:07:11,267 --> 00:07:15,604
+programme, on peut faire des expériences
+et utiliser la loi des puissances, formuler
+
+69
+00:07:15,604 --> 00:07:20,748
+des hypothèses et faire des prédictions. Mais
+on peut faire plus. On peut faire des analyses
+
+70
+00:07:20,748 --> 00:07:26,452
+mathématiques où on identifie les opérations
+les plus chères, on analyse la fréquence
+
+71
+00:07:26,452 --> 00:07:32,020
+d'exécution de ces opérations et on utilise
+la notation ~ pour simplifier l'analyse.
+
+72
+00:07:32,020 --> 00:07:37,664
+On peut en fait expliquer le comportement, 
+pas seulement le prédire. Et c'est un bon
+
+73
+00:07:37,664 --> 00:07:42,819
+exemple de l'utilisation de méthode
+scientifique pour comprendre les artefacts
+
+74
+00:07:42,819 --> 00:07:46,890
+que nous étudions: les algorithmes. Nos
+modèles mathématiques sont en général
+
+75
+00:07:46,890 --> 00:07:51,562
+indépendants d'un système informatique
+particulier et peuvent même s'appliquer 
+
+76
+00:07:51,562 --> 00:07:56,411
+à des machines qui n'existent pas encore. Mais
+toujours valider nos modèles mathématiques en
+
+77
+00:07:56,411 --> 00:08:05,677
+faisant des expériences sur des machines réelles, 
+de façon à être confiant quand on fait
+
+78
+00:08:05,677 --> 00:08:13,000
+des prédictions et que l'on analyse des
+algorithmes.

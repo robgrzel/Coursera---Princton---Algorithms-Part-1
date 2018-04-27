@@ -1,0 +1,532 @@
+1
+00:00:01,013 --> 00:00:06,020
+Welkom. Ik ben Bob Sedgewick, docent informatica
+bij Princeton. Dit is ons
+
+2
+00:00:06,020 --> 00:00:11,014
+online vak Algoritmes ontwikkelt door mijzelf
+ en Kevin Wayne hier bij Princeton.
+
+3
+00:00:11,014 --> 00:00:16,002
+We beginnen met te bespreken
+ waarom je algoritmes zou willen
+
+4
+00:00:16,002 --> 00:00:21,005
+studeren en wat je nodig hebt om 
+deze cursus te volgen.
+
+5
+00:00:21,005 --> 00:00:26,543
+Dit is een overzichtscursus van gemiddeld
+niveau over algoritmes.
+
+6
+00:00:26,543 --> 00:00:31,062
+We zullen vooral programmeren 
+en probleemoplossen in de 
+
+7
+00:00:31,062 --> 00:00:35,870
+voor reële toepassingen, en de focus 
+zal liggen op twee dingen:
+
+8
+00:00:35,870 --> 00:00:41,756
+algoritmes, de methode voor probleemoplossing 
+en datastructuren, die de informatie
+
+9
+00:00:41,756 --> 00:00:46,651
+met betrekking tot het probleem, opslaan. De
+datastructuren gaan hand in hand met de algoritmes.
+
+10
+00:00:46,651 --> 00:00:51,600
+De basisonderwerpen voor 'Algoritmes
+ deel één en deel twee'
+
+11
+00:00:51,600 --> 00:00:56,559
+Het eerste deel gaat over datatype 
+sortering en doorzoeking. We zullen een aantal
+
+12
+00:00:56,559 --> 00:01:00,810
+datastructuren en algoritmes bekijken, die
+de basis vormen voor alle methodes die we
+
+13
+00:01:00,810 --> 00:01:05,811
+beschouwen, waaronder stapels, wachtrijen multisets 
+en voorrangswachtrijen. Dan bekijken we
+
+14
+00:01:05,811 --> 00:01:09,852
+klassieke algoritmes voor sorteren ( dingen in 
+volgorde zetten ). Dat zijn quicksort, 
+
+15
+00:01:09,852 --> 00:01:15,130
+mergesort, heapsort en radix sort. We
+hebben het over klassieke zoekmethodes,
+
+16
+00:01:15,130 --> 00:01:19,932
+waaronder binaire zoekbomen, 
+rood-zwart zoekbomen en hashtabellen.
+
+17
+00:01:19,932 --> 00:01:25,166
+Het 2de deel van de cursus behandelt
+ gevordere algoritmes zoals
+
+18
+00:01:25,166 --> 00:01:30,425
+graph algoritmes ( klassiek, 
+minimum spanning tree, kortste pad ),
+
+19
+00:01:30,425 --> 00:01:35,417
+algoritmes voor tekstverwerking
+ zoals regular expressions en
+
+20
+00:01:35,417 --> 00:01:41,178
+data compressie. En verder bespreken we
+meer gevorderde algoritmes die gebruik maken
+
+21
+00:01:41,178 --> 00:01:46,890
+van de eerder besproken basis algoritmes.
+Dus, waarom algoritmes bestuderen?
+
+22
+00:01:46,890 --> 00:01:52,075
+Wel, omdat ze een enorme impact hebben.
+
+23
+00:01:52,075 --> 00:01:57,185
+Van het internet tot biologie, tot
+computer toepassingen, beeldverwerking
+
+24
+00:01:57,185 --> 00:02:02,512
+Security, multimedia, sociale netwerken, 
+wetenschappelijke toepassingen
+
+25
+00:02:02,512 --> 00:02:07,805
+Algoritmes zijn overal. Ze worden gebruikt
+in films, games, simulaties van botsingen van
+
+26
+00:02:07,805 --> 00:02:12,910
+deeltjes, ze worden gebruikt om het 
+genenbestand te bestuderen en noem maar op
+
+27
+00:02:12,910 --> 00:02:18,319
+Dus dat is al een goede reden om 
+algoritmes te bestuderen: hun
+
+28
+00:02:18,319 --> 00:02:23,329
+hun verregaande impact.
+Een volgende reden om algoritmes te bestuderen
+
+29
+00:02:23,329 --> 00:02:28,064
+zijn hun leeftijd. De eerste algoritmes
+dateren van 300 v.c.,
+
+30
+00:02:28,064 --> 00:02:32,588
+uit de tijd van Euclides.
+Het concept van algoritmes werd geformaliseerd
+
+31
+00:02:32,588 --> 00:02:37,651
+door Church en Turing in de jaren 1930 hier
+in Princeton. De meeste algoritmes die we
+
+32
+00:02:37,651 --> 00:02:41,806
+bestuderen dateren echter van de
+laatste decennia.Sommige zelfs door
+
+33
+00:02:41,806 --> 00:02:46,452
+Studenten in cursussen zoals deze. en er
+zijn nog heel wat algoritmes die wachten
+
+34
+00:02:46,452 --> 00:02:51,595
+op ontdekking door studenten zoals jij.
+De belangrijkste reden om algoritmes
+
+35
+00:02:51,595 --> 00:02:57,239
+te bestuderen is het kunnen oplossen
+van problemen die anders niet kunnen
+
+36
+00:02:57,239 --> 00:03:02,498
+worden opgelost. Bijvoorbeeld: in de
+eerste les zullen we het hebben over
+
+37
+00:03:02,498 --> 00:03:07,234
+netwerkverbindingen,
+waarbij een voor grote hoeveelheid
+
+38
+00:03:07,234 --> 00:03:12,135
+paarsgewijs gekoppelde items 
+een weg moet vinden
+
+39
+00:03:12,135 --> 00:03:17,134
+doorheen de verbindingen.
+Dit voorbeeld toont ons hoe
+
+40
+00:03:17,134 --> 00:03:22,282
+moeilijk het is een pad te vinden zonder
+een computer. Hier hebben we een
+
+41
+00:03:22,282 --> 00:03:28,793
+efficiënt algoritme voor nodig.
+In dit voorbeeld kunnen we
+
+42
+00:03:28,793 --> 00:03:34,241
+een pad vinden.
+Nog een reden om algoritmes te bestuderen is
+
+43
+00:03:34,241 --> 00:03:39,795
+Intellectuele stimulatie. Algoritmes zijn
+boeiende studieobjecten. Don Knuth,
+
+44
+00:03:39,795 --> 00:03:45,275
+een pionier in deze materie schreef een 
+aantal boeken over algoritmes en zegt:
+
+45
+00:03:45,275 --> 00:03:50,553
+"Een algoritme moet je zien om te geloven". 
+Aan algoritmes denk je niet,
+
+46
+00:03:50,553 --> 00:03:55,998
+maar werk je aan.
+Een andere quote van Francis Sullivan:
+
+47
+00:03:55,998 --> 00:04:01,412
+"Grootse algoritmes zijn poëtisch rekenwerk".
+Net als een vers, kunnen ze
+
+48
+00:04:01,412 --> 00:04:05,905
+'terse', 'elusive', 'dense' en zelfs mysterieus zijn.
+Maar eens losgelaten schijnen ze een
+
+49
+00:04:05,905 --> 00:04:11,473
+een helder nieuw licht op rekenwerk.
+Algoritmes bestuderen zorgt voor
+
+50
+00:04:11,473 --> 00:04:17,057
+intellectuele stimulatie. Velen onder jullie
+studeren waarschijnlijk algoritmes
+
+51
+00:04:17,057 --> 00:04:21,565
+omdat jullie het noodzakelijk vinden om
+te verstaan hoe goede, efficiente
+
+52
+00:04:21,565 --> 00:04:26,760
+algoritmes en data structuren werken zodat
+jullie beter leren programmeren.
+
+53
+00:04:26,760 --> 00:04:31,358
+Linus Torvalds, de grondlegger van Linux,
+zegt dat het verschil tussen een slechte
+
+54
+00:04:31,358 --> 00:04:36,708
+en een goede programmeur bestaat uit
+feit of hij zijn code of datastructuren
+
+55
+00:04:36,708 --> 00:04:41,739
+belangrijker vindt. Slechte programmeurs
+ focussen op code en goede
+
+56
+00:04:41,739 --> 00:04:45,943
+focussen op data structuren en hun onderlinge
+relatie. En ik voeg hier nog aan toe:
+
+57
+00:04:45,943 --> 00:04:50,048
+De algoritmes die deze verwerken.
+Niklaus Wirth, nog een pioneer in
+
+58
+00:04:50,048 --> 00:04:55,438
+computerwetenschappen, schreef een bekend boek
+"Algorithms + Data Structures = Programs"
+
+59
+00:04:55,438 --> 00:05:02,079
+Algoritmes worden dezer dagen ook
+veel bestudeerd omdat zij
+
+60
+00:05:02,079 --> 00:05:08,420
+een gemeenschappelijke taal om de natuur
+te verstaan, vormen. Algoritmes zijn rekenmodellen
+
+61
+00:05:08,420 --> 00:05:14,892
+en algoritmische modellen vervangen rekenkundige
+modellen in wetenschappelijk onderzoek.
+
+62
+00:05:14,892 --> 00:05:20,287
+In de 20ste eeuw ontwikkelden weten-
+schappers mathematische modellen om 
+
+63
+00:05:20,287 --> 00:05:25,251
+natuurfenomenen te doorgronden. Het werd
+al snel duidelijk dat deze mathematische 
+
+64
+00:05:25,251 --> 00:05:30,561
+modellen moeilijk op te lossen waren.
+Het was moeilijk om oplossingen die
+
+65
+00:05:30,561 --> 00:05:36,011
+hypotheses testen op natuurlijk fenomenen, te maken.
+Daarom worden nu meer en meer
+
+66
+00:05:36,011 --> 00:05:41,189
+rekenkundige modellen ontwikkeld.
+Hiermee probeert men te simuleren
+
+67
+00:05:41,189 --> 00:05:46,568
+wat mogelijk gebeurt in de natuur
+en dit zo beter te begrijpen.
+
+68
+00:05:46,568 --> 00:05:52,069
+Algoritmes spelen hierbij een belangrijke rol.
+Gedurende de cursus zullen we hier
+
+69
+00:05:52,069 --> 00:05:58,009
+een aantal voorbeelden van zien.
+Ook niet onbelangrijk is dat
+
+70
+00:05:58,009 --> 00:06:03,067
+het vlot algoritmes en datastructuren
+kunnen gebruiken, je kansen
+
+71
+00:06:03,067 --> 00:06:09,851
+op een job in de tech-industrie dramatisch
+toenemen.
+
+72
+00:06:09,851 --> 00:06:15,953
+Dus alle redenen om algoritmes
+ te bestuderen nog eens samengevat:
+
+73
+00:06:15,953 --> 00:06:21,761
+Een zeer brede en diepgaande impact.
+Ze hebben een lange geschiedenis en
+
+74
+00:06:21,761 --> 00:06:26,175
+geven nieuwe mogelijkheden. Ze laten
+ons toe om eerder onoplosbare problemen
+
+75
+00:06:26,175 --> 00:06:30,003
+op te lossen. Ze bezorgen
+intellectuele stimulatie waardoor
+
+76
+00:06:30,003 --> 00:06:34,049
+je beter gaat programmeren. Wie weet
+onthullen ze de geheimen van het universum
+
+77
+00:06:34,049 --> 00:06:38,461
+ze geven plezier en brengen op.
+Je kan je afvragen waarom je nog iets anders
+
+78
+00:06:38,461 --> 00:06:42,433
+zou studeren. Wel, er zijn genoeg redenen
+om andere dingen te studeren, maar
+
+79
+00:06:42,433 --> 00:06:47,557
+Er zijn geen goede redenen om algoritmes
+niet te bestuderen.
+
+80
+00:06:47,557 --> 00:06:53,714
+Er zijn 2 hulpmiddelen die ik
+wil bespreken en er voor zorgen
+
+81
+00:06:53,714 --> 00:06:59,374
+dat je er vertrouwd mee bent.
+Dit is een 'publishing' model dat
+
+82
+00:06:59,374 --> 00:07:04,472
+Kevin Wayne en ik ontwikkelden en
+al jaren gebruiken en we vinden dit
+
+83
+00:07:04,472 --> 00:07:09,507
+een zeer doeltreffende ondersteuning
+is voor het type lessen dat we gaan geven
+
+84
+00:07:09,507 --> 00:07:14,659
+in deze cursus. Onderaan zie je
+een - optioneel - handboek
+
+85
+00:07:14,659 --> 00:07:19,887
+voor deze cursus, dat de onderwerpen
+van deze cursus diepgaand behandelt
+
+86
+00:07:19,887 --> 00:07:24,285
+en dat daarbuiten nog veel meer behandelt.
+
+87
+00:07:24,285 --> 00:07:28,668
+Op de online boek-site vind je nog meer
+ondersteunend materiaal voor dit boek.
+
+88
+00:07:28,668 --> 00:07:33,839
+Op de boek-site vind je de slides van de
+lessen
+
+89
+00:07:33,839 --> 00:07:39,967
+en ook code, oefeningen en een
+boel informatie. 
+
+90
+00:07:39,967 --> 00:07:45,329
+Veel meer dan wat je in het boek vindt,
+inclusief een inhoudsopgave
+
+91
+00:07:45,329 --> 00:07:51,211
+Tijdens de cursus zul je hier
+dikwijls naar toe gaan.
+
+92
+00:07:51,211 --> 00:07:57,075
+Als voorkennis voor deze cursus
+verwachten we dat je
+
+93
+00:07:57,075 --> 00:08:02,820
+kan programmeren en dat je weet
+hoe om te gaan met 'loops', 'arrays'
+
+94
+00:08:02,820 --> 00:08:09,307
+en functies. Je moet ook bekend zijn met
+object OO-programmeren en recursie.
+
+95
+00:08:09,307 --> 00:08:15,713
+Wij gebruiken java, zonder al te
+diep in te gaan op de taal.
+
+96
+00:08:15,713 --> 00:08:21,546
+We gebruiken wiskunde, maar
+zeker geen gevorderde.
+
+97
+00:08:21,546 --> 00:08:27,875
+indien je vooraf je voorkennis
+wat wil bijschaven, 
+
+98
+00:08:27,875 --> 00:08:33,399
+kan je in secties 1.1 en 1.2 van het
+boek wel een en ander vinden.
+
+99
+00:08:33,399 --> 00:08:39,110
+Dit kan op de boek-site, of in
+het boek. Wil je meer,
+
+100
+00:08:39,110 --> 00:08:43,722
+Dan kan je "An introduction to 
+programming in java: An interdisciplinary
+approach" lezen.
+
+101
+00:08:43,722 --> 00:08:49,338
+Hiervoor is er ook een boek-site
+en tekstboek. Uiteindelijk
+
+102
+00:08:49,338 --> 00:08:53,968
+zal je dus moeten kunnen programmeren
+en dit doe je best door een java
+
+103
+00:08:53,968 --> 00:08:58,688
+programma te schrijven; eventueel met
+behulp van een model uit de
+
+104
+00:08:58,688 --> 00:09:03,287
+boek-site. Meer detail
+krijg je
+
+105
+00:09:03,287 --> 00:09:07,847
+bij de opdrachten. Je kan je eigen
+programeeromgeving gebruiken
+
+106
+00:09:07,847 --> 00:09:13,294
+of je kan de onze downloaden.
+de instructies hiervoor
+
+107
+00:09:13,294 --> 00:09:15,039
+vind je op de website.

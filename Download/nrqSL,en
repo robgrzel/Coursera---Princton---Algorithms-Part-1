@@ -1,0 +1,763 @@
+1
+00:00:01,880 --> 00:00:06,015
+Observing what's happening as we did in the last section,
+
+2
+00:00:06,015 --> 00:00:09,270
+gives us a way to predict performance but it really
+
+3
+00:00:09,270 --> 00:00:12,880
+doesn't help us understand what the algorithms are doing.
+
+4
+00:00:12,880 --> 00:00:15,179
+So next, we're going to look at mathematical model,
+
+5
+00:00:15,179 --> 00:00:21,430
+a way to get a better concept of what's really happening.
+
+6
+00:00:21,430 --> 00:00:25,785
+Again, this concept was really developed
+
+7
+00:00:25,785 --> 00:00:31,705
+and popularized by Donald Knuth starting in the late 60s.
+
+8
+00:00:31,705 --> 00:00:37,140
+At that time, computer systems were really becoming complicated for the first time.
+
+9
+00:00:37,140 --> 00:00:40,140
+And, computer scientists were
+
+10
+00:00:40,140 --> 00:00:45,475
+concerned about whether we really were going to be able to understand what's going on.
+
+11
+00:00:45,475 --> 00:00:52,860
+And, Knuth was very direct in saying that this is something that we certainly can do.
+
+12
+00:00:52,860 --> 00:00:56,610
+We can calculate the total running time of
+
+13
+00:00:56,610 --> 00:01:01,110
+a program by identifying all the basic operations,
+
+14
+00:01:01,110 --> 00:01:02,430
+figuring out the cost,
+
+15
+00:01:02,430 --> 00:01:04,950
+figuring out the frequency of execution,
+
+16
+00:01:04,950 --> 00:01:09,089
+and summing up the cost times frequency for all the operations.
+
+17
+00:01:09,089 --> 00:01:13,530
+You have to analyze the program to determine what set of operations and
+
+18
+00:01:13,530 --> 00:01:15,060
+the cost depends on the machine and
+
+19
+00:01:15,060 --> 00:01:18,820
+the computer in the system as well- we talked about before,
+
+20
+00:01:18,820 --> 00:01:21,360
+the frequency leads us to
+
+21
+00:01:21,360 --> 00:01:25,145
+mathematics because it depends on the algorithm and the input data.
+
+22
+00:01:25,145 --> 00:01:27,750
+Knuth has written a series of books that give
+
+23
+00:01:27,750 --> 00:01:31,680
+very detailed and exact analyses within
+
+24
+00:01:31,680 --> 00:01:36,430
+a particular computer model for a wide range of algorithms.
+
+25
+00:01:36,430 --> 00:01:39,000
+So, from Knuth, we know that in principle,
+
+26
+00:01:39,000 --> 00:01:43,005
+we can get accurate mathematical models for the performance of
+
+27
+00:01:43,005 --> 00:01:48,155
+algorithms or programs in operation.
+
+28
+00:01:48,155 --> 00:01:51,879
+All right. So, what does this process look like?
+
+29
+00:01:51,879 --> 00:01:54,490
+Well, you can, if you want,
+
+30
+00:01:54,490 --> 00:01:57,670
+run experiments in ancient times,
+
+31
+00:01:57,670 --> 00:02:01,240
+we would actually look at the computer manual and
+
+32
+00:02:01,240 --> 00:02:03,835
+every computer came with a manual that said
+
+33
+00:02:03,835 --> 00:02:07,330
+precisely how long each instruction would take.
+
+34
+00:02:07,330 --> 00:02:10,840
+Nowadays, it's a little more complicated so we run experiments.
+
+35
+00:02:10,840 --> 00:02:16,090
+And, you can go ahead and do a billion ads and figure out that maybe on your computer,
+
+36
+00:02:16,090 --> 00:02:18,640
+an ad takes 2.1 nanoseconds.
+
+37
+00:02:18,640 --> 00:02:23,035
+Or, you can do more complicated functions like computer sign or an arctangent,
+
+38
+00:02:23,035 --> 00:02:28,060
+although that's already getting close to the analysis of algorithms.
+
+39
+00:02:28,060 --> 00:02:33,390
+So, there's some way to determine the cost of the basic operations.
+
+40
+00:02:33,390 --> 00:02:38,485
+And so, we'll just in most of the cases,
+
+41
+00:02:38,485 --> 00:02:40,780
+we'll just postulate that it's some constant,
+
+42
+00:02:40,780 --> 00:02:42,874
+and you can figure out what the constant is.
+
+43
+00:02:42,874 --> 00:02:48,445
+Although, when we're working with a collection of objects of N objects,
+
+44
+00:02:48,445 --> 00:02:52,300
+there's some things that take time proportional to N. Like,
+
+45
+00:02:52,300 --> 00:02:55,644
+if you're going to allocate a array of size N,
+
+46
+00:02:55,644 --> 00:03:00,314
+it takes time proportional to N because in Java,
+
+47
+00:03:00,314 --> 00:03:06,795
+the default is that all the elements in the array are initialized to zero.
+
+48
+00:03:06,795 --> 00:03:12,190
+In other operations, it depends on the system implementation.
+
+49
+00:03:12,190 --> 00:03:14,920
+And an important one is string concatenation.
+
+50
+00:03:14,920 --> 00:03:17,110
+If you concatenate two strings,
+
+51
+00:03:17,110 --> 00:03:21,240
+the running time is proportional to the length of the string.
+
+52
+00:03:21,240 --> 00:03:24,459
+In many novices, programming and Java make
+
+53
+00:03:24,459 --> 00:03:27,755
+the mistake of assuming that that's a constant time operation,
+
+54
+00:03:27,755 --> 00:03:30,910
+when it's not. All right.
+
+55
+00:03:30,910 --> 00:03:35,180
+So, that's the cost of each operation.
+
+56
+00:03:35,180 --> 00:03:41,990
+More interesting, is the frequency of operation of execution of the operations.
+
+57
+00:03:41,990 --> 00:03:48,445
+So, this is a very simple variant of a three sum problem that's the one sum problem,
+
+58
+00:03:48,445 --> 00:03:50,610
+that's how many numbers are actually equal to zero,
+
+59
+00:03:50,610 --> 00:03:53,285
+how many single numbers add up to zero.
+
+60
+00:03:53,285 --> 00:03:55,209
+So, that one is just one four loop,
+
+61
+00:03:55,209 --> 00:03:59,460
+and we go through and we test if the number is zero and increment our count.
+
+62
+00:03:59,460 --> 00:04:02,560
+And, by analyzing that code,
+
+63
+00:04:02,560 --> 00:04:07,645
+you can see that i and count have to be declared,
+
+64
+00:04:07,645 --> 00:04:10,555
+there and then they have to be assigned to zero.
+
+65
+00:04:10,555 --> 00:04:14,563
+There's a comparison of i against N and there's N plus one of them,
+
+66
+00:04:14,563 --> 00:04:16,748
+there's compares of a of i against zero,
+
+67
+00:04:16,748 --> 00:04:19,534
+there's N of those, N array accesses.
+
+68
+00:04:19,534 --> 00:04:21,730
+In the number incremented,
+
+69
+00:04:21,730 --> 00:04:25,380
+is a number of times as an increment is variable,
+
+70
+00:04:25,380 --> 00:04:27,940
+i is incremented N times but count could be
+
+71
+00:04:27,940 --> 00:04:31,465
+incremented to any number from zero to N times.
+
+72
+00:04:31,465 --> 00:04:34,960
+And so, that frequency is dependent on
+
+73
+00:04:34,960 --> 00:04:39,755
+the input data or we might need a model for describing that.
+
+74
+00:04:39,755 --> 00:04:42,055
+Or maybe,
+
+75
+00:04:42,055 --> 00:04:47,135
+there's other operations that are more expensive and we won't need to worry about that.
+
+76
+00:04:47,135 --> 00:04:50,830
+So, let's look at next more complicated problem is,
+
+77
+00:04:50,830 --> 00:04:55,030
+what about the frequency of execution of instructions in this program,
+
+78
+00:04:55,030 --> 00:04:56,775
+which is the two sum problem?
+
+79
+00:04:56,775 --> 00:05:00,149
+How many pairs of integers sum to zero?
+
+80
+00:05:00,149 --> 00:05:06,640
+Well, in this case, you have to do a little bit of math to see that when we,
+
+81
+00:05:06,640 --> 00:05:10,794
+when i goes from zero to N and j goes from i plus one to N,
+
+82
+00:05:10,794 --> 00:05:14,075
+the number of compares that we do,
+
+83
+00:05:14,075 --> 00:05:16,825
+or let's say array accesses that we do,
+
+84
+00:05:16,825 --> 00:05:23,956
+is two for each time the if statement is executed for ai and aj.
+
+85
+00:05:23,956 --> 00:05:27,235
+And that time- thing is executed,
+
+86
+00:05:27,235 --> 00:05:30,382
+n minus one times the first time through the loop,
+
+87
+00:05:30,382 --> 00:05:32,740
+and n minus two the second and so forth.
+
+88
+00:05:32,740 --> 00:05:38,500
+It's the sum of the integers from zero up to N minus one which
+
+89
+00:05:38,500 --> 00:05:44,530
+is a simple discrete sum one half N times N minus one and since we're doing it twice,
+
+90
+00:05:44,530 --> 00:05:48,275
+the number of array accesses is N minus one.
+
+91
+00:05:48,275 --> 00:05:52,615
+So, we can go ahead and get these actual exact counts.
+
+92
+00:05:52,615 --> 00:05:58,105
+But already, it's getting a little bit tedious to do that.
+
+93
+00:05:58,105 --> 00:06:01,713
+And, as far back as Turing,
+
+94
+00:06:01,713 --> 00:06:05,060
+who also knew that as well as Babbage did,
+
+95
+00:06:05,060 --> 00:06:09,556
+that we want to have the measure of the amount of work involved in the process,
+
+96
+00:06:09,556 --> 00:06:15,810
+he recognized that you didn't want to necessarily go through and do it in full detail.
+
+97
+00:06:15,810 --> 00:06:18,925
+It's still helpful to have a crude estimate.
+
+98
+00:06:18,925 --> 00:06:22,330
+So, you could count up the number of times that every operation is applied,
+
+99
+00:06:22,330 --> 00:06:27,200
+give it weights and count this abstract and so forth.
+
+100
+00:06:27,200 --> 00:06:32,045
+But, maybe we should just count the ones that are most expensive.
+
+101
+00:06:32,045 --> 00:06:36,000
+That's what Turing said in 1947.
+
+102
+00:06:36,000 --> 00:06:40,330
+And realistically, that's what we do nowadays.
+
+103
+00:06:40,330 --> 00:06:46,585
+So, rather than going in and counting every little detail,
+
+104
+00:06:46,585 --> 00:06:50,415
+we take some basic operation that's
+
+105
+00:06:50,415 --> 00:06:56,920
+maybe the most expensive and or and or the one that's executed the most often,
+
+106
+00:06:56,920 --> 00:06:59,811
+and the one that costs time frequency is the highest,
+
+107
+00:06:59,811 --> 00:07:02,520
+and use that as a proxy for the running time.
+
+108
+00:07:02,520 --> 00:07:05,040
+Essentially, making the hypothesis that
+
+109
+00:07:05,040 --> 00:07:09,720
+the running time is going to grow like a constant times that.
+
+110
+00:07:09,720 --> 00:07:13,425
+So, in this case, we're going to pick array accesses.
+
+111
+00:07:13,425 --> 00:07:15,675
+So, that's the first simplification.
+
+112
+00:07:15,675 --> 00:07:17,640
+And the second simplification is,
+
+113
+00:07:17,640 --> 00:07:22,174
+that we're going to ignore low order terms in the formulas that we derive.
+
+114
+00:07:22,174 --> 00:07:24,355
+And, there's an easy way to do that,
+
+115
+00:07:24,355 --> 00:07:27,610
+it's called the tilde notation.
+
+116
+00:07:27,610 --> 00:07:29,610
+And the idea is,
+
+117
+00:07:29,610 --> 00:07:33,575
+when N is large in a formula like this,
+
+118
+00:07:33,575 --> 00:07:39,615
+the N cube term is much much higher than the N term or 16.
+
+119
+00:07:39,615 --> 00:07:45,990
+In fact, so much so that we wouldn't even hardly notice these low order terms.
+
+120
+00:07:45,990 --> 00:07:50,570
+So, all of these formulas are tilde one sixth N cubed,
+
+121
+00:07:50,570 --> 00:07:56,824
+and that's a fine representative or approximate approximation to these quantities.
+
+122
+00:07:56,824 --> 00:07:59,790
+And then it greatly simplifies the calculations
+
+123
+00:07:59,790 --> 00:08:03,110
+to throw away the low order terms like this.
+
+124
+00:08:03,110 --> 00:08:09,528
+So, by focusing on one operation and throwing away the tildes- the low order terms,
+
+125
+00:08:09,528 --> 00:08:12,554
+and this is the technical definition of tilde,
+
+126
+00:08:12,554 --> 00:08:17,795
+f(N)~g(N) means the limit is f(N) or g(N) equals 1.
+
+127
+00:08:17,795 --> 00:08:23,720
+And you can check that that's going to hold in these kinds of situations.
+
+128
+00:08:23,720 --> 00:08:28,225
+So, that greatly simplifies the frequency counts.
+
+129
+00:08:28,225 --> 00:08:29,940
+And if we're only picking one thing,
+
+130
+00:08:29,940 --> 00:08:33,540
+we're just talking about tilde N squared and maybe
+
+131
+00:08:33,540 --> 00:08:39,145
+another tilde N squared for the anchor for the to sum problems.
+
+132
+00:08:39,145 --> 00:08:42,360
+So again, when N is large the terms are negligible.
+
+133
+00:08:42,360 --> 00:08:45,174
+When N is really small, they're not negligible.
+
+134
+00:08:45,174 --> 00:08:49,080
+But, we don't really care because we're trying to estimate running time for
+
+135
+00:08:49,080 --> 00:08:55,065
+large N and running time for small N are going to be small no matter what. All right.
+
+136
+00:08:55,065 --> 00:08:57,600
+So now, we're using
+
+137
+00:08:57,600 --> 00:09:03,299
+both the cost model and the tilde notation and then we can simply say that,
+
+138
+00:09:03,299 --> 00:09:08,010
+this program uses tilde N squared array accesses and
+
+139
+00:09:08,010 --> 00:09:13,225
+have implicit the hypothesis that we think the running time is going to be tilde,
+
+140
+00:09:13,225 --> 00:09:16,870
+a constant times N square.
+
+141
+00:09:16,870 --> 00:09:18,815
+Okay well, now what about a three sum?
+
+142
+00:09:18,815 --> 00:09:21,240
+Let's do our real problem.
+
+143
+00:09:21,240 --> 00:09:24,885
+So now, we have the triple loop and
+
+144
+00:09:24,885 --> 00:09:30,234
+then we have to do a more complicated common notarial problem,
+
+145
+00:09:30,234 --> 00:09:33,105
+and it's not that big a deal, really.
+
+146
+00:09:33,105 --> 00:09:40,855
+We're looking at the distinct number of ways you can choose three things out of N,
+
+147
+00:09:40,855 --> 00:09:44,950
+and that's a binomial coefficient.
+
+148
+00:09:44,950 --> 00:09:48,149
+And again, doing the math and using the tilde,
+
+149
+00:09:48,149 --> 00:09:52,950
+it's just tilde one sixth N cubed three array accesses for each triple.
+
+150
+00:09:52,950 --> 00:09:55,865
+So, we can say half N cubed.
+
+151
+00:09:55,865 --> 00:10:02,520
+So, we're not computing and summing the cost of all operations,
+
+152
+00:10:02,520 --> 00:10:04,060
+that's too much work.
+
+153
+00:10:04,060 --> 00:10:07,860
+We're picking the most expensive in terms of
+
+154
+00:10:07,860 --> 00:10:10,920
+cost times frequency and approximating that
+
+155
+00:10:10,920 --> 00:10:15,950
+and trying to get a good model for the running time.
+
+156
+00:10:15,950 --> 00:10:22,480
+So now, most- we're not going to do a full discrete mathematics in this course.
+
+157
+00:10:22,480 --> 00:10:24,600
+But there are some basic things
+
+158
+00:10:24,600 --> 00:10:31,705
+that we'll want to use and are not that difficult to understand.
+
+159
+00:10:31,705 --> 00:10:32,895
+So, a lot of times,
+
+160
+00:10:32,895 --> 00:10:35,850
+we find out that we need to come up with
+
+161
+00:10:35,850 --> 00:10:39,754
+an estimate of a discrete sum like we did for one plus two up to N,
+
+162
+00:10:39,754 --> 00:10:45,380
+where, some of the squares or other things like the three sum triple loop.
+
+163
+00:10:45,380 --> 00:10:49,395
+And so, actually if you've had a basic calculus,
+
+164
+00:10:49,395 --> 00:10:53,750
+one way to think of it is to just replace the sum with an interval integral.
+
+165
+00:10:53,750 --> 00:10:56,850
+That usually works or we can do the math and use
+
+166
+00:10:56,850 --> 00:11:01,860
+the so called Euler-Maclaurin summation formula to get a true approximation.
+
+167
+00:11:01,860 --> 00:11:03,450
+But if you think of it this way,
+
+168
+00:11:03,450 --> 00:11:08,759
+you'll believe us when we say that that thing is still a half N square.
+
+169
+00:11:08,759 --> 00:11:13,230
+Or, sum of one plus one half plus one third up to one over N,
+
+170
+00:11:13,230 --> 00:11:18,705
+that's like integral from x equals one to N one over x and that's natural log of N. Now,
+
+171
+00:11:18,705 --> 00:11:21,510
+even the three sum triple loop kind of,
+
+172
+00:11:21,510 --> 00:11:24,585
+if you're used to multiple integrals,
+
+173
+00:11:24,585 --> 00:11:27,965
+will quickly give you the one sixth N cubed.
+
+174
+00:11:27,965 --> 00:11:33,035
+There's many more and other techniques that we can use for this.
+
+175
+00:11:33,035 --> 00:11:34,830
+And, we're not going to teach all that.
+
+176
+00:11:34,830 --> 00:11:39,860
+But, we'll sometimes refer to results of this type.
+
+177
+00:11:39,860 --> 00:11:42,390
+All right. So, in principle,
+
+178
+00:11:42,390 --> 00:11:47,335
+Knuth tells us that accurate mathematical models are available.
+
+179
+00:11:47,335 --> 00:11:51,600
+In practice, we can get really complicated formulas.
+
+180
+00:11:51,600 --> 00:11:57,850
+We also might need some advanced mathematics that the theoretician will revel
+
+181
+00:11:57,850 --> 00:12:00,490
+in but that maybe
+
+182
+00:12:00,490 --> 00:12:05,260
+people learning algorithms of the first time might not be expected to know.
+
+183
+00:12:05,260 --> 00:12:07,825
+So, in the end,
+
+184
+00:12:07,825 --> 00:12:13,270
+careful exact models are best left for exit- experts.
+
+185
+00:12:13,270 --> 00:12:16,100
+There's really a lot of things that can go on.
+
+186
+00:12:16,100 --> 00:12:21,260
+On the other hand, approximate models are definitely worthwhile.
+
+187
+00:12:21,260 --> 00:12:24,434
+For all the algorithms that we consider,
+
+188
+00:12:24,434 --> 00:12:26,410
+we'll try to communicate
+
+189
+00:12:26,410 --> 00:12:32,575
+a reasonable approximate model that can be used to describe the running time.
+
+190
+00:12:32,575 --> 00:12:36,670
+Sometimes, we'll give the mathematical proofs and
+
+191
+00:12:36,670 --> 00:12:41,900
+other times we'll have to just site the work of some expert.

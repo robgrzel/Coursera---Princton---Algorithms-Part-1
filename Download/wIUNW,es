@@ -1,0 +1,959 @@
+1
+00:00:02,880 --> 00:00:06,853
+Bienvenidos de nuevo, hoy vamos a hablar
+ de los árboles de busqueda balanceados.
+
+2
+00:00:06,853 --> 00:00:12,150
+Que nos llevarán a la implementación de una tabla de símbolos
+ definitiva que nos pueden proporcionar un rápido
+
+3
+00:00:12,340 --> 00:00:17,130
+rendimiento en todas las operaciones
+ de simulación que hemos visto. Se los garantizo.
+
+4
+00:00:17,130 --> 00:00:22,038
+Entonces, ésta es una revisión de donde estábamos con las tablas únicas.
+
+5
+00:00:22,255 --> 00:00:27,019
+La última vez, vimos el árbol de búsqueda binario 
+
+6
+00:00:27,236 --> 00:00:32,866
+El cual tiene un gran desempeño si todo está bien modelado por esfuerzos aleatorios
+
+7
+00:00:33,083 --> 00:00:39,002
+Buscan e insertan en un tiempo proporcional al logaritmo base dos de N y
+
+8
+00:00:39,002 --> 00:00:44,055
+soportan operaciones ordenadas. Pero en realidad nuestro gol es garantizar que esas
+
+9
+00:00:44,055 --> 00:00:48,386
+operaciones tomen un tiempo proporcional a log N.
+
+10
+00:00:48,603 --> 00:00:54,114
+Porque no tenemos control sobre el orden de las operaciones y pueden no ser
+
+11
+00:00:54,114 --> 00:00:57,606
+para nada aleatorias. En realidad, en muchas aplicaciones reales,
+
+12
+00:00:57,606 --> 00:01:01,733
+no son muy aleatorias.  Entonces lo que vamos a mirar ahora
+
+13
+00:01:01,733 --> 00:01:07,320
+es tratar de encontrar una implementación que pueda garantizar ser rápida para todas
+
+14
+00:01:07,320 --> 00:01:09,260
+las operaciones de tablas de símbolos.
+
+15
+00:01:09,260 --> 00:01:14,172
+Ese es nuestro desafío. Entonces vamos a hablar sobre cómo hacerlo,
+
+16
+00:01:14,172 --> 00:01:19,744
+es un algoritmo, en realidad un algotirmo bastante viejo,  llamado árboles 2-3, y una 
+
+17
+00:01:19,744 --> 00:01:25,457
+implementación particular que requiere muy poco código, llamada Arbol B-Tree rojo-negro inclinado hacia la izquierda
+
+18
+00:01:25,457 --> 00:01:31,381
+ y después hablaremos acerca de una generalización llamada árboles B. Y esos
+
+19
+00:01:31,381 --> 00:01:36,460
+métodos son ampliamente utilizados en toda nuestra infraestructura cumputacional.
+
+20
+00:01:38,500 --> 00:01:45,187
+Para comenzar, vamos a hablar de las búsquedas con árboles 2-3, que es el modelo subyacente
+
+21
+00:01:45,406 --> 00:01:50,148
+a la concisa y eficiente implementación que vamos a ver.
+
+22
+00:01:50,148 --> 00:01:56,131
+Entoces, el árbol 2-3 ese una manera de generalizar BST para proveer la flexibilidad que
+
+23
+00:01:56,131 --> 00:02:00,728
+necesitamos para garantir velocidad de ejecución. Y la idea es muy sencilla.
+
+24
+00:02:00,728 --> 00:02:06,127
+Permitimos una o dos claves por nodo. Esto es, permitimos la posibilidad de que
+
+25
+00:02:06,127 --> 00:02:09,994
+algo llamado un nodo de 3 pueda contener dos claves,
+
+26
+00:02:09,994 --> 00:02:15,674
+Pero entonces, tiene que tener 3 hijos. En un nodo común BST, el 2-nodo, tenemos
+
+27
+00:02:15,674 --> 00:02:20,190
+un enlace para las claves que son menores que la clave en el nodo, y un enlace para las 
+
+28
+00:02:20,190 --> 00:02:24,279
+claves que son mayores. En un 3-nodo necesitamos tres enlaces, uno para
+
+29
+00:02:24,279 --> 00:02:29,867
+menor, uno para entre y uno para mayor. Otra propiedad de estos árboles 2-3 es
+
+30
+00:02:29,867 --> 00:02:35,029
+que van a estar perfectamente balanceados. Esto es que cada camino desde la ruta hacia un
+
+31
+00:02:35,029 --> 00:02:38,790
+enlace nulo va a tener el mismo enlace en este árbol 2-3.
+
+32
+00:02:38,790 --> 00:02:46,121
+Entonces, como ya he mencionado, el orden simétrico es parte de la definición de un árbol 2-3.
+
+33
+00:02:46,121 --> 00:02:51,648
+Cada 3-nodo, tiene tres enlaces y dos claves. El enlace izquierdo es para las claves que 
+
+34
+00:02:51,648 --> 00:02:56,850
+apuntan a un árbol 2-3 con las claves que son más pequeñas que la la más  pequeña de las dos
+
+35
+00:02:56,850 --> 00:03:01,077
+claves en el 3-nodo El enlace del medio apunta a un árbol 2-3 que
+
+36
+00:03:01,077 --> 00:03:04,459
+contiene todas las claves entre las dos claves.
+
+37
+00:03:04,459 --> 00:03:09,661
+Y el de la derecha apunta a otro árbol 2-3 que contiene todas las claves mayores
+
+38
+00:03:09,661 --> 00:03:12,913
+que la mayor de las dos claves en el 3-nodo.
+
+39
+00:03:12,913 --> 00:03:17,010
+Ok, miremos una demostración de una búsqueda en un árbol 2-3.
+
+40
+00:03:17,010 --> 00:03:23,407
+Digamos que tenemos este árbol 2-3 de aquí y queremos saber si H una  
+
+41
+00:03:23,407 --> 00:03:26,818
+de las claves del árbol. Empezamos por la raíz,
+
+42
+00:03:26,818 --> 00:03:30,815
+Compara la clave de búsqueda con la clave o claves del nodo.
+
+43
+00:03:30,815 --> 00:03:36,436
+Y sigue el enlace que corresponde al intérvalo que sabemos que contiene la
+
+44
+00:03:36,436 --> 00:03:41,923
+clave de búsqueda por definición del árbol y luego continuamos recursivamente la búsqueda.
+
+45
+00:03:41,923 --> 00:03:47,409
+Así que si estamos buscando H, menor que M, el único sitio donde puede estar dentro de este 
+
+46
+00:03:47,409 --> 00:03:50,051
+árbol 2-3 es en el árbol 2-3 a la izquierda del enlace,
+
+47
+00:03:50,051 --> 00:03:54,656
+Así que seguimos el enlace de la izquierda. Ahora comparamos H con E y J, y en
+
+48
+00:03:54,656 --> 00:04:00,359
+este caso está en el medio, así que ahora vamos a tomar el enlace central, ya que este es el
+
+49
+00:04:00,359 --> 00:04:06,212
+único lugar donde H puede estar. En este caso, este nodo, un nodo del árbol 2-3
+
+50
+00:04:06,212 --> 00:04:11,315
+contiene H, así que esta es la meta de la búsqueda.
+Vamos a tomar otro ejemplo para 
+
+51
+00:04:11,315 --> 00:04:15,217
+una búsqueda insatisfactoria, una clave que no está en el árbol.
+
+52
+00:04:15,217 --> 00:04:19,270
+Como siempre, empezamos por la raíz. 
+Es menor, así que vamos a la izquierda.
+
+53
+00:04:19,270 --> 00:04:23,383
+Y es menor que ambas claves, 
+así que, si está en el árbol, tendría que 
+
+54
+00:04:23,383 --> 00:04:26,982
+estar en el enlace de la izquierda y está entre
+esas dos claves.
+
+55
+00:04:26,982 --> 00:04:31,540
+De manera, que si está en el árbol, tendrá que estar
+en el enlace de la mitad.
+
+56
+00:04:31,540 --> 00:04:34,922
+Y el enlace es nulo, por lo tanto, es un fallo en la
+búsqueda. 
+
+57
+00:04:34,922 --> 00:04:40,951
+La búsqueda es una generalización natural del proceso realizado en árboles de búsqueda binarios
+
+58
+00:04:41,172 --> 00:04:46,675
+¿ahora que hay acerca de de la inserción? 
+bueno, es un tipo similar de estrategia como
+
+59
+00:04:46,675 --> 00:04:53,502
+con arboles de búsqueda binaria regulares, excepto 
+que manipulamos en los 2-nodos y los 3-nodos
+
+60
+00:04:53,502 --> 00:04:58,964
+mantener un equilibrio perfecto en el árbol.
+Así, el caso sencillo es cuando la clave termina en
+
+61
+00:04:58,964 --> 00:05:04,930
+un 2-nodo en la parte de abajo, como este caso.
+Supongamos que estamos insertando K. K es menor que
+
+62
+00:05:04,930 --> 00:05:09,762
+M así que vamos hacia la izquierda.
+K is mayor que ambas claves, así que vamos
+
+63
+00:05:09,762 --> 00:05:14,030
+hacia la derecha.
+K es menor que L, así que la búsqueda termina en
+
+64
+00:05:14,030 --> 00:05:19,219
+la rama izquierda de L.
+Y para realizar la inserción, todo lo que necesitamos
+
+65
+00:05:19,219 --> 00:05:23,990
+hacer es reemplazar ese 2-nodo con un 3-nodo
+conteniendo K.
+
+66
+00:05:23,990 --> 00:05:28,676
+Ahora, K está insertado en el árbol 2-3 y
+satisface todas las reglas.
+
+67
+00:05:28,886 --> 00:05:34,553
+Si se trata de insertar en un 3-nodo en
+la parte de debajo, requerirá más trabajo.
+
+68
+00:05:34,553 --> 00:05:40,149
+Y específicamente, el trabajo que hacemos es
+añadimos la clave a un 3-nodo para crear un
+
+69
+00:05:40,149 --> 00:05:45,955
+4-nodo temporal, y después separamos ese
+4-nodo y desplazamos la clave del centro al
+
+70
+00:05:45,955 --> 00:05:48,403
+padre.
+Veamos un ejemplo.
+
+71
+00:05:48,613 --> 00:05:54,000
+Si fuéramos a insertar Z en éste
+árbol, es mayor que N, así que vamos hacia
+
+72
+00:05:54,000 --> 00:05:59,770
+la derecha. Es mayor que R, así que seguimos hacia
+la derecha. Y ahora es mayor que x,
+
+73
+00:05:59,770 --> 00:06:05,779
+y tenemos una rama vacía hacia la derecha de x,
+así que la búsqueda termina aquí, lo que
+
+74
+00:06:05,779 --> 00:06:11,935
+vamos a hacer es insertar Z en ese 3-nodo
+Y la forma de hacerlo es, primero crear un
+
+75
+00:06:11,935 --> 00:06:15,820
+4-nodo temporal que reemplaza al
+3-nodo.
+
+76
+00:06:15,820 --> 00:06:23,339
+Por tanto ya no es un árbol 2-3 porque
+hemos añadido ese 4-nodo con tres claves y
+
+77
+00:06:23,339 --> 00:06:27,705
+cuatro ramas.
+Pero lo que si podemos hacer es separar ese 4-nodo
+
+78
+00:06:27,705 --> 00:06:34,436
+y pasar la clave de enmedio a su padre.
+Así que lo separamos en dos 2-nodo y pasamos la
+
+79
+00:06:34,436 --> 00:06:40,502
+clave de enmedio a su padre.
+Es una especie de operación mágica y
+
+80
+00:06:40,502 --> 00:06:45,407
+créeme, es más sencillo de implementar
+que de dibujar.
+
+81
+00:06:45,407 --> 00:06:50,834
+Ahora se puede ver que esa
+transformación local en el árbol 2-3 completa
+
+82
+00:06:50,834 --> 00:06:54,366
+la inserción. Si el padre fuese un 3-nodo
+
+83
+00:06:54,366 --> 00:06:59,924
+se habría convertido en un 4-nodo temporal y
+habría continuado el proceso moviendo el árbol hacia arriba.
+
+84
+00:07:00,120 --> 00:07:03,913
+Esta es una demostración de búsqueda e inserción
+en un árbol 2-3.
+
+85
+00:07:03,913 --> 00:07:06,660
+Veamos una partición doble como
+esa.
+
+86
+00:07:06,660 --> 00:07:10,039
+Supongamos que estamos insertando L en este
+árbol.
+
+87
+00:07:10,039 --> 00:07:16,296
+Nos dirigimos hacía el centro abajo, 
+y termina siendo necesario insertarlo en el 3-nodo
+
+88
+00:07:16,296 --> 00:07:20,035
+de enmedio.
+Vamos a convertirlo en un
+
+89
+00:07:20,394 --> 00:07:23,271
+4-nodo.
+Ahora, L es su clave de enmedio,
+
+90
+00:07:23,271 --> 00:07:29,240
+Así que particionemos el 4-nodo en
+dos 2-nodo y movamos L al padre.
+
+91
+00:07:30,140 --> 00:07:36,603
+El nodo-4 tenía 4 ramas, y los dos
+nodo-2 tiene 4 ramas, así no
+
+92
+00:07:36,603 --> 00:07:41,506
+nada tiene que cambiar abajo, y la inserción en el padre
+
+93
+00:07:41,506 --> 00:07:47,510
+lo cambio de dos nodos de 3 a un nodo de 4 básicamente agregando un un enlace por
+
+94
+00:07:47,510 --> 00:07:52,666
+la división de los dos nodos de 2 donde 
+antes había solo un nodo de 3.
+
+95
+00:07:52,666 --> 00:07:56,726
+Pero ahora no tenemos un árbol 2-3, 
+así que debemos dividir de nuevo.
+
+96
+00:07:56,726 --> 00:08:02,269
+Y en este caso no hay un padre, así que
+creamos uno y la altura del árbol.
+
+97
+00:08:02,269 --> 00:08:06,717
+aumenta en una unidad.
+Este es el único casi en el que la altura de un árbol 2-3
+
+98
+00:08:06,717 --> 00:08:12,418
+cambia, cuando se dividen las raíces.
+
+99
+00:08:12,420 --> 00:08:18,477
+Bien, esa es una demostración de inserción
+de un trinodo al final de un árbol 2-3 que
+
+100
+00:08:18,477 --> 00:08:24,336
+afecta toda la estructura hasta el tope.
+Ahora veamos un ejemplo de construcción de un árbol 2-3
+
+101
+00:08:24,336 --> 00:08:29,569
+partiendo de un árbol vacío.
+Si empezamos insertando una clave,
+
+102
+00:08:29,569 --> 00:08:35,170
+esto crea un binodo que contiene dicha clave,
+resultando en un árbol 2-3
+
+103
+00:08:35,170 --> 00:08:39,076
+válido, así que no problema.
+Ahora, si insertamos E,
+
+104
+00:08:39,076 --> 00:08:46,003
+iremos a B si está en el árbol izquierdo de S,
+que es nulo. Así que debemos convertir
+
+105
+00:08:46,003 --> 00:08:50,693
+el binodo en un trinodo.
+Ahora tenemos un árbol 2-3 válido,
+
+106
+00:08:50,693 --> 00:08:56,239
+Así que nos detenemos e insertamos  A allí.
+Convertimos ese trinodo en un 
+
+107
+00:08:56,586 --> 00:09:01,993
+tetranodo temporal pero ahora necesitamos
+dividir el tetranodo, moviendo a E hacia el padre, lo cual
+
+108
+00:09:01,993 --> 00:09:07,817
+un nuevo nodo raíz que incrementa
+la altura del árbol en uno. Y ahora tenemos
+
+109
+00:09:07,817 --> 00:09:12,960
+un árbol 2-3 válido así que paramos.
+Para insertar R, vamos a la derecha
+
+110
+00:09:12,960 --> 00:09:15,215
+de E 
+y lo convertimos en un trinodo.
+
+111
+00:09:15,215 --> 00:09:21,562
+Ahora insertamos C. Vamos
+a la izquierda de E, que debe unirse con A
+
+112
+00:09:21,562 --> 00:09:25,571
+en un nuevo trinado.
+El resultado es un árbol 2-3 válido así que
+
+113
+00:09:25,571 --> 00:09:28,327
+paramos.
+Ahora insertamos H, que debe ir a
+
+114
+00:09:28,327 --> 00:09:33,254
+la derecha de E.
+Este 3-nodo se transforma en un 4-nodo.
+
+115
+00:09:33,254 --> 00:09:38,600
+Ese es un 4-nodo temporal, lo dividimos y movemos R al padre.
+
+116
+00:09:39,384 --> 00:09:44,363
+Ahora el árbol padre es válido,  y no hay nada mas que hacer.
+
+117
+00:09:44,363 --> 00:09:48,514
+Tenemos un árbol 2-3 válido. Insertamos X
+
+118
+00:09:48,788 --> 00:09:52,173
+Es mayor que R.
+Vamos a la derecha.
+
+119
+00:09:52,447 --> 00:09:58,120
+Hay un 2-nodo, hay espacio para X. Insertamos P.
+
+120
+00:09:58,340 --> 00:10:02,381
+Va entre E y R. El 2-nodo que contiene  a H
+
+121
+00:10:02,601 --> 00:10:07,377
+El nodo derecho está vacío,
+así que convertimos el 2-nodo a un 3-nodo
+
+122
+00:10:07,377 --> 00:10:12,741
+y ahora tenemos un rabo 2-3 válido. 
+Ahora, ,puedes ver que la siguiente inserción
+
+123
+00:10:12,741 --> 00:10:16,047
+va a causar una división en 
+algún lugar.
+
+124
+00:10:16,268 --> 00:10:19,060
+Insertemos L, que está entre E y R
+
+125
+00:10:19,060 --> 00:10:25,231
+Así que va en el 3-nodo que contiene H y 
+P y lo convertimos en un 4-nodo temporal
+
+126
+00:10:25,599 --> 00:10:29,420
+Dividimos ese 4-nodo, moviendo L al padre.
+
+127
+00:10:29,420 --> 00:10:33,348
+Ahora es el padre de un 4-nodo y se tiene 
+que dividir
+
+128
+00:10:33,567 --> 00:10:38,951
+Y creamos un nuevo nodo raíz.
+La altura de el árbol aumenta 
+
+129
+00:10:38,951 --> 00:10:42,079
+en uno.
+Ahora es un árbol 2-3 válido, así que nos detenemos.
+
+130
+00:10:42,079 --> 00:10:47,536
+De modo que esas transformaciones locales
+convirtiendo un 2-nodo a un 3-nodo o
+
+131
+00:10:47,536 --> 00:10:52,629
+convirtiendo un 3-nodo a un 4-nodo y entonces
+dividiendo y pasando un nodo hacia arriba.
+
+132
+00:10:52,629 --> 00:10:58,813
+Esas son las únicas operaciones que necesitamos
+considerar para balancear nuestros
+
+133
+00:10:58,813 --> 00:10:59,900
+árboles de búsqueda.
+
+134
+00:10:59,900 --> 00:11:06,326
+Como ya he mencionado (y este diagrama muestra)
+la división de un 4-nodo y un árbol 2-3
+
+135
+00:11:06,326 --> 00:11:11,857
+es una transformación locas. 
+Sólo involucra cambiar un
+
+136
+00:11:11,857 --> 00:11:16,169
+número constante de enlaces
+en este ejemplo, muestra la situación en general
+
+137
+00:11:16,169 --> 00:11:21,212
+cuando los 4-nodos serán divididos es 
+a la mitad 
+
+138
+00:11:21,212 --> 00:11:24,872
+pero lo mismo ocurre si set se encuentra a izquierda
+o a la derecha.
+
+139
+00:11:24,872 --> 00:11:28,394
+Y esos seis sub-árboles dibujados pueden ser enormes.
+
+140
+00:11:28,394 --> 00:11:33,904
+Pueden contener millones de llaves,
+pero no importa lo que contengan.
+
+141
+00:11:33,904 --> 00:11:38,833
+No los tocamos; tampoco tocamos nada arriba de este nodo
+
+142
+00:11:38,833 --> 00:11:44,415
+en el árbol hasta que la división ocurre. 
+De modo que la transformación que divide los nodos
+
+143
+00:11:44,415 --> 00:11:50,096
+b, c, d e inserta la C en el
+3-nodo de la raíz, sólo involucra hacer
+
+144
+00:11:50,096 --> 00:11:56,795
+el -3-nodo en un 4-nodo temporal 
+y hacer ese 4-nodo temporal en dos 2-nodos
+
+145
+00:11:56,795 --> 00:12:02,758
+y ajustando las alturas en forma apropiada. 
+Sólo un número constante de operaciones y
+
+146
+00:12:02,758 --> 00:12:09,813
+es por ello, que esta operación es en 
+general eficiente. Veamos
+
+147
+00:12:10,164 --> 00:12:17,640
+a las propiedades globales que estas
+manipulaciones preservan.
+
+148
+00:12:17,872 --> 00:12:24,707
+Las dos cosas que son críticas son que
+en un árbol 2-3 tenemos siempre
+
+149
+00:12:24,707 --> 00:12:28,839
+un orden simétrico. Esa es la palabra que hemos definido para
+
+150
+00:12:29,085 --> 00:12:32,652
+2-nodos y 3-nodos, y también tenemos el 
+balance perfecto
+
+151
+00:12:32,652 --> 00:12:36,341
+La distancia desde el la raíz hasta el fondo
+es siempre la misma.
+
+152
+00:12:36,341 --> 00:12:40,891
+Y para probar eso, solo tenemos que mostrar
+que cada transformación mantiene
+
+153
+00:12:40,891 --> 00:12:45,994
+un orden simétrico y un balance perfecto, y 
+esas son todas las transformaciones posibles
+
+154
+00:12:45,994 --> 00:12:49,868
+que podemos hacer. I dividimos la raíz, entonces
+
+155
+00:12:49,868 --> 00:12:54,849
+eso es lo que le pasa a la raíz,
+ y si tenía un  balance perfecto, tendrá 
+
+156
+00:12:54,849 --> 00:12:59,611
+un balance perfecto después, incrementando la altura en 1. 
+Si el padre era un 2-node, entonces la
+
+157
+00:12:59,611 --> 00:13:04,717
+transformación es local
+y si miras en donde se encuentran los enlaces,
+
+158
+00:13:04,717 --> 00:13:09,886
+es fácil ver por inducción que si,
+había un balance perfecto, habrá un
+
+159
+00:13:09,886 --> 00:13:13,996
+alance perfecto después.
+Porque no cambiamos nada acerca
+
+160
+00:13:13,996 --> 00:13:16,923
+el balance perfecto en ninguno de esos
+sub-árboles.
+
+161
+00:13:16,923 --> 00:13:21,344
+Y eso es verdad en todos los casos.
+Si los 3-nodos a la derecha y este 
+
+162
+00:13:21,344 --> 00:13:25,391
+es mayor y aquellos cuatro son uno menor
+y posteriormente es lo mismo.
+
+163
+00:13:25,391 --> 00:13:29,813
+Si hay balance perfecto antes, 
+hay balance perfecto posteriormente,
+
+164
+00:13:29,813 --> 00:13:32,907
+porque no cambiamos la altura de ninguno 
+de los nodos.
+
+165
+00:13:32,907 --> 00:13:35,982
+Sólo movimos las cosas en forma local entre
+nodos.
+
+166
+00:13:36,174 --> 00:13:40,658
+Y esto es cuando este padre de un 3-nodo,
+entonces tenemos los 3 casos,
+
+167
+00:13:40,658 --> 00:13:44,950
+ si dividimos la última división a la 
+mitad y dividimos a la derecha,
+
+168
+00:13:44,950 --> 00:13:49,452
+y nuevamente, cambiando el 4-nodo a ,
+2-nodos y agregando los enlaces
+
+169
+00:13:49,637 --> 00:13:54,387
+Si había balance perfecto antes, 
+hay balance perfecto posteriormente, porque 
+
+170
+00:13:54,387 --> 00:13:57,780
+ cambiamos la altura de nada más en el árbol.
+
+171
+00:13:58,027 --> 00:14:04,870
+De modo que nuestras  operaciones mantienen orden simétrico
+y balance perfecto en un árbol 2-3.
+
+172
+00:14:05,092 --> 00:14:10,592
+Eso no va a dar una forma
+muy fácil de describir el desempeño 
+
+173
+00:14:10,815 --> 00:14:17,280
+La llamada, o las operaciones tienen costos que
+son proporcionales a la ruta desde
+
+174
+00:14:17,503 --> 00:14:23,003
+la raíz hasta el fondo, y cada ruta desde
+la raíz hasta un nodo vacío tiene la misma
+
+175
+00:14:23,003 --> 00:14:25,827
+longitud.
+Que tan largos pueden ser esas rutas?
+
+176
+00:14:25,827 --> 00:14:31,846
+Bueno, no es difícil ver que en el 
+peor caso, si todos son 2-nodos
+
+177
+00:14:31,846 --> 00:14:35,860
+entonces lo mas largo que pueden ser 
+es log base 2 de N.
+
+178
+00:14:35,860 --> 00:14:41,748
+Ahora, si todos son 3-nodos, sería
+log base 3 de N, lo cual es menos o
+
+179
+00:14:41,748 --> 00:14:47,567
+es cerca de 0.63 log base 2 de N.
+De modo que todas las rutas en un árbol 2-3 con N
+
+180
+00:14:47,567 --> 00:14:53,035
+nodos tienen que tener una longitud entre esos
+dos límite y esos son números muy pequeños.
+
+181
+00:14:53,035 --> 00:14:56,813
+Para un millón de nodos, es entre 12
+
+182
+00:14:56,813 --> 00:15:00,396
+ 20. Y para un billón de nodos es 
+
+183
+00:15:00,396 --> 00:15:04,952
+18 y 30.  Esos son números notablemente pequeños,
+
+184
+00:15:04,952 --> 00:15:09,649
+así que vamos a tener la un desempeño
+garantizado, aún para bases de datos enormes.
+
+185
+00:15:10,029 --> 00:15:14,561
+Vamos a garantizar que
+podemos buscar e insertar los datos
+
+186
+00:15:14,561 --> 00:15:17,960
+con solo de 18 a 30 operaciones y
+eso es muy impresionante, en serio.
+
+187
+00:15:18,220 --> 00:15:24,686
+Así que aquí está como se verá nuestra tabla,
+cuando terminemos la implementación de 
+
+188
+00:15:24,686 --> 00:15:27,956
+árboles 2-3. Cada operación está garantizada a ser 
+
+189
+00:15:27,956 --> 00:15:31,524
+log N por el valor de una constante.
+Ahora, la constante depende de la
+
+190
+00:15:31,895 --> 00:15:37,693
+implementación, exactamente que clase de
+manipulaciones necesitamos hacer para convertir
+
+191
+00:15:38,362 --> 00:15:44,327
+3-nodos a 4-nodos, etc. 
+Pero es fácil ver en nuestra demostración y en
+
+192
+00:15:44,327 --> 00:15:48,869
+los diagramas que esas vas a ser
+constantes, garantizando un desempeño
+
+193
+00:15:48,869 --> 00:15:54,483
+logarítmico  para todas las operaciones, lo cual es
+ciertamente lo que queremos en la 
+
+194
+00:15:54,483 --> 00:15:57,394
+implementación de una tabla de símbolos. 
+Ahora que pasa con la implementación?
+
+195
+00:15:57,394 --> 00:16:02,076
+bueno, de echo, no vamos a hablar 
+acerca de una implementación directa de 
+
+196
+00:16:02,076 --> 00:16:07,354
+árboles 2-3, porque es un poco complicada.
+Es incomodo mantener tipos de multiples nodos.
+
+197
+00:16:07,354 --> 00:16:10,580
+Puedes requerir, varias comparaciones para
+
+198
+00:16:10,580 --> 00:16:14,814
+moverte hacia abajo en el árbol. 
+Si hay  un 2-nodo. un 3-nodo, toma más
+
+199
+00:16:14,814 --> 00:16:18,578
+comparaciones que un 2-nodo. 
+Así que es complicado analizar.
+
+200
+00:16:18,780 --> 00:16:23,821
+Tenemos que llevar el rastro, mantener el rastro
+de los enlaces mientras nos movemos hacia arriba y 
+abajo del árbol
+
+201
+00:16:23,821 --> 00:16:28,189
+para tomar y manejar las divisiones.
+Y hay muchos casos.
+
+202
+00:16:28,391 --> 00:16:34,070
+Dibujé todos lo casos y hay uni
+ya sea que dividas a la mitad un 
+
+203
+00:16:34,070 --> 00:16:37,881
+4-nodo o la derecha de un 2-nodo,
+simplemente hay muchos casos.
+
+204
+00:16:37,881 --> 00:16:42,690
+Así que lo puedes hacer, pero nosotros no;
+porque hay un modo más sencillo.
+
+205
+00:16:42,690 --> 00:16:48,370
+Y esto son los árboles 2-3.
+Un modelo para implementar árboles balanceados.
+
+206
+00:16:48,370 --> 00:16:50,960
+con un tiempo logarítmico asegurado.
